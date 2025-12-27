@@ -3,189 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Repository Browser</title>
+    <title>Teaching Tools</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            max-width: 100%;
-            padding: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
         }
 
-        .breadcrumb {
-            margin-bottom: 1rem;
-            padding: 0.5rem;
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            color: var(--text-muted);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: var(--links);
+            border-bottom-color: var(--links);
+        }
+
+        .tab:hover {
+            color: var(--links);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .file-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .file-item {
+            padding: 15px;
+            margin: 10px 0;
             background: var(--background-alt);
-            border-radius: 4px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            transition: all 0.2s;
         }
 
-        .breadcrumb a {
+        .file-item:hover {
+            border-color: var(--links);
+            transform: translateY(-2px);
+        }
+
+        .file-link {
             text-decoration: none;
             color: var(--links);
+            font-weight: 600;
+            font-size: 1.1em;
+            display: block;
+            margin-bottom: 5px;
         }
 
-        .breadcrumb a:hover {
+        .file-link:hover {
             text-decoration: underline;
         }
 
-        .columns-container {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            padding-bottom: 1rem;
+        .file-description {
+            color: var(--text-muted);
+            font-size: 0.9em;
         }
 
-        .column {
-            min-width: 250px;
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 1rem;
-            background: var(--background);
+        .home-content {
+            text-align: center;
+            padding: 40px 20px;
         }
 
-        .column h3 {
-            margin-top: 0;
-            font-size: 1rem;
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-
-        .item {
-            padding: 0.5rem;
-            margin: 0.25rem 0;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-
-        .item:hover {
-            background: var(--background-alt);
-        }
-
-        .item.selected {
-            background: var(--links);
-            color: white;
-        }
-
-        .item.folder::before {
-            content: "📁 ";
-        }
-
-        .item.file::before {
-            content: "📄 ";
-        }
-
-        .item.file {
+        .home-content h2 {
             color: var(--links);
-        }
-
-        .item.file:hover {
-            text-decoration: underline;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <h1>Repository Browser</h1>
+    <h1>Teaching Tools</h1>
+    <p>Resources for Year 4-5 Teaching</p>
 
-    <div class="breadcrumb" id="breadcrumb">
-        <a href="#" data-path="">Home</a>
+    <div class="tabs">
+        <button class="tab active" data-tab="home">Home</button>
+        <button class="tab" data-tab="lessons">Lessons</button>
     </div>
 
-    <div class="columns-container" id="columns"></div>
+    <!-- Home Tab -->
+    <div id="home" class="tab-content active">
+        <div class="home-content">
+            <h2>Welcome to Teaching Tools</h2>
+            <p>This is a collection of lesson tracking tools for primary school teachers.</p>
+            <p>Use the tabs above to browse available resources.</p>
+            <p>All tools are free to use and adapt for educational purposes.</p>
+        </div>
+    </div>
+
+    <!-- Lessons Tab -->
+    <div id="lessons" class="tab-content">
+        <h2>Lesson Trackers</h2>
+        <ul class="file-list">
+            <li class="file-item">
+                <a href="lessons/bsla-tracker.html" class="file-link">BSLA Tracker</a>
+                <p class="file-description">Better Sense of the Language Arts - Taumata 10 tracker for Year 4 with phonics, reading comprehension, and writing components across 10 weeks</p>
+            </li>
+            <li class="file-item">
+                <a href="lessons/maths-tracker.html" class="file-link">Maths Tracker</a>
+                <p class="file-description">Nelson Maths lesson tracker for Year 4-5 with curriculum alignment and progress tracking</p>
+            </li>
+        </ul>
+    </div>
 
     <script>
-        const username = 'jomolin'; // Replace with your GitHub username
-        const repo = 'jomolin.github.io'; // Replace with your repo name
-
-        let currentPath = [];
-
-        async function fetchDirectory(path = '') {
-            const url = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
-            const response = await fetch(url);
-            if (!response.ok) {
-                console.error('Failed to fetch directory');
-                return [];
-            }
-            return await response.json();
-        }
-
-        function updateBreadcrumb() {
-            const breadcrumb = document.getElementById('breadcrumb');
-            breadcrumb.innerHTML = '<a href="#" data-path="">Home</a>';
-
-            let pathSoFar = '';
-            currentPath.forEach((segment, index) => {
-                pathSoFar += (pathSoFar ? '/' : '') + segment;
-                breadcrumb.innerHTML += ` / <a href="#" data-path="${pathSoFar}">${segment}</a>`;
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and content
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
             });
-
-            breadcrumb.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const path = e.target.dataset.path;
-                    navigateToPath(path);
-                });
-            });
-        }
-
-        function navigateToPath(path) {
-            currentPath = path ? path.split('/') : [];
-            renderColumns();
-        }
-
-        async function renderColumns() {
-            const container = document.getElementById('columns');
-            container.innerHTML = '';
-
-            updateBreadcrumb();
-
-            // Render each level of the current path
-            let pathSoFar = '';
-            for (let i = 0; i <= currentPath.length; i++) {
-                const column = document.createElement('div');
-                column.className = 'column';
-
-                const level = i === 0 ? '' : currentPath.slice(0, i).join('/');
-                const items = await fetchDirectory(level);
-
-                const title = i === 0 ? 'Root' : currentPath[i - 1];
-                column.innerHTML = `<h3>${title}</h3>`;
-
-                items.forEach(item => {
-                    const itemDiv = document.createElement('div');
-                    itemDiv.className = `item ${item.type === 'dir' ? 'folder' : 'file'}`;
-                    itemDiv.textContent = item.name;
-
-                    // Highlight if this item is in our current path
-                    if (i < currentPath.length && currentPath[i] === item.name) {
-                        itemDiv.classList.add('selected');
-                    }
-
-                    itemDiv.addEventListener('click', () => {
-                        if (item.type === 'dir') {
-                            currentPath = currentPath.slice(0, i);
-                            currentPath.push(item.name);
-                            renderColumns();
-                        } else {
-                            // Open rendered file on GitHub Pages
-                            const filePath = currentPath.length > 0 
-                                ? currentPath.join('/') + '/' + item.name 
-                                : item.name;
-                            window.open(`https://${username}.github.io/${filePath}`, '_blank');
-                        }
-                    });
-
-                    column.appendChild(itemDiv);
-                });
-
-                container.appendChild(column);
-
-                // Stop if we've reached the end of the current path
-                if (i === currentPath.length) break;
-            }
-        }
-
-        // Initial render
-        renderColumns();
+        });
     </script>
 </body>
 </html>
