@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Repository Browser</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            max-width: 100%;
+            padding: 1rem;
+        }
+
+        .breadcrumb {
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: var(--background-alt);
+            border-radius: 4px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            color: var(--links);
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .columns-container {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+        }
+
+        .column {
+            min-width: 250px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 1rem;
+            background: var(--background);
+        }
+
+        .column h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .item {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .item:hover {
+            background: var(--background-alt);
+        }
+
+        .item.selected {
+            background: var(--links);
+            color: white;
+        }
+
+        .item.folder::before {
+            content: "📁 ";
+        }
+
+        .item.file::before {
+            content: "📄 ";
+        }
+
+        .item.file {
+            color: var(--links);
+        }
+
+        .item.file:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Repository Browser</h1>
+
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="#" data-path="">Home</a>
+    </div>
+
+    <div class="columns-container" id="columns"></div>
+
+    <script>
+        const username = 'jomolin'; // Replace with your GitHub username
+        const repo = 'jomolin.github.io'; // Replace with your repo name
+
+        let currentPath = [];
+
+        async function fetchDirectory(path = '') {
+            const url = `https://api.github.com/repos/${username}/${repo}/contents/${path}`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                console.error('Failed to fetch directory');
+                return [];
+            }
+            return await response.json();
+        }
+
+        function updateBreadcrumb() {
+            const breadcrumb = document.getElementById('breadcrumb');
+            breadcrumb.innerHTML = '<a href="#" data-path="">Home</a>';
+
+            let pathSoFar = '';
+            currentPath.forEach((segment, index) => {
+                pathSoFar += (pathSoFar ? '/' : '') + segment;
+                breadcrumb.innerHTML += ` / <a href="#" data-path="${pathSoFar}">${segment}</a>`;
+            });
+
+            breadcrumb.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const path = e.target.dataset.path;
+                    navigateToPath(path);
+                });
+            });
+        }
+
+        function navigateToPath(path) {
+            currentPath = path ? path.split('/') : [];
+            renderColumns();
+        }
+
+        async function renderColumns() {
+            const container = document.getElementById('columns');
+            container.innerHTML = '';
+
+            updateBreadcrumb();
+
+            // Render each level of the current path
+            let pathSoFar = '';
+            for (let i = 0; i <= currentPath.length; i++) {
+                const column = document.createElement('div');
+                column.className = 'column';
+
+                const level = i === 0 ? '' : currentPath.slice(0, i).join('/');
+                const items = await fetchDirectory(level);
+
+                const title = i === 0 ? 'Root' : currentPath[i - 1];
+                column.innerHTML = `<h3>${title}</h3>`;
+
+                items.forEach(item => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = `item ${item.type === 'dir' ? 'folder' : 'file'}`;
+                    itemDiv.textContent = item.name;
+
+                    // Highlight if this item is in our current path
+                    if (i < currentPath.length && currentPath[i] === item.name) {
+                        itemDiv.classList.add('selected');
+                    }
+
+                    itemDiv.addEventListener('click', () => {
+                        if (item.type === 'dir') {
+                            currentPath = currentPath.slice(0, i);
+                            currentPath.push(item.name);
+                            renderColumns();
+                        } else {
+                            // Open rendered file on GitHub Pages
+                            const filePath = currentPath.length > 0 
+                                ? currentPath.join('/') + '/' + item.name 
+                                : item.name;
+                            window.open(`https://${username}.github.io/${filePath}`, '_blank');
+                        }
+                    });
+
+                    column.appendChild(itemDiv);
+                });
+
+                container.appendChild(column);
+
+                // Stop if we've reached the end of the current path
+                if (i === currentPath.length) break;
+            }
+        }
+
+        // Initial render
+        renderColumns();
+    </script>
+</body>
+</html>
