@@ -100,9 +100,8 @@
     <h1>Teaching Tools</h1>
     <p>Resources for Year 4-5 Teaching</p>
 
-    <div class="tabs">
+    <div class="tabs" id="tabsContainer">
         <button class="tab active" data-tab="home">Home</button>
-        <button class="tab" data-tab="lessons">Lessons</button>
     </div>
 
     <!-- Home Tab -->
@@ -115,34 +114,92 @@
         </div>
     </div>
 
-    <!-- Lessons Tab -->
-    <div id="lessons" class="tab-content">
-        <h2>Lesson Trackers</h2>
-        <ul class="file-list">
-            <li class="file-item">
-                <a href="lessons/bsla-tracker.html" class="file-link">BSLA Tracker</a>
-                <p class="file-description">Better Sense of the Language Arts - Taumata 10 tracker for Year 4 with phonics, reading comprehension, and writing components across 10 weeks</p>
-            </li>
-            <li class="file-item">
-                <a href="lessons/maths-tracker.html" class="file-link">Maths Tracker</a>
-                <p class="file-description">Nelson Maths lesson tracker for Year 4-5 with curriculum alignment and progress tracking</p>
-            </li>
-        </ul>
-    </div>
+    <div id="dynamicContent"></div>
 
     <script>
-        // Tab switching
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs and content
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        const username = 'jomolin';
+        const repo = 'teaching-tools';
+
+        async function loadRepoStructure() {
+            try {
+                const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/`);
+                const items = await response.json();
                 
-                // Add active class to clicked tab and corresponding content
-                tab.classList.add('active');
-                document.getElementById(tab.dataset.tab).classList.add('active');
+                // Filter to only folders (ignore files like index.html, style.css, README.md, etc.)
+                const folders = items.filter(item => item.type === 'dir');
+                
+                const tabsContainer = document.getElementById('tabsContainer');
+                const dynamicContent = document.getElementById('dynamicContent');
+                
+                // Create tabs and content for each folder
+                for (const folder of folders) {
+                    // Create tab button
+                    const tab = document.createElement('button');
+                    tab.className = 'tab';
+                    tab.dataset.tab = folder.name;
+                    tab.textContent = folder.name.charAt(0).toUpperCase() + folder.name.slice(1);
+                    tabsContainer.appendChild(tab);
+                    
+                    // Create tab content
+                    const tabContent = document.createElement('div');
+                    tabContent.id = folder.name;
+                    tabContent.className = 'tab-content';
+                    
+                    // Fetch files in this folder
+                    const folderResponse = await fetch(folder.url);
+                    const files = await folderResponse.json();
+                    
+                    // Filter to HTML files only
+                    const htmlFiles = files.filter(file => file.name.endsWith('.html'));
+                    
+                    if (htmlFiles.length > 0) {
+                        tabContent.innerHTML = `
+                            <h2>${folder.name.charAt(0).toUpperCase() + folder.name.slice(1)}</h2>
+                            <ul class="file-list">
+                                ${htmlFiles.map(file => {
+                                    const displayName = file.name.replace('.html', '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+                                    return `
+                                        <li class="file-item">
+                                            <a href="${folder.name}/${file.name}" class="file-link">${displayName}</a>
+                                        </li>
+                                    `;
+                                }).join('')}
+                            </ul>
+                        `;
+                    } else {
+                        tabContent.innerHTML = `
+                            <h2>${folder.name.charAt(0).toUpperCase() + folder.name.slice(1)}</h2>
+                            <p>No HTML files found in this folder.</p>
+                        `;
+                    }
+                    
+                    dynamicContent.appendChild(tabContent);
+                }
+                
+                setupTabSwitching();
+                
+            } catch (error) {
+                console.error('Error loading repo structure:', error);
+                document.getElementById('dynamicContent').innerHTML = '<p>Error loading folders. Make sure the repository is public.</p>';
+            }
+        }
+
+        function setupTabSwitching() {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Remove active class from all tabs and content
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    tab.classList.add('active');
+                    document.getElementById(tab.dataset.tab).classList.add('active');
+                });
             });
-        });
+        }
+
+        // Load repo structure on page load
+        loadRepoStructure();
     </script>
 </body>
 </html>
