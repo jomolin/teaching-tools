@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSR Time</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="controls" style="margin-bottom: 20px;">
+        <div class="title-widget widget" style="flex: 2 1 0;" data-title="SSR 🤫📖" data-instructions="<ol><li>find a book</li><li>find a quiet place to read</li><li>read SILENTLY for the whole time</li></ol>"></div>
+        <div class="timer-widget widget" style="flex: 1 1 0;" data-time="15:00"></div>
+    </div>
+    
+    <div class="controls">
+        <div class="noise-meter-widget widget" data-threshold="0"></div>
+    </div>
+
+    <script src="../config.js"></script>
+    <script src="../widgets/title.js"></script>
+    <script src="../widgets/timer.js"></script>
+    <script src="../widgets/noise-meter.js"></script>
+    <script>
+        // Set timer default for SSR
+        document.addEventListener('DOMContentLoaded', function() {
+            TimerWidget.setDefaultTime('15:00');
+        });
+    </script>
+</body>
+</html>

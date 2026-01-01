@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reverse Charades</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="controls" style="margin-bottom: 20px;">
+        <div class="title-widget widget" style="flex: 2 1 0;" data-title="Reverse Charades 🎭🤔" data-instructions="<ol><li>One guesser sits facing away from the screen</li><li>Everyone else acts out the prompt SILENTLY</li><li>No sounds, no props, no spelling</li><li>Only the guesser can talk</li><li>You have 1 minute!</li></ol>"></div>
+        <div class="timer-widget widget" style="flex: 1 1 0;" data-time="01:00"></div>
+    </div>
+    
+    <div class="controls">
+        <div class="random-picker-widget widget" id="studentPicker" data-title="Student Picker"></div>
+        <div class="random-picker-widget widget" id="promptPicker" data-title="Prompt Picker"></div>
+    </div>
+
+    <script src="../config.js"></script>
+    <script src="../widgets/title.js"></script>
+    <script src="../widgets/timer.js"></script>
+    <script src="../widgets/random-picker.js"></script>
+</body>
+</html>

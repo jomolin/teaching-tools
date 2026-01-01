@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heads Up 7-Up</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+    <div class="controls" style="margin-bottom: 20px;">
+        <div class="title-widget widget" style="flex: 2 1 0;" data-title="Heads Up 7-Up 🕵️👍" data-instructions="<ol><li>7 students are chosen as 'pickers'</li><li>Everyone else puts heads down, thumbs up, eyes closed</li><li>The 7 pickers silently walk around and each press down ONE thumb</li><li>Pickers return to front when time is up</li><li>Students whose thumbs were pressed stand up</li><li>They get TWO ROUNDS to guess who picked them</li><li>Correct guesses swap places with the picker</li></ol>"></div>
+        <div class="timer-widget widget" style="flex: 1 1 0;" data-time="05:00"></div>
+    </div>
+
+    <div class="controls">
+        <div class="seven-pickers-widget widget" style="flex: 2 1 0;"></div>
+        <div class="timer-widget widget" id="pickingTimer" style="flex: 1 1 0;" data-time="00:30"></div>
+    </div>
+
+    <script src="../config.js"></script>
+    <script src="../widgets/title.js"></script>
+    <script src="../widgets/timer.js"></script>
+    <script src="../widgets/seven-pickers.js"></script>
+</body>
+</html>

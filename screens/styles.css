@@ -1,0 +1,403 @@
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.message-box {
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+#message {
+font-size: 48px;
+text-align: center;
+color: #333;
+min-height: 60px;
+font-weight: bold;
+border: 2px solid transparent;
+padding: 10px;
+border-radius: 8px;
+cursor: text;
+}
+
+#message:focus {
+outline: none;
+border: 2px solid #667eea;
+background: #f8f9ff;
+}
+
+#message:empty:before {
+content: "Click to type message...";
+color: #999;
+}
+
+#instructions {
+font-size: 20px;
+color: #555;
+min-height: 40px;
+border: 2px solid transparent;
+padding: 10px;
+border-radius: 8px;
+cursor: text;
+text-align: left;
+margin-top: 15px;
+}
+
+#instructions:focus {
+outline: none;
+border: 2px solid #667eea;
+background: #f8f9ff;
+}
+
+#instructions:empty:before {
+content: "Click to add instructions...";
+color: #999;
+}
+
+#instructions ul, #instructions ol {
+margin-left: 25px;
+}
+
+#instructions li {
+margin: 5px 0;
+}
+
+.controls {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
+.widget {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: calc(50% - 10px);
+    max-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.timer-display {
+    font-size: 72px;
+    text-align: center;
+    color: #667eea;
+    font-weight: bold;
+    margin: 20px 0;
+    border: 2px solid transparent;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: text;
+}
+
+.timer-display:focus {
+    outline: none;
+    border: 2px solid #667eea;
+    background: #f8f9ff;
+}
+
+.timer-display.alarm {
+    animation: flash 0.5s infinite;
+}
+
+@keyframes flash {
+    0%, 100% { background: #fff; color: #e74c3c; }
+    50% { background: #e74c3c; color: #fff; }
+}
+
+.timer-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #764ba2;
+}
+
+.stop-alarm {
+    background: #e74c3c;
+    display: none;
+}
+
+.stop-alarm:hover {
+    background: #c0392b;
+}
+
+.randomizer-input {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    margin: 10px 0;
+}
+
+.random-result {
+    text-align: center;
+    color: #764ba2;
+    font-weight: bold;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    font-size: 72px;
+    overflow: hidden;
+    padding: 10px;
+    min-height: 0;
+    word-break: break-word;
+    white-space: normal;
+}
+
+.remaining-count {
+    text-align: center;
+    color: #667eea;
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.randomizer-edit-section {
+    display: none;
+}
+
+.randomizer-edit-section.visible {
+    display: block;
+}
+
+#editModal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+z-index: 1000;
+align-items: center;
+justify-content: center;
+}
+
+.modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    border-radius: 15px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    z-index: 1001;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+}
+
+h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.noise-container {
+    position: relative;
+    width: 100%;
+    height: 100px;
+    background: #ecf0f1;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+}
+
+.noise-fill {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 100%;
+    background: #2ecc71;
+    transition: width 0.1s ease;
+}
+
+.noise-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: bold;
+    color: #34495e;
+    z-index: 10;
+    text-shadow: 0 0 10px white;
+    white-space: nowrap;
+}
+
+.threshold-slider {
+    width: 100%;
+    margin: 15px 0;
+}
+
+.threshold-counter {
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin: 15px 0;
+}
+
+input[type="range"] {
+    width: 100%;
+    height: 8px;
+    background: #667eea;
+    outline: none;
+    border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    background: #764ba2;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #764ba2;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+}
+
+/* Seven Pickers Widget Styles */
+.pickers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin: 15px 0;
+}
+
+.picker-slot {
+    background: #f8f9ff;
+    border: 2px solid #667eea;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+    min-width: 0;
+}
+
+.picker-slot.locked {
+    background: #fff3cd;
+    border-color: #f39c12;
+}
+
+.picker-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #667eea;
+    min-width: 30px;
+    flex-shrink: 0;
+    text-align: center;
+}
+
+.picker-slot.locked .picker-number {
+    color: #f39c12;
+}
+
+.picker-input {
+    flex: 1;
+    min-width: 0;
+    padding: 8px 12px;
+    font-size: 16px;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    background: white;
+    transition: all 0.3s;
+}
+
+.picker-input:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.picker-slot.locked .picker-input {
+    border-color: #f39c12;
+    background: #fffbf0;
+}
+
+.lock-button {
+    min-width: 45px;
+    width: 45px;
+    height: 45px;
+    padding: 8px;
+    font-size: 20px;
+    background: #667eea;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.lock-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.lock-button.locked {
+    background: #f39c12;
+}
+
+.lock-button.locked:hover {
+    background: #e67e22;
+}
