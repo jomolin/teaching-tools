@@ -64,6 +64,11 @@
             .dark .sidebar-collapsed .nav-section-items {
                 border-top-color: rgb(55 65 81);
             }
+            .sidebar-collapsed .nav-link {
+                justify-content: center;
+                padding-left: 0;
+                padding-right: 0;
+            }
         }
     </style>
     <style>
@@ -357,7 +362,7 @@
                     onclick="showHome(event)"
                     data-active="true"
                 >
-                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <i data-lucide="home" class="w-4 h-4 flex-shrink-0"></i>
                     <span class="sidebar-text">Home</span>
                 </a>
             `;
