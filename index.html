@@ -60,7 +60,33 @@
         }
 
         .sidebar-nav {
-            padding: 20px 0;
+            padding: 20px 0 120px;
+        }
+
+        .sidebar-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 280px;
+            background: var(--background-alt);
+            border-top: 1px solid var(--border);
+            padding: 20px;
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .sidebar-footer p {
+            margin-bottom: 8px;
+        }
+
+        .sidebar-footer a {
+            color: var(--links);
+            text-decoration: none;
+        }
+
+        .sidebar-footer a:hover {
+            text-decoration: underline;
         }
 
         .nav-section {
@@ -306,6 +332,12 @@
         <div class="sidebar-nav" id="sidebarNav">
             <div class="loading">Loading tools...</div>
         </div>
+        
+        <div class="sidebar-footer">
+            <p>No logins. No tracking.<br>No data collection.</p>
+            <p>Built for teachers by teachers.</p>
+            <p><a href="https://github.com/jomolin/teaching-tools" target="_blank">View on GitHub</a></p>
+        </div>
     </nav>
 
     <!-- Main Content -->
@@ -318,11 +350,6 @@
         <div id="contentArea">
             <div class="loading">Loading content...</div>
         </div>
-
-        <footer class="content-footer">
-            <p>No logins. No tracking. No data collection.</p>
-            <p>Built for teachers by teachers. <a href="https://github.com/jomolin/teaching-tools" target="_blank">View on GitHub</a></p>
-        </footer>
     </main>
 
     <script>
@@ -333,6 +360,13 @@
 
         // Tool descriptions for better UX
         const toolDescriptions = {
+            'screens': {
+                'classroom': 'Full classroom display with timer, noise meter, and random picker',
+                'ssr': 'Silent Sustained Reading mode with timer and noise monitoring',
+                'silent-ball': 'Brain break game with timer and noise meter',
+                'reverse-charades': 'Group game with dual random pickers for students and prompts',
+                'heads-up-7-up': 'Classic classroom game with seven picker tracking'
+            },
             'classroom-screens': {
                 'classroom': 'Full classroom display with timer, noise meter, and random picker',
                 'ssr': 'Silent Sustained Reading mode with timer and noise monitoring',
@@ -346,6 +380,10 @@
 
         // Category display names and order
         const categories = {
+            'screens': {
+                name: 'Classroom Screens',
+                description: 'Interactive displays for classroom management and games'
+            },
             'classroom-screens': {
                 name: 'Classroom Screens',
                 description: 'Interactive displays for classroom management'
@@ -383,6 +421,7 @@
                     }
                 }
                 
+                console.log('Loaded tools data:', toolsData);
                 renderSidebar();
                 renderContent();
                 
