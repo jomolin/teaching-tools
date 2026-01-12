@@ -40,16 +40,26 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .sidebar-collapsed #sidebar {
-                width: 80px;
+                width: 64px;
             }
             .sidebar-collapsed #mainContent {
-                margin-left: 80px;
+                margin-left: 64px;
             }
             .sidebar-collapsed .sidebar-text {
                 display: none;
             }
             .sidebar-collapsed .collapse-icon {
                 transform: rotate(180deg);
+            }
+            .sidebar-collapsed .nav-section-toggle {
+                padding: 8px 0;
+                pointer-events: none;
+            }
+            .sidebar-collapsed .nav-section-items {
+                border-top: 1px solid rgb(229 231 235);
+            }
+            .dark .sidebar-collapsed .nav-section-items {
+                border-top-color: rgb(55 65 81);
             }
         }
     </style>
@@ -118,33 +128,16 @@
                         Teaching Tools
                     </h1>
                 </div>
-                <div class="flex items-center gap-2">
-                    <button 
-                        onclick="toggleTheme()"
-                        class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                        aria-label="Toggle theme"
-                        id="themeToggle"
-                    >
-                        <!-- Sun icon (shown in dark mode) -->
-                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-                        </svg>
-                        <!-- Moon icon (shown in light mode) -->
-                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                        </svg>
-                    </button>
-                    <button 
-                        onclick="toggleSidebarCollapse()"
-                        class="hidden lg:block p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                        aria-label="Toggle sidebar"
-                        id="collapseToggle"
-                    >
-                        <svg class="w-5 h-5 collapse-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
-                        </svg>
-                    </button>
-                </div>
+                <button 
+                    onclick="toggleSidebarCollapse()"
+                    class="hidden lg:block p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                    aria-label="Toggle sidebar"
+                    id="collapseToggle"
+                >
+                    <svg class="w-5 h-5 collapse-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                    </svg>
+                </button>
             </div>
             <p class="text-sm text-gray-600 dark:text-gray-400 sidebar-text">
                 Year 4-5 Classroom Resources
@@ -159,21 +152,40 @@
         </div>
         
         <!-- Sidebar Footer -->
-        <div class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-5 text-xs text-gray-600 dark:text-gray-400 space-y-2 sidebar-text">
-            <p class="leading-relaxed">
-                No logins. No tracking.<br>
-                No data collection.
-            </p>
-            <p>Built for teachers by teachers.</p>
-            <p>
-                <a 
-                    href="https://github.com/jomolin/teaching-tools" 
-                    target="_blank"
-                    class="text-primary dark:text-blue-400 hover:underline"
+        <div class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-5 text-xs text-gray-600 dark:text-gray-400 space-y-2">
+            <div class="sidebar-text space-y-2">
+                <p class="leading-relaxed">
+                    No logins. No tracking.<br>
+                    No data collection.
+                </p>
+                <p>Built for teachers by teachers.</p>
+                <p>
+                    <a 
+                        href="https://github.com/jomolin/teaching-tools" 
+                        target="_blank"
+                        class="text-primary dark:text-blue-400 hover:underline"
+                    >
+                        View on GitHub
+                    </a>
+                </p>
+            </div>
+            <div class="pt-2 flex justify-center">
+                <button 
+                    onclick="toggleTheme()"
+                    class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                    aria-label="Toggle theme"
+                    id="themeToggle"
                 >
-                    View on GitHub
-                </a>
-            </p>
+                    <!-- Sun icon (shown in dark mode) -->
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                    <!-- Moon icon (shown in light mode) -->
+                    <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                    </svg>
+                </button>
+            </div>
         </div>
     </nav>
 
@@ -189,19 +201,7 @@
         id="mainContent"
         class="lg:ml-[280px] min-h-screen transition-all duration-300"
     >
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
-            <!-- Content Header -->
-            <div class="mb-12">
-                <h1 class="text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                    Welcome to Teaching Tools
-                </h1>
-                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-                    A collection of interactive tools and resources for primary school teachers. All tools work offline, respect your privacy, and are free to use.
-                </p>
-            </div>
-
-            <!-- Content Area -->
-            <div id="contentArea">
+        <div id="contentArea" class="w-full h-full">
                 <div class="text-center py-16 text-gray-500 dark:text-gray-400">
                     Loading content...
                 </div>
@@ -430,7 +430,18 @@
         }
 
         function renderHomeContent(container) {
-            let html = '';
+            let html = `
+                <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
+                    <!-- Content Header -->
+                    <div class="mb-12">
+                        <h1 class="text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                            Welcome to Teaching Tools
+                        </h1>
+                        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
+                            A collection of interactive tools and resources for primary school teachers. All tools work offline, respect your privacy, and are free to use.
+                        </p>
+                    </div>
+            `;
             
             Object.keys(toolsData).forEach(category => {
                 const categoryInfo = categories[category] || { 
@@ -476,6 +487,8 @@
                 `;
             });
             
+            html += '</div>'; // Close the max-w-7xl wrapper
+            
             container.innerHTML = html;
         }
 
@@ -497,36 +510,12 @@
             
             const contentArea = document.getElementById('contentArea');
             contentArea.innerHTML = `
-                <div class="relative w-full" style="height: calc(100vh - 120px);">
-                    <div class="flex items-center justify-between mb-4">
-                        <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                            ${formatName(name)}
-                        </h2>
-                        <div class="flex items-center gap-2">
-                            <a 
-                                href="${path}" 
-                                target="_blank"
-                                class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors"
-                            >
-                                <span>Open in New Tab</span>
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                </svg>
-                            </a>
-                            <button 
-                                onclick="showHome(event)"
-                                class="px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg transition-colors"
-                            >
-                                Back to Home
-                            </button>
-                        </div>
-                    </div>
-                    <iframe 
-                        src="${path}" 
-                        class="w-full h-full border-2 border-gray-200 dark:border-gray-800 rounded-lg"
-                        title="${formatName(name)}"
-                    ></iframe>
-                </div>
+                <iframe 
+                    src="${path}" 
+                    class="w-full border-0"
+                    style="height: calc(100vh - 0px);"
+                    title="${formatName(name)}"
+                ></iframe>
             `;
             
             // Update active link
