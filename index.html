@@ -29,8 +29,30 @@
             } else {
                 document.documentElement.classList.remove('dark');
             }
+            
+            // Sidebar state
+            const sidebarCollapsed = localStorage.getItem('sidebarCollapsed') === 'true';
+            if (sidebarCollapsed) {
+                document.documentElement.classList.add('sidebar-collapsed');
+            }
         })();
     </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .sidebar-collapsed #sidebar {
+                width: 80px;
+            }
+            .sidebar-collapsed #mainContent {
+                margin-left: 80px;
+            }
+            .sidebar-collapsed .sidebar-text {
+                display: none;
+            }
+            .sidebar-collapsed .collapse-icon {
+                transform: rotate(180deg);
+            }
+        }
+    </style>
     <style>
         /* Smooth transitions */
         * {
@@ -86,31 +108,45 @@
     <!-- Sidebar Navigation -->
     <nav 
         id="sidebar"
-        class="fixed top-0 left-0 h-screen w-[280px] bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col"
+        class="fixed top-0 left-0 h-screen w-[280px] bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40 transform -translate-x-full lg:translate-x-0 transition-all duration-300 ease-in-out flex flex-col"
     >
         <!-- Sidebar Header -->
         <div class="sticky top-0 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-6 z-10">
             <div class="flex items-start justify-between mb-1">
-                <h1 class="text-2xl font-bold text-primary dark:text-blue-400">
-                    Teaching Tools
-                </h1>
-                <button 
-                    onclick="toggleTheme()"
-                    class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-                    aria-label="Toggle theme"
-                    id="themeToggle"
-                >
-                    <!-- Sun icon (shown in dark mode) -->
-                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-                    </svg>
-                    <!-- Moon icon (shown in light mode) -->
-                    <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
-                    </svg>
-                </button>
+                <div class="sidebar-text">
+                    <h1 class="text-2xl font-bold text-primary dark:text-blue-400">
+                        Teaching Tools
+                    </h1>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button 
+                        onclick="toggleTheme()"
+                        class="p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Toggle theme"
+                        id="themeToggle"
+                    >
+                        <!-- Sun icon (shown in dark mode) -->
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        <!-- Moon icon (shown in light mode) -->
+                        <svg class="w-5 h-5 block dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                    <button 
+                        onclick="toggleSidebarCollapse()"
+                        class="hidden lg:block p-2 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Toggle sidebar"
+                        id="collapseToggle"
+                    >
+                        <svg class="w-5 h-5 collapse-icon transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
-            <p class="text-sm text-gray-600 dark:text-gray-400">
+            <p class="text-sm text-gray-600 dark:text-gray-400 sidebar-text">
                 Year 4-5 Classroom Resources
             </p>
         </div>
@@ -123,7 +159,7 @@
         </div>
         
         <!-- Sidebar Footer -->
-        <div class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-5 text-xs text-gray-600 dark:text-gray-400 space-y-2">
+        <div class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-5 text-xs text-gray-600 dark:text-gray-400 space-y-2 sidebar-text">
             <p class="leading-relaxed">
                 No logins. No tracking.<br>
                 No data collection.
@@ -151,7 +187,7 @@
     <!-- Main Content -->
     <main 
         id="mainContent"
-        class="lg:ml-[280px] min-h-screen"
+        class="lg:ml-[280px] min-h-screen transition-all duration-300"
     >
         <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
             <!-- Content Header -->
@@ -198,6 +234,28 @@
             'planning': {
                 'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class',
                 'bsla-tracker': 'Track and plan BSLA lessons and activities'
+            }
+        };
+
+        // Tool icons for sidebar
+        const toolIcons = {
+            'screens': {
+                'classroom': '🖥️',
+                'ssr': '📚',
+                'silent-ball': '🤫',
+                'reverse-charades': '🎭',
+                'heads-up-7-up': '👆',
+                '7up': '👆'
+            },
+            'classroom-screens': {
+                'classroom': '🖥️',
+                'ssr': '📚',
+                'silent-ball': '🤫',
+                'reverse-charades': '🎭'
+            },
+            'planning': {
+                'math-tracker': '📊',
+                'bsla-tracker': '📝'
             }
         };
 
@@ -297,7 +355,7 @@
                     data-active="true"
                 >
                     <span class="text-xl">🏠</span>
-                    <span>Home</span>
+                    <span class="sidebar-text">Home</span>
                 </a>
             `;
             nav.appendChild(homeSection);
@@ -320,22 +378,40 @@
                     >
                         <span class="flex items-center gap-2">
                             <span>${categoryInfo.icon}</span>
-                            <span>${categoryInfo.name}</span>
+                            <span class="sidebar-text">${categoryInfo.name}</span>
                         </span>
-                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 transform transition-transform sidebar-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
                     <div class="nav-section-items overflow-hidden max-h-[1000px] transition-all duration-300">
-                        ${tools.map(tool => `
-                            <a 
-                                href="${tool.path}" 
-                                class="nav-link block pl-14 pr-6 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 border-l-3 border-transparent hover:border-primary dark:hover:border-blue-400 transition-all"
-                                onclick="handleNavClick(event, '${tool.path}', '${tool.name}')"
-                            >
-                                ${formatName(tool.name)}
-                            </a>
-                        `).join('')}
+                        ${tools.map(tool => {
+                            const icon = toolIcons[category]?.[tool.name] || '📄';
+                            return `
+                                <div class="flex items-center group">
+                                    <a 
+                                        href="#" 
+                                        class="nav-link flex-1 flex items-center gap-2 pl-8 pr-2 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 border-l-3 border-transparent hover:border-primary dark:hover:border-blue-400 transition-all"
+                                        onclick="loadToolInPage(event, '${tool.path}', '${tool.name}')"
+                                        data-path="${tool.path}"
+                                    >
+                                        <span class="text-base">${icon}</span>
+                                        <span class="sidebar-text">${formatName(tool.name)}</span>
+                                    </a>
+                                    <a 
+                                        href="${tool.path}" 
+                                        target="_blank"
+                                        class="p-2 text-gray-400 hover:text-primary dark:hover:text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity sidebar-text"
+                                        title="Open in new tab"
+                                        onclick="event.stopPropagation()"
+                                    >
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            `;
+                        }).join('')}
                     </div>
                 `;
                 nav.appendChild(section);
@@ -403,6 +479,69 @@
             container.innerHTML = html;
         }
 
+        function toggleSidebarCollapse() {
+            const html = document.documentElement;
+            const isCollapsed = html.classList.contains('sidebar-collapsed');
+            
+            if (isCollapsed) {
+                html.classList.remove('sidebar-collapsed');
+                localStorage.setItem('sidebarCollapsed', 'false');
+            } else {
+                html.classList.add('sidebar-collapsed');
+                localStorage.setItem('sidebarCollapsed', 'true');
+            }
+        }
+
+        function loadToolInPage(event, path, name) {
+            event.preventDefault();
+            
+            const contentArea = document.getElementById('contentArea');
+            contentArea.innerHTML = `
+                <div class="relative w-full" style="height: calc(100vh - 120px);">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                            ${formatName(name)}
+                        </h2>
+                        <div class="flex items-center gap-2">
+                            <a 
+                                href="${path}" 
+                                target="_blank"
+                                class="flex items-center gap-2 px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg transition-colors"
+                            >
+                                <span>Open in New Tab</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                                </svg>
+                            </a>
+                            <button 
+                                onclick="showHome(event)"
+                                class="px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded-lg transition-colors"
+                            >
+                                Back to Home
+                            </button>
+                        </div>
+                    </div>
+                    <iframe 
+                        src="${path}" 
+                        class="w-full h-full border-2 border-gray-200 dark:border-gray-800 rounded-lg"
+                        title="${formatName(name)}"
+                    ></iframe>
+                </div>
+            `;
+            
+            // Update active link
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.dataset.path === path) {
+                    updateActiveLink(link);
+                }
+            });
+            
+            // Close mobile sidebar
+            if (window.innerWidth < 1024) {
+                toggleSidebar();
+            }
+        }
+
         function toggleTheme() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
@@ -455,11 +594,6 @@
             if (activeLink) {
                 activeLink.classList.add('bg-gray-200', 'dark:bg-gray-800', 'border-primary', 'dark:border-blue-400', 'font-semibold');
             }
-        }
-
-        function handleNavClick(event, path, name) {
-            // Let the link work normally (navigate to the page)
-            return true;
         }
 
         function showHome(event) {
