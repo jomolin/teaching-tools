@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teaching Tools</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -40,10 +41,10 @@
     <style type="text/tailwindcss">
         @layer utilities {
             .sidebar-collapsed #sidebar {
-                width: 64px;
+                width: 56px;
             }
             .sidebar-collapsed #mainContent {
-                margin-left: 64px;
+                margin-left: 56px;
             }
             .sidebar-collapsed .sidebar-text {
                 display: none;
@@ -54,9 +55,11 @@
             .sidebar-collapsed .nav-section-toggle {
                 padding: 8px 0;
                 pointer-events: none;
+                visibility: hidden;
             }
             .sidebar-collapsed .nav-section-items {
                 border-top: 1px solid rgb(229 231 235);
+                padding-top: 8px;
             }
             .dark .sidebar-collapsed .nav-section-items {
                 border-top-color: rgb(55 65 81);
@@ -240,22 +243,22 @@
         // Tool icons for sidebar
         const toolIcons = {
             'screens': {
-                'classroom': '🖥️',
-                'ssr': '📚',
-                'silent-ball': '🤫',
-                'reverse-charades': '🎭',
-                'heads-up-7-up': '👆',
-                '7up': '👆'
+                'classroom': 'school',
+                'ssr': 'book-open',
+                'silent-ball': 'volume-x',
+                'reverse-charades': 'drama',
+                'heads-up-7-up': 'hand',
+                '7up': 'hand'
             },
             'classroom-screens': {
-                'classroom': '🖥️',
-                'ssr': '📚',
-                'silent-ball': '🤫',
-                'reverse-charades': '🎭'
+                'classroom': 'school',
+                'ssr': 'book-open',
+                'silent-ball': 'volume-x',
+                'reverse-charades': 'drama'
             },
             'planning': {
-                'math-tracker': '📊',
-                'bsla-tracker': '📝'
+                'math-tracker': 'calculator',
+                'bsla-tracker': 'file-text'
             }
         };
 
@@ -264,17 +267,17 @@
             'screens': {
                 name: 'Classroom Screens',
                 description: 'Interactive displays for classroom management and games',
-                icon: '🖥️'
+                icon: 'monitor' // Lucide icon name
             },
             'classroom-screens': {
                 name: 'Classroom Screens',
                 description: 'Interactive displays for classroom management',
-                icon: '🖥️'
+                icon: 'monitor'
             },
             'planning': {
                 name: 'Planning Tools',
                 description: 'Lesson planning and tracking',
-                icon: '📋'
+                icon: 'clipboard-list'
             }
         };
 
@@ -354,7 +357,7 @@
                     onclick="showHome(event)"
                     data-active="true"
                 >
-                    <span class="text-xl">🏠</span>
+                    <i data-lucide="home" class="w-5 h-5"></i>
                     <span class="sidebar-text">Home</span>
                 </a>
             `;
@@ -365,7 +368,7 @@
                 const categoryInfo = categories[category] || { 
                     name: formatName(category), 
                     description: '',
-                    icon: '📁'
+                    icon: 'folder'
                 };
                 const tools = toolsData[category];
                 
@@ -377,16 +380,14 @@
                         onclick="toggleSection(this)"
                     >
                         <span class="flex items-center gap-2">
-                            <span>${categoryInfo.icon}</span>
+                            <i data-lucide="${categoryInfo.icon}" class="w-4 h-4"></i>
                             <span class="sidebar-text">${categoryInfo.name}</span>
                         </span>
-                        <svg class="w-4 h-4 transform transition-transform sidebar-text" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                        </svg>
+                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sidebar-text"></i>
                     </button>
                     <div class="nav-section-items overflow-hidden max-h-[1000px] transition-all duration-300">
                         ${tools.map(tool => {
-                            const icon = toolIcons[category]?.[tool.name] || '📄';
+                            const icon = toolIcons[category]?.[tool.name] || 'file';
                             return `
                                 <div class="flex items-center group">
                                     <a 
@@ -395,7 +396,7 @@
                                         onclick="loadToolInPage(event, '${tool.path}', '${tool.name}')"
                                         data-path="${tool.path}"
                                     >
-                                        <span class="text-base">${icon}</span>
+                                        <i data-lucide="${icon}" class="w-4 h-4 flex-shrink-0"></i>
                                         <span class="sidebar-text">${formatName(tool.name)}</span>
                                     </a>
                                     <a 
@@ -405,9 +406,7 @@
                                         title="Open in new tab"
                                         onclick="event.stopPropagation()"
                                     >
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
-                                        </svg>
+                                        <i data-lucide="external-link" class="w-4 h-4"></i>
                                     </a>
                                 </div>
                             `;
@@ -419,6 +418,9 @@
 
             // Set home as active
             updateActiveLink(document.querySelector('[data-active="true"]'));
+            
+            // Initialize Lucide icons
+            lucide.createIcons();
         }
 
         function renderContent() {
@@ -553,17 +555,17 @@
         }
 
         function toggleSection(button) {
-            const svg = button.querySelector('svg');
+            const chevron = button.querySelector('[data-lucide="chevron-down"]');
             const items = button.nextElementSibling;
-            
-            svg.classList.toggle('rotate-180');
             
             if (items.classList.contains('max-h-0')) {
                 items.classList.remove('max-h-0');
                 items.classList.add('max-h-[1000px]');
+                chevron.style.transform = 'rotate(0deg)';
             } else {
                 items.classList.remove('max-h-[1000px]');
                 items.classList.add('max-h-0');
+                chevron.style.transform = 'rotate(-90deg)';
             }
         }
 
