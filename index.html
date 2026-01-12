@@ -229,19 +229,18 @@
 
         // Tool descriptions for better UX
         const toolDescriptions = {
-            'screens': {
-                'classroom': 'Full classroom display with timer, noise meter, and random picker',
-                'ssr': 'Silent Sustained Reading mode with timer and noise monitoring',
-                'silent-ball': 'Brain break game with timer and noise meter',
-                'reverse-charades': 'Group game with dual random pickers for students and prompts',
-                'heads-up-7-up': 'Classic classroom game with seven picker tracking',
-                '7up': 'Classic classroom game with seven picker tracking'
-            },
             'classroom-screens': {
                 'classroom': 'Full classroom display with timer, noise meter, and random picker',
-                'ssr': 'Silent Sustained Reading mode with timer and noise monitoring',
+                'ssr': 'Silent Sustained Reading mode with timer and noise monitoring'
+            },
+            'classroom-games': {
                 'silent-ball': 'Brain break game with timer and noise meter',
-                'reverse-charades': 'Group game with dual random pickers for students and prompts'
+                'reverse-charades': 'Group game with dual random pickers for students and prompts',
+                'pass-the-creeper': 'Hot potato style game with categories',
+                'this-or-that': 'Movement game of preferences and choices',
+                'more-or-less': 'Estimation game with movement',
+                '7up': 'Classic classroom game with seven picker tracking',
+                'heads-up-7-up': 'Classic classroom game with seven picker tracking'
             },
             'planning': {
                 'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class',
@@ -251,19 +250,18 @@
 
         // Tool icons for sidebar
         const toolIcons = {
-            'screens': {
-                'classroom': 'school',
-                'ssr': 'book-open',
-                'silent-ball': 'volume-x',
-                'reverse-charades': 'drama',
-                'heads-up-7-up': 'hand',
-                '7up': 'hand'
-            },
             'classroom-screens': {
                 'classroom': 'school',
-                'ssr': 'book-open',
+                'ssr': 'book-open'
+            },
+            'classroom-games': {
                 'silent-ball': 'volume-x',
-                'reverse-charades': 'drama'
+                'reverse-charades': 'drama',
+                'pass-the-creeper': 'bomb',
+                'this-or-that': 'git-branch',
+                'more-or-less': 'minus-plus',
+                '7up': 'hand',
+                'heads-up-7-up': 'hand'
             },
             'planning': {
                 'math-tracker': 'calculator',
@@ -273,13 +271,13 @@
 
         // Category display names and order
         const categories = {
-            'screens': {
-                name: 'Classroom Screens',
-                description: 'Interactive displays for classroom management and games'
-            },
             'classroom-screens': {
                 name: 'Classroom Screens',
                 description: 'Interactive displays for classroom management'
+            },
+            'classroom-games': {
+                name: 'Classroom Games',
+                description: 'Interactive games for brain breaks and group activities'
             },
             'planning': {
                 name: 'Planning Tools',
@@ -309,23 +307,32 @@
                             folder: folder.name
                         }));
                     
-                    // If this is the screens folder, check for nested screens folder
-                    if (folder.name === 'screens' && htmlFiles.length === 0) {
-                        const nestedScreens = files.find(f => f.type === 'dir' && f.name === 'screens');
-                        if (nestedScreens) {
-                            const nestedResponse = await fetch(nestedScreens.url);
-                            const nestedFiles = await nestedResponse.json();
-                            htmlFiles = nestedFiles
-                                .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
-                                .map(file => ({
-                                    name: file.name.replace('.html', ''),
-                                    path: `${folder.name}/${nestedScreens.name}/${file.name}`,
-                                    folder: folder.name
-                                }));
+                    // If this is the screens folder, check for subfolders like classroom-screens and classroom-games
+                    if (folder.name === 'screens') {
+                        const subfolders = files.filter(f => f.type === 'dir');
+                        
+                        if (subfolders.length > 0) {
+                            // Load HTML files from each subfolder
+                            for (const subfolder of subfolders) {
+                                const subfolderResponse = await fetch(subfolder.url);
+                                const subfolderFiles = await subfolderResponse.json();
+                                
+                                const subfolderHtmlFiles = subfolderFiles
+                                    .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
+                                    .map(file => ({
+                                        name: file.name.replace('.html', ''),
+                                        path: `${folder.name}/${subfolder.name}/${file.name}`,
+                                        folder: subfolder.name // Use subfolder name as category
+                                    }));
+                                
+                                if (subfolderHtmlFiles.length > 0) {
+                                    // Add to toolsData using subfolder name as key
+                                    toolsData[subfolder.name] = subfolderHtmlFiles;
+                                }
+                            }
                         }
-                    }
-                    
-                    if (htmlFiles.length > 0) {
+                    } else if (htmlFiles.length > 0) {
+                        // Regular folder with HTML files
                         toolsData[folder.name] = htmlFiles;
                     }
                 }
@@ -525,6 +532,11 @@
             if (window.innerWidth < 1024) {
                 toggleSidebar();
             }
+        }
+
+        function handleNavClick(event, path, name) {
+            event.preventDefault();
+            loadToolInPage(event, path, name);
         }
 
         function toggleTheme() {
