@@ -446,19 +446,15 @@
             Object.keys(toolsData).forEach(category => {
                 const categoryInfo = categories[category] || { 
                     name: formatName(category), 
-                    description: '',
-                    icon: '📁'
+                    description: ''
                 };
                 const tools = toolsData[category];
                 
                 html += `
                     <div class="mb-16">
-                        <div class="flex items-center gap-3 mb-3">
-                            <span class="text-3xl">${categoryInfo.icon}</span>
-                            <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
-                                ${categoryInfo.name}
-                            </h2>
-                        </div>
+                        <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
+                            ${categoryInfo.name}
+                        </h2>
                         ${categoryInfo.description ? `
                             <p class="text-gray-600 dark:text-gray-400 mb-6 text-base">
                                 ${categoryInfo.description}
