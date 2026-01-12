@@ -4,352 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teaching Tools</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066cc',
+                        'primary-dark': '#0052a3',
+                    }
+                }
+            }
+        }
+    </script>
     <style>
+        /* Smooth transitions */
         * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            transition-property: color, background-color, border-color;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
         }
-
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-            display: flex;
-            min-height: 100vh;
-            background: var(--background-body);
-            color: var(--text-main);
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
         }
-
-        /* Sidebar Styles */
-        .sidebar {
-            width: 280px;
-            background: var(--background-alt);
-            border-right: 1px solid var(--border);
-            height: 100vh;
-            overflow-y: auto;
-            position: fixed;
-            left: 0;
-            top: 0;
-            transition: transform 0.3s ease;
-            z-index: 1000;
+        
+        ::-webkit-scrollbar-track {
+            background: rgb(243 244 246);
         }
-
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
-
-        .sidebar-header {
-            padding: 30px 20px 20px;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            background: var(--background-alt);
-            z-index: 10;
-        }
-
-        .sidebar-title {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--links);
-            margin-bottom: 5px;
-        }
-
-        .sidebar-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .sidebar-nav {
-            padding: 20px 0 120px;
-        }
-
-        .sidebar-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 280px;
-            background: var(--background-alt);
-            border-top: 1px solid var(--border);
-            padding: 20px;
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .sidebar-footer p {
-            margin-bottom: 8px;
-        }
-
-        .sidebar-footer a {
-            color: var(--links);
-            text-decoration: none;
-        }
-
-        .sidebar-footer a:hover {
-            text-decoration: underline;
-        }
-
-        .nav-section {
-            margin-bottom: 8px;
-        }
-
-        .nav-section-header {
-            padding: 12px 20px 8px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-        }
-
-        .nav-section-toggle {
-            padding: 10px 20px;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text-main);
-            background: none;
-            border: none;
-            width: 100%;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: background-color 0.2s;
-        }
-
-        .nav-section-toggle:hover {
-            background: color-mix(in srgb, var(--links) 10%, transparent);
-        }
-
-        .nav-section-toggle::after {
-            content: '▼';
-            font-size: 10px;
-            transition: transform 0.3s;
-        }
-
-        .nav-section-toggle.collapsed::after {
-            transform: rotate(-90deg);
-        }
-
-        .nav-section-items {
-            max-height: 1000px;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
-
-        .nav-section-items.collapsed {
-            max-height: 0;
-        }
-
-        .nav-link {
-            display: block;
-            padding: 10px 20px 10px 35px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 14px;
-            transition: all 0.2s;
-            border-left: 3px solid transparent;
-        }
-
-        .nav-link:hover {
-            background: color-mix(in srgb, var(--links) 10%, transparent);
-            border-left-color: var(--links);
-        }
-
-        .nav-link.active {
-            background: color-mix(in srgb, var(--links) 15%, transparent);
-            border-left-color: var(--links);
-            font-weight: 600;
-        }
-
-        /* Main Content Styles */
-        .main-content {
-            flex: 1;
-            margin-left: 280px;
-            padding: 40px;
-            transition: margin-left 0.3s ease;
-            max-width: 100%;
-        }
-
-        .main-content.expanded {
-            margin-left: 0;
-        }
-
-        /* Toggle Button */
-        .sidebar-toggle {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 1001;
-            background: var(--links);
-            color: white;
-            border: none;
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgb(156 163 175);
             border-radius: 6px;
-            padding: 10px 15px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            display: none;
         }
-
-        .sidebar-toggle:hover {
-            background: color-mix(in srgb, var(--links) 80%, black);
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgb(107 114 128);
         }
-
-        .sidebar.hidden ~ .sidebar-toggle {
-            display: block;
+        
+        .dark ::-webkit-scrollbar-track {
+            background: rgb(31 41 55);
         }
-
-        .main-content.expanded .sidebar-toggle {
-            display: block;
+        
+        .dark ::-webkit-scrollbar-thumb {
+            background: rgb(75 85 99);
         }
-
-        /* Content Styles */
-        .content-header {
-            margin-bottom: 40px;
-        }
-
-        .content-header h1 {
-            font-size: 42px;
-            color: var(--text-main);
-            margin-bottom: 10px;
-        }
-
-        .content-header p {
-            font-size: 18px;
-            color: var(--text-muted);
-            max-width: 100%;
-        }
-
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .tool-card {
-            background: var(--background-alt);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 24px;
-            text-decoration: none;
-            color: var(--text-main);
-            transition: all 0.2s;
-            display: block;
-        }
-
-        .tool-card:hover {
-            border-color: var(--links);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-
-        .tool-card h3 {
-            font-size: 18px;
-            color: var(--links);
-            margin-bottom: 8px;
-        }
-
-        .tool-card p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.5;
-        }
-
-        .section-title {
-            font-size: 24px;
-            color: var(--text-main);
-            margin-top: 50px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .section-title:first-child {
-            margin-top: 0;
-        }
-
-        /* Loading State */
-        .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
-        }
-
-        /* Mobile Responsive */
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.visible {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-left: 0;
-            }
-
-            .sidebar-toggle {
-                display: block;
-            }
-
-            .tool-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Footer */
-        .content-footer {
-            margin-top: 80px;
-            padding-top: 30px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 14px;
-        }
-
-        .content-footer a {
-            color: var(--links);
-            text-decoration: none;
-        }
-
-        .content-footer a:hover {
-            text-decoration: underline;
+        
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: rgb(107 114 128);
         }
     </style>
 </head>
-<body>
-    <!-- Sidebar Toggle Button -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+<body class="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
+    <!-- Sidebar Toggle Button (Mobile) -->
+    <button 
+        onclick="toggleSidebar()"
+        class="fixed top-4 left-4 z-50 lg:hidden bg-primary hover:bg-primary-dark text-white p-3 rounded-lg shadow-lg transition-all"
+        id="sidebarToggle"
+    >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+    </button>
 
     <!-- Sidebar Navigation -->
-    <nav class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <div class="sidebar-title">Teaching Tools</div>
-            <div class="sidebar-subtitle">Year 4-5 Classroom Resources</div>
+    <nav 
+        id="sidebar"
+        class="fixed top-0 left-0 h-screen w-[280px] bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800 z-40 transform -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col"
+    >
+        <!-- Sidebar Header -->
+        <div class="sticky top-0 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-6 z-10">
+            <h1 class="text-2xl font-bold text-primary dark:text-blue-400 mb-1">
+                Teaching Tools
+            </h1>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+                Year 4-5 Classroom Resources
+            </p>
         </div>
         
-        <div class="sidebar-nav" id="sidebarNav">
-            <div class="loading">Loading tools...</div>
+        <!-- Sidebar Navigation -->
+        <div id="sidebarNav" class="flex-1 overflow-y-auto py-4">
+            <div class="px-4 text-center text-gray-500 dark:text-gray-400 py-8">
+                Loading tools...
+            </div>
         </div>
         
-        <div class="sidebar-footer">
-            <p>No logins. No tracking.<br>No data collection.</p>
+        <!-- Sidebar Footer -->
+        <div class="border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 p-5 text-xs text-gray-600 dark:text-gray-400 space-y-2">
+            <p class="leading-relaxed">
+                No logins. No tracking.<br>
+                No data collection.
+            </p>
             <p>Built for teachers by teachers.</p>
-            <p><a href="https://github.com/jomolin/teaching-tools" target="_blank">View on GitHub</a></p>
+            <p>
+                <a 
+                    href="https://github.com/jomolin/teaching-tools" 
+                    target="_blank"
+                    class="text-primary dark:text-blue-400 hover:underline"
+                >
+                    View on GitHub
+                </a>
+            </p>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="main-content" id="mainContent">
-        <div class="content-header">
-            <h1>Welcome to Teaching Tools</h1>
-            <p>A collection of interactive tools and resources for primary school teachers. All tools work offline, respect your privacy, and are free to use.</p>
-        </div>
+    <!-- Overlay for mobile -->
+    <div 
+        id="overlay"
+        onclick="toggleSidebar()"
+        class="fixed inset-0 bg-black/50 z-30 lg:hidden hidden"
+    ></div>
 
-        <div id="contentArea">
-            <div class="loading">Loading content...</div>
+    <!-- Main Content -->
+    <main 
+        id="mainContent"
+        class="lg:ml-[280px] min-h-screen"
+    >
+        <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
+            <!-- Content Header -->
+            <div class="mb-12">
+                <h1 class="text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                    Welcome to Teaching Tools
+                </h1>
+                <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
+                    A collection of interactive tools and resources for primary school teachers. All tools work offline, respect your privacy, and are free to use.
+                </p>
+            </div>
+
+            <!-- Content Area -->
+            <div id="contentArea">
+                <div class="text-center py-16 text-gray-500 dark:text-gray-400">
+                    Loading content...
+                </div>
+            </div>
         </div>
     </main>
 
@@ -366,7 +156,8 @@
                 'ssr': 'Silent Sustained Reading mode with timer and noise monitoring',
                 'silent-ball': 'Brain break game with timer and noise meter',
                 'reverse-charades': 'Group game with dual random pickers for students and prompts',
-                'heads-up-7-up': 'Classic classroom game with seven picker tracking'
+                'heads-up-7-up': 'Classic classroom game with seven picker tracking',
+                '7up': 'Classic classroom game with seven picker tracking'
             },
             'classroom-screens': {
                 'classroom': 'Full classroom display with timer, noise meter, and random picker',
@@ -375,7 +166,8 @@
                 'reverse-charades': 'Group game with dual random pickers for students and prompts'
             },
             'planning': {
-                'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class'
+                'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class',
+                'bsla-tracker': 'Track and plan BSLA lessons and activities'
             }
         };
 
@@ -383,15 +175,18 @@
         const categories = {
             'screens': {
                 name: 'Classroom Screens',
-                description: 'Interactive displays for classroom management and games'
+                description: 'Interactive displays for classroom management and games',
+                icon: '🖥️'
             },
             'classroom-screens': {
                 name: 'Classroom Screens',
-                description: 'Interactive displays for classroom management'
+                description: 'Interactive displays for classroom management',
+                icon: '🖥️'
             },
             'planning': {
                 name: 'Planning Tools',
-                description: 'Lesson planning and tracking'
+                description: 'Lesson planning and tracking',
+                icon: '📋'
             }
         };
 
@@ -444,8 +239,16 @@
                 
             } catch (error) {
                 console.error('Error loading repo structure:', error);
-                document.getElementById('sidebarNav').innerHTML = '<div style="padding: 20px; color: var(--text-muted);">Error loading tools. Make sure the repository is public.</div>';
-                document.getElementById('contentArea').innerHTML = '<div style="padding: 20px; color: var(--text-muted);">Error loading tools.</div>';
+                document.getElementById('sidebarNav').innerHTML = `
+                    <div class="px-6 py-8 text-center text-red-600 dark:text-red-400">
+                        Error loading tools. Make sure the repository is public.
+                    </div>
+                `;
+                document.getElementById('contentArea').innerHTML = `
+                    <div class="px-6 py-8 text-center text-red-600 dark:text-red-400">
+                        Error loading tools.
+                    </div>
+                `;
             }
         }
 
@@ -454,28 +257,52 @@
             nav.innerHTML = '';
 
             // Add Home link
-            nav.innerHTML += `
-                <div class="nav-section">
-                    <a href="#" class="nav-link active" onclick="showHome(event)">
-                        🏠 Home
-                    </a>
-                </div>
+            const homeSection = document.createElement('div');
+            homeSection.className = 'mb-2';
+            homeSection.innerHTML = `
+                <a 
+                    href="#" 
+                    class="nav-link flex items-center gap-3 px-6 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 border-l-3 border-transparent hover:border-primary dark:hover:border-blue-400 transition-all font-medium"
+                    onclick="showHome(event)"
+                    data-active="true"
+                >
+                    <span class="text-xl">🏠</span>
+                    <span>Home</span>
+                </a>
             `;
+            nav.appendChild(homeSection);
 
             // Add sections for each category
             Object.keys(toolsData).forEach(category => {
-                const categoryInfo = categories[category] || { name: formatName(category), description: '' };
+                const categoryInfo = categories[category] || { 
+                    name: formatName(category), 
+                    description: '',
+                    icon: '📁'
+                };
                 const tools = toolsData[category];
                 
                 const section = document.createElement('div');
-                section.className = 'nav-section';
+                section.className = 'mb-2';
                 section.innerHTML = `
-                    <button class="nav-section-toggle" onclick="toggleSection(this)">
-                        ${categoryInfo.name}
+                    <button 
+                        class="nav-section-toggle w-full flex items-center justify-between px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 transition-all"
+                        onclick="toggleSection(this)"
+                    >
+                        <span class="flex items-center gap-2">
+                            <span>${categoryInfo.icon}</span>
+                            <span>${categoryInfo.name}</span>
+                        </span>
+                        <svg class="w-4 h-4 transform transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                        </svg>
                     </button>
-                    <div class="nav-section-items">
+                    <div class="nav-section-items overflow-hidden max-h-[1000px] transition-all duration-300">
                         ${tools.map(tool => `
-                            <a href="${tool.path}" class="nav-link" onclick="handleNavClick(event, '${tool.path}', '${tool.name}')">
+                            <a 
+                                href="${tool.path}" 
+                                class="nav-link block pl-14 pr-6 py-2.5 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-800 border-l-3 border-transparent hover:border-primary dark:hover:border-blue-400 transition-all"
+                                onclick="handleNavClick(event, '${tool.path}', '${tool.name}')"
+                            >
                                 ${formatName(tool.name)}
                             </a>
                         `).join('')}
@@ -483,6 +310,9 @@
                 `;
                 nav.appendChild(section);
             });
+
+            // Set home as active
+            updateActiveLink(document.querySelector('[data-active="true"]'));
         }
 
         function renderContent() {
@@ -497,22 +327,45 @@
             let html = '';
             
             Object.keys(toolsData).forEach(category => {
-                const categoryInfo = categories[category] || { name: formatName(category), description: '' };
+                const categoryInfo = categories[category] || { 
+                    name: formatName(category), 
+                    description: '',
+                    icon: '📁'
+                };
                 const tools = toolsData[category];
                 
                 html += `
-                    <h2 class="section-title">${categoryInfo.name}</h2>
-                    ${categoryInfo.description ? `<p style="color: var(--text-muted); margin-bottom: 20px;">${categoryInfo.description}</p>` : ''}
-                    <div class="tool-grid">
-                        ${tools.map(tool => {
-                            const description = toolDescriptions[category]?.[tool.name] || 'Interactive teaching tool';
-                            return `
-                                <a href="${tool.path}" class="tool-card" onclick="handleNavClick(event, '${tool.path}', '${tool.name}')">
-                                    <h3>${formatName(tool.name)}</h3>
-                                    <p>${description}</p>
-                                </a>
-                            `;
-                        }).join('')}
+                    <div class="mb-16">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="text-3xl">${categoryInfo.icon}</span>
+                            <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100">
+                                ${categoryInfo.name}
+                            </h2>
+                        </div>
+                        ${categoryInfo.description ? `
+                            <p class="text-gray-600 dark:text-gray-400 mb-6 text-base">
+                                ${categoryInfo.description}
+                            </p>
+                        ` : ''}
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            ${tools.map(tool => {
+                                const description = toolDescriptions[category]?.[tool.name] || 'Interactive teaching tool';
+                                return `
+                                    <a 
+                                        href="${tool.path}" 
+                                        class="group block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:border-primary dark:hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+                                        onclick="handleNavClick(event, '${tool.path}', '${tool.name}')"
+                                    >
+                                        <h3 class="text-xl font-semibold text-primary dark:text-blue-400 mb-2 group-hover:text-primary-dark dark:group-hover:text-blue-300">
+                                            ${formatName(tool.name)}
+                                        </h3>
+                                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                            ${description}
+                                        </p>
+                                    </a>
+                                `;
+                            }).join('')}
+                        </div>
                     </div>
                 `;
             });
@@ -529,23 +382,40 @@
         }
 
         function toggleSection(button) {
-            button.classList.toggle('collapsed');
+            const svg = button.querySelector('svg');
             const items = button.nextElementSibling;
-            items.classList.toggle('collapsed');
+            
+            svg.classList.toggle('rotate-180');
+            
+            if (items.classList.contains('max-h-0')) {
+                items.classList.remove('max-h-0');
+                items.classList.add('max-h-[1000px]');
+            } else {
+                items.classList.remove('max-h-[1000px]');
+                items.classList.add('max-h-0');
+            }
         }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
+            const overlay = document.getElementById('overlay');
             
-            sidebar.classList.toggle('hidden');
-            sidebar.classList.toggle('visible');
-            mainContent.classList.toggle('expanded');
+            sidebar.classList.toggle('-translate-x-full');
+            overlay.classList.toggle('hidden');
+        }
+
+        function updateActiveLink(activeLink) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('bg-gray-200', 'dark:bg-gray-800', 'border-primary', 'dark:border-blue-400', 'font-semibold');
+            });
+            
+            if (activeLink) {
+                activeLink.classList.add('bg-gray-200', 'dark:bg-gray-800', 'border-primary', 'dark:border-blue-400', 'font-semibold');
+            }
         }
 
         function handleNavClick(event, path, name) {
             // Let the link work normally (navigate to the page)
-            // But we could add analytics or other logic here if needed
             return true;
         }
 
@@ -553,24 +423,13 @@
             event.preventDefault();
             currentView = 'home';
             
-            // Update active states
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            
+            updateActiveLink(event.currentTarget);
             renderContent();
         }
 
-        // Close sidebar on mobile when clicking outside
+        // Close sidebar on mobile when clicking a link
         document.addEventListener('click', function(event) {
-            const sidebar = document.getElementById('sidebar');
-            const toggle = document.querySelector('.sidebar-toggle');
-            
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(event.target) && 
-                !toggle.contains(event.target) &&
-                !sidebar.classList.contains('hidden')) {
+            if (event.target.closest('.nav-link') && window.innerWidth < 1024) {
                 toggleSidebar();
             }
         });
