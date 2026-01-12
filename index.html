@@ -53,8 +53,7 @@
                 transform: rotate(180deg);
             }
             .sidebar-collapsed .nav-section-toggle {
-                justify-content: center;
-                padding: 8px 0;
+                display: none;
             }
             .sidebar-collapsed .nav-section-items {
                 padding-top: 8px;
@@ -276,18 +275,15 @@
         const categories = {
             'screens': {
                 name: 'Classroom Screens',
-                description: 'Interactive displays for classroom management and games',
-                icon: 'monitor' // Lucide icon name
+                description: 'Interactive displays for classroom management and games'
             },
             'classroom-screens': {
                 name: 'Classroom Screens',
-                description: 'Interactive displays for classroom management',
-                icon: 'monitor'
+                description: 'Interactive displays for classroom management'
             },
             'planning': {
                 name: 'Planning Tools',
-                description: 'Lesson planning and tracking',
-                icon: 'clipboard-list'
+                description: 'Lesson planning and tracking'
             }
         };
 
@@ -377,25 +373,17 @@
             Object.keys(toolsData).forEach(category => {
                 const categoryInfo = categories[category] || { 
                     name: formatName(category), 
-                    description: '',
-                    icon: 'folder'
+                    description: ''
                 };
                 const tools = toolsData[category];
                 
                 const section = document.createElement('div');
                 section.className = 'mb-2';
                 section.innerHTML = `
-                    <button 
-                        class="nav-section-toggle w-full flex items-center justify-between px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-800 transition-all"
-                        onclick="toggleSection(this)"
-                    >
-                        <span class="flex items-center gap-2">
-                            <i data-lucide="${categoryInfo.icon}" class="w-4 h-4"></i>
-                            <span class="sidebar-text">${categoryInfo.name}</span>
-                        </span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 transition-transform sidebar-text"></i>
-                    </button>
-                    <div class="nav-section-items overflow-hidden max-h-[1000px] transition-all duration-300">
+                    <div class="nav-section-toggle px-6 py-3 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">
+                        <span class="sidebar-text">${categoryInfo.name}</span>
+                    </div>
+                    <div class="nav-section-items">
                         ${tools.map(tool => {
                             const icon = toolIcons[category]?.[tool.name] || 'file';
                             return `
@@ -562,21 +550,6 @@
                 .split(' ')
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
-        }
-
-        function toggleSection(button) {
-            const chevron = button.querySelector('[data-lucide="chevron-down"]');
-            const items = button.nextElementSibling;
-            
-            if (items.classList.contains('max-h-0')) {
-                items.classList.remove('max-h-0');
-                items.classList.add('max-h-[1000px]');
-                chevron.style.transform = 'rotate(0deg)';
-            } else {
-                items.classList.remove('max-h-[1000px]');
-                items.classList.add('max-h-0');
-                chevron.style.transform = 'rotate(-90deg)';
-            }
         }
 
         function toggleSidebar() {
