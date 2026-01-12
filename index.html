@@ -169,6 +169,7 @@
             margin-left: 280px;
             padding: 40px;
             transition: margin-left 0.3s ease;
+            max-width: 100%;
         }
 
         .main-content.expanded {
@@ -218,7 +219,7 @@
         .content-header p {
             font-size: 18px;
             color: var(--text-muted);
-            max-width: 700px;
+            max-width: 100%;
         }
 
         .tool-grid {
@@ -407,14 +408,30 @@
                     const folderResponse = await fetch(folder.url);
                     const files = await folderResponse.json();
                     
-                    // Filter to HTML files only (excluding index.html)
-                    const htmlFiles = files
+                    // Check if this folder has HTML files directly
+                    let htmlFiles = files
                         .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
                         .map(file => ({
                             name: file.name.replace('.html', ''),
                             path: `${folder.name}/${file.name}`,
                             folder: folder.name
                         }));
+                    
+                    // If this is the screens folder, check for nested screens folder
+                    if (folder.name === 'screens' && htmlFiles.length === 0) {
+                        const nestedScreens = files.find(f => f.type === 'dir' && f.name === 'screens');
+                        if (nestedScreens) {
+                            const nestedResponse = await fetch(nestedScreens.url);
+                            const nestedFiles = await nestedResponse.json();
+                            htmlFiles = nestedFiles
+                                .filter(file => file.name.endsWith('.html') && file.name !== 'index.html')
+                                .map(file => ({
+                                    name: file.name.replace('.html', ''),
+                                    path: `${folder.name}/${nestedScreens.name}/${file.name}`,
+                                    folder: folder.name
+                                }));
+                        }
+                    }
                     
                     if (htmlFiles.length > 0) {
                         toolsData[folder.name] = htmlFiles;
