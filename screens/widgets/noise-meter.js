@@ -12,10 +12,10 @@ const NoiseMeterWidget = (function() {
         THRESHOLDS: [30, 40, 60, 75, 90],
         THRESHOLD_LABELS: [
             '🤫 SILENT',
-            '👥 PARTNER VOICE',
+            '💬 PARTNER VOICE',
             '🗣️ GROUP VOICE',
-            '📢 PRESENTATION VOICE',
-            '📊 OUTSIDE VOICE'
+            '📊 PRESENTATION VOICE',
+            '📢 OUTSIDE VOICE'
         ],
         DEFAULT_THRESHOLD: 2,
         WARNING_MULTIPLIER: 0.7
@@ -95,9 +95,9 @@ const NoiseMeterWidget = (function() {
             const thresholdLevel = thresholdSlider ? parseInt(thresholdSlider.value, 10) : CONSTANTS.DEFAULT_THRESHOLD;
             const threshold = CONSTANTS.THRESHOLDS[thresholdLevel];
             
-            // Change color based on level
+            // Change color based on level - KEEP THIS FUNCTIONALITY
             if (percentage > threshold) {
-                noiseFillEl.style.background = '#e74c3c';
+                noiseFillEl.style.background = '#ef4444'; // red-500
                 
                 // Play ding if cooldown passed
                 const now = Date.now();
@@ -110,9 +110,9 @@ const NoiseMeterWidget = (function() {
                     }
                 }
             } else if (percentage > threshold * CONSTANTS.WARNING_MULTIPLIER) {
-                noiseFillEl.style.background = '#f39c12';
+                noiseFillEl.style.background = '#f59e0b'; // amber-500
             } else {
-                noiseFillEl.style.background = '#2ecc71';
+                noiseFillEl.style.background = '#10b981'; // emerald-500
             }
             
             animationId = requestAnimationFrame(updateNoiseLevel);
@@ -143,8 +143,8 @@ const NoiseMeterWidget = (function() {
             noiseMeterActive = true;
             lastDingTime = 0;
             
-            if (startBtn) startBtn.style.display = 'none';
-            if (stopBtn) stopBtn.style.display = 'block';
+            if (startBtn) startBtn.classList.add('hidden');
+            if (stopBtn) stopBtn.classList.remove('hidden');
             
             updateNoiseLevel();
         } catch (error) {
@@ -211,8 +211,8 @@ const NoiseMeterWidget = (function() {
         
         // Reset UI
         if (noiseFillEl) noiseFillEl.style.width = '0%';
-        if (startBtn) startBtn.style.display = 'block';
-        if (stopBtn) stopBtn.style.display = 'none';
+        if (startBtn) startBtn.classList.remove('hidden');
+        if (stopBtn) stopBtn.classList.add('hidden');
     }
     
     /**
@@ -236,23 +236,53 @@ const NoiseMeterWidget = (function() {
     }
     
     /**
-     * Create noise meter widget HTML
+     * Create noise meter widget HTML with Tailwind classes
      */
     function createNoiseMeterWidget(defaultThreshold = CONSTANTS.DEFAULT_THRESHOLD) {
         return `
-            <h2>Noise Meter</h2>
-            <div class="threshold-slider">
-                <input type="range" id="noiseThreshold" min="0" max="4" value="${defaultThreshold}" step="1">
-            </div>
-            <div class="noise-container">
-                <div class="noise-fill" id="noiseFill"></div>
-                <div class="noise-label" id="noiseLabel">${CONSTANTS.THRESHOLD_LABELS[defaultThreshold]}</div>
-            </div>
-            <div class="threshold-counter" id="thresholdCounter">Warnings: 0</div>
-            <div class="timer-buttons">
-                <button id="startNoise" onclick="NoiseMeterWidget.start()">Start Noise Meter</button>
-                <button id="stopNoise" onclick="NoiseMeterWidget.stop()" style="display: none;">Stop Noise Meter</button>
-                <button onclick="NoiseMeterWidget.resetCounter()">Reset Counter</button>
+            <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
+                <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">Noise Meter</h2>
+                
+                <div class="my-4">
+                    <input type="range" 
+                           id="noiseThreshold" 
+                           min="0" 
+                           max="4" 
+                           value="${defaultThreshold}" 
+                           step="1"
+                           class="w-full h-2 rounded bg-gray-200 dark:bg-gray-700 outline-none cursor-pointer">
+                </div>
+                
+                <div class="relative h-24 bg-gray-200 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden my-5">
+                    <div id="noiseFill" 
+                         class="absolute bottom-0 left-0 h-full transition-all duration-100"
+                         style="width: 0%; background: #10b981;"></div>
+                    <div id="noiseLabel" 
+                         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-gray-900 dark:text-gray-100 z-10"
+                         style="text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);">${CONSTANTS.THRESHOLD_LABELS[defaultThreshold]}</div>
+                </div>
+                
+                <div id="thresholdCounter" 
+                     class="text-center text-gray-600 dark:text-gray-400 text-base my-2.5">
+                    Warnings: 0
+                </div>
+                
+                <div class="flex gap-2.5 justify-center flex-wrap mt-auto">
+                    <button id="startNoise" 
+                            onclick="NoiseMeterWidget.start()"
+                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        Start Monitoring
+                    </button>
+                    <button id="stopNoise" 
+                            onclick="NoiseMeterWidget.stop()"
+                            class="hidden bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        Stop
+                    </button>
+                    <button onclick="NoiseMeterWidget.resetCounter()"
+                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        Reset Counter
+                    </button>
+                </div>
             </div>
         `;
     }

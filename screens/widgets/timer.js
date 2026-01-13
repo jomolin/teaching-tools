@@ -116,11 +116,11 @@ const TimerWidget = (function() {
             clearTimeout(instance.alarmTimeout);
             
             if (instance.elements.stopAlarmBtn) {
-                instance.elements.stopAlarmBtn.style.display = 'none';
+                instance.elements.stopAlarmBtn.classList.add('hidden');
             }
             
             if (instance.elements.timerDisplay) {
-                instance.elements.timerDisplay.classList.remove('alarm');
+                instance.elements.timerDisplay.classList.remove('animate-pulse', 'bg-red-500', 'text-white');
             }
             
             if (instance.audioContext) {
@@ -154,11 +154,11 @@ const TimerWidget = (function() {
                     instance.timerInterval = null;
                     
                     instance.elements.timerDisplay.textContent = "TIME'S UP!";
-                    instance.elements.timerDisplay.classList.add('alarm');
+                    instance.elements.timerDisplay.classList.add('animate-pulse', 'bg-red-500', 'text-white');
                     instance.elements.timerDisplay.contentEditable = 'false';
                     
                     if (instance.elements.stopAlarmBtn) {
-                        instance.elements.stopAlarmBtn.style.display = 'block';
+                        instance.elements.stopAlarmBtn.classList.remove('hidden');
                     }
                     
                     instance.startAlarm();
@@ -191,8 +191,7 @@ const TimerWidget = (function() {
             
             if (instance.elements.timerDisplay) {
                 instance.elements.timerDisplay.textContent = instance.defaultTimeValue;
-                instance.elements.timerDisplay.style.color = '#667eea';
-                instance.elements.timerDisplay.classList.remove('alarm');
+                instance.elements.timerDisplay.classList.remove('animate-pulse', 'bg-red-500', 'text-white');
                 instance.elements.timerDisplay.contentEditable = 'true';
             }
         };
@@ -201,17 +200,37 @@ const TimerWidget = (function() {
     }
     
     /**
-     * Create timer widget HTML
+     * Create timer widget HTML with Tailwind classes
      */
     function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME) {
         return `
-            <h2>Timer</h2>
-            <div class="timer-display" id="timerDisplay-${instanceId}" contenteditable="true">${defaultTime}</div>
-            <div class="timer-buttons">
-                <button onclick="TimerWidget.start('${instanceId}')">Start</button>
-                <button onclick="TimerWidget.pause('${instanceId}')">Pause</button>
-                <button onclick="TimerWidget.reset('${instanceId}')">Reset</button>
-                <button class="stop-alarm" id="stopAlarm-${instanceId}" onclick="TimerWidget.stopAlarm('${instanceId}')">STOP ALARM</button>
+            <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
+                <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">Timer</h2>
+                
+                <div id="timerDisplay-${instanceId}" 
+                     contenteditable="true"
+                     class="text-7xl text-center text-primary dark:text-blue-400 font-bold my-5 border-2 border-transparent p-2.5 rounded-lg cursor-text focus:outline-none focus:border-primary dark:focus:border-blue-400 focus:bg-gray-50 dark:focus:bg-gray-800"
+                >${defaultTime}</div>
+                
+                <div class="flex gap-2.5 justify-center flex-wrap mt-auto">
+                    <button onclick="TimerWidget.start('${instanceId}')"
+                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        Start
+                    </button>
+                    <button onclick="TimerWidget.pause('${instanceId}')"
+                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        Pause
+                    </button>
+                    <button onclick="TimerWidget.reset('${instanceId}')"
+                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        Reset
+                    </button>
+                    <button id="stopAlarm-${instanceId}" 
+                            onclick="TimerWidget.stopAlarm('${instanceId}')"
+                            class="hidden bg-red-500 text-white border-2 border-red-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-600 transition-all">
+                        STOP ALARM
+                    </button>
+                </div>
             </div>
         `;
     }

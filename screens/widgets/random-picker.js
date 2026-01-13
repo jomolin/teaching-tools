@@ -193,7 +193,8 @@ const RandomPickerWidget = (function() {
              */
             instance.openModal = function() {
                 if (instance.elements.editModal) {
-                    instance.elements.editModal.style.display = 'flex';
+                    instance.elements.editModal.classList.remove('hidden');
+                    instance.elements.editModal.classList.add('flex');
                 }
             };
 
@@ -202,7 +203,8 @@ const RandomPickerWidget = (function() {
              */
             instance.closeModal = function() {
                 if (instance.elements.editModal) {
-                    instance.elements.editModal.style.display = 'none';
+                    instance.elements.editModal.classList.add('hidden');
+                    instance.elements.editModal.classList.remove('flex');
                 }
             };
 
@@ -359,41 +361,73 @@ const RandomPickerWidget = (function() {
      */
     function createRandomPickerWidget(instanceId, title = 'Random Picker') {
         return `
-        <h2>${title}</h2>
-        <div class="random-result" id="randomResult-${instanceId}"></div>
-        <div class="remaining-count" id="remainingCount-${instanceId}"></div>
-        <div style="flex-grow: 1;"></div>
-        <div class="timer-buttons">
-        <button onclick="RandomPickerWidget.pick('${instanceId}')">Pick Random</button>
-        <button onclick="RandomPickerWidget.openModal('${instanceId}')">Edit List</button>
-        <button onclick="RandomPickerWidget.reset('${instanceId}')">Reset List</button>
+        <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
+            <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">${title}</h2>
+            <div id="randomResult-${instanceId}" 
+                 class="text-center text-primary dark:text-blue-400 font-bold my-5 flex items-center justify-center flex-grow overflow-hidden p-2.5 min-h-0 break-words"
+                 style="font-size: 72px; line-height: 1.2;"></div>
+            <div id="remainingCount-${instanceId}" 
+                 class="text-center text-gray-600 dark:text-gray-400 text-sm mt-2.5"></div>
+            <div class="flex gap-2.5 justify-center flex-wrap mt-4">
+                <button onclick="RandomPickerWidget.pick('${instanceId}')"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    Pick Random
+                </button>
+                <button onclick="RandomPickerWidget.openModal('${instanceId}')"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    Edit List
+                </button>
+                <button onclick="RandomPickerWidget.reset('${instanceId}')"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    Reset List
+                </button>
+            </div>
         </div>
         `;
     }
 
     /**
-     * Create modal HTML
+     * Create modal HTML with Tailwind classes
      */
     function createModalHTML(instanceId) {
         return `
-        <div class="modal-overlay" onclick="RandomPickerWidget.closeModal('${instanceId}')"></div>
-        <div class="modal-content">
-        <h2>Edit List</h2>
-        <div style="margin: 15px 0;">
-        <select id="listSelector-${instanceId}" onchange="RandomPickerWidget.loadList('${instanceId}')" style="width: 100%; padding: 10px; font-size: 16px; border: 2px solid #667eea; border-radius: 8px;">
-        <option value="">-- Select a saved list --</option>
-        </select>
-        </div>
-        <textarea id="itemsList-${instanceId}" placeholder="Enter items (one per line)&#10;Student 1&#10;Student 2&#10;Student 3" style="width: 100%; height: 200px; padding: 10px; font-size: 16px; border: 2px solid #667eea; border-radius: 8px; margin: 10px 0;"></textarea>
-        <div class="timer-buttons" style="margin-top: 10px;">
-        <button onclick="RandomPickerWidget.saveList('${instanceId}')">💾 Save Current List</button>
-        <button onclick="RandomPickerWidget.deleteList('${instanceId}')" style="background: #e74c3c;">🗑️ Delete Selected</button>
-        <button onclick="RandomPickerWidget.exportLists('${instanceId}')">📤 Export All Lists</button>
-        <button onclick="RandomPickerWidget.importLists('${instanceId}')">📥 Import Lists</button>
-        </div>
-        <div class="timer-buttons" style="margin-top: 10px;">
-        <button onclick="RandomPickerWidget.closeModal('${instanceId}')">Close</button>
-        </div>
+        <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onclick="RandomPickerWidget.closeModal('${instanceId}')"></div>
+        <div class="relative bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-8 max-w-[600px] w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl z-50">
+            <h2 class="text-gray-900 dark:text-gray-100 mb-5 text-2xl font-semibold">Edit List</h2>
+            <div class="my-4">
+                <select id="listSelector-${instanceId}" 
+                        onchange="RandomPickerWidget.loadList('${instanceId}')" 
+                        class="w-full p-2.5 text-base bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-primary dark:border-blue-400 rounded-lg focus:outline-none">
+                    <option value="">-- Select a saved list --</option>
+                </select>
+            </div>
+            <textarea id="itemsList-${instanceId}" 
+                      placeholder="Enter items (one per line)&#10;Student 1&#10;Student 2&#10;Student 3" 
+                      class="w-full h-52 p-2.5 text-base bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-primary dark:border-blue-400 rounded-lg my-2.5 focus:outline-none"></textarea>
+            <div class="flex gap-2.5 mt-2.5 flex-wrap">
+                <button onclick="RandomPickerWidget.saveList('${instanceId}')"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    💾 Save Current List
+                </button>
+                <button onclick="RandomPickerWidget.deleteList('${instanceId}')"
+                        class="bg-red-500 text-white border-2 border-red-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-600 transition-all">
+                    🗑️ Delete Selected
+                </button>
+                <button onclick="RandomPickerWidget.exportLists('${instanceId}')"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    📤 Export All Lists
+                </button>
+                <button onclick="RandomPickerWidget.importLists('${instanceId}')"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    📥 Import Lists
+                </button>
+            </div>
+            <div class="flex gap-2.5 mt-2.5 flex-wrap">
+                <button onclick="RandomPickerWidget.closeModal('${instanceId}')"
+                        class="bg-gray-500 dark:bg-gray-700 text-white border-2 border-gray-600 dark:border-gray-600 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    Close
+                </button>
+            </div>
         </div>
         `;
     }
@@ -435,7 +469,7 @@ const RandomPickerWidget = (function() {
             // Add modal to container (each instance has its own modal)
             const modal = document.createElement('div');
             modal.id = `editModal-${instanceId}`;
-            modal.style.cssText = 'display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; align-items: center; justify-content: center;';
+            modal.className = 'hidden fixed top-0 left-0 w-full h-full z-[1000] items-center justify-center';
             modal.innerHTML = createModalHTML(instanceId);
             container.appendChild(modal);
 
