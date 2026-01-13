@@ -180,7 +180,8 @@ const SevenPickersWidget = (function() {
 
         if (modal && textarea) {
             textarea.value = studentList.join('\n');
-            modal.style.display = 'flex';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
         }
     }
 
@@ -190,7 +191,8 @@ const SevenPickersWidget = (function() {
     function closeStudentEditor() {
         const modal = containerElement.querySelector('#studentListModal');
         if (modal) {
-            modal.style.display = 'none';
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
         }
     }
 
@@ -218,22 +220,22 @@ const SevenPickersWidget = (function() {
         if (!containerElement) return;
 
         const pickersHTML = pickerStates.map((picker, index) => `
-        <div class="picker-slot ${picker.locked ? 'locked' : ''}">
-        <div class="picker-number">${index + 1}</div>
-        <input
-        type="text"
-        class="picker-input"
-        value="${picker.name}"
-        placeholder="Empty"
-        onchange="SevenPickersWidget.updateName(${index}, this.value)"
-        >
-        <button
-        class="lock-button ${picker.locked ? 'locked' : ''}"
-        onclick="SevenPickersWidget.toggleLock(${index})"
-        title="${picker.locked ? 'Unlock' : 'Lock'}"
-        >
-        ${picker.locked ? '🔒' : '🔓'}
-        </button>
+        <div class="flex items-center gap-2 p-3 bg-white dark:bg-gray-800 border-2 ${picker.locked ? 'border-yellow-400 dark:border-yellow-500' : 'border-gray-300 dark:border-gray-700'} rounded-lg">
+            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary dark:bg-blue-500 text-white rounded-full font-bold text-sm">${index + 1}</div>
+            <input
+                type="text"
+                class="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary dark:focus:border-blue-400"
+                value="${picker.name}"
+                placeholder="Empty"
+                onchange="SevenPickersWidget.updateName(${index}, this.value)"
+            >
+            <button
+                class="flex-shrink-0 w-10 h-10 flex items-center justify-center text-2xl hover:scale-110 transition-transform"
+                onclick="SevenPickersWidget.toggleLock(${index})"
+                title="${picker.locked ? 'Unlock' : 'Lock'}"
+            >
+                ${picker.locked ? '🔒' : '🔓'}
+            </button>
         </div>
         `).join('');
 
@@ -241,29 +243,48 @@ const SevenPickersWidget = (function() {
     }
 
     /**
-     * Create widget HTML
+     * Create widget HTML with Tailwind classes
      */
     function createWidgetHTML() {
         return `
-        <h2>The 7 Pickers</h2>
-        <div class="pickers-grid"></div>
-        <div class="timer-buttons" style="margin-top: 15px;">
-        <button onclick="SevenPickersWidget.randomize()">🎲 Pick 7 Random</button>
-        <button onclick="SevenPickersWidget.openEditor()">📝 Edit Student List</button>
-        <button onclick="SevenPickersWidget.clearAll()" style="background: #e74c3c;">Clear All</button>
-        </div>
+        <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
+            <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">The 7 Pickers</h2>
+            <div class="pickers-grid grid grid-cols-1 gap-3 mb-4 flex-grow"></div>
+            <div class="flex gap-2.5 justify-center flex-wrap mt-4">
+                <button onclick="SevenPickersWidget.randomize()"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    🎲 Pick 7 Random
+                </button>
+                <button onclick="SevenPickersWidget.openEditor()"
+                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                    📝 Edit Student List
+                </button>
+                <button onclick="SevenPickersWidget.clearAll()"
+                        class="bg-red-500 text-white border-2 border-red-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-600 transition-all">
+                    Clear All
+                </button>
+            </div>
 
-        <div id="studentListModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; align-items: center; justify-content: center;">
-        <div class="modal-overlay" onclick="SevenPickersWidget.closeEditor()"></div>
-        <div class="modal-content">
-        <h2>Edit Student List</h2>
-        <p style="color: #666; margin-bottom: 10px;">Enter one student name per line:</p>
-        <textarea id="studentListTextarea" placeholder="Student 1&#10;Student 2&#10;Student 3&#10;..." style="width: 100%; height: 300px; padding: 10px; font-size: 16px; border: 2px solid #667eea; border-radius: 8px; font-family: Arial, sans-serif;"></textarea>
-        <div class="timer-buttons" style="margin-top: 15px;">
-        <button onclick="SevenPickersWidget.saveStudentList()">💾 Save Student List</button>
-        <button onclick="SevenPickersWidget.closeEditor()">Cancel</button>
-        </div>
-        </div>
+            <div id="studentListModal" class="hidden fixed top-0 left-0 w-full h-full z-[1000] items-center justify-center">
+                <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onclick="SevenPickersWidget.closeEditor()"></div>
+                <div class="relative bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-8 max-w-[600px] w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl z-50">
+                    <h2 class="text-gray-900 dark:text-gray-100 mb-5 text-2xl font-semibold">Edit Student List</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-2.5">Enter one student name per line:</p>
+                    <textarea id="studentListTextarea" 
+                              placeholder="Student 1&#10;Student 2&#10;Student 3&#10;..." 
+                              class="w-full h-72 p-2.5 text-base bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-primary dark:border-blue-400 rounded-lg focus:outline-none"></textarea>
+                    <div class="flex gap-2.5 mt-4 flex-wrap">
+                        <button onclick="SevenPickersWidget.saveStudentList()"
+                                class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            💾 Save Student List
+                        </button>
+                        <button onclick="SevenPickersWidget.closeEditor()"
+                                class="bg-gray-500 dark:bg-gray-700 text-white border-2 border-gray-600 dark:border-gray-600 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
         `;
     }

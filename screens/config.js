@@ -1,3 +1,29 @@
+// Theme sync with index.html sidebar - must run immediately
+(function() {
+    'use strict';
+    
+    const theme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Apply theme immediately
+    if (theme === 'dark' || (!theme && systemPrefersDark)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+    
+    // Listen for theme changes from other tabs/windows
+    window.addEventListener('storage', function(e) {
+        if (e.key === 'theme') {
+            if (e.newValue === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+    });
+})();
+
 // Shared configuration for all classroom widgets
 const ClassroomConfig = (function() {
     'use strict';
@@ -5,14 +31,14 @@ const ClassroomConfig = (function() {
     return {
         // Theme colors
         COLORS: {
-            PRIMARY: '#667eea',
-            SECONDARY: '#764ba2',
-            SUCCESS: '#2ecc71',
-            WARNING: '#f39c12',
-            DANGER: '#e74c3c',
-            TEXT: '#333',
-            TEXT_LIGHT: '#555',
-            TEXT_PLACEHOLDER: '#999'
+            PRIMARY: '#0066cc',
+            PRIMARY_DARK: '#0052a3',
+            SUCCESS: '#10b981',
+            WARNING: '#f59e0b',
+            DANGER: '#ef4444',
+            TEXT: '#111827',
+            TEXT_LIGHT: '#6b7280',
+            TEXT_PLACEHOLDER: '#9ca3af'
         },
         
         // Timer defaults
