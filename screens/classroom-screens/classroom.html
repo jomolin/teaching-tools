@@ -6,38 +6,6 @@
     <title>Classroom Display</title>
     <link rel="stylesheet" href="../../style.css">
     <link rel="stylesheet" href="../../widgets.css">
-    <style>
-        /* Override styles.css gradient background to support dark mode */
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-        
-        .dark body {
-            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-        }
-    </style>
-    <script>
-        // Theme system - must run before page loads
-        function initTheme() {
-            const savedTheme = localStorage.getItem('theme');
-            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            
-            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
-
-        function toggleTheme() {
-            const html = document.documentElement;
-            const isDark = html.classList.toggle('dark');
-            localStorage.setItem('theme', isDark ? 'dark' : 'light');
-        }
-
-        // Run immediately
-        initTheme();
-    </script>
 </head>
 <body>
     <div class="controls" style="margin-bottom: 20px;">
