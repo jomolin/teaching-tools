@@ -4,10 +4,57 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom Display</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../../widgets.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    <style>
+        /* Widget styles that work with Tailwind CDN */
+        .widget {
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+        }
+        
+        .dark .widget {
+            background-color: #1f2937;
+            border-color: #374151;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+    </style>
+    <script>
+        // Theme system - must run before page loads
+        function initTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const isDark = html.classList.toggle('dark');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Run immediately
+        initTheme();
+    </script>
 </head>
-<body>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen p-6">
     <div class="controls" style="margin-bottom: 20px;">
         <div class="title-widget widget" style="flex: 2 1 0;"></div>
         <div class="timer-widget widget" style="flex: 1 1 0;"></div>
