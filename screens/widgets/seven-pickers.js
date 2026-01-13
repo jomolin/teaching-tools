@@ -249,7 +249,7 @@ const SevenPickersWidget = (function() {
         return `
         <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
             <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">The 7 Pickers</h2>
-            <div class="pickers-grid grid grid-cols-1 gap-3 mb-4 flex-grow"></div>
+            <div class="pickers-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4 flex-grow"></div>
             <div class="flex gap-2.5 justify-center flex-wrap mt-4">
                 <button onclick="SevenPickersWidget.randomize()"
                         class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
