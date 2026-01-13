@@ -224,13 +224,13 @@ const SevenPickersWidget = (function() {
             <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary dark:bg-blue-500 text-white rounded-full font-bold text-sm">${index + 1}</div>
             <input
                 type="text"
-                class="flex-1 px-3 py-2 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary dark:focus:border-blue-400"
+                class="flex-1 min-w-0 px-3 py-2 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary dark:focus:border-blue-400 text-sm"
                 value="${picker.name}"
                 placeholder="Empty"
                 onchange="SevenPickersWidget.updateName(${index}, this.value)"
             >
             <button
-                class="flex-shrink-0 w-10 h-10 flex items-center justify-center text-2xl hover:scale-110 transition-transform"
+                class="flex-shrink-0 w-9 h-9 flex items-center justify-center text-xl hover:scale-110 transition-transform"
                 onclick="SevenPickersWidget.toggleLock(${index})"
                 title="${picker.locked ? 'Unlock' : 'Lock'}"
             >
