@@ -38,8 +38,8 @@ const ClassroomConfig = (function() {
                 '🤫 SILENT',
                 '👥 PARTNER VOICE',
                 '🗣️ GROUP VOICE',
-                '📢 PRESENTATION VOICE',
-                '📊 OUTSIDE VOICE'
+                '📊 PRESENTATION VOICE',
+                '📢 OUTSIDE VOICE'
             ],
             DEFAULT_THRESHOLD: 2,
             WARNING_MULTIPLIER: 0.7
