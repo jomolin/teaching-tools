@@ -2,6 +2,10 @@
 /* This file contains ONLY widget-specific styles */
 /* Include AFTER style.css for proper theming */
 
+/* These CSS variables will inherit from style.css (Water.css) */
+/* Water.css handles theme switching via @media (prefers-color-scheme) */
+/* OR via data-theme attribute if manually toggled */
+
 /* Body layout override for screen pages */
 /* Only applies to pages that use .controls (screen pages) */
 body:has(.controls) {
@@ -227,6 +231,33 @@ body:has(.controls) {
     gap: 10px;
     justify-content: center;
     flex-wrap: wrap;
+}
+
+/* High contrast buttons for screen widgets */
+.widget button,
+.controls button,
+.modal-buttons button {
+    background: var(--links, #0076d1);
+    color: white;
+    border: 2px solid var(--links, #0076d1);
+    font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+    .widget button,
+    .controls button,
+    .modal-buttons button {
+        background: var(--links, #41adff);
+        border-color: var(--links, #41adff);
+        color: var(--background-body, #202b38);
+    }
+}
+
+.widget button:hover,
+.controls button:hover,
+.modal-buttons button:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
 }
 
 .stop-alarm {
