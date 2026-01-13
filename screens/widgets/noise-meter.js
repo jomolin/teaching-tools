@@ -258,8 +258,7 @@ const NoiseMeterWidget = (function() {
                          class="absolute bottom-0 left-0 h-full transition-all duration-100"
                          style="width: 0%; background: #10b981;"></div>
                     <div id="noiseLabel" 
-                         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-gray-900 dark:text-gray-100 z-10"
-                         style="text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);">${CONSTANTS.THRESHOLD_LABELS[defaultThreshold]}</div>
+                         class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-2xl font-bold text-gray-900 dark:text-gray-100 z-10">${CONSTANTS.THRESHOLD_LABELS[defaultThreshold]}</div>
                 </div>
                 
                 <div id="thresholdCounter" 
