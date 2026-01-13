@@ -4,21 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Heads Up 7-Up</title>
-    <link rel="stylesheet" href="../../style.css">
-    <link rel="stylesheet" href="../../widgets.css">
-</head>
-<body>
-    <div class="controls" style="margin-bottom: 20px;">
-        <div class="title-widget widget" style="flex: 2 1 0;" data-title="Heads Up 7-Up 🕵️👍" data-instructions="<ol><li>7 students are chosen as 'pickers'</li><li>Everyone else puts heads down, thumbs up, eyes closed</li><li>The 7 pickers silently walk around and each press down ONE thumb</li><li>Pickers return to front when time is up</li><li>Students whose thumbs were pressed stand up</li><li>They get TWO ROUNDS to guess who picked them</li><li>Correct guesses swap places with the picker</li></ol>"></div>
-        <div class="timer-widget widget" style="flex: 1 1 0;" data-time="05:00"></div>
-    </div>
-
-    <div class="controls">
-        <div class="seven-pickers-widget widget" style="flex: 2 1 0;"></div>
-        <div class="timer-widget widget" id="pickingTimer" style="flex: 1 1 0;" data-time="00:30"></div>
-    </div>
-
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066cc',
+                        'primary-dark': '#0052a3',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Theme sync loaded from config.js - must be in head to prevent flash -->
     <script src="../config.js"></script>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 p-5 flex flex-col gap-5">
+    <!-- First row: Title (2/3 width) + Timer (1/3 width) - SAME HEIGHT -->
+    <div class="flex gap-5 flex-wrap items-stretch">
+        <div class="title-widget flex-[2_1_0] min-w-[300px] min-h-[200px]" 
+             data-title="Heads Up 7-Up 🕵️👍" 
+             data-instructions="<ol><li>7 students are chosen as 'pickers'</li><li>Everyone else puts heads down, thumbs up, eyes closed</li><li>The 7 pickers silently walk around and each press down ONE thumb</li><li>Pickers return to front when time is up</li><li>Students whose thumbs were pressed stand up</li><li>They get TWO ROUNDS to guess who picked them</li><li>Correct guesses swap places with the picker</li></ol>"></div>
+        <div class="timer-widget flex-[1_1_0] min-w-[250px] min-h-[200px]" data-time="05:00"></div>
+    </div>
+
+    <!-- Second row: Seven Pickers (2/3 width) + Picking Timer (1/3 width) - SAME HEIGHT -->
+    <div class="flex gap-5 flex-wrap items-stretch">
+        <div class="seven-pickers-widget flex-[2_1_0] min-w-[300px] min-h-[400px]"></div>
+        <div class="timer-widget flex-[1_1_0] min-w-[250px] min-h-[400px]" id="pickingTimer" data-time="00:30"></div>
+    </div>
+
     <script src="../widgets/title.js"></script>
     <script src="../widgets/timer.js"></script>
     <script src="../widgets/seven-pickers.js"></script>
