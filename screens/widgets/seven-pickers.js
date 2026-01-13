@@ -4,48 +4,58 @@ const SevenPickersWidget = (function() {
 
     const CONSTANTS = {
         STORAGE_KEY: 'sevenPickersState',
-        STUDENT_LIST_KEY: 'sevenPickersStudentList',
+        SELECTED_LIST_KEY: 'sevenPickersSelectedList',
         RANDOM_PICKER_STORAGE: 'randomPickerLists',
-        DEFAULT_LIST: 'Students 2025',
+        DEFAULT_LIST: 'Students 2026',
         NUM_PICKERS: 7
     };
 
     // Widget state
     let pickerStates = [];
     let studentList = [];
+    let selectedListName = '';
     let containerElement = null;
 
     /**
-     * Load student list - try multiple sources
+     * Load student list from random picker storage based on selected list
      */
     function loadStudentList() {
-        // First, try to load from our own storage
-        studentList = ClassroomUtils.getFromStorage(CONSTANTS.STUDENT_LIST_KEY, null);
-        if (studentList) {
-            console.log('Loaded student list from seven-pickers storage');
-            return;
-        }
-
-        // Second, try to load from random picker storage
+        // Load which list was last selected
+        selectedListName = ClassroomUtils.getFromStorage(CONSTANTS.SELECTED_LIST_KEY, CONSTANTS.DEFAULT_LIST);
+        
+        // Load all lists from random picker storage
         const lists = ClassroomUtils.getFromStorage(CONSTANTS.RANDOM_PICKER_STORAGE, null);
-        if (lists) {
-            studentList = lists[CONSTANTS.DEFAULT_LIST] || [];
-            if (studentList.length > 0) {
-                console.log('Loaded student list from random picker storage');
-                saveStudentList(); // Save to our own storage for next time
-                return;
-            }
+        
+        if (lists && lists[selectedListName]) {
+            studentList = lists[selectedListName];
+            console.log(`Loaded student list: ${selectedListName}`);
+        } else {
+            console.log('No student list found');
+            studentList = [];
         }
-
-        console.log('No student list found');
-        studentList = [];
     }
 
     /**
-     * Save student list to localStorage
+     * Get all available student lists from random picker
      */
-    function saveStudentList() {
-        ClassroomUtils.saveToStorage(CONSTANTS.STUDENT_LIST_KEY, studentList);
+    function getAvailableLists() {
+        const lists = ClassroomUtils.getFromStorage(CONSTANTS.RANDOM_PICKER_STORAGE, {});
+        return Object.keys(lists).filter(key => key.toLowerCase().includes('student'));
+    }
+
+    /**
+     * Switch to a different student list
+     */
+    function switchStudentList(listName) {
+        selectedListName = listName;
+        ClassroomUtils.saveToStorage(CONSTANTS.SELECTED_LIST_KEY, listName);
+        loadStudentList();
+        
+        // Update the dropdown
+        const dropdown = containerElement.querySelector('#studentListDropdown');
+        if (dropdown) {
+            dropdown.value = listName;
+        }
     }
 
     /**
@@ -149,41 +159,19 @@ const SevenPickersWidget = (function() {
     }
 
     /**
-     * Open student list editor
+     * Open info modal (now just explains how to use Random Picker)
      */
     function openStudentEditor() {
         const modal = containerElement.querySelector('#studentListModal');
-        const textarea = containerElement.querySelector('#studentListTextarea');
-
-        if (modal && textarea) {
-            textarea.value = studentList.join('\n');
-            ClassroomUtils.toggleModal(modal, true);
-        }
+        ClassroomUtils.toggleModal(modal, true);
     }
 
     /**
-     * Close student list editor
+     * Close info modal
      */
     function closeStudentEditor() {
         const modal = containerElement.querySelector('#studentListModal');
         ClassroomUtils.toggleModal(modal, false);
-    }
-
-    /**
-     * Save student list from editor
-     */
-    function saveStudentListFromEditor() {
-        const textarea = containerElement.querySelector('#studentListTextarea');
-        if (textarea) {
-            const text = textarea.value;
-            studentList = text.split('\n')
-            .map(s => s.trim())
-            .filter(s => s !== '');
-
-            saveStudentList();
-            closeStudentEditor();
-            alert(`Saved ${studentList.length} students!`);
-        }
     }
 
     /**
@@ -216,21 +204,24 @@ const SevenPickersWidget = (function() {
     }
 
     /**
-     * Create widget HTML with Tailwind classes
+     * Create widget HTML with Tailwind classes and student list dropdown
      */
     function createWidgetHTML() {
         return `
         <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
-            <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">The 7 Pickers</h2>
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-primary dark:text-blue-400 text-2xl font-semibold">The 7 Pickers</h2>
+                <select id="studentListDropdown" 
+                        onchange="SevenPickersWidget.switchList(this.value)"
+                        class="px-3 py-1.5 text-sm bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary dark:focus:border-blue-400">
+                    <option value="">Select a list...</option>
+                </select>
+            </div>
             <div class="pickers-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4 flex-grow"></div>
             <div class="flex gap-2.5 justify-center flex-wrap mt-4">
                 <button onclick="SevenPickersWidget.randomize()"
                         class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
                     🎲 Pick 7 Random
-                </button>
-                <button onclick="SevenPickersWidget.openEditor()"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
-                    📝 Edit Student List
                 </button>
                 <button onclick="SevenPickersWidget.clearAll()"
                         class="bg-red-500 text-white border-2 border-red-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-600 transition-all">
@@ -241,25 +232,60 @@ const SevenPickersWidget = (function() {
             <div id="studentListModal" class="hidden fixed top-0 left-0 w-full h-full z-[1000] items-center justify-center">
                 <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onclick="SevenPickersWidget.closeEditor()"></div>
                 <div class="relative bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-8 max-w-[600px] w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl z-50">
-                    <h2 class="text-gray-900 dark:text-gray-100 mb-5 text-2xl font-semibold">Edit Student List</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mb-2.5">Enter one student name per line:</p>
-                    <textarea id="studentListTextarea" 
-                              placeholder="Student 1&#10;Student 2&#10;Student 3&#10;..." 
-                              class="w-full h-72 p-2.5 text-base bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-primary dark:border-blue-400 rounded-lg focus:outline-none"></textarea>
+                    <h2 class="text-gray-900 dark:text-gray-100 mb-5 text-2xl font-semibold">Student List Info</h2>
+                    <p class="text-gray-600 dark:text-gray-400 mb-2.5">This widget loads student lists from the Random Picker widget.</p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">To add or edit student lists:</p>
+                    <ol class="list-decimal ml-6 text-gray-600 dark:text-gray-400 mb-4 space-y-1">
+                        <li>Open any page with the Random Picker widget</li>
+                        <li>Click "Edit List" button</li>
+                        <li>Create or select a list with "Students" in the name</li>
+                        <li>Add your student names (one per line)</li>
+                        <li>Click "Save Current List"</li>
+                    </ol>
+                    <p class="text-gray-600 dark:text-gray-400 mb-4">Then return here and select it from the dropdown above!</p>
                     <div class="flex gap-2.5 mt-4 flex-wrap">
-                        <button onclick="SevenPickersWidget.saveStudentList()"
-                                class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
-                            💾 Save Student List
-                        </button>
                         <button onclick="SevenPickersWidget.closeEditor()"
-                                class="bg-gray-500 dark:bg-gray-700 text-white border-2 border-gray-600 dark:border-gray-600 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
-                            Cancel
+                                class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            Got It!
                         </button>
                     </div>
                 </div>
             </div>
         </div>
         `;
+    }
+
+    /**
+     * Populate the student list dropdown
+     */
+    function populateDropdown() {
+        const dropdown = containerElement.querySelector('#studentListDropdown');
+        if (!dropdown) return;
+
+        const availableLists = getAvailableLists();
+        
+        // Clear existing options except the first placeholder
+        dropdown.innerHTML = '<option value="">Select a list...</option>';
+        
+        // Add all available student lists
+        availableLists.forEach(listName => {
+            const option = document.createElement('option');
+            option.value = listName;
+            option.textContent = listName;
+            if (listName === selectedListName) {
+                option.selected = true;
+            }
+            dropdown.appendChild(option);
+        });
+        
+        // If no lists found, show helpful message
+        if (availableLists.length === 0) {
+            const option = document.createElement('option');
+            option.value = "";
+            option.textContent = "No student lists found - use Random Picker to create one";
+            option.disabled = true;
+            dropdown.appendChild(option);
+        }
     }
 
     /**
@@ -273,12 +299,13 @@ const SevenPickersWidget = (function() {
         loadPickerStates();
 
         containerElement.innerHTML = createWidgetHTML();
+        populateDropdown();
         renderPickers();
 
-        // Show warning if no students
+        // Show info if no students
         if (studentList.length === 0) {
             setTimeout(() => {
-                alert('No student list found! Click "Edit Student List" to add your students.');
+                openStudentEditor();
             }, 500);
         }
     }
@@ -290,9 +317,9 @@ const SevenPickersWidget = (function() {
         toggleLock: toggleLock,
         updateName: updatePickerName,
         clearAll: clearAll,
+        switchList: switchStudentList,
         openEditor: openStudentEditor,
-        closeEditor: closeStudentEditor,
-        saveStudentList: saveStudentListFromEditor
+        closeEditor: closeStudentEditor
     };
 })();
 
