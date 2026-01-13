@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Classroom Display</title>
+    <link rel="stylesheet" href="../styles.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -11,6 +12,41 @@
         }
     </script>
     <style>
+        /* Override Water.css to use our manual dark mode toggle */
+        /* Force light theme by default, ignore system preference */
+        :root {
+            --background-body: #fff;
+            --background: #efefef;
+            --background-alt: #f7f7f7;
+            --selection: #9e9e9e;
+            --text-main: #363636;
+            --text-bright: #000;
+            --text-muted: #70777f;
+            --links: #0076d1;
+            --focus: #0096bfab;
+            --border: #dbdbdb;
+            --code: #000;
+            --button-base: #d0cfcf;
+            --button-hover: #9b9b9b;
+        }
+        
+        /* Apply dark theme only when .dark class is present */
+        .dark {
+            --background-body: #202b38;
+            --background: #161f27;
+            --background-alt: #1a242f;
+            --selection: #1c76c5;
+            --text-main: #dbdbdb;
+            --text-bright: #fff;
+            --text-muted: #a9b1ba;
+            --links: #41adff;
+            --focus: #0096bfab;
+            --border: #526980;
+            --code: #ffbe85;
+            --button-base: #0c151c;
+            --button-hover: #040a0f;
+        }
+        
         /* Widget styles that work with Tailwind CDN */
         .widget {
             background-color: white;
