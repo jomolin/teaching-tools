@@ -19,67 +19,48 @@ const SevenPickersWidget = (function() {
      * Load student list - try multiple sources
      */
     function loadStudentList() {
-        try {
-            // First, try to load from our own storage
-            let stored = localStorage.getItem(CONSTANTS.STUDENT_LIST_KEY);
-            if (stored) {
-                studentList = JSON.parse(stored);
-                console.log('Loaded student list from seven-pickers storage');
+        // First, try to load from our own storage
+        studentList = ClassroomUtils.getFromStorage(CONSTANTS.STUDENT_LIST_KEY, null);
+        if (studentList) {
+            console.log('Loaded student list from seven-pickers storage');
+            return;
+        }
+
+        // Second, try to load from random picker storage
+        const lists = ClassroomUtils.getFromStorage(CONSTANTS.RANDOM_PICKER_STORAGE, null);
+        if (lists) {
+            studentList = lists[CONSTANTS.DEFAULT_LIST] || [];
+            if (studentList.length > 0) {
+                console.log('Loaded student list from random picker storage');
+                saveStudentList(); // Save to our own storage for next time
                 return;
             }
-
-            // Second, try to load from random picker storage
-            stored = localStorage.getItem(CONSTANTS.RANDOM_PICKER_STORAGE);
-            if (stored) {
-                const lists = JSON.parse(stored);
-                studentList = lists[CONSTANTS.DEFAULT_LIST] || [];
-                if (studentList.length > 0) {
-                    console.log('Loaded student list from random picker storage');
-                    saveStudentList(); // Save to our own storage for next time
-                    return;
-                }
-            }
-
-            console.log('No student list found');
-            studentList = [];
-        } catch (error) {
-            console.error('Error loading student list:', error);
-            studentList = [];
         }
+
+        console.log('No student list found');
+        studentList = [];
     }
 
     /**
      * Save student list to localStorage
      */
     function saveStudentList() {
-        try {
-            localStorage.setItem(CONSTANTS.STUDENT_LIST_KEY, JSON.stringify(studentList));
-        } catch (error) {
-            console.error('Error saving student list:', error);
-        }
+        ClassroomUtils.saveToStorage(CONSTANTS.STUDENT_LIST_KEY, studentList);
     }
 
     /**
      * Load saved picker states from localStorage
      */
     function loadPickerStates() {
-        try {
-            const stored = localStorage.getItem(CONSTANTS.STORAGE_KEY);
-            if (stored) {
-                pickerStates = JSON.parse(stored);
-                // Ensure we have exactly 7 pickers
-                while (pickerStates.length < CONSTANTS.NUM_PICKERS) {
-                    pickerStates.push({ name: '', locked: false });
-                }
-            } else {
-                // Initialize empty pickers
-                pickerStates = Array(CONSTANTS.NUM_PICKERS).fill(null).map(() => ({
-                    name: '',
-                    locked: false
-                }));
+        pickerStates = ClassroomUtils.getFromStorage(CONSTANTS.STORAGE_KEY, null);
+        
+        if (pickerStates) {
+            // Ensure we have exactly 7 pickers
+            while (pickerStates.length < CONSTANTS.NUM_PICKERS) {
+                pickerStates.push({ name: '', locked: false });
             }
-        } catch (error) {
-            console.error('Error loading picker states:', error);
+        } else {
+            // Initialize empty pickers
             pickerStates = Array(CONSTANTS.NUM_PICKERS).fill(null).map(() => ({
                 name: '',
                 locked: false
@@ -91,11 +72,7 @@ const SevenPickersWidget = (function() {
      * Save picker states to localStorage
      */
     function savePickerStates() {
-        try {
-            localStorage.setItem(CONSTANTS.STORAGE_KEY, JSON.stringify(pickerStates));
-        } catch (error) {
-            console.error('Error saving picker states:', error);
-        }
+        ClassroomUtils.saveToStorage(CONSTANTS.STORAGE_KEY, pickerStates);
     }
 
     /**
@@ -180,8 +157,7 @@ const SevenPickersWidget = (function() {
 
         if (modal && textarea) {
             textarea.value = studentList.join('\n');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            ClassroomUtils.toggleModal(modal, true);
         }
     }
 
@@ -190,10 +166,7 @@ const SevenPickersWidget = (function() {
      */
     function closeStudentEditor() {
         const modal = containerElement.querySelector('#studentListModal');
-        if (modal) {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
+        ClassroomUtils.toggleModal(modal, false);
     }
 
     /**

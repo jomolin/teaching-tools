@@ -88,6 +88,39 @@ const ClassroomUtils = (function() {
         },
         
         /**
+         * Safely get from localStorage with JSON parsing
+         * @param {string} key - localStorage key
+         * @param {*} fallback - Fallback value if key doesn't exist or parsing fails
+         * @returns {*} Parsed value or fallback
+         */
+        getFromStorage: function(key, fallback = null) {
+            try {
+                const stored = localStorage.getItem(key);
+                if (stored === null) return fallback;
+                return JSON.parse(stored);
+            } catch (error) {
+                console.error('Error reading from localStorage:', error);
+                return fallback;
+            }
+        },
+        
+        /**
+         * Safely save to localStorage with JSON stringification
+         * @param {string} key - localStorage key
+         * @param {*} value - Value to save
+         * @returns {boolean} Success status
+         */
+        saveToStorage: function(key, value) {
+            try {
+                localStorage.setItem(key, JSON.stringify(value));
+                return true;
+            } catch (error) {
+                console.error('Error saving to localStorage:', error);
+                return false;
+            }
+        },
+        
+        /**
          * Debounce function calls
          * @param {Function} func - Function to debounce
          * @param {number} wait - Wait time in milliseconds
@@ -133,6 +166,7 @@ const ClassroomUtils = (function() {
          * @param {string} type - Oscillator type (sine, square, etc.)
          * @param {number} duration - Duration in seconds
          * @param {number} gain - Gain value (0-1)
+         * @returns {Object|null} Object with oscillator and gainNode, or null on error
          */
         createAudioTone: function(audioContext, frequency, type, duration, gain) {
             try {
@@ -155,6 +189,23 @@ const ClassroomUtils = (function() {
             } catch (error) {
                 console.error('Error creating audio tone:', error);
                 return null;
+            }
+        },
+        
+        /**
+         * Show/hide modal with Tailwind classes
+         * @param {HTMLElement} modalElement - The modal element
+         * @param {boolean} show - Whether to show or hide
+         */
+        toggleModal: function(modalElement, show) {
+            if (!modalElement) return;
+            
+            if (show) {
+                modalElement.classList.remove('hidden');
+                modalElement.classList.add('flex');
+            } else {
+                modalElement.classList.add('hidden');
+                modalElement.classList.remove('flex');
             }
         }
     };

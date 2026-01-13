@@ -124,12 +124,8 @@ const TimerWidget = (function() {
             }
             
             if (instance.audioContext) {
-                try {
-                    instance.audioContext.close();
-                    instance.audioContext = null;
-                } catch (error) {
-                    console.error('Error closing audio context:', error);
-                }
+                ClassroomUtils.closeAudioContext(instance.audioContext);
+                instance.audioContext = null;
             }
             
             instance.alarmInterval = null;

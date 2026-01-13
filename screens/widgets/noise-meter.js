@@ -14,8 +14,8 @@ const NoiseMeterWidget = (function() {
             '🤫 SILENT',
             '💬 PARTNER VOICE',
             '🗣️ GROUP VOICE',
-            '📊 PRESENTATION VOICE',
-            '📢 OUTSIDE VOICE'
+            '📢 PRESENTATION VOICE',
+            '📊 OUTSIDE VOICE'
         ],
         DEFAULT_THRESHOLD: 2,
         WARNING_MULTIPLIER: 0.7
@@ -63,11 +63,7 @@ const NoiseMeterWidget = (function() {
             
             // Clean up audio context after sound finishes
             setTimeout(() => {
-                try {
-                    audioCtx.close();
-                } catch (error) {
-                    console.error('Error closing ding audio context:', error);
-                }
+                ClassroomUtils.closeAudioContext(audioCtx);
             }, CONSTANTS.DING_DURATION * 1000 + 100);
         } catch (error) {
             console.error('Error playing ding sound:', error);
@@ -188,24 +184,12 @@ const NoiseMeterWidget = (function() {
         }
         
         // Close audio context
-        if (audioContext) {
-            try {
-                audioContext.close();
-            } catch (error) {
-                console.error('Error closing audio context:', error);
-            }
-            audioContext = null;
-        }
+        ClassroomUtils.closeAudioContext(audioContext);
+        audioContext = null;
         
         // Stop media stream tracks
-        if (mediaStream) {
-            try {
-                mediaStream.getTracks().forEach(track => track.stop());
-            } catch (error) {
-                console.error('Error stopping media stream:', error);
-            }
-            mediaStream = null;
-        }
+        ClassroomUtils.stopMediaStream(mediaStream);
+        mediaStream = null;
         
         analyser = null;
         

@@ -22,13 +22,7 @@ const RandomPickerWidget = (function() {
      * Load saved lists from localStorage
      */
     function loadSavedLists() {
-        try {
-            const stored = localStorage.getItem(CONSTANTS.STORAGE_KEY);
-            savedLists = stored ? JSON.parse(stored) : {};
-        } catch (error) {
-            console.error('Error loading saved lists:', error);
-            savedLists = {};
-        }
+        savedLists = ClassroomUtils.getFromStorage(CONSTANTS.STORAGE_KEY, {});
     }
 
     /**
@@ -50,8 +44,7 @@ const RandomPickerWidget = (function() {
 
                     // Merge JSON lists with existing localStorage lists
                     // JSON lists come first, so localStorage takes priority on conflicts
-                    const stored = localStorage.getItem(CONSTANTS.STORAGE_KEY);
-                    const existingLists = stored ? JSON.parse(stored) : {};
+                    const existingLists = ClassroomUtils.getFromStorage(CONSTANTS.STORAGE_KEY, {});
 
                     // Merge: existing lists override imported lists with same name
                     savedLists = { ...importedLists, ...existingLists };
@@ -74,10 +67,7 @@ const RandomPickerWidget = (function() {
      * Save lists to localStorage
      */
     function saveLists() {
-        try {
-            localStorage.setItem(CONSTANTS.STORAGE_KEY, JSON.stringify(savedLists));
-        } catch (error) {
-            console.error('Error saving lists:', error);
+        if (!ClassroomUtils.saveToStorage(CONSTANTS.STORAGE_KEY, savedLists)) {
             alert('Error saving lists. Storage may be full.');
         }
     }
@@ -192,20 +182,14 @@ const RandomPickerWidget = (function() {
              * Open the edit modal
              */
             instance.openModal = function() {
-                if (instance.elements.editModal) {
-                    instance.elements.editModal.classList.remove('hidden');
-                    instance.elements.editModal.classList.add('flex');
-                }
+                ClassroomUtils.toggleModal(instance.elements.editModal, true);
             };
 
             /**
              * Close the edit modal
              */
             instance.closeModal = function() {
-                if (instance.elements.editModal) {
-                    instance.elements.editModal.classList.add('hidden');
-                    instance.elements.editModal.classList.remove('flex');
-                }
+                ClassroomUtils.toggleModal(instance.elements.editModal, false);
             };
 
             /**
@@ -287,19 +271,8 @@ const RandomPickerWidget = (function() {
              * Export lists to JSON file
              */
             instance.exportLists = function() {
-                try {
-                    const dataStr = JSON.stringify(savedLists, null, 2);
-                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
-                    const url = URL.createObjectURL(dataBlob);
-                    const link = document.createElement('a');
-                    link.href = url;
-                    link.download = 'random-picker-lists.json';
-                    link.click();
-                    URL.revokeObjectURL(url);
-                } catch (error) {
-                    console.error('Error exporting lists:', error);
-                    alert('Error exporting lists. Please try again.');
-                }
+                const dataStr = JSON.stringify(savedLists, null, 2);
+                ClassroomUtils.downloadFile(dataStr, 'random-picker-lists.json', 'application/json');
             };
 
             /**
@@ -317,29 +290,25 @@ const RandomPickerWidget = (function() {
                     const reader = new FileReader();
 
                     reader.onload = function(event) {
-                        try {
-                            const importedLists = JSON.parse(event.target.result);
+                        const importedLists = ClassroomUtils.safeParseJSON(event.target.result, null);
 
-                            if (typeof importedLists !== 'object' || importedLists === null) {
-                                throw new Error('Invalid file format');
-                            }
-
-                            const shouldReplace = confirm('Replace existing lists? (Cancel to merge with current lists)');
-
-                            if (shouldReplace) {
-                                savedLists = importedLists;
-                            } else {
-                                savedLists = { ...savedLists, ...importedLists };
-                            }
-
-                            saveLists();
-                            // Update all instance dropdowns
-                            instances.forEach(inst => inst.updateListDropdown());
-                            alert('Lists imported successfully!');
-                        } catch (error) {
-                            console.error('Error importing lists:', error);
+                        if (!importedLists || typeof importedLists !== 'object') {
                             alert('Error importing file. Make sure it\'s a valid JSON file.');
+                            return;
                         }
+
+                        const shouldReplace = confirm('Replace existing lists? (Cancel to merge with current lists)');
+
+                        if (shouldReplace) {
+                            savedLists = importedLists;
+                        } else {
+                            savedLists = { ...savedLists, ...importedLists };
+                        }
+
+                        saveLists();
+                        // Update all instance dropdowns
+                        instances.forEach(inst => inst.updateListDropdown());
+                        alert('Lists imported successfully!');
                     };
 
                     reader.onerror = function() {
