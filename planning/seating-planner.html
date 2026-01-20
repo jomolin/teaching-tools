@@ -488,6 +488,7 @@
       saveData();
 
       renderSeatingPlan();
+      renderIncompatibleMatrix(); // Update matrix to show new pairing counts
       displayStats();
     }
 
@@ -615,6 +616,7 @@
       }
 
       renderSeatingPlan();
+      renderIncompatibleMatrix(); // Update matrix when viewing historical plans
       displayStats();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
