@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seating Planner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#0066cc',
+            'primary-dark': '#0052a3',
+          }
+        }
+      }
+    }
+  </script>
+  <!-- Theme sync loaded from config.js - must be in head to prevent flash -->
+  <script src="../screens/config.js"></script>
+  <style>
+    .matrix-cell {
+      width: 30px;
+      height: 30px;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+  <div class="container mx-auto p-5 max-w-7xl">
+    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+      <h1 class="text-3xl font-bold mb-6 text-primary dark:text-blue-400">🪑 Classroom Seating Planner</h1>
+
+      <!-- Student List Section -->
+      <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">1. Student List</h2>
+        <p class="mb-3">Enter student names, one per line:</p>
+        <textarea
+          id="studentList"
+          class="w-full p-3 font-mono text-sm border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 resize-y min-h-[150px]"
+          placeholder="Alice&#10;Bob&#10;Charlie"></textarea>
+        <div class="mt-3 space-x-2">
+          <button onclick="parseStudents()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
+            Load Students
+          </button>
+          <button onclick="document.getElementById('fileInput').click()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
+            Upload CSV
+          </button>
+          <input type="file" id="fileInput" accept=".csv,.txt" class="hidden" onchange="handleFileUpload(event)">
+        </div>
+        <div id="studentCount" class="mt-3 font-bold"></div>
+      </div>
+
+      <!-- Layout Configuration -->
+      <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">2. Classroom Layout</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block mb-2 font-medium">Rows of tables:</label>
+            <input type="number" id="layoutRows" value="3" min="1" max="6"
+              class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800"
+              onchange="updateLayout()">
+          </div>
+          <div>
+            <label class="block mb-2 font-medium">Columns of tables:</label>
+            <input type="number" id="layoutCols" value="2" min="1" max="4"
+              class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800"
+              onchange="updateLayout()">
+          </div>
+        </div>
+        <div class="mt-4">
+          <p class="font-medium mb-2">Table Colors (click to change):</p>
+          <div id="tableColorPicker" class="flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+
+      <!-- Incompatible Pairs Section -->
+      <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">3. Incompatible Pairs & History</h2>
+        <p class="mb-3">Click cells to mark incompatible pairs (red ✗ = NEVER sit together). Green numbers show pairing history.</p>
+        <div id="incompatibleMatrix" class="overflow-x-auto"></div>
+      </div>
+
+      <!-- Generate Section -->
+      <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">4. Generate Seating Plan</h2>
+        <p class="mb-3">Enter date for this seating arrangement:</p>
+        <div class="space-x-2 mb-4">
+          <input type="date" id="planDate" class="p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800">
+          <button onclick="generateSeatingPlan()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
+            Generate New Plan
+          </button>
+          <button onclick="showHistory()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
+            View History
+          </button>
+          <button onclick="clearAllData()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded">
+            Clear All Data
+          </button>
+        </div>
+
+        <div id="statsDisplay" class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4"></div>
+      </div>
+
+      <!-- Seating Plan Display -->
+      <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
+        <h2 class="text-xl font-semibold mb-4">5. Current Seating Plan</h2>
+        <div id="classroomDisplay" class="relative bg-green-100 dark:bg-green-900 border-4 border-green-600 rounded-lg p-10 min-h-[600px]">
+          <div class="absolute top-3 left-1/2 transform -translate-x-1/2 font-bold px-4 py-2 bg-gray-900 text-white rounded">
+            WHITEBOARD / SCREEN
+          </div>
+          <div id="seatingArea"></div>
+          <div class="absolute bottom-3 left-1/2 transform -translate-x-1/2 font-bold px-4 py-2 bg-white dark:bg-gray-800 rounded">
+            BACK WALL / WINDOWS
+          </div>
+        </div>
+
+        <div class="mt-4 space-x-2">
+          <button onclick="exportSeatingPlan()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
+            Export as Image
+          </button>
+          <button onclick="downloadData()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
+            Download All Data
+          </button>
+          <button onclick="document.getElementById('uploadData').click()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
+            Import Data
+          </button>
+          <input type="file" id="uploadData" accept=".json" class="hidden" onchange="importData(event)">
+        </div>
+      </div>
+
+      <!-- History Section -->
+      <div id="historySection" class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg hidden">
+        <h2 class="text-xl font-semibold mb-4">Seating History</h2>
+        <div id="historyDisplay"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load utils.js for localStorage helpers -->
+  <script src="../screens/widgets/utils.js"></script>
+
+  <script>
+    // Data structure
+    let students = [];
+    let incompatiblePairs = new Set();
+    let seatingHistory = [];
+    let currentPlan = null;
+    let layoutRows = 3;
+    let layoutCols = 2;
+    let tableColors = {};
+
+    // Storage key
+    const STORAGE_KEY = 'classroomSeating';
+
+    // Default colors
+    const defaultColors = [
+      '#93c5fd', '#fca5a5', '#fde047', '#86efac', '#c4b5fd', '#fdba74',
+      '#a5f3fc', '#fda4af', '#bef264', '#d8b4fe', '#fcd34d', '#fbcfe8'
+    ];
+
+    // Load data from localStorage using utils
+    function loadData() {
+      const data = ClassroomUtils.getFromStorage(STORAGE_KEY, null);
+
+      if (data) {
+        students = data.students || [];
+        incompatiblePairs = new Set(data.incompatiblePairs || []);
+        seatingHistory = data.seatingHistory || [];
+        layoutRows = data.layoutRows || 3;
+        layoutCols = data.layoutCols || 2;
+        tableColors = data.tableColors || {};
+
+        document.getElementById('layoutRows').value = layoutRows;
+        document.getElementById('layoutCols').value = layoutCols;
+
+        if (students.length > 0) {
+          document.getElementById('studentList').value = students.join('\n');
+          parseStudents();
+        }
+
+        updateLayout();
+      } else {
+        updateLayout();
+      }
+    }
+
+    // Save data to localStorage using utils
+    function saveData() {
+      const data = {
+        students,
+        incompatiblePairs: Array.from(incompatiblePairs),
+        seatingHistory,
+        layoutRows,
+        layoutCols,
+        tableColors
+      };
+
+      if (!ClassroomUtils.saveToStorage(STORAGE_KEY, data)) {
+        alert('Error saving data. Storage may be full.');
+      }
+    }
+
+    // Update layout
+    function updateLayout() {
+      layoutRows = parseInt(document.getElementById('layoutRows').value);
+      layoutCols = parseInt(document.getElementById('layoutCols').value);
+
+      // Initialize default colors for tables if not set
+      const totalTables = layoutRows * layoutCols;
+      for (let i = 0; i < totalTables; i++) {
+        if (!tableColors[i]) {
+          tableColors[i] = defaultColors[i % defaultColors.length];
+        }
+      }
+
+      renderTableColorPicker();
+      if (currentPlan) {
+        renderSeatingPlan();
+      }
+      saveData();
+    }
+
+    // Render table color picker
+    function renderTableColorPicker() {
+      const picker = document.getElementById('tableColorPicker');
+      picker.innerHTML = '';
+
+      const totalTables = layoutRows * layoutCols;
+      for (let i = 0; i < totalTables; i++) {
+        const row = Math.floor(i / layoutCols);
+        const col = i % layoutCols;
+        const position = `Row ${row + 1}, Col ${col + 1}`;
+
+        const colorBtn = document.createElement('button');
+        colorBtn.className = 'w-16 h-16 rounded border-2 border-gray-400 dark:border-gray-600 hover:scale-110 transition-transform';
+        colorBtn.style.backgroundColor = tableColors[i];
+        colorBtn.title = position;
+        colorBtn.onclick = () => changeTableColor(i);
+
+        picker.appendChild(colorBtn);
+      }
+    }
+
+    // Change table color
+    function changeTableColor(tableIndex) {
+      const newColor = prompt('Enter a hex color (e.g., #93c5fd):', tableColors[tableIndex]);
+      if (newColor && /^#[0-9A-F]{6}$/i.test(newColor)) {
+        tableColors[tableIndex] = newColor;
+        renderTableColorPicker();
+        if (currentPlan) {
+          renderSeatingPlan();
+        }
+        saveData();
+      } else if (newColor) {
+        alert('Invalid color format. Use hex format like #93c5fd');
+      }
+    }
+
+    // Parse students from textarea
+    function parseStudents() {
+      const input = document.getElementById('studentList').value;
+      students = input
+        .split('\n')
+        .map(s => s.trim())
+        .filter(s => s.length > 0);
+
+      document.getElementById('studentCount').textContent = `${students.length} students loaded`;
+      renderIncompatibleMatrix();
+      saveData();
+    }
+
+    // Handle CSV file upload
+    function handleFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const text = e.target.result;
+        document.getElementById('studentList').value = text;
+        parseStudents();
+      };
+      reader.readAsText(file);
+    }
+
+    // Render incompatible matrix
+    function renderIncompatibleMatrix() {
+      const matrix = document.getElementById('incompatibleMatrix');
+      if (students.length === 0) {
+        matrix.innerHTML = '<p class="text-gray-500 dark:text-gray-400">Load students first</p>';
+        return;
+      }
+
+      let html = '<table class="border-collapse"><thead><tr><th class="border border-gray-400 dark:border-gray-600 p-2"></th>';
+
+      students.forEach(student => {
+        html += `<th class="border border-gray-400 dark:border-gray-600 p-2 text-xs font-bold">${student}</th>`;
+      });
+
+      html += '</tr></thead><tbody>';
+
+      students.forEach((student1, i) => {
+        html += `<tr><th class="border border-gray-400 dark:border-gray-600 p-2 text-xs font-bold">${student1}</th>`;
+
+        students.forEach((student2, j) => {
+          if (i === j) {
+            html += '<td class="border border-gray-400 dark:border-gray-600 bg-gray-300 dark:bg-gray-600 matrix-cell"></td>';
+          } else {
+            const pairKey = [student1, student2].sort().join('|');
+            const isIncompatible = incompatiblePairs.has(pairKey);
+            const pairCount = countPairings(student1, student2);
+
+            const bgColor = isIncompatible
+              ? 'bg-red-500 dark:bg-red-700'
+              : pairCount > 0
+              ? 'bg-green-100 dark:bg-green-900'
+              : 'bg-white dark:bg-gray-800';
+
+            const textContent = isIncompatible ? '✗' : pairCount > 0 ? pairCount : '';
+
+            html += `<td class="border border-gray-400 dark:border-gray-600 matrix-cell ${bgColor} cursor-pointer hover:opacity-80 text-center font-bold"
+                         onclick="toggleIncompatible('${student1}', '${student2}')">${textContent}</td>`;
+          }
+        });
+
+        html += '</tr>';
+      });
+
+      html += '</tbody></table>';
+      matrix.innerHTML = html;
+    }
+
+    // Toggle incompatible pair
+    function toggleIncompatible(student1, student2) {
+      const pairKey = [student1, student2].sort().join('|');
+
+      if (incompatiblePairs.has(pairKey)) {
+        incompatiblePairs.delete(pairKey);
+      } else {
+        incompatiblePairs.add(pairKey);
+      }
+
+      renderIncompatibleMatrix();
+      saveData();
+    }
+
+    // Check if two students are incompatible
+    function areIncompatible(student1, student2) {
+      const pairKey = [student1, student2].sort().join('|');
+      return incompatiblePairs.has(pairKey);
+    }
+
+    // Count how many times two students have sat together
+    function countPairings(student1, student2) {
+      return seatingHistory.filter(plan =>
+        plan.seats.some(seat =>
+          seat.student === student1 && seat.peers.includes(student2)
+        )
+      ).length;
+    }
+
+    // Generate seating plan with algorithm
+    function generateSeatingPlan() {
+      if (students.length === 0) {
+        alert('Load students first');
+        return;
+      }
+
+      const date = document.getElementById('planDate').value;
+      if (!date) {
+        alert('Please select a date');
+        return;
+      }
+
+      const totalTables = layoutRows * layoutCols;
+      const studentsPerTable = Math.ceil(students.length / totalTables);
+
+      // Shuffle students
+      const shuffled = [...students].sort(() => Math.random() - 0.5);
+
+      // Assign students to tables
+      const tables = [];
+      for (let i = 0; i < totalTables; i++) {
+        tables.push([]);
+      }
+
+      shuffled.forEach((student, index) => {
+        const tableIndex = index % totalTables;
+        tables[tableIndex].push(student);
+      });
+
+      // Create seating plan
+      const seats = [];
+      tables.forEach((tableStudents, tableIndex) => {
+        tableStudents.forEach(student => {
+          const peers = tableStudents.filter(s => s !== student);
+          seats.push({ student, table: tableIndex, peers });
+        });
+      });
+
+      currentPlan = {
+        date,
+        seats,
+        layoutRows,
+        layoutCols
+      };
+
+      seatingHistory.push(currentPlan);
+      saveData();
+
+      renderSeatingPlan();
+      displayStats();
+    }
+
+    // Render seating plan visually
+    function renderSeatingPlan() {
+      const seatingArea = document.getElementById('seatingArea');
+      seatingArea.innerHTML = '';
+
+      if (!currentPlan) return;
+
+      const totalTables = layoutRows * layoutCols;
+      const tables = Array.from({ length: totalTables }, () => []);
+
+      currentPlan.seats.forEach(seat => {
+        tables[seat.table].push(seat);
+      });
+
+      for (let row = 0; row < layoutRows; row++) {
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'flex gap-6 mb-6 justify-center';
+
+        for (let col = 0; col < layoutCols; col++) {
+          const tableIndex = row * layoutCols + col;
+          const tableSeats = tables[tableIndex] || [];
+          const tableColor = tableColors[tableIndex] || defaultColors[tableIndex % defaultColors.length];
+
+          const island = document.createElement('div');
+          island.className = 'rounded-lg p-4 shadow-lg';
+          island.style.backgroundColor = tableColor;
+
+          const numSeats = Math.max(tableSeats.length, 1);
+          island.style.display = 'grid';
+          island.style.gridTemplateColumns = numSeats <= 2 ? `repeat(${numSeats}, 1fr)` : 'repeat(2, 1fr)';
+          island.style.gap = '10px';
+          island.style.minWidth = '200px';
+
+          for (let i = 0; i < numSeats; i++) {
+            const seat = document.createElement('div');
+            seat.className = 'rounded p-3 text-center min-h-[60px] flex items-center justify-center text-sm font-medium border-2';
+
+            if (tableSeats[i]) {
+              seat.className += ' bg-blue-100 dark:bg-blue-900 border-blue-500 dark:border-blue-400 text-blue-900 dark:text-blue-100';
+              seat.textContent = tableSeats[i].student;
+            } else {
+              seat.className += ' bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400';
+              seat.textContent = 'Empty';
+            }
+
+            island.appendChild(seat);
+          }
+
+          rowDiv.appendChild(island);
+        }
+
+        seatingArea.appendChild(rowDiv);
+      }
+    }
+
+    // Display statistics
+    function displayStats() {
+      const statsDisplay = document.getElementById('statsDisplay');
+      if (!currentPlan) {
+        statsDisplay.innerHTML = '';
+        return;
+      }
+
+      const incompatibleViolations = currentPlan.seats.filter(seat =>
+        seat.peers.some(peer => areIncompatible(seat.student, peer))
+      ).length;
+
+      statsDisplay.innerHTML = `
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border-l-4 border-green-500">
+          <div class="text-2xl font-bold text-green-600 dark:text-green-400">${currentPlan.date}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Plan Date</div>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border-l-4 border-blue-500">
+          <div class="text-2xl font-bold text-blue-600 dark:text-blue-400">${currentPlan.seats.length}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Students Seated</div>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border-l-4 border-red-500">
+          <div class="text-2xl font-bold text-red-600 dark:text-red-400">${incompatibleViolations}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Incompatible Violations</div>
+        </div>
+        <div class="p-4 bg-white dark:bg-gray-800 rounded-lg border-l-4 border-purple-500">
+          <div class="text-2xl font-bold text-purple-600 dark:text-purple-400">${seatingHistory.length}</div>
+          <div class="text-sm text-gray-600 dark:text-gray-400">Total Plans</div>
+        </div>
+      `;
+    }
+
+    // Show history
+    function showHistory() {
+      const section = document.getElementById('historySection');
+      const display = document.getElementById('historyDisplay');
+
+      if (seatingHistory.length === 0) {
+        alert('No seating history yet');
+        return;
+      }
+
+      display.innerHTML = '';
+
+      seatingHistory.slice().reverse().forEach((plan, index) => {
+        const item = document.createElement('div');
+        item.className = 'bg-white dark:bg-gray-800 p-4 mb-3 rounded border-l-4 border-primary';
+        item.innerHTML = `
+          <strong>${plan.date}</strong> - ${plan.seats.length} students seated (${plan.layoutRows}×${plan.layoutCols} layout)
+          <button onclick="viewPlan(${seatingHistory.length - 1 - index})" class="ml-3 px-3 py-1 bg-primary hover:bg-primary-dark text-white rounded text-sm">View</button>
+        `;
+        display.appendChild(item);
+      });
+
+      section.classList.remove('hidden');
+    }
+
+    // View specific plan
+    function viewPlan(index) {
+      currentPlan = seatingHistory[index];
+
+      if (currentPlan.layoutRows && currentPlan.layoutCols) {
+        layoutRows = currentPlan.layoutRows;
+        layoutCols = currentPlan.layoutCols;
+        document.getElementById('layoutRows').value = layoutRows;
+        document.getElementById('layoutCols').value = layoutCols;
+      }
+
+      renderSeatingPlan();
+      displayStats();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Export seating plan as image
+    function exportSeatingPlan() {
+      if (!currentPlan) {
+        alert('Generate a seating plan first');
+        return;
+      }
+
+      const classroom = document.getElementById('classroomDisplay');
+
+      html2canvas(classroom, {
+        backgroundColor: null,
+        scale: 2
+      }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = `seating-plan-${currentPlan.date}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+      });
+    }
+
+    // Download all data using utils
+    function downloadData() {
+      const data = {
+        students,
+        incompatiblePairs: Array.from(incompatiblePairs),
+        seatingHistory,
+        layoutRows,
+        layoutCols,
+        tableColors
+      };
+
+      ClassroomUtils.downloadFile(
+        JSON.stringify(data, null, 2),
+        'classroom-seating-data.json',
+        'application/json'
+      );
+    }
+
+    // Import data
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          students = data.students || [];
+          incompatiblePairs = new Set(data.incompatiblePairs || []);
+          seatingHistory = data.seatingHistory || [];
+          layoutRows = data.layoutRows || 3;
+          layoutCols = data.layoutCols || 2;
+          tableColors = data.tableColors || {};
+
+          document.getElementById('studentList').value = students.join('\n');
+          document.getElementById('layoutRows').value = layoutRows;
+          document.getElementById('layoutCols').value = layoutCols;
+
+          parseStudents();
+          updateLayout();
+
+          if (seatingHistory.length > 0) {
+            currentPlan = seatingHistory[seatingHistory.length - 1];
+            renderSeatingPlan();
+            displayStats();
+          }
+
+          saveData();
+          alert('Data imported successfully!');
+        } catch (err) {
+          alert('Error importing data: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    // Clear all data
+    function clearAllData() {
+      if (!confirm('Are you sure you want to clear ALL data? This cannot be undone.')) {
+        return;
+      }
+
+      students = [];
+      incompatiblePairs = new Set();
+      seatingHistory = [];
+      currentPlan = null;
+      layoutRows = 3;
+      layoutCols = 2;
+      tableColors = {};
+
+      document.getElementById('studentList').value = '';
+      document.getElementById('studentCount').textContent = '';
+      document.getElementById('layoutRows').value = 3;
+      document.getElementById('layoutCols').value = 2;
+      document.getElementById('incompatibleMatrix').innerHTML = '';
+      document.getElementById('seatingArea').innerHTML = '';
+      document.getElementById('statsDisplay').innerHTML = '';
+      document.getElementById('historySection').classList.add('hidden');
+
+      updateLayout();
+      localStorage.removeItem(STORAGE_KEY);
+
+      alert('All data cleared');
+    }
+
+    // Set today's date
+    document.getElementById('planDate').valueAsDate = new Date();
+
+    // Load data on startup
+    loadData();
+  </script>
+</body>
+</html>
