@@ -289,7 +289,19 @@
         async function loadRepoStructure() {
             try {
                 const response = await fetch(`https://api.github.com/repos/${username}/${repo}/contents/`);
+                
+                // Check if response is OK
+                if (!response.ok) {
+                    throw new Error(`GitHub API returned ${response.status}: ${response.statusText}`);
+                }
+                
                 const items = await response.json();
+                
+                // Check if we got an error object instead of an array
+                if (!Array.isArray(items)) {
+                    console.error('GitHub API returned:', items);
+                    throw new Error(items.message || 'Invalid response from GitHub API');
+                }
                 
                 // Filter to only folders
                 const folders = items.filter(item => item.type === 'dir');
@@ -297,6 +309,12 @@
                 // Load files from each folder
                 for (const folder of folders) {
                     const folderResponse = await fetch(folder.url);
+                    
+                    if (!folderResponse.ok) {
+                        console.warn(`Failed to load folder ${folder.name}`);
+                        continue;
+                    }
+                    
                     const files = await folderResponse.json();
                     
                     // Check if this folder has HTML files directly
@@ -316,6 +334,12 @@
                             // Load HTML files from each subfolder
                             for (const subfolder of subfolders) {
                                 const subfolderResponse = await fetch(subfolder.url);
+                                
+                                if (!subfolderResponse.ok) {
+                                    console.warn(`Failed to load subfolder ${subfolder.name}`);
+                                    continue;
+                                }
+                                
                                 const subfolderFiles = await subfolderResponse.json();
                                 
                                 const subfolderHtmlFiles = subfolderFiles
@@ -344,14 +368,25 @@
                 
             } catch (error) {
                 console.error('Error loading repo structure:', error);
+                
+                // More informative error message
+                let errorMessage = 'Error loading tools.';
+                if (error.message.includes('403')) {
+                    errorMessage = 'GitHub API rate limit exceeded. Please wait a few minutes and refresh the page.';
+                } else if (error.message.includes('404')) {
+                    errorMessage = 'Repository not found. Make sure the repository is public.';
+                } else {
+                    errorMessage = `Error loading tools: ${error.message}`;
+                }
+                
                 document.getElementById('sidebarNav').innerHTML = `
                     <div class="px-6 py-8 text-center text-red-600 dark:text-red-400">
-                        Error loading tools. Make sure the repository is public.
+                        ${errorMessage}
                     </div>
                 `;
                 document.getElementById('contentArea').innerHTML = `
                     <div class="px-6 py-8 text-center text-red-600 dark:text-red-400">
-                        Error loading tools.
+                        ${errorMessage}
                     </div>
                 `;
             }
