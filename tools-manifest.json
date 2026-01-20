@@ -1,0 +1,89 @@
+{
+  "generated": "2026-01-20T06:31:19.922Z",
+  "version": "1.0",
+  "categories": {
+    "classroom-screens": {
+      "name": "Classroom Screens",
+      "description": "Interactive displays for classroom management"
+    },
+    "classroom-games": {
+      "name": "Classroom Games",
+      "description": "Interactive games for brain breaks and group activities"
+    },
+    "planning": {
+      "name": "Planning Tools",
+      "description": "Lesson planning and tracking"
+    }
+  },
+  "tools": {
+    "planning": [
+      {
+        "name": "bsla-tracker",
+        "path": "planning/bsla-tracker.html",
+        "folder": "planning",
+        "description": "Track and plan BSLA lessons and activities",
+        "icon": "file-text"
+      },
+      {
+        "name": "math-tracker",
+        "path": "planning/math-tracker.html",
+        "folder": "planning",
+        "description": "Track and plan mathematics lessons for Year 4/5 mixed class",
+        "icon": "calculator"
+      },
+      {
+        "name": "seating-planner",
+        "path": "planning/seating-planner.html",
+        "folder": "planning",
+        "description": "Generate balanced seating arrangements and track student pairings",
+        "icon": "users"
+      }
+    ],
+    "classroom-games": [
+      {
+        "name": "7up",
+        "path": "screens/classroom-games/7up.html",
+        "folder": "classroom-games",
+        "description": "Classic classroom game with seven picker tracking",
+        "icon": "hand"
+      },
+      {
+        "name": "pass-the-creeper",
+        "path": "screens/classroom-games/pass-the-creeper.html",
+        "folder": "classroom-games",
+        "description": "Hot potato style game with categories",
+        "icon": "bomb"
+      },
+      {
+        "name": "reverse-charades",
+        "path": "screens/classroom-games/reverse-charades.html",
+        "folder": "classroom-games",
+        "description": "Group game with dual random pickers for students and prompts",
+        "icon": "drama"
+      },
+      {
+        "name": "silent-ball",
+        "path": "screens/classroom-games/silent-ball.html",
+        "folder": "classroom-games",
+        "description": "Brain break game with timer and noise meter",
+        "icon": "volume-x"
+      }
+    ],
+    "classroom-screens": [
+      {
+        "name": "classroom",
+        "path": "screens/classroom-screens/classroom.html",
+        "folder": "classroom-screens",
+        "description": "Full classroom display with timer, noise meter, and random picker",
+        "icon": "school"
+      },
+      {
+        "name": "ssr",
+        "path": "screens/classroom-screens/ssr.html",
+        "folder": "classroom-screens",
+        "description": "Silent Sustained Reading mode with timer and noise monitoring",
+        "icon": "book-open"
+      }
+    ]
+  }
+}
