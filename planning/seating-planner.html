@@ -438,7 +438,7 @@
       ).length;
     }
 
-    // Generate seating plan with algorithm
+    // Generate seating plan with intelligent pairing algorithm
     function generateSeatingPlan() {
       if (students.length === 0) {
         alert('Load students first');
@@ -454,23 +454,81 @@
       const totalTables = layoutRows * layoutCols;
       const studentsPerTable = Math.ceil(students.length / totalTables);
 
-      // Shuffle students
-      const shuffled = [...students].sort(() => Math.random() - 0.5);
-
-      // Assign students to tables
-      const tables = [];
-      for (let i = 0; i < totalTables; i++) {
-        tables.push([]);
-      }
-
-      shuffled.forEach((student, index) => {
-        const tableIndex = index % totalTables;
-        tables[tableIndex].push(student);
+      // Calculate pairing scores for each student pair
+      const pairScores = {};
+      students.forEach(s1 => {
+        students.forEach(s2 => {
+          if (s1 !== s2) {
+            const key = [s1, s2].sort().join('|');
+            if (!pairScores[key]) {
+              // Score = number of times they've sat together
+              // Lower score = should sit together (haven't sat together much)
+              pairScores[key] = countPairings(s1, s2);
+            }
+          }
+        });
       });
 
-      // Create seating plan
+      // Try to create a balanced seating arrangement
+      let bestArrangement = null;
+      let bestScore = Infinity;
+      const maxAttempts = 100;
+
+      for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        // Shuffle students randomly
+        const shuffled = [...students].sort(() => Math.random() - 0.5);
+
+        // Assign students to tables
+        const tables = [];
+        for (let i = 0; i < totalTables; i++) {
+          tables.push([]);
+        }
+
+        shuffled.forEach((student, index) => {
+          const tableIndex = index % totalTables;
+          tables[tableIndex].push(student);
+        });
+
+        // Calculate score for this arrangement
+        let score = 0;
+        let incompatibleCount = 0;
+
+        tables.forEach(tableStudents => {
+          // For each pair at the table
+          for (let i = 0; i < tableStudents.length; i++) {
+            for (let j = i + 1; j < tableStudents.length; j++) {
+              const s1 = tableStudents[i];
+              const s2 = tableStudents[j];
+              const key = [s1, s2].sort().join('|');
+
+              // Heavy penalty for incompatible pairs
+              if (areIncompatible(s1, s2)) {
+                incompatibleCount += 1000;
+              }
+
+              // Add the pairing count to score (lower is better)
+              score += pairScores[key] || 0;
+            }
+          }
+        });
+
+        score += incompatibleCount;
+
+        // Keep track of best arrangement
+        if (score < bestScore) {
+          bestScore = score;
+          bestArrangement = tables;
+        }
+
+        // If we found a perfect arrangement (no incompatible pairs and balanced), use it
+        if (incompatibleCount === 0 && score < students.length) {
+          break;
+        }
+      }
+
+      // Create seating plan from best arrangement
       const seats = [];
-      tables.forEach((tableStudents, tableIndex) => {
+      bestArrangement.forEach((tableStudents, tableIndex) => {
         tableStudents.forEach(student => {
           const peers = tableStudents.filter(s => s !== student);
           seats.push({ student, table: tableIndex, peers });
