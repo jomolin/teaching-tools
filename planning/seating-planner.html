@@ -87,13 +87,19 @@
       <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
         <h2 class="text-xl font-semibold mb-4">4. Generate Seating Plan</h2>
         <p class="mb-3">Enter date for this seating arrangement:</p>
-        <div class="space-x-2 mb-4">
+        <div class="space-x-2 mb-4 flex flex-wrap gap-2">
           <input type="date" id="planDate" class="p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800">
           <button onclick="generateSeatingPlan()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
             Generate New Plan
           </button>
           <button onclick="showHistory()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
             View History
+          </button>
+          <button onclick="clearSeatingData()" class="px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded">
+            Clear Seating Data
+          </button>
+          <button onclick="clearStudents()" class="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded">
+            Clear Students
           </button>
           <button onclick="clearAllData()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded">
             Clear All Data
@@ -154,16 +160,50 @@
     // Storage key
     const STORAGE_KEY = 'classroomSeating';
 
-    // Default colors
+    // Default colors with names
     const defaultColors = [
-      '#93c5fd', '#fca5a5', '#fde047', '#86efac', '#c4b5fd', '#fdba74',
-      '#a5f3fc', '#fda4af', '#bef264', '#d8b4fe', '#fcd34d', '#fbcfe8'
+      { name: 'Blue', hex: '#93c5fd' },
+      { name: 'Red', hex: '#fca5a5' },
+      { name: 'Yellow', hex: '#fde047' },
+      { name: 'Green', hex: '#86efac' },
+      { name: 'Purple', hex: '#c4b5fd' },
+      { name: 'Orange', hex: '#fdba74' },
+      { name: 'Cyan', hex: '#a5f3fc' },
+      { name: 'Pink', hex: '#fda4af' },
+      { name: 'Lime', hex: '#bef264' },
+      { name: 'Violet', hex: '#d8b4fe' },
+      { name: 'Amber', hex: '#fcd34d' },
+      { name: 'Fuchsia', hex: '#fbcfe8' }
+    ];
+
+    // Available color palette for picker
+    const colorPalette = [
+      { name: 'Red', hex: '#ef4444' },
+      { name: 'Light Red', hex: '#fca5a5' },
+      { name: 'Orange', hex: '#f97316' },
+      { name: 'Light Orange', hex: '#fdba74' },
+      { name: 'Amber', hex: '#f59e0b' },
+      { name: 'Yellow', hex: '#fde047' },
+      { name: 'Lime', hex: '#84cc16' },
+      { name: 'Light Lime', hex: '#bef264' },
+      { name: 'Green', hex: '#22c55e' },
+      { name: 'Light Green', hex: '#86efac' },
+      { name: 'Cyan', hex: '#06b6d4' },
+      { name: 'Light Cyan', hex: '#a5f3fc' },
+      { name: 'Blue', hex: '#3b82f6' },
+      { name: 'Light Blue', hex: '#93c5fd' },
+      { name: 'Indigo', hex: '#6366f1' },
+      { name: 'Purple', hex: '#a855f7' },
+      { name: 'Light Purple', hex: '#c4b5fd' },
+      { name: 'Fuchsia', hex: '#d946ef' },
+      { name: 'Pink', hex: '#ec4899' },
+      { name: 'Light Pink', hex: '#fbcfe8' }
     ];
 
     // Load data from localStorage using utils
     function loadData() {
       const data = ClassroomUtils.getFromStorage(STORAGE_KEY, null);
-
+      
       if (data) {
         students = data.students || [];
         incompatiblePairs = new Set(data.incompatiblePairs || []);
@@ -196,7 +236,7 @@
         layoutCols,
         tableColors
       };
-
+      
       if (!ClassroomUtils.saveToStorage(STORAGE_KEY, data)) {
         alert('Error saving data. Storage may be full.');
       }
@@ -211,7 +251,7 @@
       const totalTables = layoutRows * layoutCols;
       for (let i = 0; i < totalTables; i++) {
         if (!tableColors[i]) {
-          tableColors[i] = defaultColors[i % defaultColors.length];
+          tableColors[i] = defaultColors[i % defaultColors.length].hex;
         }
       }
 
@@ -243,19 +283,56 @@
       }
     }
 
-    // Change table color
+    // Change table color with visual picker
     function changeTableColor(tableIndex) {
-      const newColor = prompt('Enter a hex color (e.g., #93c5fd):', tableColors[tableIndex]);
-      if (newColor && /^#[0-9A-F]{6}$/i.test(newColor)) {
-        tableColors[tableIndex] = newColor;
-        renderTableColorPicker();
-        if (currentPlan) {
-          renderSeatingPlan();
+      // Create modal overlay
+      const modal = document.createElement('div');
+      modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+      modal.onclick = (e) => {
+        if (e.target === modal) {
+          document.body.removeChild(modal);
         }
-        saveData();
-      } else if (newColor) {
-        alert('Invalid color format. Use hex format like #93c5fd');
-      }
+      };
+
+      // Create color picker dialog
+      const dialog = document.createElement('div');
+      dialog.className = 'bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md mx-4';
+      
+      const row = Math.floor(tableIndex / layoutCols);
+      const col = tableIndex % layoutCols;
+      
+      dialog.innerHTML = `
+        <h3 class="text-xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Choose Color for Row ${row + 1}, Col ${col + 1}
+        </h3>
+        <div class="grid grid-cols-5 gap-3 mb-4" id="colorGrid"></div>
+        <button onclick="this.closest('.fixed').remove()" 
+                class="w-full px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded">
+          Cancel
+        </button>
+      `;
+
+      modal.appendChild(dialog);
+      document.body.appendChild(modal);
+
+      // Populate color grid
+      const colorGrid = dialog.querySelector('#colorGrid');
+      colorPalette.forEach(color => {
+        const btn = document.createElement('button');
+        btn.className = 'w-14 h-14 rounded-lg border-2 border-gray-400 dark:border-gray-600 hover:scale-110 transition-transform';
+        btn.style.backgroundColor = color.hex;
+        btn.title = color.name;
+        btn.onclick = () => {
+          tableColors[tableIndex] = color.hex;
+          renderTableColorPicker();
+          if (currentPlan) {
+            renderSeatingPlan();
+          }
+          saveData();
+          document.body.removeChild(modal);
+        };
+        colorGrid.appendChild(btn);
+      });
     }
 
     // Parse students from textarea
@@ -435,7 +512,7 @@
         for (let col = 0; col < layoutCols; col++) {
           const tableIndex = row * layoutCols + col;
           const tableSeats = tables[tableIndex] || [];
-          const tableColor = tableColors[tableIndex] || defaultColors[tableIndex % defaultColors.length];
+          const tableColor = tableColors[tableIndex] || defaultColors[tableIndex % defaultColors.length].hex;
 
           const island = document.createElement('div');
           island.className = 'rounded-lg p-4 shadow-lg';
@@ -616,6 +693,50 @@
         }
       };
       reader.readAsText(file);
+    }
+
+    // Clear seating data only (keep students)
+    function clearSeatingData() {
+      if (!confirm('Clear all seating history and incompatible pairs? Student list will be kept.')) {
+        return;
+      }
+
+      incompatiblePairs = new Set();
+      seatingHistory = [];
+      currentPlan = null;
+
+      document.getElementById('incompatibleMatrix').innerHTML = '';
+      document.getElementById('seatingArea').innerHTML = '';
+      document.getElementById('statsDisplay').innerHTML = '';
+      document.getElementById('historySection').classList.add('hidden');
+
+      // Re-render the matrix to show cleared state
+      if (students.length > 0) {
+        renderIncompatibleMatrix();
+      }
+
+      saveData();
+      alert('Seating data cleared. Student list preserved.');
+    }
+
+    // Clear students only (keep seating history and settings)
+    function clearStudents() {
+      if (!confirm('Clear student list? Seating history and table colors will be kept.')) {
+        return;
+      }
+
+      students = [];
+      incompatiblePairs = new Set();
+      currentPlan = null;
+
+      document.getElementById('studentList').value = '';
+      document.getElementById('studentCount').textContent = '';
+      document.getElementById('incompatibleMatrix').innerHTML = '';
+      document.getElementById('seatingArea').innerHTML = '';
+      document.getElementById('statsDisplay').innerHTML = '';
+
+      saveData();
+      alert('Student list cleared. Seating history and settings preserved.');
     }
 
     // Clear all data
