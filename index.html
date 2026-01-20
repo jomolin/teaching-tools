@@ -52,41 +52,12 @@
             .sidebar-collapsed .collapse-icon {
                 transform: rotate(180deg);
             }
-            .sidebar-collapsed .nav-section-toggle {
-                display: none;
-            }
-            .sidebar-collapsed .nav-section-items {
-                padding-top: 8px;
-                border-top: 1px solid rgb(229 231 235);
-            }
-            .dark .sidebar-collapsed .nav-section-items {
-                border-top-color: rgb(55 65 81);
-            }
-            .sidebar-collapsed .nav-link {
-                justify-content: center;
-                padding-left: 0;
-                padding-right: 0;
-            }
-            .sidebar-collapsed .sticky > .flex {
-                justify-content: center;
-            }
-            .sidebar-collapsed #collapseToggle {
-                margin: 0;
-            }
-        }
-    </style>
-    <style>
-        /* Smooth transitions */
-        * {
-            transition-property: color, background-color, border-color;
-            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-            transition-duration: 150ms;
         }
         
-        /* Custom scrollbar */
+        /* Scrollbar styling */
         ::-webkit-scrollbar {
-            width: 10px;
-            height: 10px;
+            width: 8px;
+            height: 8px;
         }
         
         ::-webkit-scrollbar-track {
@@ -170,6 +141,7 @@
                     No logins. No tracking.<br>
                     No data collection.
                 </p>
+                <p>Built for teachers by teachers.</p>
                 <p>
                     <a 
                         href="https://github.com/jomolin/teaching-tools" 
@@ -213,6 +185,7 @@
         class="lg:ml-[280px] min-h-screen transition-all duration-300"
     >
         <div id="contentArea" class="w-full h-full">
+            <div class="flex items-center justify-center h-screen">
                 <div class="text-center py-16 text-gray-500 dark:text-gray-400">
                     Loading content...
                 </div>
@@ -225,66 +198,7 @@
         const repo = 'teaching-tools';
         let toolsData = {};
         let currentView = 'home';
-
-        // Tool descriptions for better UX
-        const toolDescriptions = {
-            'classroom-screens': {
-                'classroom': 'Full classroom display with timer, noise meter, and random picker',
-                'ssr': 'Silent Sustained Reading mode with timer and noise monitoring'
-            },
-            'classroom-games': {
-                'silent-ball': 'Brain break game with timer and noise meter',
-                'reverse-charades': 'Group game with dual random pickers for students and prompts',
-                'pass-the-creeper': 'Hot potato style game with categories',
-                'this-or-that': 'Movement game of preferences and choices',
-                'more-or-less': 'Estimation game with movement',
-                '7up': 'Classic classroom game with seven picker tracking',
-                'heads-up-7-up': 'Classic classroom game with seven picker tracking'
-            },
-            'planning': {
-                'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class',
-                'bsla-tracker': 'Track and plan BSLA lessons and activities',
-                'seating-planner': 'Generate balanced seating arrangements and track student pairings'
-            }
-        };
-
-        // Tool icons for sidebar
-        const toolIcons = {
-            'classroom-screens': {
-                'classroom': 'school',
-                'ssr': 'book-open'
-            },
-            'classroom-games': {
-                'silent-ball': 'volume-x',
-                'reverse-charades': 'drama',
-                'pass-the-creeper': 'bomb',
-                'this-or-that': 'git-branch',
-                'more-or-less': 'minus-plus',
-                '7up': 'hand',
-                'heads-up-7-up': 'hand'
-            },
-            'planning': {
-                'math-tracker': 'calculator',
-                'bsla-tracker': 'file-text',
-                'seating-planner': 'users'
-            }
-        };
-
-        // Category display names and order
-        const categories = {
-            'classroom-screens': {
-                name: 'Classroom Screens',
-                description: 'Interactive displays for classroom management'
-            },
-            'classroom-games': {
-                name: 'Classroom Games',
-                description: 'Interactive games for brain breaks and group activities'
-            },
-            'planning': {
-                name: 'Planning Tools',
-                description: 'Lesson planning and tracking'
-            }
-        };
+        let categories = {};
 
         async function loadRepoStructure() {
             try {
@@ -305,7 +219,7 @@
                 
                 // Update categories if provided in manifest
                 if (manifest.categories) {
-                    Object.assign(categories, manifest.categories);
+                    categories = manifest.categories;
                 }
                 
                 console.log('Loaded tools data:', toolsData);
@@ -368,7 +282,6 @@
                     </div>
                     <div class="nav-section-items">
                         ${tools.map(tool => {
-                            // Icon comes from manifest now
                             const icon = tool.icon || 'file';
                             return `
                                 <a 
@@ -429,7 +342,6 @@
                             ` : ''}
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 ${tools.map(tool => {
-                                    // Description comes from manifest now
                                     const description = tool.description || 'Interactive teaching tool';
                                     return `
                                         <a 
@@ -455,65 +367,6 @@
                 
                 container.innerHTML = html;
             }
-        }
-
-        function renderHomeContent(container) {
-            let html = `
-                <div class="max-w-7xl mx-auto px-6 lg:px-12 py-12">
-                    <!-- Content Header -->
-                    <div class="mb-12">
-                        <h1 class="text-5xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-                            Welcome to Teaching Tools
-                        </h1>
-                        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-                            A collection of interactive tools and resources for primary school teachers. All tools work offline, respect your privacy, and are free to use.
-                        </p>
-                    </div>
-            `;
-            
-            Object.keys(toolsData).forEach(category => {
-                const categoryInfo = categories[category] || { 
-                    name: formatName(category), 
-                    description: ''
-                };
-                const tools = toolsData[category];
-                
-                html += `
-                    <div class="mb-16">
-                        <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
-                            ${categoryInfo.name}
-                        </h2>
-                        ${categoryInfo.description ? `
-                            <p class="text-gray-600 dark:text-gray-400 mb-6 text-base">
-                                ${categoryInfo.description}
-                            </p>
-                        ` : ''}
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            ${tools.map(tool => {
-                                const description = toolDescriptions[category]?.[tool.name] || 'Interactive teaching tool';
-                                return `
-                                    <a 
-                                        href="${tool.path}" 
-                                        class="group block bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-xl p-6 hover:border-primary dark:hover:border-blue-400 hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
-                                        onclick="handleNavClick(event, '${tool.path}', '${tool.name}')"
-                                    >
-                                        <h3 class="text-xl font-semibold text-primary dark:text-blue-400 mb-2 group-hover:text-primary-dark dark:group-hover:text-blue-300">
-                                            ${formatName(tool.name)}
-                                        </h3>
-                                        <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                                            ${description}
-                                        </p>
-                                    </a>
-                                `;
-                            }).join('')}
-                        </div>
-                    </div>
-                `;
-            });
-            
-            html += '</div>'; // Close the max-w-7xl wrapper
-            
-            container.innerHTML = html;
         }
 
         function toggleSidebarCollapse() {
