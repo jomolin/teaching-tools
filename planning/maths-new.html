@@ -12,15 +12,17 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        /* Minimal custom CSS - only what Tailwind doesn't provide */
+        /* Tailwind dark mode and custom styling */
         
         body {
-            background-color: #f3f4f6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
         
         @media (prefers-color-scheme: dark) {
-            body {
-                background-color: #111827;
+            html {
+                color-scheme: dark;
             }
         }
 
@@ -406,8 +408,23 @@
                     console.log('All lesson data loaded successfully!');
                     
                     // Hide loading overlay
-                    document.getElementById('loadingOverlay').classList.add('hidden');
-                    document.getElementById('mainContent').classList.remove('hidden');
+                    const overlay = document.getElementById('loadingOverlay');
+                    const mainContent = document.getElementById('mainContent');
+                    
+                    console.log('Overlay element:', overlay);
+                    console.log('Main content element:', mainContent);
+                    
+                    if (overlay) {
+                        overlay.classList.add('hidden');
+                        overlay.style.display = 'none'; // Force hide with inline style too
+                        console.log('Overlay hidden - classes:', overlay.className);
+                    }
+                    
+                    if (mainContent) {
+                        mainContent.classList.remove('hidden');
+                        mainContent.style.display = 'block'; // Force show with inline style
+                        console.log('Main content shown - classes:', mainContent.className);
+                    }
                     
                     console.log('Initializing UI...');
                     
