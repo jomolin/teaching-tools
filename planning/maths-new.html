@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maths Lesson Tracker - Year 4/5</title>
     
-    <!-- Water.css for base styling and theme support -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
@@ -15,12 +12,16 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        /* Minimal custom CSS - only what Tailwind/Water.css don't provide */
+        /* Minimal custom CSS - only what Tailwind doesn't provide */
         
         body {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
+            background-color: #f3f4f6;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #111827;
+            }
         }
 
         /* Lessons grid - custom layout */
@@ -39,9 +40,9 @@
             flex-shrink: 0;
         }
 
-        .lesson-status.completed { background: #27ae60; }
-        .lesson-status.skipped { background: #e74c3c; }
-        .lesson-status.unmarked { background: #bdc3c7; }
+        .lesson-status.completed { background: #10b981; }
+        .lesson-status.skipped { background: #ef4444; }
+        .lesson-status.unmarked { background: #9ca3af; }
 
         /* Pin icon positioning */
         .pin-icon {
@@ -50,17 +51,23 @@
             right: 8px;
             width: 20px;
             height: 20px;
-            color: #f39c12;
+            color: #f59e0b;
             filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
         }
 
         /* Progress bars */
         .progress-bar-container {
-            background: var(--background-alt);
+            background: #e5e7eb;
             border-radius: 8px;
             overflow: hidden;
             height: 30px;
             position: relative;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .progress-bar-container {
+                background: #374151;
+            }
         }
 
         .progress-segment {
@@ -75,9 +82,9 @@
             transition: width 0.3s ease;
         }
 
-        .progress-completed { background: #27ae60; }
-        .progress-skipped { background: #e74c3c; }
-        .progress-remaining { background: #95a5a6; }
+        .progress-completed { background: #10b981; }
+        .progress-skipped { background: #ef4444; }
+        .progress-remaining { background: #6b7280; }
 
         /* Loading overlay */
         #loadingOverlay {
@@ -86,7 +93,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(243, 244, 246, 0.95);
             z-index: 9999;
             display: flex;
             align-items: center;
@@ -95,13 +102,40 @@
 
         @media (prefers-color-scheme: dark) {
             #loadingOverlay {
-                background: rgba(22, 31, 39, 0.95);
+                background: rgba(17, 24, 39, 0.95);
             }
         }
 
         /* Modal backdrop */
         .modal-backdrop {
             background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Active tab styling */
+        .tab-btn.active {
+            color: #3b82f6;
+            border-bottom: 3px solid #3b82f6;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .tab-btn.active {
+                color: #60a5fa;
+                border-bottom-color: #60a5fa;
+            }
+        }
+
+        /* Active year button styling */
+        .year-btn.active {
+            background-color: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            .year-btn.active {
+                background-color: #2563eb;
+                border-color: #2563eb;
+            }
         }
 
         /* Responsive adjustments */
@@ -118,7 +152,7 @@
         }
     </style>
 </head>
-<body>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
     <!-- Loading Overlay -->
     <div id="loadingOverlay">
         <div class="text-center">
@@ -127,7 +161,7 @@
         </div>
     </div>
 
-    <div id="mainContent" class="hidden">
+    <div id="mainContent" class="hidden max-w-7xl mx-auto px-4 py-6 sm:px-6 lg:px-8">
         <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">Maths Lesson Tracker</h1>
         <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">Year 4/5 Mixed Class - Track and plan your lessons</p>
 
@@ -323,31 +357,42 @@
             async init() {
                 try {
                     console.log('Starting to load lesson data...');
+                    console.log('Current location:', window.location.href);
+                    
+                    // Determine the base path for the data folder
+                    // This works both when accessed directly and through an iframe
+                    const currentPath = window.location.pathname;
+                    const basePath = currentPath.includes('maths-tracker.html') 
+                        ? currentPath.substring(0, currentPath.lastIndexOf('/') + 1) 
+                        : 'planning/';
+                    
+                    console.log('Base path:', basePath);
+                    console.log('Will fetch from:', basePath + 'data/year4a-lessons.json');
                     
                     // Load all JSON files in parallel
                     console.log('Fetching year4a-lessons.json...');
-                    const year4aResponse = await fetch('data/year4a-lessons.json');
+                    const year4aResponse = await fetch(basePath + 'data/year4a-lessons.json');
                     console.log('Year 4A response status:', year4aResponse.status);
                     if (!year4aResponse.ok) throw new Error(`Failed to load year4a: ${year4aResponse.status}`);
                     const year4a = await year4aResponse.json();
                     console.log('Year 4A loaded:', year4a.length, 'lessons');
                     
                     console.log('Fetching year4b-lessons.json...');
-                    const year4bResponse = await fetch('data/year4b-lessons.json');
+                    const year4bResponse = await fetch(basePath + 'data/year4b-lessons.json');
                     console.log('Year 4B response status:', year4bResponse.status);
                     if (!year4bResponse.ok) throw new Error(`Failed to load year4b: ${year4bResponse.status}`);
                     const year4b = await year4bResponse.json();
                     console.log('Year 4B loaded:', year4b.length, 'lessons');
                     
                     console.log('Fetching year5a-lessons.json...');
-                    const year5aResponse = await fetch('data/year5a-lessons.json');
+                    const year5aResponse = await fetch(basePath + 'data/year5a-lessons.json');
                     console.log('Year 5A response status:', year5aResponse.status);
                     if (!year5aResponse.ok) throw new Error(`Failed to load year5a: ${year5aResponse.status}`);
                     const year5a = await year5aResponse.json();
                     console.log('Year 5A loaded:', year5a.length, 'lessons');
                     
                     console.log('Fetching year5b-lessons.json...');
-                    const year5bResponse = await fetch('data/year5b-lessons.json');
+                    const year5bResponse = await fetch(basePath + 'data/year5b-lessons.json');
                     console.log('Year 5B response status:', year5bResponse.status);
                     if (!year5bResponse.ok) throw new Error(`Failed to load year5b: ${year5bResponse.status}`);
                     const year5b = await year5bResponse.json();
@@ -1232,7 +1277,9 @@
 
         // Initialize when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('DOM loaded, initializing tracker...');
             const tracker = new LessonTracker();
+            console.log('Tracker created, calling init()...');
             tracker.init();
         });
     </script>
