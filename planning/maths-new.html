@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Lesson Tracker - Year 4/5</title>
+    
+    <!-- Water.css for base styling and theme support -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Minimal custom CSS - only what Tailwind/Water.css don't provide */
+        
+        body {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Lessons grid - custom layout */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        /* Status circle indicators */
+        .lesson-status {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .lesson-status.completed { background: #27ae60; }
+        .lesson-status.skipped { background: #e74c3c; }
+        .lesson-status.unmarked { background: #bdc3c7; }
+
+        /* Pin icon positioning */
+        .pin-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            color: #f39c12;
+            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
+        }
+
+        /* Progress bars */
+        .progress-bar-container {
+            background: var(--background-alt);
+            border-radius: 8px;
+            overflow: hidden;
+            height: 30px;
+            position: relative;
+        }
+
+        .progress-segment {
+            height: 100%;
+            float: left;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            transition: width 0.3s ease;
+        }
+
+        .progress-completed { background: #27ae60; }
+        .progress-skipped { background: #e74c3c; }
+        .progress-remaining { background: #95a5a6; }
+
+        /* Loading overlay */
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            #loadingOverlay {
+                background: rgba(22, 31, 39, 0.95);
+            }
+        }
+
+        /* Modal backdrop */
+        .modal-backdrop {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .lessons-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+
+        @media (max-width: 500px) {
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div class="text-center">
+            <div class="text-6xl mb-4">📚</div>
+            <div class="text-xl font-semibold text-gray-700 dark:text-gray-300">Loading lesson data...</div>
+        </div>
+    </div>
+
+    <div id="mainContent" class="hidden">
+        <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">Maths Lesson Tracker</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">Year 4/5 Mixed Class - Track and plan your lessons</p>
+
+        <!-- Tabs -->
+        <div class="flex gap-2 mb-6 border-b-2 border-gray-300 dark:border-gray-700">
+            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 border-b-3 border-transparent hover:text-blue-600 dark:hover:text-blue-400 transition-colors active" data-tab="tracker">
+                Lesson Tracker
+            </button>
+            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 border-b-3 border-transparent hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="planner">
+                Weekly Planner
+            </button>
+            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 border-b-3 border-transparent hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="overview">
+                Overview
+            </button>
+        </div>
+
+        <!-- Tracker Tab -->
+        <div id="tracker" class="tab-content">
+            <!-- Year Selector -->
+            <div class="flex gap-3 mb-6">
+                <button class="year-btn px-6 py-2 font-medium border-2 rounded-md transition-all active" data-year="4">
+                    Year 4
+                </button>
+                <button class="year-btn px-6 py-2 font-medium border-2 rounded-md transition-all" data-year="5">
+                    Year 5
+                </button>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex gap-3 mb-6 flex-wrap">
+                <button id="markNextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
+                    <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    Mark Next Complete
+                </button>
+                <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
+                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                    Reset
+                </button>
+                <button id="exportBtn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i>
+                    Export
+                </button>
+                <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
+                    <i data-lucide="upload" class="w-4 h-4"></i>
+                    Import
+                </button>
+                <input type="file" id="importFile" accept=".json" class="hidden">
+            </div>
+
+            <!-- Lessons Container -->
+            <div id="lessonsContainer"></div>
+        </div>
+
+        <!-- Planner Tab -->
+        <div id="planner" class="tab-content hidden">
+            <!-- Next Lessons Display -->
+            <div id="nextLessonsDisplay" class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 mb-6 rounded"></div>
+            
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Next 5 Lessons - Weekly Plan Format</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-4">Each box contains both Year 4 and Year 5 for one day/lesson</p>
+            <div id="combinedPlansContainer"></div>
+
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Lesson Slides Content</h3>
+            
+            <!-- Year 4 Slides -->
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 4 Slides</h3>
+                    <button id="copySlides4Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">
+                        Copy to Clipboard
+                    </button>
+                </div>
+                <div id="slides4Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            </div>
+
+            <!-- Year 5 Slides -->
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 5 Slides</h3>
+                    <button id="copySlides5Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">
+                        Copy to Clipboard
+                    </button>
+                </div>
+                <div id="slides5Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Lesson Approach</h3>
+
+            <!-- Year 4 Approach -->
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 4 Approach</h3>
+                    <button id="copyApproach4Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">
+                        Copy to Clipboard
+                    </button>
+                </div>
+                <div id="approach4Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            </div>
+
+            <!-- Year 5 Approach -->
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 5 Approach</h3>
+                    <button id="copyApproach5Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">
+                        Copy to Clipboard
+                    </button>
+                </div>
+                <div id="approach5Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Content Priority</h3>
+
+            <!-- Year 4 Content Priority -->
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 4 Content Priority</h3>
+                    <button id="copyPriority4Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">
+                        Copy to Clipboard
+                    </button>
+                </div>
+                <div id="priority4Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            </div>
+
+            <!-- Year 5 Content Priority -->
+            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
+                <div class="flex justify-between items-center mb-3">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 5 Content Priority</h3>
+                    <button id="copyPriority5Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">
+                        Copy to Clipboard
+                    </button>
+                </div>
+                <div id="priority5Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            </div>
+        </div>
+
+        <!-- Overview Tab -->
+        <div id="overview" class="tab-content hidden">
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-6 rounded-lg text-center">
+                    <div id="year4Completed" class="text-4xl font-bold mb-2">0</div>
+                    <div class="text-sm opacity-90">Year 4 Completed</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-400 to-blue-500 text-white p-6 rounded-lg text-center">
+                    <div id="year4Remaining" class="text-4xl font-bold mb-2">0</div>
+                    <div class="text-sm opacity-90">Year 4 Remaining</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-6 rounded-lg text-center">
+                    <div id="year5Completed" class="text-4xl font-bold mb-2">0</div>
+                    <div class="text-sm opacity-90">Year 5 Completed</div>
+                </div>
+                <div class="bg-gradient-to-br from-purple-400 to-purple-500 text-white p-6 rounded-lg text-center">
+                    <div id="year5Remaining" class="text-4xl font-bold mb-2">0</div>
+                    <div class="text-sm opacity-90">Year 5 Remaining</div>
+                </div>
+            </div>
+
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Progress by Book</h3>
+            <div id="bookProgress"></div>
+        </div>
+    </div>
+
+    <!-- Reset Confirmation Modal -->
+    <div id="resetModal" class="fixed inset-0 z-50 hidden items-center justify-center modal-backdrop">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl p-8 max-w-md w-full mx-4">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Reset All Progress?</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">This will clear all completed lessons, skipped lessons, and pinned items. This action cannot be undone.</p>
+            <div class="flex gap-3 justify-end">
+                <button id="cancelResetBtn" class="px-5 py-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold rounded-md transition-colors">
+                    Cancel
+                </button>
+                <button id="confirmResetBtn" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md transition-colors">
+                    Reset All Data
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // LESSON_DATA will be loaded from JSON files
+        let LESSON_DATA = null;
+
+        class LessonTracker {
+            constructor() {
+                this.currentYear = '4';
+                this.currentTab = 'tracker';
+                const progress = this.loadProgress();
+                this.completed = progress.completed;
+                this.skipped = progress.skipped;
+                this.pinned = progress.pinned;
+            }
+
+            async init() {
+                try {
+                    // Load all JSON files in parallel
+                    const [year4a, year4b, year5a, year5b] = await Promise.all([
+                        fetch('data/year4a-lessons.json').then(r => r.json()),
+                        fetch('data/year4b-lessons.json').then(r => r.json()),
+                        fetch('data/year5a-lessons.json').then(r => r.json()),
+                        fetch('data/year5b-lessons.json').then(r => r.json())
+                    ]);
+                    
+                    // Assign to global LESSON_DATA
+                    LESSON_DATA = {
+                        '4a': year4a,
+                        '4b': year4b,
+                        '5a': year5a,
+                        '5b': year5b
+                    };
+                    
+                    // Hide loading overlay
+                    document.getElementById('loadingOverlay').classList.add('hidden');
+                    document.getElementById('mainContent').classList.remove('hidden');
+                    
+                    // Initialize the app
+                    this.setupEventListeners();
+                    this.renderLessons();
+                    this.updatePlanner();
+                    this.updateOverview();
+                    
+                    // Initialize Lucide icons
+                    lucide.createIcons();
+                    
+                } catch (error) {
+                    console.error('Error loading lesson data:', error);
+                    document.getElementById('loadingOverlay').innerHTML = `
+                        <div class="text-center">
+                            <div class="text-6xl mb-4">❌</div>
+                            <div class="text-xl font-semibold text-red-600 dark:text-red-400 mb-4">Failed to load lesson data</div>
+                            <div class="text-gray-600 dark:text-gray-400 mb-4">Please make sure the data folder with JSON files exists.</div>
+                            <button onclick="location.reload()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md">
+                                Retry
+                            </button>
+                        </div>
+                    `;
+                }
+            }
+
+            setupEventListeners() {
+                // Tab switching
+                document.querySelectorAll('.tab-btn').forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        this.switchTab(tab.dataset.tab);
+                    });
+                });
+
+                // Year switching
+                document.querySelectorAll('.year-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        this.switchYear(btn.dataset.year);
+                    });
+                });
+
+                // Control buttons
+                document.getElementById('markNextBtn').addEventListener('click', () => this.markNextComplete());
+                document.getElementById('resetBtn').addEventListener('click', () => this.showResetModal());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportData());
+                document.getElementById('importBtn').addEventListener('click', () => this.triggerImport());
+                document.getElementById('importFile').addEventListener('change', (e) => this.importData(e));
+                
+                // Reset modal buttons
+                document.getElementById('cancelResetBtn').addEventListener('click', () => this.hideResetModal());
+                document.getElementById('confirmResetBtn').addEventListener('click', () => this.resetProgress());
+
+                // Copy buttons
+                ['Slides4', 'Slides5', 'Approach4', 'Approach5', 'Priority4', 'Priority5'].forEach(id => {
+                    const btn = document.getElementById(`copy${id}Btn`);
+                    if (btn) {
+                        btn.addEventListener('click', () => this.copyToClipboard(`${id.toLowerCase()}Output`));
+                    }
+                });
+            }
+
+            switchTab(tabName) {
+                this.currentTab = tabName;
+                
+                // Update tab buttons
+                document.querySelectorAll('.tab-btn').forEach(t => {
+                    t.classList.remove('active', 'text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400');
+                    t.classList.add('text-gray-500', 'dark:text-gray-400');
+                });
+                const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
+                activeTab.classList.add('active', 'text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400');
+                activeTab.classList.remove('text-gray-500', 'dark:text-gray-400');
+                
+                // Update tab content
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById(tabName).classList.remove('hidden');
+
+                if (tabName === 'planner') {
+                    this.updatePlanner();
+                } else if (tabName === 'overview') {
+                    this.updateOverview();
+                }
+            }
+
+            switchYear(year) {
+                this.currentYear = year;
+                
+                // Update year buttons
+                document.querySelectorAll('.year-btn').forEach(b => {
+                    b.classList.remove('active', 'bg-blue-600', 'text-white', 'border-blue-600');
+                    b.classList.add('bg-white', 'dark:bg-gray-800', 'text-blue-600', 'dark:text-blue-400', 'border-blue-600', 'dark:border-blue-400');
+                });
+                const activeBtn = document.querySelector(`[data-year="${year}"]`);
+                activeBtn.classList.add('active', 'bg-blue-600', 'text-white', 'border-blue-600');
+                activeBtn.classList.remove('bg-white', 'dark:bg-gray-800', 'text-blue-600', 'dark:text-blue-400');
+                
+                this.renderLessons();
+            }
+
+            loadProgress() {
+                const saved = localStorage.getItem('mathsLessonProgress');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    return {
+                        completed: data.completed || data || {},
+                        skipped: data.skipped || {},
+                        pinned: data.pinned || { day1: {}, day2: {}, day3: {}, day4: {}, day5: {} }
+                    };
+                }
+                return { 
+                    completed: {}, 
+                    skipped: {},
+                    pinned: { day1: {}, day2: {}, day3: {}, day4: {}, day5: {} }
+                };
+            }
+
+            saveProgress() {
+                localStorage.setItem('mathsLessonProgress', JSON.stringify({
+                    completed: this.completed,
+                    skipped: this.skipped,
+                    pinned: this.pinned
+                }));
+            }
+
+            getLessonKey(book, lesson) {
+                return `${book}-${lesson.textbook_chapter}-${lesson.textbook_lesson}-${lesson.content_type}`;
+            }
+
+            toggleLesson(book, lesson) {
+                const key = this.getLessonKey(book, lesson);
+                
+                // Three states: unmarked → completed → skipped → unmarked
+                if (this.completed[key]) {
+                    delete this.completed[key];
+                    this.skipped[key] = true;
+                } else if (this.skipped[key]) {
+                    delete this.skipped[key];
+                } else {
+                    this.completed[key] = true;
+                    this.unpinLesson(lesson);
+                }
+                
+                this.saveProgress();
+                this.renderLessons();
+                this.updatePlanner();
+                this.updateOverview();
+            }
+
+            renderLessons() {
+                const container = document.getElementById('lessonsContainer');
+                const aBook = `${this.currentYear}a`;
+                const bBook = `${this.currentYear}b`;
+                const allLessons = [...LESSON_DATA[aBook], ...LESSON_DATA[bBook]];
+
+                // Group by chapter
+                const chapters = {};
+                allLessons.forEach((lesson, idx) => {
+                    const chapter = lesson.textbook_chapter;
+                    if (!chapters[chapter]) {
+                        chapters[chapter] = [];
+                    }
+                    const book = idx < LESSON_DATA[aBook].length ? aBook : bBook;
+                    chapters[chapter].push({ ...lesson, book, originalIndex: idx });
+                });
+
+                container.innerHTML = '';
+                
+                const chapterKeys = Object.keys(chapters).sort((a, b) => parseInt(a) - parseInt(b));
+                
+                chapterKeys.forEach((chapterNum) => {
+                    const lessons = chapters[chapterNum];
+                    
+                    // Separate lessons by type
+                    const regularLessons = [];
+                    const revisionLessons = [];
+                    const assessmentLessons = [];
+                    
+                    lessons.forEach(lesson => {
+                        const type = lesson.content_type;
+                        if (type.startsWith('revision')) {
+                            revisionLessons.push(lesson);
+                        } else if (type.startsWith('mid_year') || type.startsWith('end_year')) {
+                            assessmentLessons.push(lesson);
+                        } else {
+                            regularLessons.push(lesson);
+                        }
+                    });
+                    
+                    // Render regular lessons
+                    if (regularLessons.length > 0) {
+                        const completed = regularLessons.filter(l => this.completed[this.getLessonKey(l.book, l)]).length;
+                        const total = regularLessons.length;
+
+                        const section = document.createElement('div');
+                        section.className = 'mb-8 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden';
+                        section.innerHTML = `
+                            <div class="bg-gray-100 dark:bg-gray-800 px-5 py-4 flex justify-between items-center">
+                                <span class="font-semibold text-gray-900 dark:text-gray-100">Chapter ${chapterNum}</span>
+                                <span class="text-sm text-gray-600 dark:text-gray-400">${completed}/${total} completed</span>
+                            </div>
+                            <div class="p-4 bg-white dark:bg-gray-900">
+                                <div class="lessons-grid"></div>
+                            </div>
+                        `;
+
+                        const grid = section.querySelector('.lessons-grid');
+                        regularLessons.forEach(lesson => {
+                            grid.appendChild(this.createLessonCard(lesson));
+                        });
+
+                        container.appendChild(section);
+                    }
+                    
+                    // Render revision lessons
+                    if (revisionLessons.length > 0) {
+                        const section = this.createSpecialSection('Revision', revisionLessons, chapterNum);
+                        container.appendChild(section);
+                    }
+                    
+                    // Render assessment lessons
+                    if (assessmentLessons.length > 0) {
+                        const section = this.createSpecialSection('Assessment', assessmentLessons, chapterNum);
+                        container.appendChild(section);
+                    }
+                });
+            }
+
+            createLessonCard(lesson) {
+                const key = this.getLessonKey(lesson.book, lesson);
+                const isCompleted = this.completed[key];
+                const isSkipped = this.skipped[key];
+                const isPinned = this.isLessonPinned(lesson);
+                
+                const status = isCompleted ? 'completed' : isSkipped ? 'skipped' : 'unmarked';
+                const statusBg = isCompleted ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800' : 
+                                isSkipped ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800' : 
+                                'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700';
+
+                const card = document.createElement('div');
+                card.className = `relative border-2 ${statusBg} rounded-lg p-4 cursor-pointer transition-all hover:shadow-lg hover:-translate-y-1`;
+                
+                const combineInfo = this.getCombineInfo(lesson);
+                const tags = this.getLessonTags(lesson);
+                
+                card.innerHTML = `
+                    ${isPinned ? '<svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>' : ''}
+                    <div class="flex items-start gap-2 mb-2">
+                        <div class="lesson-status ${status}"></div>
+                        <div class="flex-1">
+                            <div class="font-semibold text-gray-900 dark:text-gray-100 text-sm">
+                                Ch ${lesson.textbook_chapter}, L ${lesson.textbook_lesson}
+                            </div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                ${this.formatContentType(lesson.content_type)}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-700 dark:text-gray-300 mb-2 line-clamp-2">
+                        ${lesson.objective || 'No objective specified'}
+                    </div>
+                    ${combineInfo ? `<div class="text-xs text-blue-600 dark:text-blue-400 mb-2">💡 Combine with L${combineInfo}</div>` : ''}
+                    ${tags.length > 0 ? `<div class="flex flex-wrap gap-1 mb-2">${tags.map(tag => `<span class="text-xs px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">${tag}</span>`).join('')}</div>` : ''}
+                    <div class="flex gap-1 mt-3">
+                        ${lesson.textbook_url ? `<a href="${lesson.textbook_url}" target="_blank" class="text-xs px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded" onclick="event.stopPropagation()">TB</a>` : ''}
+                        ${lesson.workbook_url ? `<a href="${lesson.workbook_url}" target="_blank" class="text-xs px-2 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded" onclick="event.stopPropagation()">WB</a>` : ''}
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => this.toggleLesson(lesson.book, lesson));
+                
+                // Right-click to pin
+                card.addEventListener('contextmenu', (e) => {
+                    e.preventDefault();
+                    this.showPinMenu(e, lesson);
+                });
+                
+                return card;
+            }
+
+            createSpecialSection(title, lessons, chapterNum) {
+                const section = document.createElement('div');
+                section.className = 'mb-8 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden';
+                
+                const bgColor = title === 'Revision' ? 'bg-purple-100 dark:bg-purple-900/30' : 'bg-blue-100 dark:bg-blue-900/30';
+                
+                section.innerHTML = `
+                    <div class="${bgColor} px-5 py-4">
+                        <span class="font-semibold text-gray-900 dark:text-gray-100">Chapter ${chapterNum} - ${title}</span>
+                    </div>
+                    <div class="p-4 bg-white dark:bg-gray-900">
+                        <div class="lessons-grid"></div>
+                    </div>
+                `;
+
+                const grid = section.querySelector('.lessons-grid');
+                lessons.forEach(lesson => {
+                    grid.appendChild(this.createLessonCard(lesson));
+                });
+
+                return section;
+            }
+
+            formatContentType(type) {
+                const map = {
+                    'worksheet': 'Worksheet',
+                    'mind_challenge': 'Mind Challenge',
+                    'review': 'Review',
+                    'revision1': 'Revision 1',
+                    'revision2': 'Revision 2',
+                    'revision3': 'Revision 3',
+                    'revision4': 'Revision 4',
+                    'mid_year_a': 'Mid-Year A',
+                    'mid_year_b': 'Mid-Year B',
+                    'mid_year_c': 'Mid-Year C',
+                    'end_year_a': 'End-Year A',
+                    'end_year_b': 'End-Year B',
+                    'end_year_c': 'End-Year C'
+                };
+                return map[type] || type;
+            }
+
+            getCombineInfo(lesson) {
+                if (!lesson.content_priority) return null;
+                
+                const combinePatterns = [
+                    /can be combined with lesson (\d+)/i,
+                    /combine with lesson (\d+)/i,
+                    /combined with lesson (\d+)/i,
+                    /can be combined with lessons? (\d+)(?: and (\d+))?/i
+                ];
+                
+                for (let pattern of combinePatterns) {
+                    const match = lesson.content_priority.match(pattern);
+                    if (match) {
+                        const lessons = [match[1]];
+                        if (match[2]) lessons.push(match[2]);
+                        return lessons.join(', ');
+                    }
+                }
+                
+                return null;
+            }
+
+            getLessonTags(lesson) {
+                const tags = [];
+                const priority = lesson.content_priority ? lesson.content_priority.toLowerCase() : '';
+                
+                if (priority.includes('optional') || priority.includes('if time allows')) {
+                    tags.push('Optional');
+                }
+                if (priority.includes('essential') || priority.includes('important')) {
+                    tags.push('Essential');
+                }
+                if (priority.includes('challenging') || priority.includes('difficult')) {
+                    tags.push('Challenging');
+                }
+                
+                return tags;
+            }
+
+            isLessonPinned(lesson) {
+                const year = lesson.book[0];
+                const yearKey = `year${year}`;
+                const lessonKey = this.getLessonKey(lesson.book, lesson);
+                
+                for (let day in this.pinned) {
+                    if (this.pinned[day][yearKey] === lessonKey) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+
+            showPinMenu(e, lesson) {
+                const menu = document.createElement('div');
+                menu.className = 'fixed bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-xl p-2 z-50';
+                menu.style.left = e.pageX + 'px';
+                menu.style.top = e.pageY + 'px';
+                
+                const year = lesson.book[0];
+                const yearKey = `year${year}`;
+                
+                ['day1', 'day2', 'day3', 'day4', 'day5'].forEach((day, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = 'block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 rounded';
+                    btn.textContent = `Pin to Day ${idx + 1}`;
+                    btn.onclick = () => {
+                        this.pinLesson(lesson, day);
+                        document.body.removeChild(menu);
+                    };
+                    menu.appendChild(btn);
+                });
+                
+                if (this.isLessonPinned(lesson)) {
+                    const unpinBtn = document.createElement('button');
+                    unpinBtn.className = 'block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-700 text-red-600 dark:text-red-400 rounded border-t border-gray-200 dark:border-gray-700 mt-1';
+                    unpinBtn.textContent = 'Unpin';
+                    unpinBtn.onclick = () => {
+                        this.unpinLesson(lesson);
+                        document.body.removeChild(menu);
+                    };
+                    menu.appendChild(unpinBtn);
+                }
+                
+                document.body.appendChild(menu);
+                
+                const closeMenu = (e) => {
+                    if (!menu.contains(e.target)) {
+                        document.body.removeChild(menu);
+                        document.removeEventListener('click', closeMenu);
+                    }
+                };
+                
+                setTimeout(() => {
+                    document.addEventListener('click', closeMenu);
+                }, 0);
+            }
+
+            pinLesson(lesson, day) {
+                const year = lesson.book[0];
+                const yearKey = `year${year}`;
+                const lessonKey = this.getLessonKey(lesson.book, lesson);
+                
+                this.pinned[day][yearKey] = lessonKey;
+                
+                this.saveProgress();
+                this.renderLessons();
+                this.updatePlanner();
+            }
+
+            unpinLesson(lesson) {
+                const year = lesson.book[0];
+                const yearKey = `year${year}`;
+                const lessonKey = this.getLessonKey(lesson.book, lesson);
+                
+                for (let day in this.pinned) {
+                    if (this.pinned[day][yearKey] === lessonKey) {
+                        delete this.pinned[day][yearKey];
+                    }
+                }
+                
+                this.saveProgress();
+                this.renderLessons();
+                this.updatePlanner();
+            }
+
+            getNextLessons(count) {
+                const nextLessons = { '4': [], '5': [] };
+                
+                ['4', '5'].forEach(year => {
+                    const aBook = `${year}a`;
+                    const bBook = `${year}b`;
+                    const allLessons = [...LESSON_DATA[aBook], ...LESSON_DATA[bBook]];
+                    
+                    allLessons.forEach((lesson, idx) => {
+                        const book = idx < LESSON_DATA[aBook].length ? aBook : bBook;
+                        const key = this.getLessonKey(book, lesson);
+                        
+                        if (!this.completed[key] && !this.skipped[key] && nextLessons[year].length < count) {
+                            nextLessons[year].push({ ...lesson, book });
+                        }
+                    });
+                });
+                
+                return nextLessons;
+            }
+
+            updatePlanner() {
+                // Get next 5 lessons for each year
+                const nextLessons = this.getNextLessons(5);
+                
+                // Display upcoming lessons
+                const display = document.getElementById('nextLessonsDisplay');
+                if (nextLessons['4'].length === 0 && nextLessons['5'].length === 0) {
+                    display.innerHTML = '<p class="text-gray-600 dark:text-gray-400">All lessons completed! 🎉</p>';
+                } else {
+                    let html = '<h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Upcoming Lessons</h3>';
+                    ['4', '5'].forEach(year => {
+                        if (nextLessons[year].length > 0) {
+                            html += `<div class="mb-2"><strong class="text-gray-900 dark:text-gray-100">Year ${year}:</strong> `;
+                            html += nextLessons[year].map(l => `Ch${l.textbook_chapter}L${l.textbook_lesson}`).join(', ');
+                            html += '</div>';
+                        }
+                    });
+                    display.innerHTML = html;
+                }
+                
+                // Generate combined weekly plans
+                this.generateCombinedPlans(nextLessons);
+                
+                // Generate slides content
+                this.generateSlidesContent(nextLessons);
+                
+                // Generate approach content
+                this.generateApproachContent(nextLessons);
+                
+                // Generate priority content
+                this.generatePriorityContent(nextLessons);
+            }
+
+            generateCombinedPlans(nextLessons) {
+                const container = document.getElementById('combinedPlansContainer');
+                container.innerHTML = '';
+                
+                for (let i = 0; i < 5; i++) {
+                    const section = document.createElement('div');
+                    section.className = 'bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-4';
+                    
+                    let content = `<div class="flex justify-between items-center mb-3">
+                        <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Day ${i + 1}</h3>
+                        <button class="copy-day-btn px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">Copy</button>
+                    </div>`;
+                    
+                    const year4Lesson = nextLessons['4'][i];
+                    const year5Lesson = nextLessons['5'][i];
+                    
+                    let planText = '';
+                    
+                    if (year4Lesson) {
+                        planText += this.generateWeeklyPlan(year4Lesson, '4') + '\n\n';
+                    }
+                    
+                    if (year5Lesson) {
+                        planText += this.generateWeeklyPlan(year5Lesson, '5');
+                    }
+                    
+                    if (!year4Lesson && !year5Lesson) {
+                        planText = 'No lessons scheduled';
+                    }
+                    
+                    content += `<pre class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap text-gray-900 dark:text-gray-100">${planText}</pre>`;
+                    
+                    section.innerHTML = content;
+                    
+                    section.querySelector('.copy-day-btn').addEventListener('click', function() {
+                        const text = section.querySelector('pre').textContent;
+                        navigator.clipboard.writeText(text).then(() => {
+                            const btn = this;
+                            const originalText = btn.textContent;
+                            btn.textContent = 'Copied!';
+                            setTimeout(() => {
+                                btn.textContent = originalText;
+                            }, 2000);
+                        });
+                    });
+                    
+                    container.appendChild(section);
+                }
+            }
+
+            generateWeeklyPlan(lesson, year) {
+                let planText = `Year ${year}\n`;
+                planText += `LI: ${lesson.objective}\n`;
+                planText += `Teacher: TB c${lesson.textbook_chapter}`;
+                
+                if (lesson.content_type === 'worksheet') {
+                    planText += `l${lesson.textbook_lesson}`;
+                } else if (lesson.content_type.startsWith('revision')) {
+                    planText += `Revision`;
+                } else if (lesson.content_type === 'review') {
+                    planText += `Review`;
+                } else if (lesson.content_type === 'mind_challenge') {
+                    planText += `Mind Challenge`;
+                } else {
+                    planText += this.formatContentType(lesson.content_type);
+                }
+                
+                if (lesson.textbook_pages) {
+                    planText += ` pg${lesson.textbook_pages}`;
+                }
+                planText += '\n';
+                
+                if (lesson.workbook_pages) {
+                    planText += `Ind: pg${lesson.workbook_pages}`;
+                }
+                
+                return planText;
+            }
+
+            generateSlidesContent(nextLessons) {
+                // Year 4 Slides
+                let slides4Text = '';
+                nextLessons['4'].forEach((lesson, idx) => {
+                    slides4Text += `Lesson ${idx + 1}\n`;
+                    slides4Text += `WALT: ${lesson.objective}\n`;
+                    slides4Text += `SC:\n`;
+                    if (lesson.formative_assessment && lesson.formative_assessment.length > 0) {
+                        lesson.formative_assessment.forEach(point => {
+                            slides4Text += `• ${point}\n`;
+                        });
+                    }
+                    slides4Text += '\n';
+                });
+                document.getElementById('slides4Output').textContent = slides4Text || 'No upcoming lessons.';
+
+                // Year 5 Slides
+                let slides5Text = '';
+                nextLessons['5'].forEach((lesson, idx) => {
+                    slides5Text += `Lesson ${idx + 1}\n`;
+                    slides5Text += `WALT: ${lesson.objective}\n`;
+                    slides5Text += `SC:\n`;
+                    if (lesson.formative_assessment && lesson.formative_assessment.length > 0) {
+                        lesson.formative_assessment.forEach(point => {
+                            slides5Text += `• ${point}\n`;
+                        });
+                    }
+                    slides5Text += '\n';
+                });
+                document.getElementById('slides5Output').textContent = slides5Text || 'No upcoming lessons.';
+            }
+
+            generateApproachContent(nextLessons) {
+                // Year 4 Approach
+                let approach4Text = '';
+                nextLessons['4'].forEach((lesson, idx) => {
+                    approach4Text += `Lesson ${idx + 1} - Chapter ${lesson.textbook_chapter}, Lesson ${lesson.textbook_lesson}\n`;
+                    approach4Text += `${'='.repeat(50)}\n\n`;
+                    if (lesson.approach) {
+                        approach4Text += `${lesson.approach}\n\n`;
+                    } else {
+                        approach4Text += 'No approach details available.\n\n';
+                    }
+                });
+                document.getElementById('approach4Output').textContent = approach4Text || 'No upcoming lessons.';
+
+                // Year 5 Approach
+                let approach5Text = '';
+                nextLessons['5'].forEach((lesson, idx) => {
+                    approach5Text += `Lesson ${idx + 1} - Chapter ${lesson.textbook_chapter}, Lesson ${lesson.textbook_lesson}\n`;
+                    approach5Text += `${'='.repeat(50)}\n\n`;
+                    if (lesson.approach) {
+                        approach5Text += `${lesson.approach}\n\n`;
+                    } else {
+                        approach5Text += 'No approach details available.\n\n';
+                    }
+                });
+                document.getElementById('approach5Output').textContent = approach5Text || 'No upcoming lessons.';
+            }
+
+            generatePriorityContent(nextLessons) {
+                // Year 4 Content Priority
+                let priority4Text = '';
+                nextLessons['4'].forEach((lesson, idx) => {
+                    priority4Text += `Lesson ${idx + 1} - Chapter ${lesson.textbook_chapter}, Lesson ${lesson.textbook_lesson}\n`;
+                    priority4Text += `${'='.repeat(50)}\n\n`;
+                    if (lesson.content_priority) {
+                        priority4Text += `${lesson.content_priority}\n\n`;
+                    } else {
+                        priority4Text += 'No content priority details available.\n\n';
+                    }
+                });
+                document.getElementById('priority4Output').textContent = priority4Text || 'No upcoming lessons.';
+
+                // Year 5 Content Priority
+                let priority5Text = '';
+                nextLessons['5'].forEach((lesson, idx) => {
+                    priority5Text += `Lesson ${idx + 1} - Chapter ${lesson.textbook_chapter}, Lesson ${lesson.textbook_lesson}\n`;
+                    priority5Text += `${'='.repeat(50)}\n\n`;
+                    if (lesson.content_priority) {
+                        priority5Text += `${lesson.content_priority}\n\n`;
+                    } else {
+                        priority5Text += 'No content priority details available.\n\n';
+                    }
+                });
+                document.getElementById('priority5Output').textContent = priority5Text || 'No upcoming lessons.';
+            }
+
+            markNextComplete() {
+                const nextLessons = this.getNextLessons(1);
+                let marked = false;
+
+                ['4', '5'].forEach(year => {
+                    if (nextLessons[year].length > 0) {
+                        const key = this.getLessonKey(nextLessons[year][0].book, nextLessons[year][0]);
+                        this.completed[key] = true;
+                        marked = true;
+                    }
+                });
+
+                if (marked) {
+                    this.saveProgress();
+                    this.renderLessons();
+                    this.updatePlanner();
+                    this.updateOverview();
+                }
+            }
+
+            updateOverview() {
+                const stats = { '4': { completed: 0, total: 0, skipped: 0 }, '5': { completed: 0, total: 0, skipped: 0 } };
+                const bookStats = {};
+
+                ['4a', '4b', '5a', '5b'].forEach(book => {
+                    const year = book[0];
+                    const lessons = LESSON_DATA[book];
+                    stats[year].total += lessons.length;
+                    
+                    bookStats[book] = { completed: 0, total: lessons.length, skipped: 0 };
+                    
+                    lessons.forEach(lesson => {
+                        const key = this.getLessonKey(book, lesson);
+                        if (this.completed[key]) {
+                            stats[year].completed++;
+                            bookStats[book].completed++;
+                        }
+                        if (this.skipped[key]) {
+                            stats[year].skipped++;
+                            bookStats[book].skipped++;
+                        }
+                    });
+                });
+
+                document.getElementById('year4Completed').textContent = stats['4'].completed;
+                document.getElementById('year4Remaining').textContent = stats['4'].total - stats['4'].completed - stats['4'].skipped;
+                document.getElementById('year5Completed').textContent = stats['5'].completed;
+                document.getElementById('year5Remaining').textContent = stats['5'].total - stats['5'].completed - stats['5'].skipped;
+
+                // Book progress bars
+                const bookProgressEl = document.getElementById('bookProgress');
+                bookProgressEl.innerHTML = '';
+                
+                ['4a', '4b', '5a', '5b'].forEach(book => {
+                    const stat = bookStats[book];
+                    const completed = stat.completed;
+                    const skipped = stat.skipped;
+                    const remaining = stat.total - completed - skipped;
+                    const completedPercent = stat.total > 0 ? Math.round((completed / stat.total) * 100) : 0;
+                    const skippedPercent = stat.total > 0 ? Math.round((skipped / stat.total) * 100) : 0;
+                    const remainingPercent = stat.total > 0 ? 100 - completedPercent - skippedPercent : 0;
+                    const bookName = book === '4a' ? 'Year 4A (Term 1-2)' : 
+                                    book === '4b' ? 'Year 4B (Term 3-4)' :
+                                    book === '5a' ? 'Year 5A (Term 1-2)' : 'Year 5B (Term 3-4)';
+                    
+                    const bookDiv = document.createElement('div');
+                    bookDiv.className = 'mb-6';
+                    bookDiv.innerHTML = `
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold text-gray-900 dark:text-gray-100">${bookName}</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">${completed} / ${stat.total} lessons</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            ${completed > 0 ? `<div class="progress-segment progress-completed" style="width: ${completedPercent}%">${completedPercent}%</div>` : ''}
+                            ${skipped > 0 ? `<div class="progress-segment progress-skipped" style="width: ${skippedPercent}%">${skippedPercent}%</div>` : ''}
+                            ${remaining > 0 ? `<div class="progress-segment progress-remaining" style="width: ${remainingPercent}%">${remainingPercent}%</div>` : ''}
+                        </div>
+                    `;
+                    bookProgressEl.appendChild(bookDiv);
+                });
+            }
+
+            showResetModal() {
+                document.getElementById('resetModal').classList.remove('hidden');
+                document.getElementById('resetModal').classList.add('flex');
+            }
+
+            hideResetModal() {
+                document.getElementById('resetModal').classList.add('hidden');
+                document.getElementById('resetModal').classList.remove('flex');
+            }
+
+            resetProgress() {
+                this.completed = {};
+                this.skipped = {};
+                this.pinned = { day1: {}, day2: {}, day3: {}, day4: {}, day5: {} };
+                this.saveProgress();
+                this.hideResetModal();
+                this.renderLessons();
+                this.updatePlanner();
+                this.updateOverview();
+            }
+
+            exportData() {
+                const data = {
+                    completed: this.completed,
+                    skipped: this.skipped,
+                    pinned: this.pinned,
+                    exportDate: new Date().toISOString(),
+                    stats: this.getExportStats()
+                };
+                
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `maths-progress-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            triggerImport() {
+                document.getElementById('importFile').click();
+            }
+
+            importData(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        
+                        if (!data.completed || typeof data.completed !== 'object') {
+                            alert('Invalid data file format. Please select a valid export file.');
+                            return;
+                        }
+
+                        const confirmMsg = `Import progress data from ${data.exportDate ? new Date(data.exportDate).toLocaleDateString() : 'unknown date'}?\n\nThis will replace your current progress.`;
+                        if (confirm(confirmMsg)) {
+                            this.completed = data.completed;
+                            this.skipped = data.skipped || {};
+                            this.pinned = data.pinned || { day1: {}, day2: {}, day3: {}, day4: {}, day5: {} };
+                            this.saveProgress();
+                            this.renderLessons();
+                            this.updatePlanner();
+                            this.updateOverview();
+                            alert('Progress data imported successfully!');
+                        }
+                    } catch (error) {
+                        alert('Error reading file. Please select a valid JSON export file.');
+                        console.error('Import error:', error);
+                    }
+
+                    event.target.value = '';
+                };
+                reader.readAsText(file);
+            }
+
+            getExportStats() {
+                const stats = {};
+                ['4a', '4b', '5a', '5b'].forEach(book => {
+                    stats[book] = LESSON_DATA[book].filter(l => 
+                        this.completed[this.getLessonKey(book, l)]
+                    ).length;
+                });
+                return stats;
+            }
+
+            copyToClipboard(elementId) {
+                const text = document.getElementById(elementId).textContent;
+                navigator.clipboard.writeText(text).then(() => {
+                    const btnId = elementId.replace('Output', 'Btn').replace(/(\d)/, function(match, p1) {
+                        return p1.charAt(0).toUpperCase() + p1.slice(1);
+                    });
+                    const btn = document.getElementById(`copy${btnId.charAt(0).toUpperCase() + btnId.slice(1)}`);
+                    if (btn) {
+                        const originalText = btn.textContent;
+                        btn.textContent = 'Copied!';
+                        setTimeout(() => {
+                            btn.textContent = originalText;
+                        }, 2000);
+                    }
+                });
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            const tracker = new LessonTracker();
+            tracker.init();
+        });
+    </script>
+</body>
+</html>
