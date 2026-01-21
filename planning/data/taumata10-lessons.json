@@ -1,0 +1,492 @@
+{
+  "1": {
+    "focus": "Prefix inter (between/among)",
+    "targetWords": ["intercept", "intersect", "interrupt", "intercom", "interlock", "interject", "intercity", "interview"],
+    "readingTheme": "Water - Red Flags & Sons of Ma'afu",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 1, Day 1", "activity": "Explicit teaching of prefix inter (between/among)", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Match the word with prefix inter to its definition", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 1", "activity": "Letter formation review / copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Explicit teacher modelling - QAR (Red Flags)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks related to Red Flags", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading / independent work", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 1", "activity": "Year 4 Writing lesson", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 1, Day 2", "activity": "Word Study with inter words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Continuation of Week 1 practice", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Summarize using story structure elements (Red Flags)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Story structure graphic organizer", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 1", "activity": "Continue Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 1, Day 3", "activity": "Morpheme Map for inter (building words)", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Morpheme Map - build words with base words + inter", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 1 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "QAR - Author and Me, On My Own (Sons of Ma'afu)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Answer QAR questions about text", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 1", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 1, Day 4", "activity": "Practice and application with inter words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Morpheme Card for inter + sentence with inter word", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 1 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Summarize using story structure (Sons of Ma'afu complete)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Complete story structure organizer", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 1", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Exit ticket or review activity for prefix inter", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "Comprehension questions / OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning / vocabulary activity", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "2": {
+    "focus": "Prefix under (beneath/lower)",
+    "targetWords": ["underground", "undercover", "underage", "undergrowth", "underweight", "undervalue", "underpay", "underuse"],
+    "readingTheme": "Water - Where's Toki?",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 2, Day 1", "activity": "Explicit teaching of prefix under", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Match the word with prefix under to its definition", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 2", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Explicit teaching of all QAR categories (Where's Toki?)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Answer QAR questions", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 2", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 2, Day 2", "activity": "Word Study with under words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 2 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Summarize using story structure (Where's Toki? continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Story structure organizer", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 2", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 2, Day 3", "activity": "Morpheme Bingo for under", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Morpheme Bingo", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 2 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "Students answer QAR questions (Where's Toki? continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Mix of QAR questions", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 2", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 2, Day 4", "activity": "Practice with under words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Morpheme Card for under + sentence", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 2 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Summarize using story structure, students generate QAR questions (Where's Toki? complete)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Complete story structure", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 2", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for prefix under", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "3": {
+    "focus": "Prefix over (above/excessive)",
+    "targetWords": ["overload", "overtime", "override", "overcharge", "overrated", "overweight", "overjoyed", "overcrowded"],
+    "readingTheme": "Water - Ngāti Kurī Proud",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 3, Day 1", "activity": "Explicit teaching of prefix over", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Sums and Sentence Generation", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 3", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Anticipation Guide + Review QAR (Ngāti Kurī Proud)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Mixed order QAR questions", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 3", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 3, Day 2", "activity": "Word Study with over words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 3 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Students generate 2-3 QAR questions in groups (Ngāti Kurī Proud continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "QAR practice", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 3", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 3, Day 3", "activity": "Morpheme Map for over", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Morpheme Map", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 3 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "QAR practice (Ngāti Kurī Proud continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Mixed QAR questions", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 3", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 3, Day 4", "activity": "Practice with over words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Morpheme Card for over + Word Breakdown", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 3 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Students generate QAR questions (Ngāti Kurī Proud complete)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Share student-generated questions", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 3", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for prefix over", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "4": {
+    "focus": "Suffix -al (pertaining to/having the form or character of)",
+    "targetWords": ["coastal", "magical", "personal", "logical", "sceptical", "emotional", "national", "optional"],
+    "readingTheme": "Water - Monsters of the Deep",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 4a, Day 1", "activity": "Explicit teaching of suffix -al", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Morpheme Bingo for -al", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 4", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Non-Fiction text structure: Descriptive Web + KWL (Monsters of the Deep)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Complete KWL chart", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 4", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 4a, Day 2", "activity": "Word Study with -al words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study + Word Sort for -al", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 4 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Descriptive Web + QAR (Monsters of the Deep continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Text structure organizer", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 4", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 4b, Day 1", "activity": "Explicit teaching of suffix -ial (connector i + al)", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word/Sentence Generation for -ial", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 4 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "QAR practice (Monsters of the Deep continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Mixed QAR questions", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 4", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 4b, Day 2", "activity": "Practice with -ial words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Sentence Generation for -ial + Word Sort", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 4 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "QAR + complete Descriptive Web (Monsters of the Deep complete)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Complete text structure", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 4", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for suffixes -al and -ial", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "5": {
+    "focus": "Suffix -ist (as in artist)",
+    "targetWords": ["dentist", "cyclist", "machinist", "journalist", "artist", "hygienist", "specialist", "tourist"],
+    "readingTheme": "Water - Te Papa's Colossal Squid",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 5, Day 1", "activity": "Explicit teaching of suffix -ist", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Fill the Blanks", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 5", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Non-Fiction text structure: Descriptive Web (Te Papa's Colossal Squid)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Begin Descriptive Web", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 5", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 5, Day 2", "activity": "Word Study with -ist words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study + Word Sort", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 5 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Descriptive Web (Te Papa's Colossal Squid continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Continue Descriptive Web", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 5", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 5, Day 3", "activity": "Practice with -ist words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 5 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "Descriptive Web (Te Papa's Colossal Squid continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Text structure practice", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 5", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 5, Day 4", "activity": "Application with -ist words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Sentence Generation", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 5 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Complete Descriptive Web (Te Papa's Colossal Squid complete)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Complete text structure organizer", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 5", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for suffix -ist", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "6": {
+    "focus": "Suffix -or (as in doctor)",
+    "targetWords": ["inventor", "conductor", "editor", "visitor", "survivor", "narrator", "translator"],
+    "readingTheme": "Water - Kaitaiaki of the Estuary",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 6, Day 1", "activity": "Explicit teaching of suffix -or", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Fill the Blanks", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 6", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Non-Fiction text structure: Descriptive Web (Kaitaiaki of the Estuary)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Begin Descriptive Web", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 6", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 6, Day 2", "activity": "Morpheme Bingo for -or", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study + Morpheme Bingo", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 6 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Descriptive Web (Kaitaiaki of the Estuary continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Continue Descriptive Web", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 6", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 6, Day 3", "activity": "Practice with -or words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 6 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "Descriptive Web (Kaitaiaki of the Estuary continue)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Text structure practice", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 6", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 6, Day 4", "activity": "Application with -or words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Sentence Generation", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 6 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Complete Descriptive Web (Kaitaiaki of the Estuary complete)", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Complete text structure", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 6", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for suffix -or", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "7": {
+    "focus": "Introduction to Root Words",
+    "targetWords": ["erupted", "constructed", "deformed", "import", "airport", "scribbled", "scribe", "distracted"],
+    "readingTheme": "Water - Various texts",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 7, Day 1", "activity": "Explicit teaching of root words concept", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Usage & Sentence Generation", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 7", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 7", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 7, Day 2", "activity": "Word Sort by root words (rupt, struct, port, form, scribe, tract)", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study + Word Sort", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 7 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 7", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 7, Day 3", "activity": "Practice identifying root words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 7 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 7", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 7, Day 4", "activity": "Application - Sentence Generation with root words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Sentence Generation", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 7 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 7", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for root words", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "8": {
+    "focus": "Root form (shape)",
+    "targetWords": ["reform", "uniform", "deform", "formal", "transform", "platform", "perform", "formed"],
+    "readingTheme": "Water - Various texts",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 8, Day 1", "activity": "Explicit teaching of root 'form' (shape)", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Fill the Blanks", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 8", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 8", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 8, Day 2", "activity": "Morpheme Bingo for form", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study + Morpheme Bingo", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 8 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 8", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 8, Day 3", "activity": "Practice with form words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 8 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 8", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 8, Day 4", "activity": "Application with form words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Morpheme Card for form + sentence", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 8 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 8", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for root 'form'", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "9": {
+    "focus": "Build multimorphemic words",
+    "targetWords": ["overactive", "preheated", "internationally", "irresponsible", "transformer", "performed", "interrupting"],
+    "readingTheme": "Water - Various texts",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 9, Day 1", "activity": "Explicit teaching of multimorphemic words (revision)", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Sums and Sentence Generation", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 9", "activity": "Copywork", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 1", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 9", "activity": "Year 4 Writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 9, Day 2", "activity": "Word Sort by morphemes (pre, mis, dis, form, -ous, -en, -less)", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word Study + Word Sums + Word Sort", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 9 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 2", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 9", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 9, Day 3", "activity": "Practice building multimorphemic words", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 1", "activity": "Word Study", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 9 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 3", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 9", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 9, Day 4", "activity": "Application - Word/Sentence Generation", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "lesson": "Lesson 2", "activity": "Word/Sentence Generation", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 9 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "lesson": "Lesson 4", "activity": "Reading comprehension", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Comprehension tasks", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Silent reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 9", "activity": "Continue writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "Assessment for multimorphemic words", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "lesson": "Lesson 5 - OWLS", "activity": "OWLS activity", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review week's learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Complete and share writing", "source": "BSLA" }
+      ]
+    ]
+  },
+  "10": {
+    "focus": "Review Week - Teacher's Choice",
+    "targetWords": ["Review of all morphemes from Weeks 1-9"],
+    "readingTheme": "Water - Review",
+    "days": [
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 10, Day 1", "activity": "Review activities for morphemes taught in Taumata 10", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "lesson": "Week 10", "activity": "Review/assessment", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "activity": "Review of reading strategies", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Review reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 10", "activity": "Review writing", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 10, Day 2", "activity": "Continue review", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 10 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "activity": "Review", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Review reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 10", "activity": "Continue review", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 10, Day 3", "activity": "Assessment preparation", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 10 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "activity": "Review", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Review reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 10", "activity": "Continue review", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM", "duration": "20 min", "lesson": "Unit 10, Day 4", "activity": "Assessment/Review", "source": "BSLA" },
+        { "component": "Link to Reading & Writing", "duration": "5-10 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Handwriting", "duration": "10 min", "activity": "Week 10 continuation", "source": "OCHRE" },
+        { "component": "Reading Comprehension", "duration": "20 min", "activity": "Review", "source": "BSLA" },
+        { "component": "Sentence & Text-Level Tasks", "duration": "15 min", "activity": "Review activities", "source": "BSLA" },
+        { "component": "Independent Tasks", "duration": "20 min", "activity": "Review reading", "source": "BSLA" },
+        { "component": "Writing Composition", "duration": "30-40 min", "lesson": "Week 10", "activity": "Continue review", "source": "BSLA" }
+      ],
+      [
+        { "component": "PhOM Review or Assessment", "duration": "20 min", "activity": "End of Taumata 10 assessment", "source": "BSLA" },
+        { "component": "Reading Comprehension Review", "duration": "20 min", "activity": "OWLS - Teacher's Choice", "source": "BSLA" },
+        { "component": "Review & Share", "duration": "20 min", "activity": "Review Taumata 10 learning", "source": "BSLA" },
+        { "component": "Writing: Share, Review or Assessment", "duration": "30-40 min", "activity": "Share and celebrate Taumata 10 completion", "source": "BSLA" }
+      ]
+    ]
+  }
+}
