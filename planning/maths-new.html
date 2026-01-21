@@ -12,19 +12,8 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
-        body {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+        /* Only positioning/layout CSS that can't be done with Tailwind */
         
-        @media (prefers-color-scheme: dark) {
-            html {
-                color-scheme: dark;
-            }
-        }
-
-        /* Lessons grid */
         .lessons-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -32,94 +21,27 @@
             margin-top: 15px;
         }
 
-        /* Status indicators */
-        .lesson-status {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        .lesson-status.completed { background: #10b981; }
-        .lesson-status.skipped { background: #ef4444; }
-        .lesson-status.unmarked { background: #9ca3af; }
-
-        /* Pin icon */
         .pin-icon {
             position: absolute;
             top: 8px;
             right: 8px;
-            width: 20px;
-            height: 20px;
-            color: #f59e0b;
-            filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));
         }
 
-        /* Progress bars */
-        .progress-bar-container {
-            background: #e5e7eb;
-            border-radius: 8px;
-            overflow: hidden;
-            height: 30px;
-        }
-        @media (prefers-color-scheme: dark) {
-            .progress-bar-container { background: #374151; }
-        }
         .progress-segment {
             height: 100%;
             float: left;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            color: white;
-        }
-        .progress-completed { background: #10b981; }
-        .progress-skipped { background: #ef4444; }
-        .progress-remaining { background: #6b7280; }
-
-        /* Tab styling */
-        .tab-btn.active {
-            color: #3b82f6;
-            border-bottom: 3px solid #3b82f6;
-        }
-        @media (prefers-color-scheme: dark) {
-            .tab-btn.active {
-                color: #60a5fa;
-                border-bottom-color: #60a5fa;
-            }
         }
 
-        /* Year button styling */
-        .year-btn.active {
-            background-color: #3b82f6;
-            color: white;
-            border-color: #3b82f6;
-        }
-        @media (prefers-color-scheme: dark) {
-            .year-btn.active {
-                background-color: #2563eb;
-                border-color: #2563eb;
-            }
-        }
-
-        /* Lesson Modal */
         .lesson-modal {
             display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
         }
         .lesson-modal.active {
             display: flex;
         }
+        
         .modal-wrapper {
             position: relative;
             display: flex;
@@ -127,31 +49,9 @@
             justify-content: center;
             max-width: calc(100% - 200px);
         }
+        
         .lesson-nav-arrow {
             position: absolute;
-            background: #6b7280;
-            border: none;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            font-size: 30px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-            opacity: 0.9;
-            z-index: 1001;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        }
-        .lesson-nav-arrow:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        .lesson-nav-arrow:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
         }
         .lesson-nav-arrow.prev { left: -80px; }
         .lesson-nav-arrow.next { right: -80px; }
@@ -181,13 +81,13 @@
 
         <!-- Tabs -->
         <div class="flex gap-2 mb-6 border-b-2 border-gray-300 dark:border-gray-700">
-            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 border-b-3 border-transparent hover:text-blue-600 dark:hover:text-blue-400 transition-colors active" data-tab="tracker">
+            <button class="tab-btn px-6 py-3 font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" style="border-bottom: 3px solid currentColor;" data-tab="tracker">
                 Lesson Tracker
             </button>
-            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 border-b-3 border-transparent hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="planner">
+            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="planner">
                 Weekly Planner
             </button>
-            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 border-b-3 border-transparent hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="overview">
+            <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="overview">
                 Overview
             </button>
         </div>
@@ -195,8 +95,8 @@
         <!-- Tracker Tab -->
         <div id="tracker" class="tab-content">
             <div class="flex gap-3 mb-6">
-                <button class="year-btn px-6 py-2 font-medium border-2 rounded-md transition-all active" data-year="4">Year 4</button>
-                <button class="year-btn px-6 py-2 font-medium border-2 rounded-md transition-all" data-year="5">Year 5</button>
+                <button class="year-btn px-6 py-2 font-medium border-2 border-blue-600 dark:border-blue-400 rounded-md transition-all bg-blue-600 dark:bg-blue-700 text-white" data-year="4">Year 4</button>
+                <button class="year-btn px-6 py-2 font-medium border-2 border-blue-600 dark:border-blue-400 rounded-md transition-all bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400" data-year="5">Year 5</button>
             </div>
 
             <div class="flex gap-3 mb-6 flex-wrap">
@@ -320,7 +220,7 @@
     </div>
 
     <!-- Lesson Details Modal -->
-    <div id="lessonModal" class="lesson-modal">
+    <div id="lessonModal" class="lesson-modal fixed inset-0 bg-black/50 z-[1000] items-center justify-center p-5">
         <div class="modal-wrapper">
             <div class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
                 <div class="flex justify-between items-start mb-6">
@@ -416,12 +316,14 @@
                 this.currentTab = tabName;
                 
                 document.querySelectorAll('.tab-btn').forEach(t => {
-                    t.classList.remove('active', 'text-blue-600', 'dark:text-blue-400', 'border-blue-600');
+                    t.classList.remove('text-blue-600', 'dark:text-blue-400');
                     t.classList.add('text-gray-500', 'dark:text-gray-400');
+                    t.style.borderBottom = '';
                 });
                 const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
-                activeTab.classList.add('active', 'text-blue-600', 'dark:text-blue-400', 'border-blue-600');
+                activeTab.classList.add('text-blue-600', 'dark:text-blue-400');
                 activeTab.classList.remove('text-gray-500', 'dark:text-gray-400');
+                activeTab.style.borderBottom = '3px solid currentColor';
                 
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
                 document.getElementById(tabName).classList.remove('hidden');
@@ -434,12 +336,12 @@
                 this.currentYear = year;
                 
                 document.querySelectorAll('.year-btn').forEach(b => {
-                    b.classList.remove('active', 'bg-blue-600', 'text-white');
-                    b.classList.add('bg-white', 'dark:bg-gray-800', 'text-blue-600', 'border-blue-600');
+                    b.classList.remove('bg-blue-600', 'dark:bg-blue-700', 'text-white');
+                    b.classList.add('bg-white', 'dark:bg-gray-800', 'text-blue-600', 'dark:text-blue-400');
                 });
                 const activeBtn = document.querySelector(`[data-year="${year}"]`);
-                activeBtn.classList.add('active', 'bg-blue-600', 'text-white');
-                activeBtn.classList.remove('bg-white', 'dark:bg-gray-800', 'text-blue-600');
+                activeBtn.classList.add('bg-blue-600', 'dark:bg-blue-700', 'text-white');
+                activeBtn.classList.remove('bg-white', 'dark:bg-gray-800', 'text-blue-600', 'dark:text-blue-400');
                 
                 this.renderLessons();
             }
@@ -563,9 +465,9 @@
                 const tags = this.getLessonTags(lesson);
                 
                 card.innerHTML = `
-                    ${isPinned ? '<svg class="pin-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>' : ''}
+                    ${isPinned ? '<svg class="w-5 h-5 text-amber-500 absolute top-2 right-2" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>' : ''}
                     <div class="flex items-start gap-2 mb-2">
-                        <div class="lesson-status ${status}"></div>
+                        <div class="w-3 h-3 rounded-full flex-shrink-0 ${status === 'completed' ? 'bg-green-500' : status === 'skipped' ? 'bg-red-500' : 'bg-gray-400'}"></div>
                         <div class="flex-1">
                             <div class="font-semibold text-gray-900 dark:text-gray-100 text-sm">Ch ${lesson.textbook_chapter}, L ${lesson.textbook_lesson}</div>
                             <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${this.formatContentType(lesson.content_type)}</div>
@@ -576,7 +478,7 @@
                     ${tags.length > 0 ? `<div class="flex flex-wrap gap-1 mb-2">${tags.map(tag => `<span class="text-xs px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">${tag}</span>`).join('')}</div>` : ''}
                     <div class="flex gap-1 mt-3">
                         <button class="info-btn text-xs px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded flex items-center gap-1">
-                            Info
+                            <i data-lucide="info" class="w-3 h-3"></i> Info
                         </button>
                         ${lesson.textbook_url ? `<a href="${lesson.textbook_url}" target="_blank" class="text-xs px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded" onclick="event.stopPropagation()">TB</a>` : ''}
                         ${lesson.workbook_url ? `<a href="${lesson.workbook_url}" target="_blank" class="text-xs px-2 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded" onclick="event.stopPropagation()">WB</a>` : ''}
@@ -672,13 +574,13 @@
                 const { prevLesson, nextLesson } = this.getAdjacentLessons(lesson);
                 
                 const prevArrow = document.createElement('button');
-                prevArrow.className = 'lesson-nav-arrow prev';
+                prevArrow.className = 'lesson-nav-arrow prev bg-gray-600 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed border-0 w-[60px] h-[60px] rounded-full text-[30px] text-white cursor-pointer transition-all opacity-90 hover:opacity-100 hover:scale-110 z-[1001] flex items-center justify-center shadow-lg';
                 prevArrow.innerHTML = '◄';
                 if (!prevLesson) prevArrow.disabled = true;
                 modalWrapper.appendChild(prevArrow);
                 
                 const nextArrow = document.createElement('button');
-                nextArrow.className = 'lesson-nav-arrow next';
+                nextArrow.className = 'lesson-nav-arrow next bg-gray-600 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed border-0 w-[60px] h-[60px] rounded-full text-[30px] text-white cursor-pointer transition-all opacity-90 hover:opacity-100 hover:scale-110 z-[1001] flex items-center justify-center shadow-lg';
                 nextArrow.innerHTML = '►';
                 if (!nextLesson) nextArrow.disabled = true;
                 modalWrapper.appendChild(nextArrow);
@@ -1030,10 +932,10 @@
                             <span class="font-semibold text-gray-900 dark:text-gray-100">${bookName}</span>
                             <span class="text-sm text-gray-600 dark:text-gray-400">${stat.completed} / ${stat.total} lessons</span>
                         </div>
-                        <div class="progress-bar-container">
-                            ${stat.completed > 0 ? `<div class="progress-segment progress-completed" style="width: ${completedPercent}%">${completedPercent}%</div>` : ''}
-                            ${stat.skipped > 0 ? `<div class="progress-segment progress-skipped" style="width: ${skippedPercent}%">${skippedPercent}%</div>` : ''}
-                            ${remainingPercent > 0 ? `<div class="progress-segment progress-remaining" style="width: ${remainingPercent}%">${remainingPercent}%</div>` : ''}
+                        <div class="bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden h-[30px]">
+                            ${stat.completed > 0 ? `<div class="progress-segment bg-green-500 text-white text-xs font-semibold" style="width: ${completedPercent}%">${completedPercent}%</div>` : ''}
+                            ${stat.skipped > 0 ? `<div class="progress-segment bg-red-500 text-white text-xs font-semibold" style="width: ${skippedPercent}%">${skippedPercent}%</div>` : ''}
+                            ${remainingPercent > 0 ? `<div class="progress-segment bg-gray-500 text-white text-xs font-semibold" style="width: ${remainingPercent}%">${remainingPercent}%</div>` : ''}
                         </div>
                     `;
                     bookProgressEl.appendChild(bookDiv);
