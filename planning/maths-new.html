@@ -409,14 +409,34 @@
                     document.getElementById('loadingOverlay').classList.add('hidden');
                     document.getElementById('mainContent').classList.remove('hidden');
                     
+                    console.log('Initializing UI...');
+                    
                     // Initialize the app
                     this.setupEventListeners();
+                    console.log('Event listeners set up');
+                    
                     this.renderLessons();
+                    console.log('Lessons rendered');
+                    
                     this.updatePlanner();
+                    console.log('Planner updated');
+                    
                     this.updateOverview();
+                    console.log('Overview updated');
                     
                     // Initialize Lucide icons
-                    lucide.createIcons();
+                    try {
+                        if (typeof lucide !== 'undefined') {
+                            lucide.createIcons();
+                            console.log('Lucide icons initialized');
+                        } else {
+                            console.warn('Lucide not loaded, icons will not display');
+                        }
+                    } catch (iconError) {
+                        console.warn('Error initializing Lucide icons:', iconError);
+                    }
+                    
+                    console.log('Initialization complete!');
                     
                 } catch (error) {
                     console.error('Error loading lesson data:', error);
