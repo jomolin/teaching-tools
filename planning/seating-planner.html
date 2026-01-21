@@ -220,6 +220,13 @@
           parseStudents();
         }
 
+        // Load and display the most recent seating plan if it exists
+        if (seatingHistory.length > 0) {
+          currentPlan = seatingHistory[seatingHistory.length - 1];
+          renderSeatingPlan();
+          displayStats();
+        }
+
         updateLayout();
       } else {
         updateLayout();
