@@ -1,5 +1,5 @@
 {
-  "generated": "2026-01-21T03:38:53.281Z",
+  "generated": "2026-01-21T03:51:10.357Z",
   "version": "1.0",
   "categories": {
     "classroom-screens": {
@@ -30,6 +30,13 @@
         "folder": "planning",
         "description": "Track and plan mathematics lessons for Year 4/5 mixed class",
         "icon": "calculator"
+      },
+      {
+        "name": "maths-new",
+        "path": "planning/maths-new.html",
+        "folder": "planning",
+        "description": "Interactive teaching tool",
+        "icon": "file"
       },
       {
         "name": "seating-planner",
