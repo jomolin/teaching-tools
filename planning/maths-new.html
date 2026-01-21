@@ -102,8 +102,9 @@
     </div>
 
     <div id="mainContent" style="display: none;">
-        <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">Maths Lesson Tracker</h1>
-        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">Year 4/5 Mixed Class - Track and plan your lessons</p>
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">Maths Lesson Tracker</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">Year 4/5 Mixed Class - Track and plan your lessons</p>
 
         <!-- Tabs -->
         <div class="flex gap-2 mb-6 border-b-2 border-gray-300 dark:border-gray-700">
@@ -231,6 +232,7 @@
             <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Progress by Book</h3>
             <div id="bookProgress"></div>
         </div>
+    </div>
     </div>
 
     <!-- Reset Modal -->
@@ -499,7 +501,12 @@
                     </div>
                     <div class="text-sm text-gray-700 dark:text-gray-300 mb-2 line-clamp-2">${lesson.objective || 'No objective'}</div>
                     ${combineInfo ? `<div class="text-xs text-blue-600 dark:text-blue-400 mb-2">💡 Combine with L${combineInfo}</div>` : ''}
-                    ${tags.length > 0 ? `<div class="flex flex-wrap gap-1 mb-2">${tags.map(tag => `<span class="text-xs px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">${tag}</span>`).join('')}</div>` : ''}
+                    ${tags.length > 0 ? `<div class="flex flex-wrap gap-1 mb-2">${tags.map(tag => {
+                        const isOptional = tag === 'Optional';
+                        const bgColor = isOptional ? 'bg-amber-500 dark:bg-amber-600' : 'bg-gray-200 dark:bg-gray-700';
+                        const textColor = isOptional ? 'text-white' : 'text-gray-700 dark:text-gray-300';
+                        return `<span class="text-xs px-2 py-0.5 ${bgColor} ${textColor} rounded font-semibold">${tag}</span>`;
+                    }).join('')}</div>` : ''}
                     <div class="flex gap-1 mt-3">
                         <button class="info-btn text-xs px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded">
                             Info
@@ -708,7 +715,6 @@
                 const tags = [];
                 const priority = lesson.content_priority ? lesson.content_priority.toLowerCase() : '';
                 if (priority.includes('optional') || priority.includes('if time allows')) tags.push('Optional');
-                if (priority.includes('essential') || priority.includes('important')) tags.push('Essential');
                 if (priority.includes('challenging')) tags.push('Challenging');
                 return tags;
             }
@@ -812,7 +818,7 @@
                     let html = '<h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Upcoming Lessons</h3>';
                     ['4', '5'].forEach(year => {
                         if (nextLessons[year].length > 0) {
-                            html += `<div class="mb-2"><strong class="text-gray-900 dark:text-gray-100">Year ${year}:</strong> ${nextLessons[year].map(l => `Ch${l.textbook_chapter}L${l.textbook_lesson}`).join(', ')}</div>`;
+                            html += `<div class="mb-2"><strong class="text-gray-900 dark:text-gray-100">Year ${year}:</strong> <span class="text-gray-900 dark:text-gray-100">${nextLessons[year].map(l => `Ch${l.textbook_chapter}L${l.textbook_lesson}`).join(', ')}</span></div>`;
                         }
                     });
                     display.innerHTML = html;
