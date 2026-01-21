@@ -7,9 +7,35 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
     
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Theme sync - must be in head to prevent flash -->
+    <script>
+        // Theme sync with main site toggle
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            // Listen for theme changes from main site
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'theme') {
+                    if (e.newValue === 'dark') {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                }
+            });
+        })();
+    </script>
     
     <style>
         /* Only positioning/layout CSS that can't be done with Tailwind */
@@ -100,17 +126,17 @@
             </div>
 
             <div class="flex gap-3 mb-6 flex-wrap">
-                <button id="markNextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
-                    <i data-lucide="check-circle" class="w-4 h-4"></i> Mark Next Complete
+                <button id="markNextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors">
+                    Mark Next Complete
                 </button>
-                <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
-                    <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Reset
+                <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md transition-colors">
+                    Reset
                 </button>
-                <button id="exportBtn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
-                    <i data-lucide="download" class="w-4 h-4"></i> Export
+                <button id="exportBtn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition-colors">
+                    Export
                 </button>
-                <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2">
-                    <i data-lucide="upload" class="w-4 h-4"></i> Import
+                <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors">
+                    Import
                 </button>
                 <input type="file" id="importFile" accept=".json" class="hidden">
             </div>
@@ -265,8 +291,6 @@
                     this.renderLessons();
                     this.updatePlanner();
                     this.updateOverview();
-                    
-                    if (typeof lucide !== 'undefined') lucide.createIcons();
                     
                 } catch (error) {
                     console.error('Error loading lesson data:', error);
@@ -477,8 +501,8 @@
                     ${combineInfo ? `<div class="text-xs text-blue-600 dark:text-blue-400 mb-2">💡 Combine with L${combineInfo}</div>` : ''}
                     ${tags.length > 0 ? `<div class="flex flex-wrap gap-1 mb-2">${tags.map(tag => `<span class="text-xs px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded">${tag}</span>`).join('')}</div>` : ''}
                     <div class="flex gap-1 mt-3">
-                        <button class="info-btn text-xs px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded flex items-center gap-1">
-                            <i data-lucide="info" class="w-3 h-3"></i> Info
+                        <button class="info-btn text-xs px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded">
+                            Info
                         </button>
                         ${lesson.textbook_url ? `<a href="${lesson.textbook_url}" target="_blank" class="text-xs px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded" onclick="event.stopPropagation()">TB</a>` : ''}
                         ${lesson.workbook_url ? `<a href="${lesson.workbook_url}" target="_blank" class="text-xs px-2 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded" onclick="event.stopPropagation()">WB</a>` : ''}
@@ -619,7 +643,6 @@
                 }
 
                 modal.classList.add('active');
-                if (typeof lucide !== 'undefined') lucide.createIcons();
             }
 
             hideLessonModal() {
