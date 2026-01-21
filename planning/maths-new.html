@@ -359,40 +359,37 @@
                     console.log('Starting to load lesson data...');
                     console.log('Current location:', window.location.href);
                     
-                    // Determine the base path for the data folder
-                    // This works both when accessed directly and through an iframe
-                    const currentPath = window.location.pathname;
-                    const basePath = currentPath.includes('maths-tracker.html') 
-                        ? currentPath.substring(0, currentPath.lastIndexOf('/') + 1) 
-                        : 'planning/';
+                    // Since we're in planning/maths-tracker.html, the data folder is at planning/data/
+                    // Just use a relative path from the current file location
+                    const basePath = './data/';
                     
                     console.log('Base path:', basePath);
-                    console.log('Will fetch from:', basePath + 'data/year4a-lessons.json');
+                    console.log('Will fetch from:', basePath + 'year4a-lessons.json');
                     
                     // Load all JSON files in parallel
                     console.log('Fetching year4a-lessons.json...');
-                    const year4aResponse = await fetch(basePath + 'data/year4a-lessons.json');
+                    const year4aResponse = await fetch(basePath + 'year4a-lessons.json');
                     console.log('Year 4A response status:', year4aResponse.status);
                     if (!year4aResponse.ok) throw new Error(`Failed to load year4a: ${year4aResponse.status}`);
                     const year4a = await year4aResponse.json();
                     console.log('Year 4A loaded:', year4a.length, 'lessons');
                     
                     console.log('Fetching year4b-lessons.json...');
-                    const year4bResponse = await fetch(basePath + 'data/year4b-lessons.json');
+                    const year4bResponse = await fetch(basePath + 'year4b-lessons.json');
                     console.log('Year 4B response status:', year4bResponse.status);
                     if (!year4bResponse.ok) throw new Error(`Failed to load year4b: ${year4bResponse.status}`);
                     const year4b = await year4bResponse.json();
                     console.log('Year 4B loaded:', year4b.length, 'lessons');
                     
                     console.log('Fetching year5a-lessons.json...');
-                    const year5aResponse = await fetch(basePath + 'data/year5a-lessons.json');
+                    const year5aResponse = await fetch(basePath + 'year5a-lessons.json');
                     console.log('Year 5A response status:', year5aResponse.status);
                     if (!year5aResponse.ok) throw new Error(`Failed to load year5a: ${year5aResponse.status}`);
                     const year5a = await year5aResponse.json();
                     console.log('Year 5A loaded:', year5a.length, 'lessons');
                     
                     console.log('Fetching year5b-lessons.json...');
-                    const year5bResponse = await fetch(basePath + 'data/year5b-lessons.json');
+                    const year5bResponse = await fetch(basePath + 'year5b-lessons.json');
                     console.log('Year 5B response status:', year5bResponse.status);
                     if (!year5bResponse.ok) throw new Error(`Failed to load year5b: ${year5bResponse.status}`);
                     const year5b = await year5bResponse.json();
@@ -432,10 +429,9 @@
                             <div class="text-gray-600 dark:text-gray-400 mb-4">
                                 <p class="mb-2">Common issues:</p>
                                 <ul class="text-left list-disc list-inside">
-                                    <li>The data folder doesn't exist in the same directory as this HTML file</li>
+                                    <li>The data folder doesn't exist: teaching-tools/planning/data/</li>
                                     <li>The JSON files aren't named correctly (should be: year4a-lessons.json, year4b-lessons.json, etc.)</li>
                                     <li>The JSON files contain syntax errors</li>
-                                    <li>You're opening the file directly (file://) instead of through a web server</li>
                                 </ul>
                             </div>
                             <button onclick="location.reload()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md">
