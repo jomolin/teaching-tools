@@ -1,49 +1,61 @@
 name: Generate Tools Manifest
 
-# Run this action whenever code is pushed to main
 on:
   push:
     branches:
       - main
-      - master
+
+# Permissions required for deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Prevents concurrency issues
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  generate-manifest:
+  # Job 1: Generate Manifest & Build Site
+  build:
     runs-on: ubuntu-latest
-    
     steps:
-      # Step 1: Check out the repository code
-      - name: Checkout repository
+      # 1. Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      
-      # Step 2: Set up Node.js
-      - name: Setup Node.js
+
+      # 2. Setup Node
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-      
-      # Step 3: Run the manifest generator script
-      - name: Generate manifest
+
+      # 3. GENERATE MANIFEST (Runs your script)
+      - name: Generate Manifest
         run: node generate-manifest.js
-      
-      # Step 4: Check if manifest changed
-      - name: Check for changes
-        id: check_changes
-        run: |
-          if git diff --quiet tools-manifest.json; then
-            echo "changed=false" >> $GITHUB_OUTPUT
-          else
-            echo "changed=true" >> $GITHUB_OUTPUT
-          fi
-      
-      # Step 5: Commit and push if manifest changed
-      - name: Commit and push manifest
-        if: steps.check_changes.outputs.changed == 'true'
-        run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add tools-manifest.json
-          git commit -m "🤖 Auto-update tools manifest"
-          git push
+
+      # 4. Build with Jekyll (Handles your SCSS/CSS)
+      - name: Build with Jekyll
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: .
+          destination: ./_site
+
+      # 5. Upload the built site (includes your new manifest)
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+  # Job 2: Deploy
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
