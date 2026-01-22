@@ -1,0 +1,669 @@
+{
+  "term": 4,
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "monday": {
+        "type": "Writing",
+        "prompt": "What is one thing you want to accomplish before the end of the school year? Write a detailed action plan.",
+        "instructions": [
+          "Write 9-10 sentences in organized paragraphs",
+          "Clearly state your goal and why it matters",
+          "Break down the steps you need to take",
+          "Include a timeline and how you'll measure success",
+          "Identify potential obstacles and how you'll overcome them"
+        ],
+        "extension": "Who can support you in achieving this goal? How will you ask for their help?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "What is 10% of 80? What is 50% of 80? What is 25% of 80?",
+        "instructions": [
+          "10% means 10 out of 100, or 1/10, so divide by 10",
+          "50% means half, so divide by 2",
+          "25% means 1/4, so divide by 4",
+          "Show your working for each"
+        ],
+        "extension": "If you know 10% of a number, how could you find 30%? Find 30% of 80"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Rewrite in passive voice: The teacher marked the tests. The dog chased the cat. Lightning struck the tree.",
+        "instructions": [
+          "Passive voice focuses on the action receiver, not the doer",
+          "Example: The tests were marked by the teacher",
+          "Rewrite all three sentences",
+          "Circle the helping verb (was/were) in each"
+        ],
+        "extension": "When might passive voice be useful in writing? Give an example"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "A square has an area of 64 cm². What is the length of each side? What is the perimeter?",
+        "instructions": [
+          "Area of square = side × side (side²)",
+          "Think: what number × itself = 64?",
+          "Perimeter = 4 × side length",
+          "Show your working"
+        ],
+        "extension": "If the side length doubled, what would happen to the area? Calculate to prove your answer"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Reflect on how you've grown this year. Compare yourself now to the start of Year 4/5.",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Discuss academic growth in at least two subjects",
+          "Discuss social and emotional growth",
+          "Give specific examples of skills you've developed",
+          "What are you most proud of?"
+        ],
+        "extension": "What advice would you give to a student starting Year 4 or 5 next year?"
+      }
+    },
+    {
+      "weekNumber": 2,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a persuasive speech arguing for something you believe should change in the world.",
+        "instructions": [
+          "Write 10-12 sentences organized in speech format",
+          "Opening: Hook to grab attention, state your position",
+          "Body: Three strong arguments with evidence or examples",
+          "Address counter-arguments briefly",
+          "Conclusion: Call to action - what should listeners do?"
+        ],
+        "extension": "Add rhetorical questions and emotive language to make it more persuasive"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "In a class of 40 students, 20% have pets. How many students have pets? If 30% walk to school, how many is that?",
+        "instructions": [
+          "20% = 20/100 = 1/5, so find 1/5 of 40",
+          "30% = 30/100 = 3/10, so find 3/10 of 40",
+          "Show your working for both"
+        ],
+        "extension": "What percentage of students don't have pets? Don't walk to school?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Identify the main clause and subordinate clause: Although it was raining, we played outside. The cat, which was sleeping, didn't hear the noise.",
+        "instructions": [
+          "Main clause = can stand alone as a sentence",
+          "Subordinate clause = depends on the main clause",
+          "Underline main clauses, circle subordinate clauses",
+          "Identify the subordinating conjunction or relative pronoun"
+        ],
+        "extension": "Write three complex sentences on any topic, labeling clauses"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Add and subtract these decimals: 4.7 + 3.8, 12.5 - 7.3, 8.25 + 5.6",
+        "instructions": [
+          "Line up the decimal points carefully",
+          "Add or subtract as normal",
+          "Make sure your answer has a decimal point in the correct place"
+        ],
+        "extension": "Check your answers by rounding and estimating first"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What does it mean to be a global citizen? How can young people make a positive impact on the world?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Define global citizenship (caring about worldwide issues)",
+          "Give examples of global issues young people should care about",
+          "List at least three actions students can take to make a difference",
+          "What impact do you want to have?"
+        ],
+        "extension": "Research one organization that helps with a cause you care about"
+      }
+    },
+    {
+      "weekNumber": 3,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a biography of someone you admire (family member, historical figure, celebrity, or community member).",
+        "instructions": [
+          "Write 12-15 sentences organized in paragraphs",
+          "Paragraph 1: Who they are and why you chose them",
+          "Paragraph 2: Their background and early life",
+          "Paragraph 3: Their achievements or contributions",
+          "Paragraph 4: Why they inspire you"
+        ],
+        "extension": "Interview this person (if possible) and add direct quotes to your biography"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A shop has a sale: 20% off all items. A jacket costs $85. What is the discount? What is the sale price?",
+        "instructions": [
+          "Find 10% first: $85 ÷ 10 = $8.50",
+          "Double it to find 20%: $8.50 × 2 = $___",
+          "Subtract discount from original price",
+          "Show all three steps"
+        ],
+        "extension": "If there was 35% off instead, what would the sale price be?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Fix all punctuation in this dialogue: mark shouted watch out sarah replied what's wrong he said theres a bee she laughed im not scared of bees",
+        "instructions": [
+          "Add quotation marks around all spoken words",
+          "Add capital letters at the start of speech",
+          "Add commas before said/shouted/replied/laughed",
+          "Add appropriate ending punctuation (. ! ?) inside quotation marks",
+          "Remember: new speaker = new line"
+        ],
+        "extension": "Continue the conversation for 4 more lines with perfect punctuation"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Multiply decimals: 0.6 × 4, 0.8 × 5, 1.5 × 6",
+        "instructions": [
+          "Multiply as if there's no decimal point",
+          "Count decimal places in the question (1 place)",
+          "Put the decimal point in your answer (1 place from the right)",
+          "Show your working"
+        ],
+        "extension": "Try: 2.5 × 8 and 0.75 × 4. Check by estimating first"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a time this year when you persevered through something difficult. What kept you going?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Describe the challenge in detail",
+          "What made it so difficult?",
+          "What strategies did you use to keep going?",
+          "What was the outcome?",
+          "What did you learn about yourself?"
+        ],
+        "extension": "What would you tell someone facing a similar challenge?"
+      }
+    },
+    {
+      "weekNumber": 4,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a detailed explanation text: How does something work? (Choose: the water cycle, photosynthesis, internet, voting, recycling, etc.)",
+        "instructions": [
+          "Write 12-15 sentences in clear paragraphs",
+          "Introduction: What you're explaining and why it's important",
+          "Body: Step-by-step process using sequence words",
+          "Include specific vocabulary relevant to your topic",
+          "Conclusion: Summary and significance"
+        ],
+        "extension": "Add a labeled diagram to support your explanation"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A recipe serves 4 people and needs 250g flour, 100ml milk, 50g butter. Scale it for 10 people.",
+        "instructions": [
+          "Work out the scale factor: 10 ÷ 4 = 2.5",
+          "Multiply each ingredient by 2.5",
+          "Show your working for all three ingredients"
+        ],
+        "extension": "How would you scale the recipe for 6 people? (Scale factor = 1.5)"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Write one sentence using each: semicolon, colon, parentheses (brackets), and dash.",
+        "instructions": [
+          "Semicolon links two related independent clauses",
+          "Colon introduces a list or explanation",
+          "Parentheses add extra information",
+          "Dash creates emphasis or interruption",
+          "Make sure each sentence makes sense"
+        ],
+        "extension": "Explain when you would choose each punctuation mark over others"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Divide decimals by whole numbers: 8.4 ÷ 2, 12.6 ÷ 3, 15.5 ÷ 5",
+        "instructions": [
+          "Keep the decimal point in the same position",
+          "Divide as normal",
+          "Check your answer makes sense"
+        ],
+        "extension": "Try: 9.75 ÷ 3. Use estimation to check your answer"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What have you learned about working with others this year? How have you improved as a team member?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Describe specific group work experiences",
+          "What teamwork skills have you developed?",
+          "What challenges did you face in group work?",
+          "How did you overcome conflicts or disagreements?",
+          "What makes an effective team?"
+        ],
+        "extension": "Set one goal for future teamwork situations"
+      }
+    },
+    {
+      "weekNumber": 5,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a feature article for a school magazine highlighting an interesting person, place, or event at your school.",
+        "instructions": [
+          "Write 12-15 sentences with catchy headline",
+          "Lead paragraph: Who/what, where, when, why (hook readers)",
+          "Body paragraphs: Details, descriptions, quotes",
+          "Use journalistic style - factual but engaging",
+          "Concluding paragraph: Significance or future impact"
+        ],
+        "extension": "Add a sidebar with 'Fast Facts' or a pull quote (important quote enlarged)"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Find the average (mean) of these test scores: 78, 85, 92, 81, 89. Then find the range.",
+        "instructions": [
+          "Add all five numbers together",
+          "Divide the total by 5 (number of scores)",
+          "Range = highest score - lowest score",
+          "Show all working"
+        ],
+        "extension": "If the student got 95 on the next test, what would the new average be?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Improve this weak paragraph using better vocabulary: The dog was big. It ran fast. The dog was nice. It liked to play. We had fun.",
+        "instructions": [
+          "Replace overused words (big, nice, fun) with specific adjectives",
+          "Replace 'ran' with more descriptive verb",
+          "Combine sentences using conjunctions",
+          "Add details and sensory language"
+        ],
+        "extension": "Write a 'before and after' comparison showing how word choice improves writing"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Convert between fractions, decimals, and percentages: 3/4 = ___% = 0.___, 0.6 = ___% = ___/10, 40% = 0.___ = ___/100",
+        "instructions": [
+          "Fraction to decimal: divide top by bottom",
+          "Decimal to percentage: multiply by 100",
+          "Percentage to fraction: put over 100 and simplify",
+          "Show your working"
+        ],
+        "extension": "Create a conversion table for: 1/2, 1/4, 3/4, 1/5, 1/10"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about your friendship group. What makes your friendships strong? What could you do to be an even better friend?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Describe what you value about your friends",
+          "Give examples of how you support each other",
+          "What challenges have you faced in friendships?",
+          "How have you resolved conflicts?",
+          "What friendship skill do you want to improve?"
+        ],
+        "extension": "Plan one specific action to strengthen a friendship this week"
+      }
+    },
+    {
+      "weekNumber": 6,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a reflective essay: What is the most important lesson life has taught you so far?",
+        "instructions": [
+          "Write 12-15 sentences in essay format",
+          "Introduction: State your lesson clearly",
+          "Body paragraph 1: The experience that taught you this",
+          "Body paragraph 2: How this lesson has affected your choices",
+          "Conclusion: Why this lesson matters and how you'll carry it forward"
+        ],
+        "extension": "How might this lesson help you in high school and beyond?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A triangle has sides of 7cm, 9cm, and 12cm. What is the perimeter? If you made a triangle with sides triple the length, what would the new perimeter be?",
+        "instructions": [
+          "Add all three sides for perimeter",
+          "Triple each side: 7×3, 9×3, 12×3",
+          "Add the new sides for new perimeter",
+          "What do you notice about the relationship?"
+        ],
+        "extension": "If the original perimeter is 28cm, what would the perimeter be if sides were doubled? Halved?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Edit for style and clarity: I went to the shop and I bought milk and I bought bread and I bought cheese and then I went home.",
+        "instructions": [
+          "Eliminate repetition ('and I bought')",
+          "Vary sentence structure",
+          "Combine ideas efficiently",
+          "Make it flow more naturally",
+          "Keep all the information"
+        ],
+        "extension": "Write three different versions of this sentence showing different styles"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "A car travels at an average speed of 80 km/h for 2.5 hours. How far does it travel? If it traveled 280km at the same speed, how long did it take?",
+        "instructions": [
+          "Distance = speed × time: 80 × 2.5 = ___",
+          "Time = distance ÷ speed: 280 ÷ 80 = ___",
+          "Show working for both calculations"
+        ],
+        "extension": "If the car's speed increased to 100 km/h, how long would 280km take?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What do you think are the most important values or principles to live by? Why?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Identify at least three core values (honesty, kindness, courage, respect, etc.)",
+          "Explain why each value is important",
+          "Give examples of what living by these values looks like",
+          "Which value do you find most challenging to uphold?"
+        ],
+        "extension": "How do these values connect to the kind of person you want to become?"
+      }
+    },
+    {
+      "weekNumber": 7,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a short story with a twist ending. The reader should be surprised by how it ends.",
+        "instructions": [
+          "Write 15-18 sentences in organized paragraphs",
+          "Set up a clear situation and characters",
+          "Plant subtle clues that make sense after the twist",
+          "Build tension towards the ending",
+          "The twist should be surprising but logical when looking back"
+        ],
+        "extension": "Write an alternative ending that's equally surprising"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A school is organizing a trip. 180 students are going. Buses hold 45 students. Each bus costs $320. What's the total cost?",
+        "instructions": [
+          "Calculate buses needed: 180 ÷ 45 = ___",
+          "Calculate total cost: number of buses × $320",
+          "Show both steps clearly"
+        ],
+        "extension": "If each student pays an equal amount, how much does each student pay?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Analyze this sentence for all techniques: The ancient, mysterious castle, which stood atop the windswept cliff, seemed to watch over the sleeping village below.",
+        "instructions": [
+          "Identify: adjectives, relative clause, main clause",
+          "Find commas and explain their purpose",
+          "Identify the subject and verb",
+          "Explain what makes this sentence effective"
+        ],
+        "extension": "Write your own complex sentence using similar techniques about a different place"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Order these from smallest to largest: 0.35, 3/10, 35%, 1/3, 0.4",
+        "instructions": [
+          "Convert all to the same form (decimals OR percentages)",
+          "Show your conversions",
+          "Write in order using < symbols"
+        ],
+        "extension": "Place these five numbers accurately on a number line from 0 to 0.5"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Reflect on a time you had to make a difficult decision. How did you decide what to do?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Describe the situation and what made it difficult",
+          "What were your options?",
+          "What factors did you consider?",
+          "What decision did you make and why?",
+          "Looking back, do you think you made the right choice?"
+        ],
+        "extension": "What process will you use for making difficult decisions in the future?"
+      }
+    },
+    {
+      "weekNumber": 8,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a comprehensive book or movie recommendation for your classmates. Convince them to read/watch it without spoiling key moments.",
+        "instructions": [
+          "Write 12-15 sentences in organized sections",
+          "Overview: Title, genre, brief premise",
+          "Why it's great: Themes, characters, plot strengths",
+          "Who should read/watch it: Target audience",
+          "Final verdict: Rating and strong recommendation"
+        ],
+        "extension": "Compare it to another similar book/movie and explain which is better"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A rectangular garden is three times as long as it is wide. The width is 8m. What's the length? What's the perimeter? What's the area?",
+        "instructions": [
+          "Find length: 8 × 3 = ___",
+          "Find perimeter: 2 × (length + width)",
+          "Find area: length × width",
+          "Show all three calculations"
+        ],
+        "extension": "If you doubled the width but kept the length the same, what would happen to the perimeter and area?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Write a paragraph (5-7 sentences) about any topic demonstrating: varied sentence lengths, at least one complex sentence, at least one compound sentence, and sophisticated vocabulary.",
+        "instructions": [
+          "Mix short punchy sentences with longer flowing ones",
+          "Include at least one sentence with a subordinate clause",
+          "Include at least one sentence joined with a conjunction",
+          "Use varied, interesting vocabulary"
+        ],
+        "extension": "Highlight your different sentence types in different colors"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Solve these ratio problems: The ratio of boys to girls is 3:5. If there are 15 boys, how many girls? If there are 40 children total, how many are boys?",
+        "instructions": [
+          "Problem 1: 3 parts = 15, so 1 part = 5, therefore 5 parts = ___",
+          "Problem 2: Total parts = 3+5 = 8 parts, 40÷8 = ___ per part, so boys = 3×___",
+          "Show your working clearly"
+        ],
+        "extension": "In a different class, the ratio of boys to girls is 2:3 with 30 students total. How many of each?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What advice would you give your younger self at the beginning of this school year?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Think about challenges you faced and overcame",
+          "What do you know now that would have helped you then?",
+          "What worries were unnecessary?",
+          "What should your younger self have focused on more?",
+          "Write as if speaking directly to past-you"
+        ],
+        "extension": "What advice do you think future-you would give to present-you?"
+      }
+    },
+    {
+      "weekNumber": 9,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a formal speech to be delivered at a school assembly on a topic you're passionate about.",
+        "instructions": [
+          "Write 15-18 sentences in clear speech structure",
+          "Opening: Attention-grabber and establish credibility",
+          "Body: 3-4 main points with evidence and examples",
+          "Use rhetorical devices: repetition, rule of three, rhetorical questions",
+          "Conclusion: Memorable closing statement and call to action"
+        ],
+        "extension": "Annotate your speech showing where you'd pause, emphasize, or change tone"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A shopkeeper increases prices by 15%. An item was $60. What's the new price? Another item is now $92 after a 15% increase. What was the original price?",
+        "instructions": [
+          "Problem 1: Find 15% of 60 (10% + 5%), then add to $60",
+          "Problem 2: $92 = 115% of original, so 1% = $92÷115, then 100% = $0.80×100",
+          "Show detailed working for both"
+        ],
+        "extension": "If prices decreased by 15% instead, what would the $60 item cost?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Complete editing task: Find and fix 10+ errors in this passage: their going on holiday next week sarah cant wait too see the beach her and her brother has been looking forward to it for months they're parents have planned lots of activity's including snorkling and hiking everyone are exited",
+        "instructions": [
+          "Fix: homophones, apostrophes, subject-verb agreement, plurals, spelling",
+          "Rewrite the entire passage correctly",
+          "List each error you found and how you fixed it"
+        ],
+        "extension": "Improve the passage further by adding descriptive language and varying sentence structure"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "A rectangular prism (box) is 12cm long, 8cm wide, and 5cm high. What is its volume? If you doubled each dimension, what would the new volume be?",
+        "instructions": [
+          "Volume = length × width × height",
+          "Calculate original volume",
+          "Double each: 24cm × 16cm × 10cm",
+          "Calculate new volume and compare"
+        ],
+        "extension": "By what factor does the volume increase when you double all dimensions? Explain why"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "As you approach the end of the year, what does success mean to you? How do you define a successful year?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Consider different aspects: academic, social, personal growth",
+          "Think beyond grades and achievements",
+          "What matters most to you?",
+          "Have you been successful by your own definition?",
+          "What would make your final term successful?"
+        ],
+        "extension": "How might your definition of success change as you get older?"
+      }
+    },
+    {
+      "weekNumber": 10,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a letter to next year's Year 4/5 class. What do they need to know to make the most of their year?",
+        "instructions": [
+          "Write 12-15 sentences in friendly letter format",
+          "Share academic tips for success in different subjects",
+          "Give social advice about friendships and challenges",
+          "Be honest about difficult aspects but encouraging overall",
+          "Include at least three specific, practical tips",
+          "End with motivation and encouragement"
+        ],
+        "extension": "What would you have wanted someone to tell you at the start of the year?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Multi-step problem: You have $150. You spend 40% on clothes, 25% on food, and save the rest. How much do you spend on each? How much do you save?",
+        "instructions": [
+          "Find 40% of $150 for clothes",
+          "Find 25% of $150 for food",
+          "Add clothes + food, subtract from $150 to find savings",
+          "Show all working step by step"
+        ],
+        "extension": "What percentage did you save? Calculate and verify by finding that percentage of $150"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Demonstrate mastery: Write a paragraph about an important memory using: varied sentence types, complex sentences, dialogue, literary techniques (simile/metaphor), and sophisticated vocabulary.",
+        "instructions": [
+          "Write 7-9 sentences",
+          "Include all required elements naturally",
+          "Focus on quality writing, not just meeting requirements",
+          "Check all punctuation and grammar carefully"
+        ],
+        "extension": "Label or highlight each required technique you used"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Solve using multiple methods: 48 × 25. Try at least two different strategies (grid method, place value, doubling/halving).",
+        "instructions": [
+          "Method 1: Break into (40×25) + (8×25)",
+          "Method 2: Use doubling/halving (48×25 = 96×12.5 or 24×50)",
+          "Show both methods completely",
+          "Which method do you prefer and why?"
+        ],
+        "extension": "Create a similar problem and solve it three different ways"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Write a gratitude reflection: What and who are you grateful for from this school year?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Express gratitude for learning opportunities",
+          "Acknowledge teachers, staff, or other adults who helped you",
+          "Appreciate friends and classmates",
+          "Be specific about what you're grateful for and why",
+          "Include challenging experiences that helped you grow"
+        ],
+        "extension": "Choose one person to thank personally this week. What will you say?"
+      }
+    },
+    {
+      "weekNumber": 11,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a comprehensive personal reflection: Who are you now compared to the start of the year? How have you changed and grown?",
+        "instructions": [
+          "Write 15-18 sentences in organized essay format",
+          "Introduction: Overview of your growth journey",
+          "Academic growth: Specific examples from subjects",
+          "Social growth: Friendships, teamwork, communication",
+          "Personal growth: Character, resilience, independence",
+          "Conclusion: Looking forward to the future"
+        ],
+        "extension": "Create a 'Then and Now' chart comparing yourself at the start and end of Year 4/5"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Final challenge problem: A swimming pool is 25m long, 12m wide, and 2m deep. What volume of water does it hold? If it costs $0.003 per litre to fill, what's the cost? (Hint: 1m³ = 1000 litres)",
+        "instructions": [
+          "Calculate volume: 25 × 12 × 2 = ___ m³",
+          "Convert to litres: ___ × 1000 = ___ litres",
+          "Calculate cost: litres × $0.003",
+          "Show all working clearly"
+        ],
+        "extension": "If the pool is filled at 200 litres per minute, how long does filling take? (Answer in hours and minutes)"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Final mastery task: Write an error-free paragraph (8-10 sentences) on any topic demonstrating ALL these skills: varied punctuation, complex sentences, perfect spelling, sophisticated vocabulary, literary techniques, proper paragraphing.",
+        "instructions": [
+          "Choose a meaningful topic you care about",
+          "Plan before writing to ensure all elements are included",
+          "Edit carefully - this represents your best writing",
+          "Make every sentence purposeful and well-crafted"
+        ],
+        "extension": "Peer review: Exchange with a classmate and provide constructive feedback"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Create and solve your own challenging multi-step problem involving at least three operations (×, ÷, +, -) and one of: fractions, decimals, or percentages.",
+        "instructions": [
+          "Write a real-world problem that requires multiple steps",
+          "Solve it completely showing all working",
+          "Write an extension question for your problem",
+          "Check your answer makes sense"
+        ],
+        "extension": "Solve a classmate's problem and compare methods"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Final reflection: What legacy do you want to leave for next year's class? What advice, wisdom, or encouragement do you want to pass on?",
+        "instructions": [
+          "Write 9-10 sentences",
+          "Share the most important lessons you've learned",
+          "Give advice for academic success",
+          "Offer guidance for social and emotional wellbeing",
+          "Encourage them about challenges they'll face",
+          "Express hope and confidence in their journey",
+          "End with an inspiring message"
+        ],
+        "extension": "What do you hope people remember about you from this year? What impact did you have?"
+      }
+    }
+  ]
+}

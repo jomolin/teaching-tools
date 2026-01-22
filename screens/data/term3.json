@@ -1,0 +1,630 @@
+{
+  "term": 3,
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "monday": {
+        "type": "Writing",
+        "prompt": "What was the most memorable part of your winter holiday? Write a detailed recount.",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Use past tense consistently throughout",
+          "Include where you were, who you were with, and what happened",
+          "Describe your feelings and why this moment was special"
+        ],
+        "extension": "Add sensory details - what you saw, heard, smelled, tasted, or felt"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A chocolate bar has 12 pieces. You eat 1/4 of it. How many pieces did you eat? How many are left?",
+        "instructions": [
+          "Find 1/4 by dividing 12 by 4 (12 ÷ 4 = ___)",
+          "Subtract to find pieces remaining",
+          "Show your working with pictures or numbers"
+        ],
+        "extension": "What fraction of the chocolate bar is left? Write it as a fraction"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Add correct punctuation to this dialogue: come and play said Tom I cant Im busy replied Sara",
+        "instructions": [
+          "Add quotation marks around the words spoken",
+          "Add capital letters at the start of speech",
+          "Add commas before 'said' and 'replied'",
+          "Add full stops inside the quotation marks"
+        ],
+        "extension": "Write two more lines of dialogue between Tom and Sara with correct punctuation"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Round these numbers to the nearest 100: 347, 562, 895, 450, 238",
+        "instructions": [
+          "Look at the tens digit to decide (50 or more rounds up)",
+          "Write each rounded number clearly",
+          "Show which direction you rounded (up or down)"
+        ],
+        "extension": "Add all five rounded numbers together. What's the total?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Set three goals for Term 3: one academic, one social, and one personal.",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Make each goal specific and achievable",
+          "Explain why each goal matters to you",
+          "Describe one action you'll take for each goal"
+        ],
+        "extension": "How will you know when you've achieved each goal? What will success look like?"
+      }
+    },
+    {
+      "weekNumber": 2,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a detailed description of your dream bedroom. What would it look like?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Describe the colours, furniture, and decorations",
+          "Use spatial language (next to, above, in the corner)",
+          "Include why you chose these features"
+        ],
+        "extension": "Draw a labeled floor plan of your dream bedroom"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A rectangle has a perimeter of 36cm. Its length is 12cm. What is the width?",
+        "instructions": [
+          "Remember: perimeter = length + width + length + width",
+          "You know: 12 + width + 12 + width = 36",
+          "Solve: 24 + (2 × width) = 36",
+          "Show your working step by step"
+        ],
+        "extension": "What is the area of this rectangle? (length × width)"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Rewrite using the correct form of there/their/they're: Their going to there house because there tired.",
+        "instructions": [
+          "Change first 'Their' to 'They're' (they are)",
+          "Change 'there house' to 'their house' (belonging to them)",
+          "Change last 'there' to 'they're' (they are)",
+          "Check all other punctuation"
+        ],
+        "extension": "Write one sentence correctly using all three: there, their, and they're"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Look at this fraction wall: Draw a rectangle divided into 2 halves, 4 quarters, and 8 eighths. What do you notice?",
+        "instructions": [
+          "Draw three identical rectangles, one above the other",
+          "Divide them into halves, quarters, and eighths",
+          "Shade 1/2 in the first, 2/4 in the second, 4/8 in the third"
+        ],
+        "extension": "What other fractions equal 1/2? List at least two more"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about a time you showed leadership. What did you do and what made it effective?",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Describe the situation and your role",
+          "Explain what leadership actions you took",
+          "What was the result? How did others respond?"
+        ],
+        "extension": "What qualities make a good leader? List three and explain each"
+      }
+    },
+    {
+      "weekNumber": 3,
+      "monday": {
+        "type": "Writing",
+        "prompt": "If you could have dinner with any famous person (past or present), who would it be? What would you talk about?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Name the person and explain why you chose them",
+          "List at least three questions you'd ask them",
+          "Describe what you think their answers might be"
+        ],
+        "extension": "What life lesson do you think you could learn from this person?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Compare these fractions using <, >, or =: 3/4 ___ 2/3, 1/2 ___ 4/8, 2/5 ___ 1/3",
+        "instructions": [
+          "Draw diagrams to help compare each pair",
+          "Think about which denominators you can compare easily",
+          "Remember: 4/8 = 1/2 (equivalent fractions)"
+        ],
+        "extension": "Put these fractions in order from smallest to largest: 1/4, 1/2, 1/3, 1/5"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Identify the sentence types: 1) What time is lunch? 2) Close the door. 3) The sky is blue. 4) Watch out!",
+        "instructions": [
+          "Label each as: question, command, statement, or exclamation",
+          "Circle the punctuation mark that helped you decide",
+          "Write one new example of each type"
+        ],
+        "extension": "Explain why different sentence types are useful in writing"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "A bus can hold 48 passengers. If 3/4 of the seats are taken, how many passengers are on the bus?",
+        "instructions": [
+          "Find 1/4 first: 48 ÷ 4 = ___",
+          "Then find 3/4: multiply your answer by 3",
+          "Show your working clearly"
+        ],
+        "extension": "How many empty seats are there? What fraction of the bus is empty?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a time when you had to show courage. What made it difficult and how did you find the bravery?",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Set the scene - what was the challenging situation?",
+          "What were you afraid of or worried about?",
+          "What did you do despite feeling scared?",
+          "How did you feel afterward?"
+        ],
+        "extension": "What would you tell someone else who needs to be brave?"
+      }
+    },
+    {
+      "weekNumber": 4,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a balanced argument: Should students be allowed to use technology during class time?",
+        "instructions": [
+          "Write 9-10 sentences organized in paragraphs",
+          "Paragraph 1: Introduction stating both sides exist",
+          "Paragraph 2: Arguments FOR (2-3 reasons)",
+          "Paragraph 3: Arguments AGAINST (2-3 reasons)",
+          "Conclusion: Your opinion and why"
+        ],
+        "extension": "Add one more paragraph suggesting a compromise or middle solution"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Calculate: 456 + 387 using a written method. Then estimate to check your answer is reasonable.",
+        "instructions": [
+          "Use column addition (line up place values)",
+          "Show any carrying/regrouping clearly",
+          "Estimate by rounding both numbers to nearest 100 first"
+        ],
+        "extension": "Now try: 843 - 267. Estimate first, then calculate"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Add prefixes to change the meaning: happy, agree, possible, appear, correct",
+        "instructions": [
+          "Add un-, dis-, or im- to make opposites",
+          "Write the new word and use it in a sentence",
+          "Explain what the prefix does to the word's meaning"
+        ],
+        "extension": "Find three more words that use prefixes and explain their meanings"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Simplify these fractions to their simplest form: 4/8, 6/9, 10/15, 8/12",
+        "instructions": [
+          "Find the biggest number that divides into both top and bottom",
+          "Divide both numbers by this common factor",
+          "Check: can you simplify any further?"
+        ],
+        "extension": "Explain why 4/8 and 1/2 are equivalent (equal) fractions"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What does it mean to have integrity? Give examples of acting with integrity at school.",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Define integrity in your own words (doing the right thing even when no one is watching)",
+          "Give at least three specific examples from school life",
+          "Explain why integrity matters"
+        ],
+        "extension": "Describe a time when showing integrity was difficult but you did it anyway"
+      }
+    },
+    {
+      "weekNumber": 5,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a myth or legend explaining why the sun sets each evening.",
+        "instructions": [
+          "Write 9-10 sentences",
+          "Include mythical characters (gods, magical creatures, heroes)",
+          "Create a clear beginning, problem, and resolution",
+          "Use descriptive language to make it engaging"
+        ],
+        "extension": "Illustrate a key scene from your myth with labels"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A baker makes 144 cupcakes. He packs them in boxes of 12. How many boxes does he need? If he sells them for $8 per box, how much money does he make?",
+        "instructions": [
+          "Calculate boxes: 144 ÷ 12 = ___",
+          "Calculate money: number of boxes × $8",
+          "Show both steps clearly"
+        ],
+        "extension": "If he made 180 cupcakes instead, how many more boxes would he need?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Add suffixes to create new words: care + less, hope + ful, quick + ly, teach + er",
+        "instructions": [
+          "Write each new word",
+          "Use each word in a sentence",
+          "Explain what the suffix adds to the root word's meaning"
+        ],
+        "extension": "What happens to 'happy' when you add -ness? Explain the spelling change"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Add these fractions with the same denominator: 2/7 + 3/7, 5/9 + 2/9, 4/10 + 3/10",
+        "instructions": [
+          "When denominators are the same, just add the numerators",
+          "Keep the denominator the same",
+          "Simplify your answers if possible"
+        ],
+        "extension": "Try: 5/8 + 7/8. What do you notice about the answer? How do you write it properly?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Reflect on a friendship that's important to you. What makes this friendship special?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Describe what you appreciate about your friend",
+          "Give specific examples of times they've been there for you",
+          "Explain what you do to be a good friend back"
+        ],
+        "extension": "What could you do this week to show your friend you value them?"
+      }
+    },
+    {
+      "weekNumber": 6,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a detailed how-to guide for a skill you're good at (sport, hobby, game, craft).",
+        "instructions": [
+          "Write 10-12 sentences organized clearly",
+          "List materials/equipment needed first",
+          "Break into numbered steps (minimum 5 steps)",
+          "Include tips, warnings, or common mistakes to avoid"
+        ],
+        "extension": "Add a troubleshooting section: 'What to do if...'"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Complete the multiplication: 347 × 6. Use the grid method or expanded form.",
+        "instructions": [
+          "Break 347 into 300 + 40 + 7",
+          "Multiply each part by 6: (300×6) + (40×6) + (7×6)",
+          "Add the three products together"
+        ],
+        "extension": "Estimate first by rounding 347 to 350. How close was your estimate?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Rewrite this paragraph with varied sentence starters: I went to the park. I saw my friends. I played on the swings. I had ice cream. I went home.",
+        "instructions": [
+          "Change at least three sentence starters",
+          "Use time words, conjunctions, or different subjects",
+          "Combine some sentences to create compound or complex sentences"
+        ],
+        "extension": "Add adjectives and adverbs to make the paragraph more interesting"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Subtract fractions with the same denominator: 7/8 - 3/8, 5/6 - 1/6, 9/10 - 4/10",
+        "instructions": [
+          "Subtract the numerators (top numbers)",
+          "Keep the denominator (bottom number) the same",
+          "Simplify if possible"
+        ],
+        "extension": "Solve: 11/12 - 5/12. Draw a diagram to show your answer"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What are your strengths? How do you use them to help others or contribute to your class?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Identify at least three personal strengths",
+          "Give specific examples of how you've used each strength",
+          "How could you develop these strengths further?"
+        ],
+        "extension": "Identify one area you'd like to improve and make a plan to work on it"
+      }
+    },
+    {
+      "weekNumber": 7,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Compare two different cultures or countries. What similarities and differences interest you most?",
+        "instructions": [
+          "Write 10-12 sentences in organized paragraphs",
+          "Introduction: Name both cultures",
+          "Body: Discuss similarities (food, celebrations, values)",
+          "Body: Discuss differences",
+          "Conclusion: What you learned or find most interesting"
+        ],
+        "extension": "Include one aspect of each culture you'd like to experience yourself"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A train travels 85 km per hour. How far does it travel in 4 hours? How long would it take to travel 340 km?",
+        "instructions": [
+          "Distance = speed × time: 85 × 4 = ___",
+          "Time = distance ÷ speed: 340 ÷ 85 = ___",
+          "Show your working for both"
+        ],
+        "extension": "At the same speed, how far would the train travel in 6.5 hours?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Identify and fix all errors: The childrens teacher said there going on a feild trip next wenesday there all very exited.",
+        "instructions": [
+          "Fix possessive: children's",
+          "Fix homophones: there → they're, there → they're",
+          "Fix spelling: field, Wednesday, excited",
+          "Add proper punctuation (capital, comma, full stop)"
+        ],
+        "extension": "Rewrite the sentence in two different ways while keeping the same meaning"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Convert between improper fractions and mixed numbers: 11/4 = ___, 17/5 = ___, 2 3/4 = ___/4",
+        "instructions": [
+          "For improper to mixed: divide numerator by denominator",
+          "For mixed to improper: multiply whole number by denominator, then add numerator",
+          "Show your working"
+        ],
+        "extension": "Draw diagrams showing 11/4 and 2 3/4 to prove they're equal"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about a mistake you made that taught you something valuable. What did you learn?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Describe the mistake without being too hard on yourself",
+          "Explain what went wrong and why",
+          "What did you learn from this experience?",
+          "How have you changed your behaviour because of it?"
+        ],
+        "extension": "What advice would you give someone who's afraid of making mistakes?"
+      }
+    },
+    {
+      "weekNumber": 8,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a detailed review of a movie or TV show you've watched recently.",
+        "instructions": [
+          "Write 10-12 sentences in organized paragraphs",
+          "Include: title, genre, brief plot summary (no spoilers!)",
+          "Discuss: characters, setting, your favourite part",
+          "Give a rating and recommendation with reasons"
+        ],
+        "extension": "Compare this to another similar movie/show. Which is better and why?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A rectangular field is 125m long and 68m wide. What is the perimeter? What is the area?",
+        "instructions": [
+          "Perimeter = 2 × (length + width) OR add all four sides",
+          "Area = length × width",
+          "Show your working and include units (m for perimeter, m² for area)"
+        ],
+        "extension": "If you walked around the field 3 times, how far would you walk in total?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Write a descriptive paragraph about a stormy night using these techniques: simile, metaphor, personification, and powerful verbs.",
+        "instructions": [
+          "Write 6-8 sentences",
+          "Include at least one of each technique",
+          "Label your techniques in brackets",
+          "Focus on creating atmosphere and mood"
+        ],
+        "extension": "Highlight all your adjectives in one colour and adverbs in another. Did you use varied vocabulary?"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Find the decimal equivalents: 1/2 = 0.___, 1/4 = 0.___, 3/4 = 0.___, 1/5 = 0.___",
+        "instructions": [
+          "Think about money to help ($1/2 = 50 cents = 0.50)",
+          "Use division if needed (1 ÷ 2, 1 ÷ 4, etc.)",
+          "Write each as a decimal"
+        ],
+        "extension": "Order these from smallest to largest: 0.5, 3/4, 0.2, 1/4, 0.75"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "How do you handle stress or feeling overwhelmed? What strategies work for you?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Describe what stress feels like for you",
+          "List at least three strategies you use to cope",
+          "Which strategy works best? Why?",
+          "What would you try if your usual strategies don't work?"
+        ],
+        "extension": "Create a personal 'calm down plan' for when you feel stressed"
+      }
+    },
+    {
+      "weekNumber": 9,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a formal letter to your local council suggesting an improvement for your community.",
+        "instructions": [
+          "Write 10-12 sentences using proper letter format",
+          "Address (yours and theirs), date, greeting",
+          "Paragraph 1: Introduce yourself and state your suggestion",
+          "Paragraph 2-3: Explain why this would benefit the community",
+          "Closing: Thank them and request action"
+        ],
+        "extension": "Research what your actual local council is and use their real address"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A shop buys items for $45 each and sells them for $72 each. What is the profit per item? If they sell 18 items, what's the total profit?",
+        "instructions": [
+          "Profit = selling price - cost price: $72 - $45 = ___",
+          "Total profit = profit per item × number sold",
+          "Show both calculations clearly"
+        ],
+        "extension": "How many items need to be sold to make $540 profit?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Identify and label: subjects, verbs, adjectives, and adverbs in: The clever cat quickly climbed the tall tree.",
+        "instructions": [
+          "Subject = who/what is doing the action (noun)",
+          "Verb = action word",
+          "Adjective = describes noun",
+          "Adverb = describes verb"
+        ],
+        "extension": "Write your own sentence with at least two of each word type and label them"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Round these decimals to the nearest whole number: 4.7, 3.2, 8.5, 12.9, 7.4",
+        "instructions": [
+          "Look at the tenths digit (first number after the decimal)",
+          "5 or more rounds up, 4 or less rounds down",
+          "Write each rounded number"
+        ],
+        "extension": "Add all five rounded numbers. Now add the original decimals. What's the difference?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a time when you stood up for someone else or for what you believed was right.",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Set the scene - what was happening?",
+          "What did you do or say?",
+          "How did others react?",
+          "How did you feel about your choice?",
+          "Would you do it again?"
+        ],
+        "extension": "What makes it difficult to stand up for others? How can we make it easier?"
+      }
+    },
+    {
+      "weekNumber": 10,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a diary entry from the perspective of a historical figure or fictional character.",
+        "instructions": [
+          "Write 10-12 sentences in diary format",
+          "Include date and 'Dear Diary' opening",
+          "Stay in character - use appropriate voice and vocabulary",
+          "Describe events, thoughts, and feelings from their perspective",
+          "Include details that show you understand this character/person"
+        ],
+        "extension": "Write a second diary entry from the next day showing how events progressed"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Solve using BODMAS/order of operations: (24 ÷ 4) + (6 × 5) - 8 = ___",
+        "instructions": [
+          "Step 1: Brackets first - solve 24 ÷ 4 and 6 × 5",
+          "Step 2: Addition - add those results",
+          "Step 3: Subtraction - subtract 8",
+          "Show each step clearly"
+        ],
+        "extension": "Create your own problem using brackets and three different operations"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Combine these sentences using relative pronouns (who, which, that, where): The dog barks loudly. The dog lives next door. The park is beautiful. We play at the park.",
+        "instructions": [
+          "First pair: The dog who/that lives next door barks loudly",
+          "Second pair: The park where we play is beautiful",
+          "Make sure sentences flow smoothly"
+        ],
+        "extension": "Write three more sentences about school using who, which, and where"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "A cake recipe needs 2/3 cup of sugar. You want to make half the recipe. How much sugar do you need? If you make double the recipe, how much sugar?",
+        "instructions": [
+          "Half of 2/3: divide by 2 OR find 1/2 of 2/3 = 1/3",
+          "Double of 2/3: multiply by 2 = 4/3 or 1 1/3",
+          "Show your working"
+        ],
+        "extension": "Draw diagrams to represent all three amounts: 2/3, 1/3, and 4/3"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Reflect on your Term 3 learning journey. What has challenged you most? What are you proud of?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Discuss academic growth in specific subjects",
+          "Discuss personal or social growth",
+          "Give concrete examples of improvement",
+          "What do you want to focus on in Term 4?"
+        ],
+        "extension": "Write a letter to your future self at the end of Term 4 with hopes and predictions"
+      }
+    },
+    {
+      "weekNumber": 11,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write an imaginative story that includes these elements: a locked box, a curious character, and an unexpected discovery.",
+        "instructions": [
+          "Write 12-15 sentences organized into paragraphs",
+          "Include clear story structure: setting, problem, rising action, climax, resolution",
+          "Use dialogue to develop characters",
+          "Create descriptive scenes using varied vocabulary"
+        ],
+        "extension": "Add a plot twist that changes the meaning of earlier events"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A school has 480 students. 3/8 are in Year 1-3, 2/5 are in Year 4-6. How many are in each group? How many are in Years 7-8?",
+        "instructions": [
+          "Find 3/8 of 480: (480 ÷ 8) × 3",
+          "Find 2/5 of 480: (480 ÷ 5) × 2",
+          "Add both answers, then subtract from 480 for remaining",
+          "Show all working"
+        ],
+        "extension": "What fraction of students are in Years 7-8? Express as a simplified fraction"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Edit this paragraph for all errors: last saturday my family and me went too the zoo we saw lions tigers and bears their was lots of people they're the monkeys where my favourite we stayed for three hours and we had a grate time",
+        "instructions": [
+          "Fix: capitals (Last, Saturday), pronouns (my family and I), homophones (to, there, were)",
+          "Fix spelling: great",
+          "Add proper punctuation: full stops to create 4-5 sentences, commas in list",
+          "Rewrite the entire paragraph correctly"
+        ],
+        "extension": "Improve the paragraph by adding interesting adjectives and combining some sentences"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Convert and compare: Write these in order from smallest to largest: 0.6, 3/5, 0.75, 7/10, 1/2",
+        "instructions": [
+          "Convert fractions to decimals OR decimals to fractions",
+          "Show your conversion working",
+          "Write in order using < symbols"
+        ],
+        "extension": "Place these numbers on a number line from 0 to 1, evenly spaced"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Looking back at the whole year so far, what's the most important thing you've learned (academic or personal)?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Describe what you learned and when",
+          "Explain why this learning matters to you",
+          "How has it changed how you think or act?",
+          "How will you use this learning in the future?"
+        ],
+        "extension": "Set one major goal for Term 4. Make it specific, achievable, and meaningful to you"
+      }
+    }
+  ]
+}

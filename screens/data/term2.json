@@ -1,0 +1,620 @@
+{
+  "term": 2,
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "monday": {
+        "type": "Writing",
+        "prompt": "What was the highlight of your Term 1 holiday? Describe it in detail.",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Use descriptive language (adjectives and adverbs)",
+          "Organize your writing with a clear beginning, middle, and end"
+        ],
+        "extension": "Add dialogue (what someone said) using quotation marks"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A shop sells apples for $3 per bag and oranges for $4 per bag. You buy 5 bags of apples and 3 bags of oranges. How much do you spend?",
+        "instructions": [
+          "Work out the cost of apples first (5 × $3)",
+          "Work out the cost of oranges (3 × $4)",
+          "Add both amounts together for the total"
+        ],
+        "extension": "If you paid with $50, how much change would you receive?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Rewrite this sentence correctly: the dog chased its tail and it barked loudly",
+        "instructions": [
+          "Add capital letter and full stop",
+          "Add a comma before 'and' to separate two actions",
+          "Circle the possessive word (its)"
+        ],
+        "extension": "Explain the difference between 'its' (belonging to it) and 'it's' (it is)"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "What is half of 86? What is double 43?",
+        "instructions": [
+          "Show your working for both problems",
+          "Use place value to help (e.g., half of 80 plus half of 6)",
+          "Check: do your two answers match?"
+        ],
+        "extension": "Find half of 154 and double of 77. What do you notice?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What does it mean to show resilience? Give an example from your own life.",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Define resilience in your own words (not giving up, trying again)",
+          "Describe a specific time you showed resilience",
+          "How did you feel before and after?"
+        ],
+        "extension": "What advice would you give someone who wants to be more resilient?"
+      }
+    },
+    {
+      "weekNumber": 2,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a persuasive paragraph: Should schools have longer lunch breaks?",
+        "instructions": [
+          "Write 6-7 sentences",
+          "State your opinion clearly in the first sentence",
+          "Give three strong reasons with explanations",
+          "Use persuasive words like 'should', 'must', 'clearly', 'important'"
+        ],
+        "extension": "Write one sentence presenting the opposite viewpoint"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A rectangular garden is 12 metres long and 7 metres wide. What is the area (space inside)?",
+        "instructions": [
+          "Draw and label the rectangle",
+          "Use multiplication: length × width = area",
+          "Write your answer with the correct unit (square metres or m²)"
+        ],
+        "extension": "If you planted flowers in rows of 4, how many rows could fit in the garden?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Add apostrophes: The teachers desk was covered in the students books.",
+        "instructions": [
+          "Copy the sentence with apostrophes in the correct places",
+          "Remember: apostrophes show belonging (teacher's = belongs to the teacher)",
+          "Check if it's one teacher or multiple teachers"
+        ],
+        "extension": "Write your own sentence using two possessive apostrophes (e.g., Sara's brother's bike)"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Complete the pattern: 144, 72, 36, 18, ___",
+        "instructions": [
+          "Write the next three numbers",
+          "What is happening to the numbers each time? (÷ ___)",
+          "If you continued, what would come after 4.5?"
+        ],
+        "extension": "Create a halving pattern starting at 256. Write 6 numbers"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about a time someone showed you kindness. How did their actions affect you?",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Describe what the person did",
+          "Explain how it made you feel",
+          "Did it change your behaviour towards others?"
+        ],
+        "extension": "Plan one act of kindness you could do this week for someone"
+      }
+    },
+    {
+      "weekNumber": 3,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Describe your ideal birthday party. Include who, what, where, when, and why details.",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Answer all five W questions in your description",
+          "Use varied sentence starters",
+          "Include sensory details (what you'd see, hear, taste)"
+        ],
+        "extension": "Compare this ideal party to your last real birthday. What was similar or different?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "There are 96 chairs to set up in rows. Each row needs 8 chairs. How many rows will there be? If 3 rows are already set up, how many chairs have been placed?",
+        "instructions": [
+          "Answer the first question: 96 ÷ 8 = ___",
+          "Answer the second question: 3 × 8 = ___",
+          "Show all your working clearly"
+        ],
+        "extension": "How many chairs still need to be set up? Show your working"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Combine these short sentences into one longer sentence: The kiwi is a bird. It cannot fly. It lives in New Zealand.",
+        "instructions": [
+          "Use connecting words like 'but', 'and', 'which'",
+          "Make sure your sentence flows smoothly",
+          "Keep all the important information"
+        ],
+        "extension": "Write another compound sentence about a different New Zealand animal"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Find the missing numbers: ___ × 9 = 72 and 8 × ___ = 56",
+        "instructions": [
+          "Work backwards using division for both",
+          "Show your working: 72 ÷ 9 = ___ and 56 ÷ 8 = ___",
+          "Check your answers by multiplying"
+        ],
+        "extension": "Create three of your own missing number problems using the 6, 7, or 9 times tables"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What does it mean to have empathy? Why is it important?",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Explain empathy in your own words (understanding how others feel)",
+          "Give an example of showing empathy",
+          "Explain why empathy matters in friendships and school"
+        ],
+        "extension": "Describe a time when someone showed empathy towards you"
+      }
+    },
+    {
+      "weekNumber": 4,
+      "monday": {
+        "type": "Writing",
+        "prompt": "If you could visit any country in the world, where would you go? Explain your choice.",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Name the country in your opening sentence",
+          "Give at least three reasons for choosing this country",
+          "Include details about what you'd like to see or do there"
+        ],
+        "extension": "Research one interesting fact about this country and add it to your writing"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A recipe needs 250ml of milk for 4 people. How much milk is needed for 8 people? How much for 2 people?",
+        "instructions": [
+          "For 8 people: double the amount (250 × 2)",
+          "For 2 people: halve the amount (250 ÷ 2)",
+          "Show your working for both calculations"
+        ],
+        "extension": "If you had 1000ml (1 litre) of milk, how many people could you make the recipe for?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Fix all the errors: me and my freind went too the shops on wenesday",
+        "instructions": [
+          "Change 'me and my friend' to 'My friend and I'",
+          "Fix the spelling: friend, to (not too), Wednesday",
+          "Add capital letters and full stop"
+        ],
+        "extension": "Explain why we write 'My friend and I' instead of 'Me and my friend'"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Pattern challenge: 2, 6, 18, 54, ___",
+        "instructions": [
+          "Write the next two numbers",
+          "What is the rule? (× ___ each time)",
+          "Why does this pattern grow so quickly?"
+        ],
+        "extension": "If you added instead of multiplied by 3 each time, what would the pattern be? Write 5 numbers"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a goal you're working towards. What steps are you taking to achieve it?",
+        "instructions": [
+          "Write 5-6 sentences",
+          "State your goal clearly",
+          "List at least three things you're doing to work towards it",
+          "What challenges might you face?"
+        ],
+        "extension": "Who can help support you in reaching this goal?"
+      }
+    },
+    {
+      "weekNumber": 5,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a creative story that begins with: 'When I woke up, I discovered I could talk to animals.'",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Include a clear beginning, middle, and end",
+          "Describe at least two conversations with different animals",
+          "Use dialogue with quotation marks"
+        ],
+        "extension": "Add a twist or surprise at the end of your story"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Round these numbers to the nearest 10: 67, 142, 95, 308, 54",
+        "instructions": [
+          "Write each rounded number clearly",
+          "Remember: 5 or more rounds up, 4 or less rounds down",
+          "Circle the ones digit to help you decide"
+        ],
+        "extension": "Round the same numbers to the nearest 100. What changes?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Write three sentences about winter. Each must use a different conjunction: and, but, because.",
+        "instructions": [
+          "Sentence 1 must include 'and'",
+          "Sentence 2 must include 'but'",
+          "Sentence 3 must include 'because'",
+          "All sentences must be about winter"
+        ],
+        "extension": "Underline the conjunction in each sentence and explain what job it does"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "A pizza is cut into 8 equal slices. You eat 3 slices. What fraction of the pizza did you eat? What fraction is left?",
+        "instructions": [
+          "Write the fraction you ate: 3 out of 8 = 3/8",
+          "Work out how many slices are left: 8 - 3 = ___",
+          "Write the fraction left: ___/8"
+        ],
+        "extension": "If the pizza was cut into 12 slices and you ate 4, what fraction did you eat?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about someone who inspires you. What qualities do they have that you admire?",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Name the person (or describe them if you want privacy)",
+          "List at least three qualities you admire",
+          "Explain how they inspire you to be better"
+        ],
+        "extension": "Which of their qualities would you most like to develop in yourself?"
+      }
+    },
+    {
+      "weekNumber": 6,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a book review of the last book you read. Would you recommend it to others?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Include: title, author, brief summary (no spoilers!)",
+          "Explain what you liked or didn't like",
+          "Give a rating out of 5 stars and explain why"
+        ],
+        "extension": "Who would enjoy this book? Describe your ideal reader for it"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A library has 9 shelves. Each shelf holds 34 books. How many books can the library hold? If 127 books are checked out, how many remain?",
+        "instructions": [
+          "Calculate total books: 9 × 34 (use place value or breaking apart)",
+          "Subtract the checked out books",
+          "Show all working step by step"
+        ],
+        "extension": "If books are returned and now there are 250 books total, how many were returned?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Change these sentences from singular to plural: The child plays in the park. The mouse runs quickly.",
+        "instructions": [
+          "Change child → children, plays → play",
+          "Change mouse → mice, runs → run",
+          "Keep all other punctuation correct"
+        ],
+        "extension": "Write the plural form of these tricky words: foot, tooth, sheep, person"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Continue both patterns: A) 15, 20, 25, 30, ___ B) 80, 75, 70, 65, ___",
+        "instructions": [
+          "Write the next three numbers for each pattern",
+          "What is the rule for pattern A? Pattern B?",
+          "Which pattern will reach 100 first? Explain"
+        ],
+        "extension": "Create your own pattern that increases by 7 each time. Write 6 numbers starting at 14"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a time when you had to work as part of a team. What made the teamwork successful or challenging?",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Describe the situation and your role",
+          "Explain what went well and what was difficult",
+          "What did you learn about working with others?"
+        ],
+        "extension": "What makes someone a good team member? List three qualities"
+      }
+    },
+    {
+      "weekNumber": 7,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Compare living in the city versus living in the country. Which would you prefer and why?",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Discuss advantages and disadvantages of both",
+          "Use comparison words: whereas, on the other hand, similarly, however",
+          "State your preference clearly and justify it"
+        ],
+        "extension": "Could there be a compromise? Describe an ideal location that has benefits of both"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Estimate first, then calculate: 48 × 7",
+        "instructions": [
+          "Round 48 to 50 and estimate: 50 × 7 = ___",
+          "Now calculate exactly using your preferred method",
+          "How close was your estimate?"
+        ],
+        "extension": "Try this strategy with 63 × 8. Estimate, calculate, compare"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Add interesting adjectives and adverbs to improve this boring sentence: The cat walked down the street.",
+        "instructions": [
+          "Add at least two adjectives (describing words for nouns)",
+          "Add at least one adverb (describing word for verbs)",
+          "Keep the basic sentence structure but make it more descriptive"
+        ],
+        "extension": "Write a second sentence continuing the story with equally descriptive language"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Jake has 24 marbles. He gives 1/3 of them to his brother. How many marbles does he give away? How many does he keep?",
+        "instructions": [
+          "Find 1/3 of 24 by dividing: 24 ÷ 3 = ___",
+          "Subtract from 24 to find how many he keeps",
+          "Show your working for both answers"
+        ],
+        "extension": "If Jake then buys 15 more marbles, how many does he have altogether?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What does it mean to be responsible? Give examples from school and home life.",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Define responsibility in your own words",
+          "Give at least two school examples and two home examples",
+          "Explain why being responsible is important"
+        ],
+        "extension": "Describe one new responsibility you'd like to take on"
+      }
+    },
+    {
+      "weekNumber": 8,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write instructions for teaching someone how to play your favourite game or sport.",
+        "instructions": [
+          "Write 8-9 sentences",
+          "Start with what equipment/materials are needed",
+          "Use sequence words: first, next, then, after that, finally",
+          "Include important rules and scoring"
+        ],
+        "extension": "Add a tips section for beginners"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A train leaves at 9:15am and arrives at 11:40am. How long is the journey?",
+        "instructions": [
+          "Count from 9:15 to 10:00 (45 minutes)",
+          "Then from 10:00 to 11:00 (1 hour)",
+          "Finally from 11:00 to 11:40 (40 minutes)",
+          "Add all parts together"
+        ],
+        "extension": "If the train was delayed by 35 minutes, what time would it arrive?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Identify and label the parts: Underline the noun, circle the verb, box the adjective in: The fierce lion roared loudly.",
+        "instructions": [
+          "Find the naming word (noun) and underline it",
+          "Find the action word (verb) and circle it",
+          "Find the describing word (adjective) and box it"
+        ],
+        "extension": "Write your own sentence with at least one noun, one verb, one adjective, and one adverb. Label each"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Solve: (6 × 8) + (45 ÷ 5) = ___",
+        "instructions": [
+          "Solve the brackets first: work out 6 × 8",
+          "Then solve 45 ÷ 5",
+          "Finally add your two answers together",
+          "Show each step clearly"
+        ],
+        "extension": "Create your own problem using brackets with ×, ÷, +, or -. Solve it"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about a time you felt left out. How did you handle the situation?",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Describe what happened and how you felt",
+          "Explain what you did about it",
+          "What would you do if it happened again?",
+          "How can we make sure others don't feel left out?"
+        ],
+        "extension": "Write advice for someone else who feels left out"
+      }
+    },
+    {
+      "weekNumber": 9,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a detailed character description of an interesting person you know or have invented.",
+        "instructions": [
+          "Write 8-10 sentences",
+          "Describe physical appearance (what they look like)",
+          "Describe personality (what they're like inside)",
+          "Include specific examples of their behaviour or habits",
+          "Use varied vocabulary (avoid repeating the same descriptive words)"
+        ],
+        "extension": "Write a short scene showing this character in action"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A rectangular swimming pool is 25m long and 10m wide. A pathway 2m wide goes all around it. What is the area of just the pathway?",
+        "instructions": [
+          "Calculate the area of the pool: 25 × 10",
+          "Calculate the total area including pathway: 29 × 14 (add 2m on each side)",
+          "Subtract pool area from total area"
+        ],
+        "extension": "If the pathway costs $45 per square metre to build, what's the total cost?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Rewrite using correct homophones: Their going too the park to play with there dog.",
+        "instructions": [
+          "Change 'Their' to 'They're' (they are)",
+          "Change 'too' to 'to' (direction)",
+          "Change 'there' to 'their' (belonging to them)",
+          "Check all punctuation is correct"
+        ],
+        "extension": "Write three sentences using: your/you're, hear/here, where/wear correctly"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Complete the multiplication grid: 8 × ___ = 72, 9 × ___ = 63, 7 × ___ = 56",
+        "instructions": [
+          "Work backwards using division for each one",
+          "Show your working: 72 ÷ 8 = ___, 63 ÷ 9 = ___, 56 ÷ 7 = ___",
+          "Check your answers by multiplying back"
+        ],
+        "extension": "What do you notice about all three missing numbers? Create three more problems with the same answer"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What are you grateful for? List and explain at least five things.",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Include different categories: people, opportunities, possessions, abilities",
+          "Don't just list – explain WHY you're grateful for each thing",
+          "Be specific rather than general"
+        ],
+        "extension": "How can you show gratitude to the people you mentioned?"
+      }
+    },
+    {
+      "weekNumber": 10,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a persuasive letter to your principal suggesting one improvement for your school.",
+        "instructions": [
+          "Write 8-10 sentences using letter format",
+          "State your suggestion clearly in the first paragraph",
+          "Give three strong reasons why this would improve the school",
+          "Use persuasive language and anticipate objections",
+          "End with a polite call to action"
+        ],
+        "extension": "Include one paragraph addressing a possible concern or cost issue"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A shop takes $20 off a toy that originally costs $80. What is the new price? If you buy 3 toys at the sale price, how much do you spend?",
+        "instructions": [
+          "Calculate the sale price: $80 - $20 = ___",
+          "Calculate cost for 3 toys: sale price × 3",
+          "Show all working clearly"
+        ],
+        "extension": "If you had $200, how much change would you get after buying 3 toys?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Write a complex sentence using a subordinate clause. Example: Although it was raining, we played outside.",
+        "instructions": [
+          "Use one of these conjunctions: although, because, while, since, if",
+          "Make sure you have a main clause (could stand alone) and a subordinate clause (can't stand alone)",
+          "Use a comma to separate the clauses if the subordinate clause comes first"
+        ],
+        "extension": "Write two more complex sentences using different conjunctions"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Mental maths challenge: 25 × 16 (Hint: think of it as 25 × 4 × 4)",
+        "instructions": [
+          "First calculate 25 × 4 = ___",
+          "Then multiply that answer by 4",
+          "Explain why breaking it into steps makes it easier"
+        ],
+        "extension": "Try this strategy with 25 × 12 (break 12 into 4 × 3)"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Reflect on your learning journey this term. What has been most challenging? What are you most proud of?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Discuss one academic challenge and how you've worked on it",
+          "Discuss one personal/social challenge",
+          "Describe what you're proud of achieving",
+          "What do you want to focus on next term?"
+        ],
+        "extension": "Set two specific, achievable goals for Term 3"
+      }
+    },
+    {
+      "weekNumber": 11,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a newspaper article about an exciting event (real or imagined) that happened at your school.",
+        "instructions": [
+          "Write 9-10 sentences",
+          "Include a catchy headline",
+          "Answer: Who? What? When? Where? Why? How?",
+          "Use formal language appropriate for a newspaper",
+          "Include a quote from someone involved"
+        ],
+        "extension": "Add a paragraph predicting what might happen next or the impact of this event"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A recipe serves 6 people and needs 450g flour, 300ml milk, and 3 eggs. How much of each ingredient for 18 people?",
+        "instructions": [
+          "Work out the multiplication factor: 18 ÷ 6 = 3",
+          "Multiply each ingredient by 3",
+          "Show your working for all three ingredients"
+        ],
+        "extension": "What if you only had 600g of flour? How many people could you serve?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Edit this paragraph for errors: last saturday me and my sister went too the beach their was lots of people swimming we builded a huge sandcastle",
+        "instructions": [
+          "Add capital letters for the start, days, and proper nouns",
+          "Fix: me and my sister → my sister and I, too → to, their → there, builded → built",
+          "Add full stops to separate sentences (there should be 3 sentences)",
+          "Check all punctuation"
+        ],
+        "extension": "Rewrite the paragraph adding interesting adjectives and combining sentences with conjunctions"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Shape problem: A hexagon has 6 equal sides. If the perimeter is 48cm, how long is each side? If you arranged 8 of these hexagons in a row (sharing edges), what would the total perimeter be?",
+        "instructions": [
+          "Find side length: 48 ÷ 6 = ___",
+          "For 8 hexagons: think about which sides are shared",
+          "Show your reasoning step by step"
+        ],
+        "extension": "Draw a diagram of the 8 hexagons to help explain your answer"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "If you could teach others one important life lesson, what would it be and why?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Clearly state your life lesson",
+          "Explain why this lesson is important",
+          "Give examples of how this lesson has helped you or could help others",
+          "How would the world be different if everyone followed this lesson?"
+        ],
+        "extension": "Create a poster or slogan that captures your life lesson"
+      }
+    }
+  ]
+}

@@ -1,0 +1,596 @@
+{
+  "term": 1,
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "monday": {
+        "type": "Writing",
+        "prompt": "What did you do during the summer holidays that made you happy?",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Use capital letters and full stops",
+          "Include at least one describing word"
+        ],
+        "extension": "Add a sentence about who you spent time with"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "There are 8 children on the playground. 5 more children join them. How many children are there now?",
+        "instructions": [
+          "Write the number sentence (8 + 5 = ___)",
+          "Show your working with a picture or tally marks",
+          "Write your answer with a label"
+        ],
+        "extension": "If 6 children went inside, how many would be left outside?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "the cat sat on the mat",
+        "instructions": [
+          "Copy the sentence with correct punctuation",
+          "Add a capital letter at the start",
+          "Add a full stop at the end"
+        ],
+        "extension": "Change 'cat' to a different animal and rewrite the sentence"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Look at this pattern: 2, 4, 6, 8, ___",
+        "instructions": [
+          "Write the next three numbers",
+          "Describe the pattern rule in words",
+          "Is this counting by 2s, 5s, or 10s?"
+        ],
+        "extension": "Create your own pattern that counts by 2s starting at 20"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What are you looking forward to this school year?",
+        "instructions": [
+          "Write 3-4 sentences",
+          "Name at least two different things",
+          "Explain why you're excited about them"
+        ],
+        "extension": "Draw a picture of one thing you're looking forward to"
+      }
+    },
+    {
+      "weekNumber": 2,
+      "monday": {
+        "type": "Writing",
+        "prompt": "If you could be any animal for a day, which would you choose and why?",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Name the animal in your first sentence",
+          "Give two reasons for your choice"
+        ],
+        "extension": "Describe one thing you would do as that animal"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "Mia has 12 stickers. She gives 7 to her friend. How many stickers does she have left?",
+        "instructions": [
+          "Write the number sentence (12 - 7 = ___)",
+          "Show your working",
+          "Write your answer with a label"
+        ],
+        "extension": "If Mia bought 9 more stickers, how many would she have altogether?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "we go to the beach on saturday",
+        "instructions": [
+          "Copy and fix the sentence",
+          "Add capital letters where needed",
+          "Add a full stop"
+        ],
+        "extension": "Circle the day of the week. Why does it need a capital letter?"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Look at this pattern: 5, 10, 15, 20, ___",
+        "instructions": [
+          "Write the next three numbers",
+          "What is the pattern rule?",
+          "Circle the numbers that are also in the 10 times table"
+        ],
+        "extension": "Write the pattern backwards from 50 to 20"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a time when you helped someone this week.",
+        "instructions": [
+          "Write 3-4 sentences",
+          "Explain what you did to help",
+          "How did it make both of you feel?"
+        ],
+        "extension": "Write about a time someone helped you"
+      }
+    },
+    {
+      "weekNumber": 3,
+      "monday": {
+        "type": "Writing",
+        "prompt": "What is your favourite thing to do at lunchtime? Explain why you enjoy it.",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Start with a clear topic sentence",
+          "Give at least two reasons why you like it"
+        ],
+        "extension": "Describe who you do this activity with and why they make it more fun"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A packet has 15 biscuits. You eat 6 of them. How many are left?",
+        "instructions": [
+          "Write the number sentence",
+          "Show your working using a strategy",
+          "Check your answer makes sense"
+        ],
+        "extension": "If you shared the remaining biscuits equally between 3 people, how many would each person get?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "my dog like to play fetch",
+        "instructions": [
+          "Copy and fix the sentence",
+          "Fix the capital letter and full stop",
+          "Change the verb so it matches (like → likes)"
+        ],
+        "extension": "Add an adjective before 'dog' to describe it"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Continue the pattern: 3, 6, 9, 12, ___",
+        "instructions": [
+          "Write the next four numbers",
+          "What times table is this?",
+          "Which numbers in your pattern are odd?"
+        ],
+        "extension": "Start at 30 and write the pattern backwards down to 3"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What does it mean to be a good friend?",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Give at least three examples of good friend behaviour",
+          "Use words like 'kind', 'helpful', or 'caring'"
+        ],
+        "extension": "Describe something you could do today to be a good friend"
+      }
+    },
+    {
+      "weekNumber": 4,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Imagine you found a mysterious box on the beach. What was inside?",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Describe what the box looked like",
+          "Describe what you found inside and what you did next"
+        ],
+        "extension": "Add a sentence about how you felt when you opened the box"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "There are 23 children in the class. 14 are girls. How many are boys?",
+        "instructions": [
+          "Write the number sentence",
+          "Show your working with a strategy (counting on or back)",
+          "Write your answer in a full sentence"
+        ],
+        "extension": "If 5 more boys joined the class, how many boys would there be then?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "sarah and tom went to the park yesterday",
+        "instructions": [
+          "Copy and fix the sentence",
+          "Add capital letters for names",
+          "Add a full stop"
+        ],
+        "extension": "Add the word 'and' to join information about what they did at the park"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Pattern: 1, 4, 7, 10, ___",
+        "instructions": [
+          "Write the next four numbers",
+          "What number are we adding each time?",
+          "Is 25 part of this pattern? How do you know?"
+        ],
+        "extension": "Create a different pattern that adds 3 each time, but start at 5"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about a mistake you made recently. What did you learn from it?",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Describe what happened",
+          "Explain what you would do differently next time"
+        ],
+        "extension": "Why is it okay to make mistakes sometimes?"
+      }
+    },
+    {
+      "weekNumber": 5,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Should students be allowed to have pets in the classroom? Give your opinion.",
+        "instructions": [
+          "Write 5-6 sentences",
+          "State your opinion clearly in the first sentence",
+          "Give two or three reasons to support your opinion"
+        ],
+        "extension": "Write one sentence about what someone with a different opinion might say"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "I have 18 marbles in my bag. I lose 9 of them. Then I find 7 more. How many do I have now?",
+        "instructions": [
+          "Write both number sentences (18 - 9 = ___, then ___ + 7 = ___)",
+          "Show your working step by step",
+          "Write your final answer with a label"
+        ],
+        "extension": "Make up a similar two-step story problem using different numbers"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "the children was playing in the rain",
+        "instructions": [
+          "Copy and fix the sentence",
+          "Fix the capital letter and full stop",
+          "Change 'was' to the correct word (were)"
+        ],
+        "extension": "Explain why we use 'were' instead of 'was' with the word 'children'"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Pattern: 50, 45, 40, 35, ___",
+        "instructions": [
+          "Write the next four numbers",
+          "Are we counting up or down? By how much?",
+          "What number comes before 50 in this pattern?"
+        ],
+        "extension": "Continue the pattern until you reach 0. How many numbers did you write?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a time when you felt proud of yourself.",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Explain what you did or achieved",
+          "Why did this make you feel proud?"
+        ],
+        "extension": "What goal would you like to achieve next that would make you feel proud?"
+      }
+    },
+    {
+      "weekNumber": 6,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write instructions for making your favourite sandwich.",
+        "instructions": [
+          "Write 6-7 sentences using time order words (first, next, then, finally)",
+          "List all the ingredients you need",
+          "Explain each step clearly"
+        ],
+        "extension": "Draw and label a diagram of your finished sandwich"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A toy costs $27. You have $35. How much change will you get?",
+        "instructions": [
+          "Write the number sentence (35 - 27 = ___)",
+          "Show your working using a strategy (counting up or place value)",
+          "Write your answer as dollars and cents ($___)"
+        ],
+        "extension": "If you bought two toys, how much money would you need?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "i love reading books about space",
+        "instructions": [
+          "Copy and fix the sentence",
+          "Fix the capital letter at the start",
+          "Add a full stop or exclamation mark at the end"
+        ],
+        "extension": "Change the sentence to tell about books you DON'T like reading"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Look at these numbers: 12, 18, 24, 30. What comes next?",
+        "instructions": [
+          "Write the next three numbers",
+          "What is the skip counting pattern?",
+          "Write one more number that would fit this pattern before 12"
+        ],
+        "extension": "How many even numbers are in this pattern? How do you know?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What makes you feel calm when you're worried or upset?",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Describe at least two things that help you feel better",
+          "Explain why these things help"
+        ],
+        "extension": "Draw a picture of your calm, peaceful place"
+      }
+    },
+    {
+      "weekNumber": 7,
+      "monday": {
+        "type": "Writing",
+        "prompt": "If you could invent a new holiday, what would it be and how would people celebrate it?",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Name your holiday clearly",
+          "Describe at least three ways people would celebrate"
+        ],
+        "extension": "Would your holiday have special food or decorations? Describe them"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "There are 4 groups of students. Each group has 6 students. How many students altogether?",
+        "instructions": [
+          "Write the number sentence using multiplication (4 × 6 = ___)",
+          "Show your working by drawing groups or repeated addition",
+          "Write your answer with a label"
+        ],
+        "extension": "If each student has 2 pencils, how many pencils are there in total?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Write a sentence about the weather today using these words: cloudy, cold, outside",
+        "instructions": [
+          "Use all three words in your sentence",
+          "Start with a capital letter and end with a full stop",
+          "Make sure your sentence makes sense"
+        ],
+        "extension": "Write a second sentence using 'but' to add contrasting information"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Pattern: 100, 90, 80, 70, ___",
+        "instructions": [
+          "Write the next five numbers",
+          "What is happening to the numbers? (increasing or decreasing by ___)",
+          "If the pattern continued, what would come after 20?"
+        ],
+        "extension": "Start at 1000 and make a pattern that decreases by 100. Write 6 numbers"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Think about someone who is different from you. What can you learn from them?",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Describe how they are different (interests, culture, abilities)",
+          "Explain what makes differences valuable"
+        ],
+        "extension": "What is one question you could ask them to learn more about their life?"
+      }
+    },
+    {
+      "weekNumber": 8,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Describe your perfect weekend. What would you do from morning to night?",
+        "instructions": [
+          "Write 6-7 sentences",
+          "Organize your ideas in time order (morning, afternoon, evening)",
+          "Include details about activities and who you'd be with"
+        ],
+        "extension": "Compare this to a typical weekend. What's different?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A book has 48 pages. You've read 29 pages. How many pages do you have left to read?",
+        "instructions": [
+          "Write the number sentence (48 - 29 = ___)",
+          "Show your working using place value or number line",
+          "Check your answer by adding (29 + ___ = 48)"
+        ],
+        "extension": "If you read 5 pages every day, how many days would it take to finish the book?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Add commas to this list: I packed a hat sunscreen a towel and some snacks for the beach.",
+        "instructions": [
+          "Copy the sentence with commas in the correct places",
+          "Remember: commas separate items in a list",
+          "Check you have all punctuation (capital letter, full stop, commas)"
+        ],
+        "extension": "Write your own sentence listing 4 things you'd bring on a trip"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Fill in the missing numbers: 7, 14, ___, 28, ___, 42",
+        "instructions": [
+          "Work out what numbers are missing",
+          "What times table is this pattern from?",
+          "Write the next two numbers in the pattern"
+        ],
+        "extension": "Write the 7 times table from 7 × 1 up to 7 × 10"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What is something challenging you're working on right now?",
+        "instructions": [
+          "Write 4-5 sentences",
+          "Describe what makes it challenging",
+          "What strategies are you using to help yourself?"
+        ],
+        "extension": "Who could you ask for help if you need it?"
+      }
+    },
+    {
+      "weekNumber": 9,
+      "monday": {
+        "type": "Writing",
+        "prompt": "What job would you like to have when you grow up? Explain why this job interests you.",
+        "instructions": [
+          "Write 6-8 sentences",
+          "Name the job in your first sentence",
+          "Give at least three reasons for your choice",
+          "Use connecting words like 'because', 'also', and 'another reason'"
+        ],
+        "extension": "What skills or learning would you need to do this job?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "There are 56 students going on a trip. They travel in vans that hold 8 students each. How many vans do they need?",
+        "instructions": [
+          "Write the number sentence using division (56 ÷ 8 = ___)",
+          "Show your working with repeated subtraction or groups",
+          "Explain how you know your answer is correct"
+        ],
+        "extension": "If each van costs $15 to hire, how much will all the vans cost?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "she said lets go to the park",
+        "instructions": [
+          "Copy and add missing punctuation",
+          "Add capital letters, quotation marks for speech, and apostrophe in let's",
+          "Add a full stop or exclamation mark at the end"
+        ],
+        "extension": "Write a second sentence showing someone's reply"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Pattern: 128, 64, 32, 16, ___",
+        "instructions": [
+          "Write the next three numbers",
+          "What is happening each time? (× or ÷ by what number?)",
+          "Is this pattern getting bigger or smaller?"
+        ],
+        "extension": "If you continued the pattern, would you ever reach 0? Why or why not?"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Describe a time when you disagreed with a friend but worked it out peacefully.",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Explain what you disagreed about",
+          "Describe how you both solved the problem",
+          "What did you learn from this situation?"
+        ],
+        "extension": "What advice would you give someone else who has an argument with a friend?"
+      }
+    },
+    {
+      "weekNumber": 10,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Compare two sports or games you know. How are they the same and different?",
+        "instructions": [
+          "Write 6-8 sentences",
+          "Name both sports/games clearly",
+          "Describe at least two similarities and two differences",
+          "Use comparing words like 'both', 'however', 'while', 'but'"
+        ],
+        "extension": "Which sport/game do you prefer and why?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A rectangle has a length of 9cm and width of 4cm. What is the perimeter (distance around the outside)?",
+        "instructions": [
+          "Draw and label the rectangle",
+          "Write the number sentence adding all four sides",
+          "Remember: perimeter = length + width + length + width"
+        ],
+        "extension": "If the width stayed 4cm but the length doubled, what would the new perimeter be?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Change this sentence from present to past tense: I walk to school and I see my friends.",
+        "instructions": [
+          "Rewrite the sentence in past tense",
+          "Change 'walk' to 'walked' and 'see' to 'saw'",
+          "Keep all punctuation correct"
+        ],
+        "extension": "Write a third sentence continuing the story in past tense"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Study this pattern: 3, 9, 27, 81, ___",
+        "instructions": [
+          "Write the next two numbers",
+          "What is the rule? (× ___ each time)",
+          "This pattern grows very quickly. Explain why"
+        ],
+        "extension": "Start at 2 and make a pattern that triples (×3) each time. Write 5 numbers"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "What have you learned or improved at during Term 1? Reflect on your growth.",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Choose at least two different areas (learning, friendship, sports, behaviour)",
+          "Give specific examples of improvement",
+          "What are you most proud of?"
+        ],
+        "extension": "Set one goal for Term 2. How will you work towards it?"
+      }
+    },
+    {
+      "weekNumber": 11,
+      "monday": {
+        "type": "Writing",
+        "prompt": "Write a letter to your future self at the end of the year. What do you hope to achieve?",
+        "instructions": [
+          "Write 7-8 sentences",
+          "Use letter format (Dear Future Me, ... From, Present Me)",
+          "Include goals for learning, friendship, and personal growth",
+          "Be specific about what you want to accomplish"
+        ],
+        "extension": "What will you need to do to achieve these goals?"
+      },
+      "tuesday": {
+        "type": "Maths",
+        "prompt": "A baker makes 8 trays of muffins. Each tray holds 12 muffins. She sells 37 muffins. How many are left?",
+        "instructions": [
+          "First work out total muffins (8 × 12)",
+          "Then subtract the muffins sold",
+          "Show both steps clearly",
+          "Write your answer in a sentence"
+        ],
+        "extension": "If the leftover muffins are packed into boxes of 6, how many full boxes can be made?"
+      },
+      "wednesday": {
+        "type": "Grammar",
+        "prompt": "Write three sentences about your favourite season. Use different sentence types: statement, question, exclamation.",
+        "instructions": [
+          "Sentence 1: Make a statement (ends with .)",
+          "Sentence 2: Ask a question (ends with ?)",
+          "Sentence 3: Show excitement (ends with !)",
+          "All three must be about the same season"
+        ],
+        "extension": "Add adjectives to make your sentences more interesting"
+      },
+      "thursday": {
+        "type": "Maths",
+        "prompt": "Magic number puzzle: I'm thinking of a number. If I multiply it by 4, I get 36. What's my number?",
+        "instructions": [
+          "Write the equation: ___ × 4 = 36",
+          "Work backwards using division (36 ÷ 4 = ___)",
+          "Check your answer by multiplying"
+        ],
+        "extension": "Create your own 'mystery number' puzzle using multiplication and give it to a classmate"
+      },
+      "friday": {
+        "type": "SEL",
+        "prompt": "Imagine you could give advice to a student starting Year 4. What would you tell them?",
+        "instructions": [
+          "Write 5-6 sentences",
+          "Give at least three pieces of helpful advice",
+          "Think about learning, friendships, and classroom behaviour",
+          "Explain why each piece of advice is important"
+        ],
+        "extension": "What advice would you give about dealing with challenges or tough days?"
+      }
+    }
+  ]
+}
