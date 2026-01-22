@@ -11,44 +11,25 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: {
-                            50: '#f0f9ff',
-                            100: '#e0f2fe',
-                            200: '#bae6fd',
-                            300: '#7dd3fc',
-                            400: '#38bdf8',
-                            500: '#0ea5e9',
-                            600: '#0284c7',
-                            700: '#0369a1',
-                            800: '#075985',
-                            900: '#0c4a6e',
-                        }
+                        primary: '#0066cc',
+                        'primary-dark': '#0052a3',
                     }
                 }
             }
         }
     </script>
-    <script>
-        // Theme sync - must run before body renders
-        (function() {
-            const theme = localStorage.getItem('theme') || 'light';
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            }
-        })();
-    </script>
+    <!-- Theme sync loaded from config.js - must be in head to prevent flash -->
+    <script src="../config.js"></script>
     <style>
         body {
-            margin: 0;
-            padding: 0;
             overflow: hidden;
         }
     </style>
 </head>
-<body class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+<body class="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 p-5 flex flex-col gap-5">
     
     <!-- Loading Overlay -->
-    <div id="loading-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+    <div id="loading-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: white; display: flex; align-items: center; justify-content: center; z-index: 9999;" class="dark:bg-gray-950">
         <div style="text-align: center;">
             <div style="width: 48px; height: 48px; border: 4px solid #e5e7eb; border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
             <div style="color: #6b7280; font-size: 14px;">Loading Bell Ringers...</div>
@@ -60,89 +41,82 @@
         }
     </style>
 
-    <div class="h-screen flex flex-col p-8">
-        <!-- Header Section -->
-        <div class="flex justify-between items-start mb-6">
-            <!-- Left: Term/Week Selectors -->
-            <div class="flex gap-3 opacity-60 hover:opacity-100 transition-opacity">
-                <select id="term-select" class="px-3 py-1.5 text-sm rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    <option value="1">Term 1</option>
-                    <option value="2">Term 2</option>
-                    <option value="3">Term 3</option>
-                    <option value="4">Term 4</option>
-                </select>
-                <select id="week-select" class="px-3 py-1.5 text-sm rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-                    <!-- Will be populated with weeks 1-11 -->
-                </select>
-            </div>
+    <!-- Header Row -->
+    <div class="flex gap-5 flex-wrap items-stretch">
+        <!-- Term/Week Selectors (left) -->
+        <div class="flex gap-3 items-center opacity-50 hover:opacity-100 transition-opacity">
+            <select id="term-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                <option value="1">Term 1</option>
+                <option value="2">Term 2</option>
+                <option value="3">Term 3</option>
+                <option value="4">Term 4</option>
+            </select>
+            <select id="week-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                <!-- Will be populated 1-11 -->
+            </select>
+        </div>
 
-            <!-- Center: Date Display -->
-            <div class="text-center">
-                <div class="flex items-center justify-center gap-4 mb-1">
-                    <button id="prev-day" class="p-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <div>
-                        <h1 id="full-date" class="text-3xl font-bold text-gray-800 dark:text-gray-100"></h1>
-                        <p id="short-date" class="text-lg text-gray-600 dark:text-gray-400"></p>
-                    </div>
-                    <button id="next-day" class="p-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
+        <!-- Date Display (center) -->
+        <div class="flex-1 text-center flex flex-col items-center justify-center">
+            <div class="flex items-center gap-4">
+                <button id="prev-day" class="p-2 rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <div>
+                    <h1 id="full-date" class="text-3xl font-bold"></h1>
+                    <p id="short-date" class="text-lg text-gray-600 dark:text-gray-400"></p>
                 </div>
-            </div>
-
-            <!-- Right: Timer Widget -->
-            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 w-48">
-                <div class="text-center">
-                    <div id="timer-display" class="text-4xl font-bold font-mono text-gray-800 dark:text-gray-100 mb-3">20:00</div>
-                    <div class="flex gap-2 justify-center">
-                        <button id="timer-start" class="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-medium transition-colors">Start</button>
-                        <button id="timer-pause" class="px-3 py-1.5 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-sm font-medium transition-colors hidden">Pause</button>
-                        <button id="timer-reset" class="px-3 py-1.5 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition-colors">Reset</button>
-                    </div>
-                </div>
+                <button id="next-day" class="p-2 rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
             </div>
         </div>
 
-        <!-- Special Day Display -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-6">
-            <p id="special-day" class="text-4xl font-bold text-center text-primary-600 dark:text-primary-400"></p>
+        <!-- Timer + Music Player (right) -->
+        <div class="flex gap-3">
+            <div class="timer-widget min-w-[200px]" data-time="20:00"></div>
+            <div class="music-player-widget min-w-[200px]"></div>
         </div>
+    </div>
 
-        <!-- Bell Ringer Activity -->
-        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex-1 flex flex-col">
-            <div class="flex items-center justify-between mb-6">
-                <span id="activity-type" class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-xl font-semibold"></span>
+    <!-- Special Day Display -->
+    <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+        <p id="special-day" class="text-4xl font-bold text-center text-primary dark:text-blue-400"></p>
+    </div>
+
+    <!-- Bell Ringer Activity -->
+    <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-8 shadow-sm flex-1 flex flex-col min-h-0">
+        <div class="flex items-center justify-between mb-6">
+            <span id="activity-type" class="px-6 py-3 bg-primary dark:bg-blue-500 text-white rounded-full text-2xl font-bold"></span>
+        </div>
+        
+        <div class="flex-1 flex flex-col justify-center overflow-y-auto">
+            <p id="activity-prompt" class="text-5xl font-bold mb-8"></p>
+            
+            <div id="activity-instructions" class="space-y-4 mb-6">
+                <!-- Instructions will be inserted here -->
             </div>
             
-            <div class="flex-1 flex flex-col justify-center">
-                <p id="activity-prompt" class="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100"></p>
-                
-                <div id="activity-instructions" class="space-y-3 mb-6">
-                    <!-- Instructions will be inserted here -->
-                </div>
-                
-                <div id="activity-extension" class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg hidden">
-                    <p class="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Extension Challenge:</p>
-                    <p class="text-xl text-yellow-700 dark:text-yellow-300"></p>
-                </div>
+            <div id="activity-extension" class="mt-6 p-6 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg hidden">
+                <p class="text-xl font-semibold text-yellow-800 dark:text-yellow-200 mb-3">🌟 Extension Challenge:</p>
+                <p class="text-2xl text-yellow-700 dark:text-yellow-300"></p>
             </div>
         </div>
     </div>
 
+    <!-- Scripts -->
+    <script src="../widgets/utils.js"></script>
+    <script src="../widgets/timer.js"></script>
+    <script src="../widgets/music-player.js"></script>
     <script>
         // Global state
         let currentDate = new Date();
         let specialDaysData = null;
         let termData = null;
-        let timerInterval = null;
-        let timerSeconds = 20 * 60; // 20 minutes default
-        let timerRunning = false;
 
         // Day names mapping
         const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -175,11 +149,6 @@
             document.getElementById('week-select').addEventListener('change', handleWeekChange);
             document.getElementById('prev-day').addEventListener('click', () => changeDay(-1));
             document.getElementById('next-day').addEventListener('click', () => changeDay(1));
-            
-            // Timer controls
-            document.getElementById('timer-start').addEventListener('click', startTimer);
-            document.getElementById('timer-pause').addEventListener('click', pauseTimer);
-            document.getElementById('timer-reset').addEventListener('click', resetTimer);
 
             // Initial display
             updateDisplay();
@@ -295,10 +264,10 @@
             if (activity.instructions && activity.instructions.length > 0) {
                 activity.instructions.forEach(instruction => {
                     const li = document.createElement('div');
-                    li.className = 'flex items-start gap-3';
+                    li.className = 'flex items-start gap-4';
                     li.innerHTML = `
-                        <span class="text-primary-500 text-2xl font-bold">•</span>
-                        <span class="text-2xl text-gray-700 dark:text-gray-300">${instruction}</span>
+                        <span class="text-primary dark:text-blue-400 text-3xl font-bold">•</span>
+                        <span class="text-3xl text-gray-700 dark:text-gray-300">${instruction}</span>
                     `;
                     instructionsContainer.appendChild(li);
                 });
@@ -320,63 +289,6 @@
             document.getElementById('activity-prompt').textContent = 'No bell ringer activity scheduled for this day.';
             document.getElementById('activity-instructions').innerHTML = '';
             document.getElementById('activity-extension').classList.add('hidden');
-        }
-
-        // Timer functions
-        function startTimer() {
-            if (timerRunning) return;
-            timerRunning = true;
-            document.getElementById('timer-start').classList.add('hidden');
-            document.getElementById('timer-pause').classList.remove('hidden');
-            
-            timerInterval = setInterval(() => {
-                if (timerSeconds > 0) {
-                    timerSeconds--;
-                    updateTimerDisplay();
-                } else {
-                    pauseTimer();
-                    playTimerSound();
-                }
-            }, 1000);
-        }
-
-        function pauseTimer() {
-            timerRunning = false;
-            clearInterval(timerInterval);
-            document.getElementById('timer-start').classList.remove('hidden');
-            document.getElementById('timer-pause').classList.add('hidden');
-        }
-
-        function resetTimer() {
-            pauseTimer();
-            timerSeconds = 20 * 60;
-            updateTimerDisplay();
-        }
-
-        function updateTimerDisplay() {
-            const minutes = Math.floor(timerSeconds / 60);
-            const seconds = timerSeconds % 60;
-            document.getElementById('timer-display').textContent = 
-                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-        }
-
-        function playTimerSound() {
-            // Create a simple beep sound
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.value = 800;
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.5);
         }
 
         // Start the app
