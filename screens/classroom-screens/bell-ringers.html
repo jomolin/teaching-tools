@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bell Ringers - Teaching Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script>
+        // Theme sync - must run before body renders
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgb(255, 255, 255); display: flex; align-items: center; justify-content: center; z-index: 9999;">
+        <div style="text-align: center;">
+            <div style="width: 48px; height: 48px; border: 4px solid #e5e7eb; border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 16px;"></div>
+            <div style="color: #6b7280; font-size: 14px;">Loading Bell Ringers...</div>
+        </div>
+    </div>
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+
+    <div class="h-screen flex flex-col p-8">
+        <!-- Header Section -->
+        <div class="flex justify-between items-start mb-6">
+            <!-- Left: Term/Week Selectors -->
+            <div class="flex gap-3 opacity-60 hover:opacity-100 transition-opacity">
+                <select id="term-select" class="px-3 py-1.5 text-sm rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <option value="1">Term 1</option>
+                    <option value="2">Term 2</option>
+                    <option value="3">Term 3</option>
+                    <option value="4">Term 4</option>
+                </select>
+                <select id="week-select" class="px-3 py-1.5 text-sm rounded-lg bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    <!-- Will be populated with weeks 1-11 -->
+                </select>
+            </div>
+
+            <!-- Center: Date Display -->
+            <div class="text-center">
+                <div class="flex items-center justify-center gap-4 mb-1">
+                    <button id="prev-day" class="p-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <div>
+                        <h1 id="full-date" class="text-3xl font-bold text-gray-800 dark:text-gray-100"></h1>
+                        <p id="short-date" class="text-lg text-gray-600 dark:text-gray-400"></p>
+                    </div>
+                    <button id="next-day" class="p-2 rounded-lg bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right: Timer Widget -->
+            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-4 w-48">
+                <div class="text-center">
+                    <div id="timer-display" class="text-4xl font-bold font-mono text-gray-800 dark:text-gray-100 mb-3">20:00</div>
+                    <div class="flex gap-2 justify-center">
+                        <button id="timer-start" class="px-3 py-1.5 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-medium transition-colors">Start</button>
+                        <button id="timer-pause" class="px-3 py-1.5 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-sm font-medium transition-colors hidden">Pause</button>
+                        <button id="timer-reset" class="px-3 py-1.5 bg-gray-500 hover:bg-gray-600 text-white rounded-lg text-sm font-medium transition-colors">Reset</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Special Day Display -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-6 mb-6">
+            <p id="special-day" class="text-4xl font-bold text-center text-primary-600 dark:text-primary-400"></p>
+        </div>
+
+        <!-- Bell Ringer Activity -->
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 flex-1 flex flex-col">
+            <div class="flex items-center justify-between mb-6">
+                <span id="activity-type" class="px-4 py-2 bg-primary-100 dark:bg-primary-900 text-primary-800 dark:text-primary-200 rounded-full text-xl font-semibold"></span>
+            </div>
+            
+            <div class="flex-1 flex flex-col justify-center">
+                <p id="activity-prompt" class="text-4xl font-bold mb-8 text-gray-800 dark:text-gray-100"></p>
+                
+                <div id="activity-instructions" class="space-y-3 mb-6">
+                    <!-- Instructions will be inserted here -->
+                </div>
+                
+                <div id="activity-extension" class="mt-6 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg hidden">
+                    <p class="text-lg font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Extension Challenge:</p>
+                    <p class="text-xl text-yellow-700 dark:text-yellow-300"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global state
+        let currentDate = new Date();
+        let specialDaysData = null;
+        let termData = null;
+        let timerInterval = null;
+        let timerSeconds = 20 * 60; // 20 minutes default
+        let timerRunning = false;
+
+        // Day names mapping
+        const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const dayNamesDisplay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Initialize
+        async function init() {
+            // Populate week selector
+            const weekSelect = document.getElementById('week-select');
+            for (let i = 1; i <= 11; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `Week ${i}`;
+                weekSelect.appendChild(option);
+            }
+
+            // Load saved term/week from localStorage
+            const savedTerm = localStorage.getItem('bellRingerTerm') || '1';
+            const savedWeek = localStorage.getItem('bellRingerWeek') || '1';
+            document.getElementById('term-select').value = savedTerm;
+            document.getElementById('week-select').value = savedWeek;
+
+            // Load data
+            await loadSpecialDays();
+            await loadTermData(savedTerm);
+
+            // Set up event listeners
+            document.getElementById('term-select').addEventListener('change', handleTermChange);
+            document.getElementById('week-select').addEventListener('change', handleWeekChange);
+            document.getElementById('prev-day').addEventListener('click', () => changeDay(-1));
+            document.getElementById('next-day').addEventListener('click', () => changeDay(1));
+            
+            // Timer controls
+            document.getElementById('timer-start').addEventListener('click', startTimer);
+            document.getElementById('timer-pause').addEventListener('click', pauseTimer);
+            document.getElementById('timer-reset').addEventListener('click', resetTimer);
+
+            // Initial display
+            updateDisplay();
+
+            // Hide loading overlay
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Load special days data
+        async function loadSpecialDays() {
+            try {
+                const response = await fetch('../data/special-days.json');
+                specialDaysData = await response.json();
+            } catch (error) {
+                console.error('Error loading special days:', error);
+                specialDaysData = { days: {} };
+            }
+        }
+
+        // Load term data
+        async function loadTermData(term) {
+            try {
+                const response = await fetch(`../data/term${term}.json`);
+                termData = await response.json();
+            } catch (error) {
+                console.error('Error loading term data:', error);
+                termData = { weeks: [] };
+            }
+        }
+
+        // Handle term change
+        async function handleTermChange(e) {
+            const term = e.target.value;
+            localStorage.setItem('bellRingerTerm', term);
+            await loadTermData(term);
+            updateDisplay();
+        }
+
+        // Handle week change
+        function handleWeekChange(e) {
+            const week = e.target.value;
+            localStorage.setItem('bellRingerWeek', week);
+            updateDisplay();
+        }
+
+        // Change day (forward/back)
+        function changeDay(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDisplay();
+        }
+
+        // Update all display elements
+        function updateDisplay() {
+            updateDateDisplay();
+            updateSpecialDay();
+            updateBellRinger();
+        }
+
+        // Update date display
+        function updateDateDisplay() {
+            const dayName = dayNamesDisplay[currentDate.getDay()];
+            const day = currentDate.getDate();
+            const month = monthNames[currentDate.getMonth()];
+            const year = currentDate.getFullYear();
+
+            // Full date: "Monday 23 January 2026"
+            document.getElementById('full-date').textContent = `${dayName} ${day} ${month} ${year}`;
+
+            // Short date: "23.01.2026"
+            const shortDay = String(day).padStart(2, '0');
+            const shortMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
+            document.getElementById('short-date').textContent = `${shortDay}.${shortMonth}.${year}`;
+        }
+
+        // Update special day display
+        function updateSpecialDay() {
+            if (!specialDaysData) return;
+
+            const month = currentDate.getMonth() + 1;
+            const day = currentDate.getDate();
+            const key = `${month}-${day}`;
+
+            const specialDay = specialDaysData.days[key] || 'No Special Day';
+            document.getElementById('special-day').textContent = `Today is ${specialDay}!`;
+        }
+
+        // Update bell ringer activity
+        function updateBellRinger() {
+            if (!termData || !termData.weeks) return;
+
+            const weekNumber = parseInt(document.getElementById('week-select').value);
+            const dayOfWeek = currentDate.getDay();
+            const dayName = dayNames[dayOfWeek];
+
+            // Get the week data
+            const weekData = termData.weeks.find(w => w.weekNumber === weekNumber);
+            if (!weekData || !weekData[dayName]) {
+                displayNoActivity();
+                return;
+            }
+
+            const activity = weekData[dayName];
+
+            // Display activity type
+            document.getElementById('activity-type').textContent = activity.type;
+
+            // Display prompt
+            document.getElementById('activity-prompt').textContent = activity.prompt;
+
+            // Display instructions
+            const instructionsContainer = document.getElementById('activity-instructions');
+            instructionsContainer.innerHTML = '';
+            if (activity.instructions && activity.instructions.length > 0) {
+                activity.instructions.forEach(instruction => {
+                    const li = document.createElement('div');
+                    li.className = 'flex items-start gap-3';
+                    li.innerHTML = `
+                        <span class="text-primary-500 text-2xl font-bold">•</span>
+                        <span class="text-2xl text-gray-700 dark:text-gray-300">${instruction}</span>
+                    `;
+                    instructionsContainer.appendChild(li);
+                });
+            }
+
+            // Display extension if exists
+            const extensionContainer = document.getElementById('activity-extension');
+            if (activity.extension && activity.extension.trim() !== '') {
+                extensionContainer.querySelector('p:last-child').textContent = activity.extension;
+                extensionContainer.classList.remove('hidden');
+            } else {
+                extensionContainer.classList.add('hidden');
+            }
+        }
+
+        // Display message when no activity available
+        function displayNoActivity() {
+            document.getElementById('activity-type').textContent = 'No Activity';
+            document.getElementById('activity-prompt').textContent = 'No bell ringer activity scheduled for this day.';
+            document.getElementById('activity-instructions').innerHTML = '';
+            document.getElementById('activity-extension').classList.add('hidden');
+        }
+
+        // Timer functions
+        function startTimer() {
+            if (timerRunning) return;
+            timerRunning = true;
+            document.getElementById('timer-start').classList.add('hidden');
+            document.getElementById('timer-pause').classList.remove('hidden');
+            
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    pauseTimer();
+                    playTimerSound();
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            timerRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('timer-start').classList.remove('hidden');
+            document.getElementById('timer-pause').classList.add('hidden');
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 20 * 60;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timerSeconds / 60);
+            const seconds = timerSeconds % 60;
+            document.getElementById('timer-display').textContent = 
+                `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function playTimerSound() {
+            // Create a simple beep sound
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.value = 800;
+            oscillator.type = 'sine';
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+        }
+
+        // Start the app
+        init();
+    </script>
+
+</body>
+</html>
