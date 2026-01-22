@@ -38,29 +38,22 @@ const MusicPlayerWidget = (function() {
         // Render the widget
         instance.render = function() {
             this.container.innerHTML = `
-                <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm h-full flex flex-col">
-                    <div class="text-center mb-3">
-                        <div class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">🎵 Music</div>
-                        <select id="station-select" class="w-full px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-primary focus:border-transparent">
-                            ${Object.entries(STATIONS).map(([key, station]) => 
-                                `<option value="${key}" ${key === this.currentStation ? 'selected' : ''}>${station.name}</option>`
-                            ).join('')}
-                        </select>
-                    </div>
-                    <div class="flex gap-2 justify-center">
-                        <button id="play-btn" class="px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            Play
-                        </button>
-                        <button id="pause-btn" class="px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-sm font-medium transition-colors hidden flex items-center gap-2">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                            </svg>
-                            Pause
-                        </button>
-                    </div>
+                <div class="flex gap-2 items-center opacity-50 hover:opacity-100 transition-opacity">
+                    <select id="station-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                        ${Object.entries(STATIONS).map(([key, station]) => 
+                            `<option value="${key}" ${key === this.currentStation ? 'selected' : ''}>${station.name}</option>`
+                        ).join('')}
+                    </select>
+                    <button id="play-btn" class="p-2 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                    </button>
+                    <button id="pause-btn" class="p-2 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors hidden">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        </svg>
+                    </button>
                 </div>
             `;
             

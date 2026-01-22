@@ -43,17 +43,22 @@
 
     <!-- Header Row -->
     <div class="flex gap-5 flex-wrap items-stretch">
-        <!-- Term/Week Selectors (left) -->
-        <div class="flex gap-3 items-center opacity-50 hover:opacity-100 transition-opacity">
-            <select id="term-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
-                <option value="1">Term 1</option>
-                <option value="2">Term 2</option>
-                <option value="3">Term 3</option>
-                <option value="4">Term 4</option>
-            </select>
-            <select id="week-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
-                <!-- Will be populated 1-11 -->
-            </select>
+        <!-- Left Column: Selectors + Music -->
+        <div class="flex flex-col gap-3">
+            <!-- Term/Week Selectors -->
+            <div class="flex gap-3 items-center opacity-50 hover:opacity-100 transition-opacity">
+                <select id="term-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option value="1">Term 1</option>
+                    <option value="2">Term 2</option>
+                    <option value="3">Term 3</option>
+                    <option value="4">Term 4</option>
+                </select>
+                <select id="week-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <!-- Will be populated 1-11 -->
+                </select>
+            </div>
+            <!-- Music Player -->
+            <div class="music-player-widget"></div>
         </div>
 
         <!-- Date Display (center) -->
@@ -76,11 +81,8 @@
             </div>
         </div>
 
-        <!-- Timer + Music Player (right) -->
-        <div class="flex gap-3">
-            <div class="timer-widget min-w-[200px]" data-time="20:00"></div>
-            <div class="music-player-widget min-w-[200px]"></div>
-        </div>
+        <!-- Simple Timer (right) -->
+        <div class="simple-timer-widget" data-time="20:00"></div>
     </div>
 
     <!-- Special Day Display -->
@@ -110,7 +112,7 @@
 
     <!-- Scripts -->
     <script src="../widgets/utils.js"></script>
-    <script src="../widgets/timer.js"></script>
+    <script src="../widgets/simple-timer.js"></script>
     <script src="../widgets/music-player.js"></script>
     <script>
         // Global state
