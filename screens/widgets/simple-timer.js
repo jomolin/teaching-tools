@@ -84,6 +84,8 @@ const SimpleTimerWidget = (function() {
                 const mins = parseInt(parts[0], 10) || 0;
                 const secs = parseInt(parts[1], 10) || 0;
                 instance.timeRemaining = (mins * 60) + secs;
+                // Update the default time to the new edited value
+                instance.defaultTimeValue = String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
             }
             
             // Update display to ensure proper formatting
@@ -183,7 +185,17 @@ const SimpleTimerWidget = (function() {
         instance.reset = function() {
             instance.pause();
             instance.stopAlarm();
-            instance.timeRemaining = instance.parseTimeDisplay();
+            
+            // Parse the default time value to reset to
+            const parts = instance.defaultTimeValue.split(':');
+            if (parts.length === 2) {
+                const mins = parseInt(parts[0], 10) || 0;
+                const secs = parseInt(parts[1], 10) || 0;
+                instance.timeRemaining = (mins * 60) + secs;
+            } else {
+                instance.timeRemaining = CONSTANTS.DEFAULT_SECONDS;
+            }
+            
             instance.updateTimerDisplay();
         };
         

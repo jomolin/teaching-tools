@@ -17,7 +17,7 @@ const MusicPlayerWidget = (function() {
         'pop': { name: 'Pop', url: 'https://live.hunter.fm/pop_stream?ag=mp3' },
         'pop2k': { name: 'Pop 2000s', url: 'https://live.hunter.fm/pop2k_stream?ag=mp3' },
         'trance': { name: 'Trance', url: 'https://fr3.1mix.co.uk:8000/stream13' },
-        'wnyc': { name: 'WNYC Opera', url: 'https://opera-stream.wqxr.org/wnycfm-tunein.aac' },
+        'wnyc': { name: 'WNYC', url: 'https://opera-stream.wqxr.org/wnycfm-tunein.aac' },
         'xmas': { name: 'Christmas', url: 'https://christmasfm.cdnstream1.com/2547_64.aac' },
         'xmas-c': { name: 'Xmas Country', url: 'http://christmasfm.cdnstream1.com/2550_64.aac' },
         'xmas-cl': { name: 'Xmas Classical', url: 'http://christmasfm.cdnstream1.com/2549_64.aac' }
