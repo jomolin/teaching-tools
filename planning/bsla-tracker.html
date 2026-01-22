@@ -4,1067 +4,372 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BSLA Tracker - Taumata 10</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
-    <link rel="stylesheet" href="../style.css">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    
+    <!-- Theme sync - must be in head to prevent flash -->
+    <script>
+        // Theme sync with main site toggle
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            // Listen for theme changes from main site
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'theme') {
+                    if (e.newValue === 'dark') {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                }
+            });
+        })();
+    </script>
+    
     <style>
-        /* Tabs */
-        .tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .tab {
-            padding: 12px 24px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-            color: var(--text-muted);
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab.active {
-            color: var(--links);
-            border-bottom-color: var(--links);
-        }
-
-        .tab:hover {
-            color: var(--links);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        /* Week selector */
+        /* Only essential positioning/layout CSS that can't be done with Tailwind */
+        
         .week-selector {
             display: flex;
             gap: 8px;
-            margin-bottom: 20px;
             flex-wrap: wrap;
         }
-
-        .week-btn {
-            padding: 8px 16px;
-            border: 2px solid var(--links);
-            background: var(--background);
-            color: var(--links);
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .week-btn.active {
-            background: var(--links);
-            color: var(--background);
-        }
-
-        /* Day sections */
-        .day-section {
-            margin-bottom: 25px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .day-header {
-            background: var(--background-alt);
-            color: var(--text-main);
-            padding: 12px 15px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .day-header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .day-complete-btn {
-            padding: 4px 12px;
-            background: var(--links);
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: opacity 0.2s;
-        }
-
-        .day-complete-btn:hover {
-            opacity: 0.8;
-        }
-
-        .day-content {
-            padding: 15px;
-            background: var(--background);
-        }
-
-        /* Lesson blocks */
+        
         .lesson-block {
-            background: var(--background);
-            border: 2px solid var(--border);
-            border-radius: 4px;
-            padding: 12px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: all 0.2s;
             display: grid;
             grid-template-columns: auto 1fr;
             gap: 12px;
             align-items: start;
         }
-
-        .lesson-block:hover {
-            border-color: var(--links);
-            transform: translateY(-1px);
-        }
-
-        .lesson-block.completed {
-            background: color-mix(in srgb, #27ae60 10%, var(--background));
-            border-color: #27ae60;
-        }
-
-        .lesson-block.skipped {
-            background: color-mix(in srgb, #e74c3c 10%, var(--background));
-            border-color: #e74c3c;
-            opacity: 0.7;
-        }
-
-        .lesson-checkbox {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border);
-            border-radius: 3px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--background);
-            margin-top: 2px;
-            flex-shrink: 0;
-        }
-
-        .lesson-block.completed .lesson-checkbox {
-            background: #27ae60;
-            border-color: #27ae60;
-        }
-
-        .lesson-block.completed .lesson-checkbox::after {
-            content: '✓';
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .lesson-block.skipped .lesson-checkbox {
-            background: #e74c3c;
-            border-color: #e74c3c;
-        }
-
-        .lesson-block.skipped .lesson-checkbox::after {
-            content: '✕';
-            color: white;
-            font-size: 14px;
-            font-weight: bold;
-        }
-
-        .lesson-details {
-            flex: 1;
-        }
-
-        .lesson-title {
-            font-weight: 600;
-            color: var(--text-main);
-            margin-bottom: 4px;
-            font-size: 15px;
-        }
-
-        .lesson-info {
-            color: var(--text-muted);
-            font-size: 0.9em;
-            line-height: 1.5;
-        }
-
-        .lesson-duration {
-            display: inline-block;
-            padding: 2px 8px;
-            background: var(--links);
-            color: white;
-            border-radius: 3px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-right: 8px;
-        }
-
-        .lesson-source {
-            display: inline-block;
-            padding: 2px 8px;
-            background: var(--background-alt);
-            color: var(--text-muted);
-            border-radius: 3px;
-            font-size: 0.75em;
-            font-weight: 600;
-            margin-left: 8px;
-            border: 1px solid var(--border);
-        }
-
-        /* Stats */
-        .stats-summary {
-            background: var(--background-alt);
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .stat-number {
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--links);
-        }
-
-        .stat-label {
-            font-size: 0.9em;
-            color: var(--text-muted);
-        }
-
-        /* Controls */
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-        }
-
-        /* Week info banner */
-        .week-info {
-            background: var(--background-alt);
-            color: var(--text-main);
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            border: 2px solid var(--border);
-        }
-
-        .week-info h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.2em;
-            color: var(--links);
-        }
-
-        .week-info p {
-            margin: 4px 0;
-        }
-
-        /* Copy text area */
-        .copy-container {
-            margin-top: 20px;
-        }
-
+        
         .copy-box {
-            margin-bottom: 20px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        .copy-box-header {
-            background: var(--background-alt);
-            color: var(--text-main);
-            padding: 10px 15px;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .copy-box-header-left {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .day-complete-checkbox {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: var(--links);
-        }
-
-        .copy-box-content {
-            background: var(--background);
-            padding: 0;
-        }
-
-        .copy-textarea {
-            width: 100%;
-            min-height: 150px;
-            font-family: monospace;
-            padding: 15px;
-            border: none;
-            background: var(--background);
-            color: var(--text-main);
-            resize: vertical;
-            font-size: 13px;
-        }
-
-        .copy-btn {
-            background: var(--links);
-            color: white;
-            border: none;
-            padding: 4px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            transition: opacity 0.2s;
-        }
-
-        .copy-btn:hover {
-            opacity: 0.8;
-        }
-
-        .copy-controls {
             margin-bottom: 15px;
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
         }
     </style>
 </head>
-<body>
-    <h1>BSLA Lesson Tracker</h1>
-    <p>Taumata 10 - Better Sense of the Language Arts - Year 4</p>
-
-    <div class="tabs">
-        <button class="tab active" data-tab="tracker">Lesson Tracker</button>
-        <button class="tab" data-tab="copy">Weekly Planner</button>
-        <button class="tab" data-tab="stats">Overview</button>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(243, 244, 246, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;" class="dark:bg-gray-900 dark:bg-opacity-95">
+        <div class="text-center">
+            <div class="text-6xl mb-4">📚</div>
+            <div class="text-xl font-semibold text-gray-700 dark:text-gray-300">Loading lesson data...</div>
+        </div>
     </div>
 
-    <!-- Lesson Tracker Tab -->
-    <div id="tracker" class="tab-content active">
-        <div class="controls">
-            <button id="exportBtn">Export ⤓</button>
-            <button id="importBtn">Import ⤒</button>
-            <button id="resetBtn">Reset ↻</button>
-            <input type="file" id="importFile" accept=".json" style="display: none;">
+    <div id="mainContent" style="display: none;">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">BSLA Lesson Tracker</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">Taumata 10 - Better Start Literacy Approach - Year 4</p>
+
+            <!-- Tabs -->
+            <div class="flex gap-2 mb-6 border-b-2 border-gray-300 dark:border-gray-700">
+                <button class="tab-btn px-6 py-3 font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" style="border-bottom: 3px solid currentColor;" data-tab="tracker">
+                    Lesson Tracker
+                </button>
+                <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="copy">
+                    Weekly Planner
+                </button>
+                <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="stats">
+                    Overview
+                </button>
+            </div>
+
+            <!-- Lesson Tracker Tab -->
+            <div id="tracker" class="tab-content">
+                <div class="flex gap-2 mb-6 flex-wrap">
+                    <button id="exportBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">
+                        Export ⤓
+                    </button>
+                    <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">
+                        Import ⤒
+                    </button>
+                    <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold rounded-md transition-colors">
+                        Reset ↻
+                    </button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-blue-600 dark:text-blue-400" id="completedCount">0</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Lessons Complete</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-gray-900 dark:text-gray-100" id="totalCount">0</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Total Lessons</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-green-600 dark:text-green-400" id="progressPercent">0%</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Progress</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <div class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Select Week:</div>
+                    <div class="week-selector" id="weekSelector"></div>
+                </div>
+
+                <div id="weekContent"></div>
+            </div>
+
+            <!-- Weekly Planner Tab -->
+            <div id="copy" class="tab-content hidden">
+                <div class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6">
+                    <div class="font-semibold text-blue-900 dark:text-blue-100 mb-2">Next 5 Incomplete Days</div>
+                    <div class="text-sm text-blue-800 dark:text-blue-200">Copy lesson plans for the week ahead. Check off days as you complete them.</div>
+                </div>
+                <div id="copyContainer"></div>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="stats" class="tab-content hidden">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Overall Progress</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-blue-600 dark:text-blue-400" id="statsCompleted">0</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Completed</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-gray-900 dark:text-gray-100" id="statsTotal">0</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Total</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-4xl font-bold text-green-600 dark:text-green-400" id="statsProgress">0%</div>
+                            <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">Progress</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+                    <div id="statsDetails"></div>
+                </div>
+            </div>
         </div>
-
-        <div class="stats-summary">
-            <div class="stat-item">
-                <div class="stat-number" id="completedCount">0</div>
-                <div class="stat-label">Lessons Complete</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="totalCount">0</div>
-                <div class="stat-label">Total Lessons</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="progressPercent">0%</div>
-                <div class="stat-label">Progress</div>
-            </div>
-        </div>
-
-        <div class="week-selector" id="weekSelector"></div>
-        <div id="weekInfo" class="week-info"></div>
-        <div id="lessonsContainer"></div>
-    </div>
-
-    <!-- Copy Lessons Tab -->
-    <div id="copy" class="tab-content">
-        <h2>Copy Lessons - Next 5 Days</h2>
-        <p>Showing your next 5 incomplete days (skipped lessons excluded)</p>
-        
-        <div id="copyContainer"></div>
-    </div>
-
-    <!-- Progress Tab -->
-    <div id="stats" class="tab-content">
-        <h2>Your Progress</h2>
-        <div class="stats-summary">
-            <div class="stat-item">
-                <div class="stat-number" id="statsCompleted">0</div>
-                <div class="stat-label">Total Completed</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="statsTotal">0</div>
-                <div class="stat-label">Total Lessons</div>
-            </div>
-            <div class="stat-item">
-                <div class="stat-number" id="statsProgress">0%</div>
-                <div class="stat-label">Overall Progress</div>
-            </div>
-        </div>
-        <div id="statsDetails"></div>
     </div>
 
     <script>
-        // BSLA Taumata 10 Data
-        const LESSON_DATA = {
-            1: {
-                focus: "Prefix inter (between/among)",
-                targetWords: ["intercept", "intersect", "interrupt", "intercom", "interlock", "interject", "intercity", "interview"],
-                readingTheme: "Water - Red Flags & Sons of Ma'afu",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 1, Day 1", activity: "Explicit teaching of prefix inter (between/among)", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Match the word with prefix inter to its definition", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 1", activity: "Letter formation review / copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Explicit teacher modelling - QAR (Red Flags)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks related to Red Flags", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading / independent work", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 1", activity: "Year 4 Writing lesson", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 1, Day 2", activity: "Word Study with inter words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Continuation of Week 1 practice", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Summarize using story structure elements (Red Flags)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Story structure graphic organizer", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 1", activity: "Continue Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 1, Day 3", activity: "Morpheme Map for inter (building words)", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Morpheme Map - build words with base words + inter", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 1 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "QAR - Author and Me, On My Own (Sons of Ma'afu)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Answer QAR questions about text", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 1", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 1, Day 4", activity: "Practice and application with inter words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Morpheme Card for inter + sentence with inter word", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 1 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Summarize using story structure (Sons of Ma'afu complete)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Complete story structure organizer", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 1", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Exit ticket or review activity for prefix inter", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "Comprehension questions / OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning / vocabulary activity", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            2: {
-                focus: "Prefix under (beneath/lower)",
-                targetWords: ["underground", "undercover", "underage", "undergrowth", "underweight", "undervalue", "underpay", "underuse"],
-                readingTheme: "Water - Where's Toki?",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 2, Day 1", activity: "Explicit teaching of prefix under", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Match the word with prefix under to its definition", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 2", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Explicit teaching of all QAR categories (Where's Toki?)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Answer QAR questions", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 2", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 2, Day 2", activity: "Word Study with under words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 2 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Summarize using story structure (Where's Toki? continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Story structure organizer", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 2", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 2, Day 3", activity: "Morpheme Bingo for under", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Morpheme Bingo", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 2 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "Students answer QAR questions (Where's Toki? continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Mix of QAR questions", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 2", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 2, Day 4", activity: "Practice with under words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Morpheme Card for under + sentence", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 2 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Summarize using story structure, students generate QAR questions (Where's Toki? complete)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Complete story structure", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 2", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for prefix under", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            3: {
-                focus: "Prefix over (above/excessive)",
-                targetWords: ["overload", "overtime", "override", "overcharge", "overrated", "overweight", "overjoyed", "overcrowded"],
-                readingTheme: "Water - Ngāti Kurī Proud",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 3, Day 1", activity: "Explicit teaching of prefix over", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Sums and Sentence Generation", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 3", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Anticipation Guide + Review QAR (Ngāti Kurī Proud)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Mixed order QAR questions", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 3", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 3, Day 2", activity: "Word Study with over words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 3 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Students generate 2-3 QAR questions in groups (Ngāti Kurī Proud continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "QAR practice", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 3", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 3, Day 3", activity: "Morpheme Map for over", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Morpheme Map", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 3 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "QAR practice (Ngāti Kurī Proud continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Mixed QAR questions", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 3", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 3, Day 4", activity: "Practice with over words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Morpheme Card for over + Word Breakdown", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 3 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Students generate QAR questions (Ngāti Kurī Proud complete)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Share student-generated questions", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 3", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for prefix over", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            4: {
-                focus: "Suffix -al (pertaining to/having the form or character of)",
-                targetWords: ["coastal", "magical", "personal", "logical", "sceptical", "emotional", "national", "optional"],
-                readingTheme: "Water - Monsters of the Deep",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 4a, Day 1", activity: "Explicit teaching of suffix -al", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Morpheme Bingo for -al", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 4", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Non-Fiction text structure: Descriptive Web + KWL (Monsters of the Deep)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Complete KWL chart", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 4", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 4a, Day 2", activity: "Word Study with -al words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study + Word Sort for -al", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 4 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Descriptive Web + QAR (Monsters of the Deep continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Text structure organizer", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 4", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 4b, Day 1", activity: "Explicit teaching of suffix -ial (connector i + al)", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word/Sentence Generation for -ial", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 4 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "QAR practice (Monsters of the Deep continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Mixed QAR questions", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 4", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 4b, Day 2", activity: "Practice with -ial words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Sentence Generation for -ial + Word Sort", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 4 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "QAR + complete Descriptive Web (Monsters of the Deep complete)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Complete text structure", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 4", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for suffixes -al and -ial", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            5: {
-                focus: "Suffix -ist (as in artist)",
-                targetWords: ["dentist", "cyclist", "machinist", "journalist", "artist", "hygienist", "specialist", "tourist"],
-                readingTheme: "Water - Te Papa's Colossal Squid",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 5, Day 1", activity: "Explicit teaching of suffix -ist", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Fill the Blanks", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 5", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Non-Fiction text structure: Descriptive Web (Te Papa's Colossal Squid)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Begin Descriptive Web", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 5", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 5, Day 2", activity: "Word Study with -ist words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study + Word Sort", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 5 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Descriptive Web (Te Papa's Colossal Squid continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Continue Descriptive Web", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 5", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 5, Day 3", activity: "Practice with -ist words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 5 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "Descriptive Web (Te Papa's Colossal Squid continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Text structure practice", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 5", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 5, Day 4", activity: "Application with -ist words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Sentence Generation", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 5 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Complete Descriptive Web (Te Papa's Colossal Squid complete)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Complete text structure organizer", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 5", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for suffix -ist", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            6: {
-                focus: "Suffix -or (as in doctor)",
-                targetWords: ["inventor", "conductor", "editor", "visitor", "survivor", "narrator", "translator"],
-                readingTheme: "Water - Kaitaiaki of the Estuary",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 6, Day 1", activity: "Explicit teaching of suffix -or", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Fill the Blanks", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 6", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Non-Fiction text structure: Descriptive Web (Kaitaiaki of the Estuary)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Begin Descriptive Web", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 6", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 6, Day 2", activity: "Morpheme Bingo for -or", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study + Morpheme Bingo", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 6 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Descriptive Web (Kaitaiaki of the Estuary continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Continue Descriptive Web", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 6", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 6, Day 3", activity: "Practice with -or words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 6 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "Descriptive Web (Kaitaiaki of the Estuary continue)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Text structure practice", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 6", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 6, Day 4", activity: "Application with -or words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Sentence Generation", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 6 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Complete Descriptive Web (Kaitaiaki of the Estuary complete)", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Complete text structure", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 6", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for suffix -or", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            7: {
-                focus: "Introduction to Root Words",
-                targetWords: ["erupted", "constructed", "deformed", "import", "airport", "scribbled", "scribe", "distracted"],
-                readingTheme: "Water - Various texts",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 7, Day 1", activity: "Explicit teaching of root words concept", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Usage & Sentence Generation", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 7", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 7", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 7, Day 2", activity: "Word Sort by root words (rupt, struct, port, form, scribe, tract)", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study + Word Sort", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 7 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 7", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 7, Day 3", activity: "Practice identifying root words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 7 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 7", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 7, Day 4", activity: "Application - Sentence Generation with root words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Sentence Generation", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 7 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 7", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for root words", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            8: {
-                focus: "Root form (shape)",
-                targetWords: ["reform", "uniform", "deform", "formal", "transform", "platform", "perform", "formed"],
-                readingTheme: "Water - Various texts",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 8, Day 1", activity: "Explicit teaching of root 'form' (shape)", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Fill the Blanks", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 8", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 8", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 8, Day 2", activity: "Morpheme Bingo for form", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study + Morpheme Bingo", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 8 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 8", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 8, Day 3", activity: "Practice with form words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 8 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 8", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 8, Day 4", activity: "Application with form words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Morpheme Card for form + sentence", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 8 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 8", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for root 'form'", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            9: {
-                focus: "Build multimorphemic words",
-                targetWords: ["overactive", "preheated", "internationally", "irresponsible", "transformer", "performed", "interrupting"],
-                readingTheme: "Water - Various texts",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 9, Day 1", activity: "Explicit teaching of multimorphemic words (revision)", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Sums and Sentence Generation", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 9", activity: "Copywork", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 1", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 9", activity: "Year 4 Writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 9, Day 2", activity: "Word Sort by morphemes (pre, mis, dis, form, -ous, -en, -less)", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word Study + Word Sums + Word Sort", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 9 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 2", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 9", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 9, Day 3", activity: "Practice building multimorphemic words", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 1", activity: "Word Study", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 9 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 3", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 9", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 9, Day 4", activity: "Application - Word/Sentence Generation", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", lesson: "Lesson 2", activity: "Word/Sentence Generation", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 9 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", lesson: "Lesson 4", activity: "Reading comprehension", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Comprehension tasks", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Silent reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 9", activity: "Continue writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "Assessment for multimorphemic words", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", lesson: "Lesson 5 - OWLS", activity: "OWLS activity", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review week's learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Complete and share writing", source: "BSLA" }
-                    ]
-                ]
-            },
-            10: {
-                focus: "Review Week - Teacher's Choice",
-                targetWords: ["Review of all morphemes from Weeks 1-9"],
-                readingTheme: "Water - Review",
-                days: [
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 10, Day 1", activity: "Review activities for morphemes taught in Taumata 10", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", lesson: "Week 10", activity: "Review/assessment", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", activity: "Review of reading strategies", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Review reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 10", activity: "Review writing", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 10, Day 2", activity: "Continue review", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 10 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", activity: "Review", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Review reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 10", activity: "Continue review", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 10, Day 3", activity: "Assessment preparation", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 10 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", activity: "Review", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Review reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 10", activity: "Continue review", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM", duration: "20 min", lesson: "Unit 10, Day 4", activity: "Assessment/Review", source: "BSLA" },
-                        { component: "Link to Reading & Writing", duration: "5-10 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Handwriting", duration: "10 min", activity: "Week 10 continuation", source: "OCHRE" },
-                        { component: "Reading Comprehension", duration: "20 min", activity: "Review", source: "BSLA" },
-                        { component: "Sentence & Text-Level Tasks", duration: "15 min", activity: "Review activities", source: "BSLA" },
-                        { component: "Independent Tasks", duration: "20 min", activity: "Review reading", source: "BSLA" },
-                        { component: "Writing Composition", duration: "30-40 min", lesson: "Week 10", activity: "Continue review", source: "BSLA" }
-                    ],
-                    [
-                        { component: "PhOM Review or Assessment", duration: "20 min", activity: "End of Taumata 10 assessment", source: "BSLA" },
-                        { component: "Reading Comprehension Review", duration: "20 min", activity: "OWLS - Teacher's Choice", source: "BSLA" },
-                        { component: "Review & Share", duration: "20 min", activity: "Review Taumata 10 learning", source: "BSLA" },
-                        { component: "Writing: Share, Review or Assessment", duration: "30-40 min", activity: "Share and celebrate Taumata 10 completion", source: "BSLA" }
-                    ]
-                ]
-            }
-        };
+        // Global lesson data
+        let LESSON_DATA = null;
 
         class BSLATracker {
             constructor() {
-                this.currentWeek = 1;
-                this.copyWeek = 1;
                 this.progress = this.loadProgress();
-                this.init();
+                this.currentWeek = 1;
             }
 
-            init() {
-                this.setupTabs();
-                this.setupWeekSelector();
-                this.setupControls();
-                this.renderWeek();
-                this.updateStats();
-                this.renderCopyText();
+            async init() {
+                try {
+                    // Determine base path for JSON
+                    const basePath = './data/';
+                    
+                    // Fetch lesson data
+                    const response = await fetch(basePath + 'taumata10-lessons.json');
+                    if (!response.ok) {
+                        throw new Error(`Failed to load lesson data: ${response.status} ${response.statusText}`);
+                    }
+                    
+                    LESSON_DATA = await response.json();
+                    
+                    // Hide loading, show content
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+                    
+                    this.setupEventListeners();
+                    this.renderWeekSelector();
+                    this.renderWeek();
+                    this.updateStats();
+                    this.renderCopyText();
+                    this.renderStats();
+                    
+                } catch (error) {
+                    console.error('Error loading lesson data:', error);
+                    document.getElementById('loadingOverlay').innerHTML = `
+                        <div class="text-center max-w-2xl mx-auto p-6">
+                            <div class="text-6xl mb-4">❌</div>
+                            <div class="text-xl font-semibold text-red-600 dark:text-red-400 mb-4">Failed to load lesson data</div>
+                            <div class="text-gray-700 dark:text-gray-300 mb-4">${error.message}</div>
+                            <button onclick="location.reload()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md">Retry</button>
+                        </div>
+                    `;
+                }
             }
 
-            setupTabs() {
-                document.querySelectorAll('.tab').forEach(tab => {
-                    tab.addEventListener('click', () => {
-                        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                        tab.classList.add('active');
-                        document.getElementById(tab.dataset.tab).classList.add('active');
-                        if (tab.dataset.tab === 'stats') {
-                            this.renderStats();
-                        } else if (tab.dataset.tab === 'copy') {
-                            this.renderCopyText();
-                        }
-                    });
+            setupEventListeners() {
+                // Tab switching
+                document.querySelectorAll('.tab-btn').forEach(tab => {
+                    tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
                 });
-            }
 
-            setupWeekSelector() {
-                const selector = document.getElementById('weekSelector');
-                Object.keys(LESSON_DATA).forEach(week => {
-                    const btn = document.createElement('button');
-                    btn.className = `week-btn ${week == this.currentWeek ? 'active' : ''}`;
-                    btn.textContent = `Week ${week}`;
-                    btn.addEventListener('click', () => {
-                        this.currentWeek = parseInt(week);
-                        document.querySelectorAll('#weekSelector .week-btn').forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-                        this.renderWeek();
-                    });
-                    selector.appendChild(btn);
-                });
-            }
-
-            setupControls() {
+                // Export/Import/Reset
                 document.getElementById('exportBtn').addEventListener('click', () => this.exportData());
-                document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+                document.getElementById('importBtn').addEventListener('click', () => {
+                    document.getElementById('importFile').click();
+                });
                 document.getElementById('importFile').addEventListener('change', (e) => this.importData(e));
                 document.getElementById('resetBtn').addEventListener('click', () => {
-                    if (confirm('Reset all progress? This cannot be undone.')) {
+                    if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
                         this.progress = {};
                         this.saveProgress();
                         this.renderWeek();
                         this.updateStats();
+                        this.renderCopyText();
+                        this.renderStats();
                     }
                 });
             }
 
-            renderWeek() {
-                const weekData = LESSON_DATA[this.currentWeek];
+            switchTab(tabName) {
+                // Update tab buttons
+                document.querySelectorAll('.tab-btn').forEach(t => {
+                    t.classList.remove('text-blue-600', 'dark:text-blue-400');
+                    t.classList.add('text-gray-500', 'dark:text-gray-400');
+                    t.style.borderBottom = '';
+                });
+                const activeTab = document.querySelector(`[data-tab="${tabName}"]`);
+                activeTab.classList.add('text-blue-600', 'dark:text-blue-400');
+                activeTab.classList.remove('text-gray-500', 'dark:text-gray-400');
+                activeTab.style.borderBottom = '3px solid currentColor';
                 
-                // Render week info
-                const weekInfo = document.getElementById('weekInfo');
-                weekInfo.innerHTML = `
-                    <h3>Week ${this.currentWeek}: ${weekData.focus}</h3>
-                    <p><strong>Target Words:</strong> ${weekData.targetWords.join(', ')}</p>
-                    <p><strong>Reading Theme:</strong> ${weekData.readingTheme}</p>
-                `;
+                // Show/hide content
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById(tabName).classList.remove('hidden');
 
-                // Render lessons by day
-                const container = document.getElementById('lessonsContainer');
+                // Render tab-specific content
+                if (tabName === 'copy') this.renderCopyText();
+                else if (tabName === 'stats') this.renderStats();
+            }
+
+            renderWeekSelector() {
+                const container = document.getElementById('weekSelector');
                 container.innerHTML = '';
 
+                Object.keys(LESSON_DATA).forEach(week => {
+                    const btn = document.createElement('button');
+                    btn.textContent = `Week ${week}`;
+                    btn.className = `px-4 py-2 border-2 rounded-md font-medium transition-all ${
+                        parseInt(week) === this.currentWeek
+                            ? 'bg-blue-600 dark:bg-blue-700 text-white border-blue-600 dark:border-blue-700'
+                            : 'bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-700 hover:bg-blue-50 dark:hover:bg-gray-700'
+                    }`;
+                    btn.addEventListener('click', () => {
+                        this.currentWeek = parseInt(week);
+                        this.renderWeekSelector();
+                        this.renderWeek();
+                    });
+                    container.appendChild(btn);
+                });
+            }
+
+            renderWeek() {
+                const container = document.getElementById('weekContent');
+                const weekData = LESSON_DATA[this.currentWeek];
+                
+                if (!weekData) {
+                    container.innerHTML = '<div class="text-center text-gray-600 dark:text-gray-400 py-8">Week not found</div>';
+                    return;
+                }
+
+                let html = `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+                        <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">Week ${this.currentWeek}: ${weekData.focus}</h2>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">
+                            <strong>Target Words:</strong> ${weekData.targetWords}<br>
+                            <strong>Reading Theme:</strong> ${weekData.readingTheme}
+                        </div>
+                    </div>
+                `;
+
                 weekData.days.forEach((dayLessons, dayIndex) => {
-                    const daySection = document.createElement('div');
-                    daySection.className = 'day-section';
-                    
-                    const dayHeader = document.createElement('div');
-                    dayHeader.className = 'day-header';
-                    
                     // Check if all lessons in this day are completed
                     const allCompleted = dayLessons.every((_, lessonIndex) => {
                         const lessonId = `${this.currentWeek}-${dayIndex}-${lessonIndex}`;
                         return this.progress[lessonId] === 'completed';
                     });
-                    
-                    dayHeader.innerHTML = `
-                        <div class="day-header-left">
-                            <span>Day ${dayIndex + 1}</span>
-                        </div>
-                        <button class="day-complete-btn" data-week="${this.currentWeek}" data-day="${dayIndex}">
-                            ${allCompleted ? '✓ Complete' : 'Mark Complete'}
-                        </button>
+
+                    html += `
+                        <div class="mb-6 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden">
+                            <div class="bg-gray-200 dark:bg-gray-700 px-4 py-3 border-b-2 border-gray-300 dark:border-gray-600 flex justify-between items-center">
+                                <div class="flex items-center gap-3">
+                                    <span class="font-semibold text-gray-900 dark:text-gray-100">Day ${dayIndex + 1}</span>
+                                </div>
+                                <button class="px-3 py-1 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white text-sm rounded transition-colors" onclick="tracker.markDayComplete(${this.currentWeek}, ${dayIndex}, ${!allCompleted})">
+                                    ${allCompleted ? 'Unmark Day' : 'Mark Day Complete'}
+                                </button>
+                            </div>
+                            <div class="bg-white dark:bg-gray-800 p-4">
                     `;
-                    
-                    // Add button event listener
-                    setTimeout(() => {
-                        const btn = dayHeader.querySelector('.day-complete-btn');
-                        btn.addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            const week = parseInt(btn.dataset.week);
-                            const day = parseInt(btn.dataset.day);
-                            this.toggleDayComplete(week, day, !allCompleted);
-                        });
-                    }, 0);
-                    
-                    const dayContent = document.createElement('div');
-                    dayContent.className = 'day-content';
-                    
+
                     dayLessons.forEach((lesson, lessonIndex) => {
                         const lessonId = `${this.currentWeek}-${dayIndex}-${lessonIndex}`;
                         const status = this.progress[lessonId] || 'unmarked';
                         
-                        const block = document.createElement('div');
-                        block.className = `lesson-block ${status === 'completed' ? 'completed' : ''} ${status === 'skipped' ? 'skipped' : ''}`;
-                        block.addEventListener('click', () => this.toggleLesson(lessonId));
-                        
-                        block.innerHTML = `
-                            <div class="lesson-checkbox"></div>
-                            <div class="lesson-details">
-                                <div class="lesson-title">
-                                    <span class="lesson-duration">${lesson.duration}</span>
-                                    ${lesson.component}
-                                    <span class="lesson-source">${lesson.source}</span>
+                        const statusClasses = {
+                            completed: 'bg-green-50 dark:bg-green-900 dark:bg-opacity-20 border-green-500 dark:border-green-600',
+                            skipped: 'bg-red-50 dark:bg-red-900 dark:bg-opacity-20 border-red-500 dark:border-red-600 opacity-70',
+                            unmarked: 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400'
+                        };
+
+                        html += `
+                            <div class="lesson-block border-2 rounded-md p-3 mb-3 cursor-pointer transition-all ${statusClasses[status]}" 
+                                 onclick="tracker.toggleLesson('${lessonId}')">
+                                <div class="flex-shrink-0">
+                                    <div class="w-5 h-5 border-2 rounded flex items-center justify-center mt-0.5 ${
+                                        status === 'completed' 
+                                            ? 'bg-green-600 dark:bg-green-500 border-green-600 dark:border-green-500' 
+                                            : status === 'skipped'
+                                            ? 'bg-red-600 dark:bg-red-500 border-red-600 dark:border-red-500'
+                                            : 'bg-white dark:bg-gray-700 border-gray-400 dark:border-gray-500'
+                                    }">
+                                        ${status === 'completed' ? '<span class="text-white text-xs font-bold">✓</span>' : ''}
+                                        ${status === 'skipped' ? '<span class="text-white text-xs font-bold">✕</span>' : ''}
+                                    </div>
                                 </div>
-                                <div class="lesson-info">
-                                    ${lesson.lesson ? `<strong>${lesson.lesson}:</strong> ` : ''}${lesson.activity}
+                                <div>
+                                    <div class="font-semibold text-gray-900 dark:text-gray-100 mb-1">${lesson.component}</div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-400">
+                                        <span class="inline-block px-2 py-0.5 bg-blue-600 dark:bg-blue-700 text-white rounded text-xs font-semibold mr-2">
+                                            ${lesson.duration}
+                                        </span>
+                                        ${lesson.lesson ? `<strong>${lesson.lesson}:</strong> ` : ''}${lesson.activity}
+                                        <span class="inline-block px-2 py-0.5 bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 rounded text-xs font-semibold ml-2 border border-gray-300 dark:border-gray-600">
+                                            ${lesson.source}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         `;
-                        
-                        dayContent.appendChild(block);
                     });
-                    
-                    daySection.appendChild(dayHeader);
-                    daySection.appendChild(dayContent);
-                    container.appendChild(daySection);
+
+                    html += `
+                            </div>
+                        </div>
+                    `;
                 });
+
+                container.innerHTML = html;
             }
 
             toggleLesson(lessonId) {
-                const current = this.progress[lessonId] || 'unmarked';
-                // Three states: unmarked → completed → skipped → unmarked
-                if (current === 'unmarked') {
+                const currentStatus = this.progress[lessonId] || 'unmarked';
+                
+                // Cycle: unmarked -> completed -> skipped -> unmarked
+                if (currentStatus === 'unmarked') {
                     this.progress[lessonId] = 'completed';
-                } else if (current === 'completed') {
+                } else if (currentStatus === 'completed') {
                     this.progress[lessonId] = 'skipped';
                 } else {
                     this.progress[lessonId] = 'unmarked';
@@ -1073,6 +378,21 @@
                 this.saveProgress();
                 this.renderWeek();
                 this.updateStats();
+                this.renderCopyText();
+            }
+
+            markDayComplete(week, dayIndex, complete) {
+                const dayLessons = LESSON_DATA[week].days[dayIndex];
+                
+                dayLessons.forEach((_, lessonIndex) => {
+                    const lessonId = `${week}-${dayIndex}-${lessonIndex}`;
+                    this.progress[lessonId] = complete ? 'completed' : 'unmarked';
+                });
+                
+                this.saveProgress();
+                this.renderWeek();
+                this.updateStats();
+                this.renderCopyText();
             }
 
             updateStats() {
@@ -1102,7 +422,7 @@
 
             renderStats() {
                 const container = document.getElementById('statsDetails');
-                container.innerHTML = '<h3>Progress by Week</h3>';
+                container.innerHTML = '<h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Progress by Week</h3>';
 
                 Object.keys(LESSON_DATA).forEach(week => {
                     const weekData = LESSON_DATA[week];
@@ -1120,10 +440,10 @@
                     const weekProgress = weekTotal > 0 ? Math.round((weekCompleted / weekTotal) * 100) : 0;
 
                     const weekDiv = document.createElement('div');
-                    weekDiv.style.marginBottom = '15px';
+                    weekDiv.className = 'mb-4 pb-4 border-b border-gray-200 dark:border-gray-700 last:border-b-0';
                     weekDiv.innerHTML = `
-                        <strong>Week ${week}: ${weekData.focus}</strong><br>
-                        <span style="color: var(--text-muted);">${weekCompleted} of ${weekTotal} lessons (${weekProgress}%)</span>
+                        <div class="font-semibold text-gray-900 dark:text-gray-100">Week ${week}: ${weekData.focus}</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">${weekCompleted} of ${weekTotal} lessons (${weekProgress}%)</div>
                     `;
                     container.appendChild(weekDiv);
                 });
@@ -1148,7 +468,6 @@
 
                 // Filter to incomplete days and get next 5
                 const incompleteDays = allDays.filter(day => {
-                    // Check if all lessons in this day are either completed or skipped
                     const allDone = day.lessons.every((_, lessonIndex) => {
                         const lessonId = `${day.week}-${day.dayIndex}-${lessonIndex}`;
                         const status = this.progress[lessonId] || 'unmarked';
@@ -1160,45 +479,46 @@
                 const next5Days = incompleteDays.slice(0, 5);
 
                 if (next5Days.length === 0) {
-                    container.innerHTML = '<p style="padding: 20px; text-align: center; color: var(--text-muted);">All lessons complete! 🎉</p>';
+                    container.innerHTML = '<div class="text-center text-gray-600 dark:text-gray-400 py-8">All lessons complete! 🎉</div>';
                     return;
                 }
 
                 next5Days.forEach((day, displayIndex) => {
-                    const dayBox = document.createElement('div');
-                    dayBox.className = 'copy-box';
-                    
-                    const dayHeader = document.createElement('div');
-                    dayHeader.className = 'copy-box-header';
-                    
-                    // Check if all lessons in this day are completed
                     const allCompleted = day.lessons.every((_, lessonIndex) => {
                         const lessonId = `${day.week}-${day.dayIndex}-${lessonIndex}`;
                         return this.progress[lessonId] === 'completed';
                     });
                     
+                    const dayBox = document.createElement('div');
+                    dayBox.className = 'copy-box border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden';
+                    
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'bg-gray-200 dark:bg-gray-700 px-4 py-3 flex justify-between items-center';
                     dayHeader.innerHTML = `
-                        <div class="copy-box-header-left">
-                            <input type="checkbox" class="day-complete-checkbox" 
+                        <div class="flex items-center gap-3">
+                            <input type="checkbox" 
+                                   class="w-4 h-4 cursor-pointer accent-blue-600" 
                                    data-week="${day.week}" 
                                    data-day="${day.dayIndex}"
                                    ${allCompleted ? 'checked' : ''}>
-                            <span>Day ${displayIndex + 1} (Week ${day.week}, Day ${day.dayIndex + 1})</span>
+                            <span class="font-semibold text-gray-900 dark:text-gray-100">Day ${displayIndex + 1} (Week ${day.week}, Day ${day.dayIndex + 1})</span>
                         </div>
-                        <button class="copy-btn" onclick="tracker.copyBox(this)">Copy</button>
+                        <button class="px-3 py-1 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white text-sm rounded transition-colors" onclick="tracker.copyBox(this)">
+                            Copy
+                        </button>
                     `;
                     
                     // Add checkbox event listener
                     setTimeout(() => {
-                        const checkbox = dayHeader.querySelector('.day-complete-checkbox');
+                        const checkbox = dayHeader.querySelector('input[type="checkbox"]');
                         checkbox.addEventListener('change', (e) => {
                             e.stopPropagation();
-                            this.toggleDayComplete(day.week, day.dayIndex, checkbox.checked);
+                            this.markDayComplete(day.week, day.dayIndex, checkbox.checked);
                         });
                     }, 0);
                     
                     const dayContent = document.createElement('div');
-                    dayContent.className = 'copy-box-content';
+                    dayContent.className = 'bg-white dark:bg-gray-800 p-0';
                     
                     // Build text with only non-skipped lessons
                     let dayText = '';
@@ -1206,7 +526,6 @@
                         const lessonId = `${day.week}-${day.dayIndex}-${lessonIndex}`;
                         const status = this.progress[lessonId] || 'unmarked';
                         
-                        // Skip lessons marked as skipped
                         if (status === 'skipped') return;
                         
                         dayText += `${lesson.component}\n`;
@@ -1218,7 +537,7 @@
                     });
                     
                     const dayTextarea = document.createElement('textarea');
-                    dayTextarea.className = 'copy-textarea';
+                    dayTextarea.className = 'w-full min-h-[150px] p-4 border-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 resize-y font-mono text-sm';
                     dayTextarea.readOnly = true;
                     dayTextarea.value = dayText.trim();
                     
@@ -1229,23 +548,8 @@
                 });
             }
 
-            toggleDayComplete(week, dayIndex, checked) {
-                const dayLessons = LESSON_DATA[week].days[dayIndex];
-                
-                // Mark all lessons in the day as completed or unmarked
-                dayLessons.forEach((_, lessonIndex) => {
-                    const lessonId = `${week}-${dayIndex}-${lessonIndex}`;
-                    this.progress[lessonId] = checked ? 'completed' : 'unmarked';
-                });
-                
-                this.saveProgress();
-                this.renderWeek();
-                this.updateStats();
-                this.renderCopyText();
-            }
-
             copyBox(button) {
-                const textarea = button.closest('.copy-box').querySelector('.copy-textarea');
+                const textarea = button.closest('.copy-box').querySelector('textarea');
                 textarea.select();
                 document.execCommand('copy');
                 
@@ -1277,6 +581,8 @@
                         this.saveProgress();
                         this.renderWeek();
                         this.updateStats();
+                        this.renderCopyText();
+                        this.renderStats();
                         alert('Progress imported successfully!');
                     } catch (err) {
                         alert('Error importing file. Please check the file format.');
@@ -1297,6 +603,7 @@
 
         // Initialize tracker
         const tracker = new BSLATracker();
+        tracker.init();
     </script>
 </body>
 </html>
