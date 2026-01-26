@@ -1,0 +1,68 @@
+{
+  "wordTasks": {
+    "monday": {
+      "type": "Define",
+      "instruction": "Write the definition in your own words. What does the word of the day mean to you?"
+    },
+    "tuesday": {
+      "type": "Use in a Sentence",
+      "instruction": "Write a sentence using the word of the day. Make sure your sentence shows you understand the meaning."
+    },
+    "wednesday": {
+      "type": "Draw It",
+      "instruction": "Draw a picture that shows what the word of the day means. Label your drawing."
+    },
+    "thursday": {
+      "type": "Word Makeover",
+      "instruction": "Write the word of the day in three different fancy styles. Be creative with your lettering!"
+    },
+    "friday": {
+      "type": "Synonyms & Antonyms",
+      "instruction": "Write two synonyms (words that mean the same) and two antonyms (words that mean the opposite) for the word of the day."
+    }
+  },
+  "numberTasks": {
+    "monday": {
+      "type": "Expanded Form",
+      "instruction": "Show the number of the day in expanded form (e.g., 123 = 100 + 20 + 3)"
+    },
+    "tuesday": {
+      "type": "Number Sentence",
+      "instruction": "Create two different number sentences that equal the number of the day (e.g., 123 = 100 + 23 or 123 = 120 + 3)"
+    },
+    "wednesday": {
+      "type": "Word Form",
+      "instruction": "Write the number of the day in words (e.g., 456 = four hundred and fifty-six)"
+    },
+    "thursday": {
+      "type": "Place Value",
+      "instruction": "What is the value of each digit in the number of the day? (e.g., in 456: 4 = 400, 5 = 50, 6 = 6)"
+    },
+    "friday": {
+      "type": "Math Riddle",
+      "instruction": "Solve today's number riddle. Show your working and explain your thinking."
+    }
+  },
+  "dailyActivities": {
+    "monday": {
+      "type": "Sentence Challenge",
+      "instruction": "Fix the errors in this sentence. Check for: capital letters, punctuation, grammar, and spelling."
+    },
+    "tuesday": {
+      "type": "Fact or Fiction",
+      "instruction": "Is this fact or fiction? Write your answer and explain your reasoning."
+    },
+    "wednesday": {
+      "type": "Quick Write",
+      "instruction": "Write 4-5 sentences responding to today's prompt."
+    },
+    "thursday": {
+      "type": "Grammar Focus",
+      "instruction": "Complete today's grammar challenge. Show your understanding with clear examples."
+    },
+    "friday": {
+      "type": "Creative Challenge",
+      "instruction": "Complete today's creative task. Be imaginative and detailed in your response!"
+    }
+  }
+}

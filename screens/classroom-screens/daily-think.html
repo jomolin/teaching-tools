@@ -85,11 +85,12 @@
         
         <!-- LEFT COLUMN: Word of the Day -->
         <div class="flex-1 flex flex-col gap-5">
-            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex-1 flex flex-col overflow-hidden">
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col overflow-hidden">
                 <!-- Word of the Day (lighter background) -->
                 <div class="bg-blue-50 dark:bg-blue-900/20 p-6 border-b-2 border-gray-300 dark:border-gray-700">
                     <h2 class="text-2xl font-bold text-primary dark:text-blue-400 mb-3">Word of the Day</h2>
-                    <p id="word" class="text-6xl font-bold mb-3"></p>
+                    <p id="word" class="text-6xl font-bold mb-2"></p>
+                    <p id="word-part-of-speech" class="text-xl text-gray-500 dark:text-gray-400 italic mb-3"></p>
                     <p id="word-definition" class="text-2xl text-gray-700 dark:text-gray-300 italic"></p>
                 </div>
                 
@@ -100,6 +101,11 @@
                     </h3>
                     <p id="word-task-instruction" class="text-3xl text-gray-700 dark:text-gray-300 leading-relaxed"></p>
                 </div>
+            </div>
+
+            <!-- Special Day Display -->
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+                <p id="special-day" class="text-3xl font-bold text-center text-primary dark:text-blue-400"></p>
             </div>
         </div>
 
@@ -133,9 +139,14 @@
                 <p id="daily-activity-instruction" class="text-2xl text-gray-700 dark:text-gray-300 leading-relaxed"></p>
                 
                 <!-- Answer reveal (for Fact or Fiction only) -->
-                <div id="daily-activity-answer" class="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg hidden">
-                    <p class="text-xl font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Answer:</p>
-                    <p class="text-xl text-yellow-700 dark:text-yellow-300"></p>
+                <div id="daily-activity-answer-container" class="mt-6 hidden">
+                    <button id="reveal-answer-btn" class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-bold text-xl transition-colors">
+                        Show Answer
+                    </button>
+                    <div id="daily-activity-answer" class="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg hidden">
+                        <p class="text-xl font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Answer:</p>
+                        <p class="text-xl text-yellow-700 dark:text-yellow-300"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,6 +160,8 @@
         // Global state
         let currentDate = new Date();
         let termData = null;
+        let specialDaysData = null;
+        let taskDefinitions = null;
 
         // Day names mapping
         const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
@@ -172,7 +185,9 @@
             document.getElementById('term-select').value = savedTerm;
             document.getElementById('week-select').value = savedWeek;
 
-            // Load data
+            // Load data (task definitions first, then term-specific data)
+            await loadTaskDefinitions();
+            await loadSpecialDays();
             await loadTermData(savedTerm);
 
             // Set up event listeners
@@ -188,6 +203,17 @@
             document.getElementById('loading-overlay').style.display = 'none';
         }
 
+        // Load task definitions (reusable instructions by day of week)
+        async function loadTaskDefinitions() {
+            try {
+                const response = await fetch('../data/task-definitions.json');
+                taskDefinitions = await response.json();
+            } catch (error) {
+                console.error('Error loading task definitions:', error);
+                taskDefinitions = { wordTasks: {}, numberTasks: {}, dailyActivities: {} };
+            }
+        }
+
         // Load term data
         async function loadTermData(term) {
             try {
@@ -196,6 +222,17 @@
             } catch (error) {
                 console.error('Error loading term data:', error);
                 termData = { weeks: [] };
+            }
+        }
+
+        // Load special days data
+        async function loadSpecialDays() {
+            try {
+                const response = await fetch('../data/special-days.json');
+                specialDaysData = await response.json();
+            } catch (error) {
+                console.error('Error loading special days:', error);
+                specialDaysData = { days: {} };
             }
         }
 
@@ -223,6 +260,7 @@
         // Update all display elements
         function updateDisplay() {
             updateDateDisplay();
+            updateSpecialDay();
             updateDailyThink();
         }
 
@@ -242,9 +280,21 @@
             document.getElementById('short-date').textContent = `${shortDay}.${shortMonth}.${year}`;
         }
 
+        // Update special day display
+        function updateSpecialDay() {
+            if (!specialDaysData) return;
+
+            const month = currentDate.getMonth() + 1;
+            const day = currentDate.getDate();
+            const key = `${month}-${day}`;
+
+            const specialDay = specialDaysData.days[key] || 'No Special Day';
+            document.getElementById('special-day').textContent = `Today is ${specialDay}!`;
+        }
+
         // Update daily think content
         function updateDailyThink() {
-            if (!termData || !termData.weeks) return;
+            if (!termData || !termData.weeks || !taskDefinitions) return;
 
             const weekNumber = parseInt(document.getElementById('week-select').value);
             const dayOfWeek = currentDate.getDay();
@@ -259,27 +309,62 @@
 
             const dayData = weekData[dayName];
 
+            // Merge task definitions with day data
+            const wordTask = taskDefinitions.wordTasks[dayName];
+            const numberTask = taskDefinitions.numberTasks[dayName];
+            const dailyActivityDef = taskDefinitions.dailyActivities[dayName];
+
             // Update Word of the Day
             document.getElementById('word').textContent = dayData.word.word;
+            document.getElementById('word-part-of-speech').textContent = `(${dayData.word.partOfSpeech})`;
             document.getElementById('word-definition').textContent = dayData.word.definition;
-            document.getElementById('word-task-type').textContent = dayData.wordTask.type;
-            document.getElementById('word-task-instruction').textContent = dayData.wordTask.instruction;
+            document.getElementById('word-task-type').textContent = wordTask.type;
+            document.getElementById('word-task-instruction').textContent = wordTask.instruction;
 
             // Update Number of the Day
             document.getElementById('number').textContent = dayData.number;
-            document.getElementById('number-task-type').textContent = dayData.numberTask.type;
-            document.getElementById('number-task-instruction').textContent = dayData.numberTask.instruction;
+            document.getElementById('number-task-type').textContent = numberTask.type;
+            document.getElementById('number-task-instruction').textContent = numberTask.instruction;
 
             // Update Daily Activity
-            document.getElementById('daily-activity-type').textContent = dayData.dailyActivity.type;
+            document.getElementById('daily-activity-type').textContent = dailyActivityDef.type;
             document.getElementById('daily-activity-prompt').textContent = dayData.dailyActivity.prompt;
-            document.getElementById('daily-activity-instruction').textContent = dayData.dailyActivity.instruction;
+            
+            // Use specific instruction if provided in day data, otherwise use default from definitions
+            const instruction = dayData.dailyActivity.details || dailyActivityDef.instruction;
+            document.getElementById('daily-activity-instruction').textContent = instruction;
 
-            // Show answer for Fact or Fiction only
-            const answerContainer = document.getElementById('daily-activity-answer');
+            // Show answer container for Fact or Fiction only
+            const answerContainer = document.getElementById('daily-activity-answer-container');
+            const answerBox = document.getElementById('daily-activity-answer');
+            const revealBtn = document.getElementById('reveal-answer-btn');
+            
             if (dayData.dailyActivity.answer) {
-                answerContainer.querySelector('p:last-child').textContent = dayData.dailyActivity.answer;
+                // Set answer text
+                answerBox.querySelector('p:last-child').textContent = dayData.dailyActivity.answer;
+                
+                // Show container but keep answer hidden
                 answerContainer.classList.remove('hidden');
+                answerBox.classList.add('hidden');
+                revealBtn.classList.remove('hidden');
+                
+                // Reset button text
+                revealBtn.textContent = 'Show Answer';
+                
+                // Set up click handler (remove old listeners first)
+                const newRevealBtn = revealBtn.cloneNode(true);
+                revealBtn.parentNode.replaceChild(newRevealBtn, revealBtn);
+                
+                newRevealBtn.addEventListener('click', function() {
+                    const answerBox = document.getElementById('daily-activity-answer');
+                    if (answerBox.classList.contains('hidden')) {
+                        answerBox.classList.remove('hidden');
+                        this.textContent = 'Hide Answer';
+                    } else {
+                        answerBox.classList.add('hidden');
+                        this.textContent = 'Show Answer';
+                    }
+                });
             } else {
                 answerContainer.classList.add('hidden');
             }
