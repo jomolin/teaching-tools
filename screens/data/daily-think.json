@@ -1,0 +1,213 @@
+{
+  "term": 1,
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "monday": {
+        "word": {
+          "word": "resilient",
+          "definition": "Able to recover quickly from difficulties or challenges"
+        },
+        "wordTask": {
+          "type": "Define",
+          "instruction": "Write the definition in your own words. What does 'resilient' mean to you?"
+        },
+        "number": 347,
+        "numberTask": {
+          "type": "Expanded Form",
+          "instruction": "Show 347 in expanded form (e.g., 300 + 40 + 7)"
+        },
+        "dailyActivity": {
+          "type": "Sentence Challenge",
+          "prompt": "the dog runned quick to catch the ball",
+          "instruction": "Fix the errors in this sentence. Check for: capital letters, verb tense, and word choice."
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "ambitious",
+          "definition": "Having a strong desire to succeed or achieve something"
+        },
+        "wordTask": {
+          "type": "Use in a Sentence",
+          "instruction": "Write a sentence using 'ambitious'. Make sure your sentence shows you understand the meaning."
+        },
+        "number": 582,
+        "numberTask": {
+          "type": "Number Sentence",
+          "instruction": "Create two different number sentences that equal 582 (e.g., 500 + 82 = 582)"
+        },
+        "dailyActivity": {
+          "type": "Fact or Fiction",
+          "prompt": "Penguins can fly underwater using their wings as flippers.",
+          "instruction": "Is this fact or fiction? Write your answer and explain your reasoning.",
+          "answer": "Fact - Penguins use their wings to 'fly' through water at speeds up to 22 mph."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "curious",
+          "definition": "Eager to learn or know about something"
+        },
+        "wordTask": {
+          "type": "Draw It",
+          "instruction": "Draw a picture that shows what 'curious' means. Label your drawing."
+        },
+        "number": 769,
+        "numberTask": {
+          "type": "Word Form",
+          "instruction": "Write 769 in words (e.g., seven hundred and sixty-nine)"
+        },
+        "dailyActivity": {
+          "type": "Quick Write",
+          "prompt": "If you could design a new school subject, what would it be and what would students learn?",
+          "instruction": "Write 4-5 sentences explaining your idea."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "precious",
+          "definition": "Very valuable or important to someone"
+        },
+        "wordTask": {
+          "type": "Word Makeover",
+          "instruction": "Write the word 'precious' in three different fancy styles. Be creative with your lettering!"
+        },
+        "number": 924,
+        "numberTask": {
+          "type": "Place Value",
+          "instruction": "What is the value of each digit in 924? (e.g., 9 = 900, 2 = ___, 4 = ___)"
+        },
+        "dailyActivity": {
+          "type": "Grammar Focus",
+          "prompt": "there, their, they're",
+          "instruction": "Write three sentences, each using one of these homophones correctly. Label which word you used in each sentence."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "imagine",
+          "definition": "To form a picture or idea in your mind"
+        },
+        "wordTask": {
+          "type": "Synonyms & Antonyms",
+          "instruction": "Write two synonyms (words that mean the same) and two antonyms (words that mean the opposite) for 'imagine'."
+        },
+        "number": 456,
+        "numberTask": {
+          "type": "Math Riddle",
+          "instruction": "I am a 3-digit number. My hundreds digit is 4. My tens digit is half of 10. My ones digit is double 3. What number am I? Show your working."
+        },
+        "dailyActivity": {
+          "type": "Creative Challenge",
+          "prompt": "Design a robot that helps students learn maths.",
+          "instruction": "Draw your robot and label at least 3 features. Write 2-3 sentences explaining how it works."
+        }
+      }
+    },
+    {
+      "weekNumber": 2,
+      "monday": {
+        "word": {
+          "word": "generous",
+          "definition": "Willing to give or share freely with others"
+        },
+        "wordTask": {
+          "type": "Define",
+          "instruction": "Write the definition in your own words. Give an example of generous behaviour."
+        },
+        "number": 615,
+        "numberTask": {
+          "type": "Expanded Form",
+          "instruction": "Show 615 in expanded form using addition"
+        },
+        "dailyActivity": {
+          "type": "Sentence Challenge",
+          "prompt": "me and my friend went to the beach yesterday",
+          "instruction": "Fix the errors in this sentence. Check for: capital letters, pronoun order (my friend and I), and punctuation."
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "magnificent",
+          "definition": "Extremely beautiful, impressive, or grand"
+        },
+        "wordTask": {
+          "type": "Use in a Sentence",
+          "instruction": "Write a sentence using 'magnificent'. Try to describe something from nature."
+        },
+        "number": 803,
+        "numberTask": {
+          "type": "Number Sentence",
+          "instruction": "Create two different number sentences that equal 803. Use different operations (addition, subtraction, multiplication)."
+        },
+        "dailyActivity": {
+          "type": "Fact or Fiction",
+          "prompt": "Bananas grow on trees.",
+          "instruction": "Is this fact or fiction? Write your answer and explain your reasoning.",
+          "answer": "Fiction - Bananas grow on large herbaceous plants (herbs), not trees. The 'trunk' is actually tightly packed leaves."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "triumph",
+          "definition": "A great success or achievement"
+        },
+        "wordTask": {
+          "type": "Draw It",
+          "instruction": "Draw a picture showing a moment of triumph. Add a speech bubble with what someone might say."
+        },
+        "number": 438,
+        "numberTask": {
+          "type": "Word Form",
+          "instruction": "Write 438 in words. Then write the number that is 100 more in words."
+        },
+        "dailyActivity": {
+          "type": "Quick Write",
+          "prompt": "What is your favourite season and why?",
+          "instruction": "Write 4-5 sentences. Include at least two specific reasons with examples."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "investigate",
+          "definition": "To search for and examine facts carefully"
+        },
+        "wordTask": {
+          "type": "Word Makeover",
+          "instruction": "Write the word 'investigate' in three different fancy styles. Make each one unique!"
+        },
+        "number": 791,
+        "numberTask": {
+          "type": "Place Value",
+          "instruction": "What is the value of each digit in 791? Write an equation showing how the digits make the whole number."
+        },
+        "dailyActivity": {
+          "type": "Grammar Focus",
+          "prompt": "your, you're",
+          "instruction": "Write two sentences: one using 'your' correctly and one using 'you're' correctly. Explain the difference between them."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "adventurous",
+          "definition": "Willing to try new and exciting things"
+        },
+        "wordTask": {
+          "type": "Synonyms & Antonyms",
+          "instruction": "Write two synonyms and two antonyms for 'adventurous'. Use a thesaurus if you need help!"
+        },
+        "number": 672,
+        "numberTask": {
+          "type": "Math Riddle",
+          "instruction": "I am thinking of a number between 600 and 700. If you add 28 to my number, you get 700. What is my number? Show your working."
+        },
+        "dailyActivity": {
+          "type": "Creative Challenge",
+          "prompt": "Invent a new sport that combines two existing sports.",
+          "instruction": "Draw a diagram of how the game is played. Write 3-4 sentences explaining the rules."
+        }
+      }
+    }
+  ]
+}
