@@ -1,0 +1,687 @@
+{
+  "term": 2,
+  "weeks": [
+    {
+      "weekNumber": 1,
+      "monday": {
+        "word": {
+          "word": "analyze",
+          "partOfSpeech": "verb",
+          "definition": "to examine something carefully to understand it better"
+        },
+        "number": "1,842",
+        "dailyActivity": {
+          "prompt": "the students was excited about they're field trip"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "interpret",
+          "partOfSpeech": "verb",
+          "definition": "to explain the meaning of something"
+        },
+        "number": "25,607",
+        "dailyActivity": {
+          "prompt": "Sharks must keep swimming or they will die.",
+          "answer": "Partially Fact - Some shark species must keep swimming to breathe (like great whites), but many sharks can rest on the ocean floor and pump water over their gills without swimming."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "emphasize",
+          "partOfSpeech": "verb",
+          "definition": "to give special importance or attention to something"
+        },
+        "number": "134,926",
+        "dailyActivity": {
+          "prompt": "If you could change one rule at school, what would it be and why?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "profound",
+          "partOfSpeech": "adjective",
+          "definition": "very deep or showing great knowledge"
+        },
+        "number": "48,315",
+        "dailyActivity": {
+          "prompt": "complement, compliment",
+          "details": "Write two sentences: one using 'complement' (to go well with) and one using 'compliment' (to say something nice). These are tricky!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "synthesize",
+          "partOfSpeech": "verb",
+          "definition": "to combine different ideas or information to create something new"
+        },
+        "number": "567,890",
+        "numberDetails": "I am a 6-digit number. My hundred thousands digit is 5, ten thousands is 6, thousands is 7, hundreds is 8, tens is 9, and ones is 0. What is my value in expanded form?",
+        "dailyActivity": {
+          "prompt": "Create a new holiday that celebrates kindness. What would happen on this day?",
+          "details": "Draw a poster advertising your holiday. Write 4-5 sentences explaining the activities, traditions, and why celebrating kindness matters."
+        }
+      }
+    },
+    {
+      "weekNumber": 2,
+      "monday": {
+        "word": {
+          "word": "elaborate",
+          "partOfSpeech": "verb",
+          "definition": "to add more detail or information"
+        },
+        "number": "9,273",
+        "dailyActivity": {
+          "prompt": "me and tom doesn't like broccoli but we loves carrots"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "perceive",
+          "partOfSpeech": "verb",
+          "definition": "to become aware of something through the senses"
+        },
+        "number": "82,541",
+        "dailyActivity": {
+          "prompt": "Ostriches bury their heads in the sand when scared.",
+          "answer": "Fiction - Ostriches never bury their heads in sand. When threatened, they either run away (they're fast!) or lie flat on the ground with their necks stretched out, which can look like their head is buried from far away."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "contemplate",
+          "partOfSpeech": "verb",
+          "definition": "to think deeply and carefully about something"
+        },
+        "number": "216,483",
+        "dailyActivity": {
+          "prompt": "What is the most important invention in human history and why?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "legitimate",
+          "partOfSpeech": "adjective",
+          "definition": "real, acceptable, and allowed by rules or laws"
+        },
+        "number": "53,729",
+        "dailyActivity": {
+          "prompt": "stationary, stationery",
+          "details": "Write two sentences: one using 'stationary' (not moving) and one using 'stationery' (paper and writing materials). The spelling shows the meaning!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "hypothesize",
+          "partOfSpeech": "verb",
+          "definition": "to make an educated guess based on evidence"
+        },
+        "number": "3/5",
+        "numberDetails": "A bag contains 5 marbles. If 3 are red and 2 are blue, what fraction are red? What fraction are blue? If you remove 1 red marble, what fraction of the remaining marbles are red?",
+        "dailyActivity": {
+          "prompt": "Design an underwater city. What would it look like and how would people live there?",
+          "details": "Draw your underwater city showing at least 3 different buildings or features. Write 5-6 sentences explaining how people get oxygen, food, and move around underwater."
+        }
+      }
+    },
+    {
+      "weekNumber": 3,
+      "monday": {
+        "word": {
+          "word": "coherent",
+          "partOfSpeech": "adjective",
+          "definition": "logical, clear, and easy to understand"
+        },
+        "number": "17,604",
+        "dailyActivity": {
+          "prompt": "my friends and me goes swimming every summer"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "substantial",
+          "partOfSpeech": "adjective",
+          "definition": "large in amount, size, or importance"
+        },
+        "number": "394,107",
+        "dailyActivity": {
+          "prompt": "The Sahara Desert is the largest desert in the world.",
+          "answer": "Fiction - Antarctica is actually the largest desert in the world! Deserts are defined by low precipitation, not by heat. Antarctica receives very little rain or snow, making it the world's largest desert."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "advocate",
+          "partOfSpeech": "verb",
+          "definition": "to publicly support or recommend something"
+        },
+        "number": "628,914",
+        "dailyActivity": {
+          "prompt": "What cause or issue do you care about? Write about why it matters and what people can do to help."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "skeptical",
+          "partOfSpeech": "adjective",
+          "definition": "doubtful and needing evidence before believing"
+        },
+        "number": "71,852",
+        "dailyActivity": {
+          "prompt": "advice, advise",
+          "details": "Write two sentences: one using 'advice' (a noun - suggestions given) and one using 'advise' (a verb - to give suggestions). The 'c' and 's' change the meaning!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "distinguish",
+          "partOfSpeech": "verb",
+          "definition": "to recognize differences between things"
+        },
+        "number": "1,250,000",
+        "numberDetails": "I am 1.25 million. How many thousands are in me? How many hundreds? Write me in expanded form using place value.",
+        "dailyActivity": {
+          "prompt": "Invent a new type of transportation that's better for the environment than cars.",
+          "details": "Draw your invention showing how it works. Write 5-6 sentences explaining how it moves, what powers it, and why it's environmentally friendly."
+        }
+      }
+    },
+    {
+      "weekNumber": 4,
+      "monday": {
+        "word": {
+          "word": "meticulous",
+          "partOfSpeech": "adjective",
+          "definition": "showing great attention to detail and being very careful"
+        },
+        "number": "44,590",
+        "dailyActivity": {
+          "prompt": "sarah and me was working on our project when the bell ringed"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "ambiguous",
+          "partOfSpeech": "adjective",
+          "definition": "having more than one possible meaning"
+        },
+        "number": "158,632",
+        "dailyActivity": {
+          "prompt": "Sugar makes children hyperactive.",
+          "answer": "Fiction - Scientific studies have found no link between sugar consumption and hyperactivity in children. The 'sugar rush' is a myth! Kids might get excited at parties where there's sugar, but it's the excitement, not the sugar, causing the energy."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "resilience",
+          "partOfSpeech": "noun",
+          "definition": "the ability to recover from difficulties"
+        },
+        "number": "2,847,193",
+        "dailyActivity": {
+          "prompt": "Write about the biggest challenge you've faced this year and how you handled it."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "diligent",
+          "partOfSpeech": "adjective",
+          "definition": "hardworking and careful in your work"
+        },
+        "number": "96,428",
+        "dailyActivity": {
+          "prompt": "desert, dessert",
+          "details": "Write two sentences: one using 'desert' (dry sandy place) and one using 'dessert' (sweet food after dinner). Remember: you want two servings of dessert, so it has two s's!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "consequence",
+          "partOfSpeech": "noun",
+          "definition": "the result or effect of an action"
+        },
+        "number": "0.75",
+        "numberDetails": "0.75 equals what fraction in simplest form? (Hint: 75 out of 100) If you have $2.00 and spend $0.75, how much money is left? Show both as decimals and fractions.",
+        "dailyActivity": {
+          "prompt": "Design a theme park ride based on your favorite book or story.",
+          "details": "Draw your ride from the side view. Write 5-6 sentences describing what riders experience, which scenes from the story they see, and what makes it thrilling!"
+        }
+      }
+    },
+    {
+      "weekNumber": 5,
+      "monday": {
+        "word": {
+          "word": "tangible",
+          "partOfSpeech": "adjective",
+          "definition": "able to be touched or clearly seen"
+        },
+        "number": "63,817",
+        "dailyActivity": {
+          "prompt": "the teacher and me was discussing the assignment"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "arbitrary",
+          "partOfSpeech": "adjective",
+          "definition": "based on random choice rather than reason"
+        },
+        "number": "725,409",
+        "dailyActivity": {
+          "prompt": "Cracking your knuckles causes arthritis.",
+          "answer": "Fiction - Medical research shows that cracking knuckles does not cause arthritis. The popping sound comes from gas bubbles in the fluid around your joints, and studies found no increased arthritis risk in habitual knuckle-crackers!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "perspective",
+          "partOfSpeech": "noun",
+          "definition": "a particular way of viewing or thinking about something"
+        },
+        "number": "4,193,826",
+        "dailyActivity": {
+          "prompt": "Tell a familiar fairy tale from the villain's perspective. How do they see the story differently?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "methodical",
+          "partOfSpeech": "adjective",
+          "definition": "done in a careful, organized, step-by-step way"
+        },
+        "number": "182,546",
+        "dailyActivity": {
+          "prompt": "council, counsel",
+          "details": "Write two sentences: one using 'council' (a group that makes decisions) and one using 'counsel' (to give advice or the advice itself). Both can be nouns!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "integrity",
+          "partOfSpeech": "noun",
+          "definition": "being honest and having strong moral principles"
+        },
+        "number": "5/8",
+        "numberDetails": "A pizza is cut into 8 slices. You eat 5 slices. What fraction did you eat? What fraction remains? Is 5/8 more or less than 1/2? How do you know?",
+        "dailyActivity": {
+          "prompt": "Create a board game that teaches players about an important topic (like recycling, history, or math).",
+          "details": "Draw your game board with a path and special spaces. Write 5-6 sentences explaining how to play, how players learn from the game, and how someone wins."
+        }
+      }
+    },
+    {
+      "weekNumber": 6,
+      "monday": {
+        "word": {
+          "word": "explicit",
+          "partOfSpeech": "adjective",
+          "definition": "stated clearly and in detail"
+        },
+        "number": "29,705",
+        "dailyActivity": {
+          "prompt": "my brother and me doesn't understand the instructions"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "abstract",
+          "partOfSpeech": "adjective",
+          "definition": "existing as an idea rather than something physical"
+        },
+        "number": "1,864,527",
+        "dailyActivity": {
+          "prompt": "Humans have five senses.",
+          "answer": "Partially Fiction - While we traditionally learn about five senses (sight, hearing, smell, taste, touch), humans actually have more! We also have proprioception (sense of body position), equilibrioception (sense of balance), and thermoception (sense of temperature)."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "prioritize",
+          "partOfSpeech": "verb",
+          "definition": "to arrange things in order of importance"
+        },
+        "number": "5,432,108",
+        "dailyActivity": {
+          "prompt": "If you only had time to learn three more things before leaving primary school, what would they be?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "formidable",
+          "partOfSpeech": "adjective",
+          "definition": "inspiring fear or respect through being powerful"
+        },
+        "number": "314,692",
+        "dailyActivity": {
+          "prompt": "capitol, capital",
+          "details": "Write two sentences: one using 'capitol' (the building where government meets) and one using 'capital' (a city that's the seat of government, or money/resources). Capital has more uses!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "contradiction",
+          "partOfSpeech": "noun",
+          "definition": "a situation where two things cannot both be true"
+        },
+        "number": "8,765,432",
+        "numberDetails": "My digits in descending order are: 8, 7, 6, 5, 4, 3, 2. What number am I? What is the difference between my millions digit and my ones digit? Show your subtraction.",
+        "dailyActivity": {
+          "prompt": "Invent a holiday for students that schools would actually want to celebrate.",
+          "details": "Design a logo or symbol for your holiday. Write 5-6 sentences explaining what happens, why schools would support it, what students learn, and when it would occur each year."
+        }
+      }
+    },
+    {
+      "weekNumber": 7,
+      "monday": {
+        "word": {
+          "word": "circumstance",
+          "partOfSpeech": "noun",
+          "definition": "a fact or condition connected to an event"
+        },
+        "number": "87,231",
+        "dailyActivity": {
+          "prompt": "the children and they're parents was attending the school fair"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "versatile",
+          "partOfSpeech": "adjective",
+          "definition": "able to adapt to many different functions or activities"
+        },
+        "number": "649,872",
+        "dailyActivity": {
+          "prompt": "A penny dropped from a tall building could kill someone.",
+          "answer": "Fiction - A penny doesn't have enough mass or the right shape to be deadly. Air resistance slows it down significantly. Studies show a penny would hurt if it hit you, but it wouldn't kill you!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "implications",
+          "partOfSpeech": "noun",
+          "definition": "possible effects or results of something"
+        },
+        "number": "3,286,415",
+        "dailyActivity": {
+          "prompt": "What would happen if everyone in the world suddenly spoke the same language? Write about the good and bad effects."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "eloquent",
+          "partOfSpeech": "adjective",
+          "definition": "fluent and persuasive in speaking or writing"
+        },
+        "number": "425,183",
+        "dailyActivity": {
+          "prompt": "elicit, illicit",
+          "details": "Write two sentences: one using 'elicit' (to draw out or evoke) and one using 'illicit' (illegal or forbidden). These sound similar but are completely different!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "contemplate",
+          "partOfSpeech": "verb",
+          "definition": "to think about carefully and at length"
+        },
+        "number": "2.5",
+        "numberDetails": "2.5 is the same as what mixed number? What improper fraction equals 2.5? If you have 2.5 pizzas and each person eats 0.5 pizza, how many people can you feed?",
+        "dailyActivity": {
+          "prompt": "Design a robot assistant for teachers. What would it do and how would it help?",
+          "details": "Draw your robot with labels showing its features. Write 5-6 sentences explaining its helpful functions, what it does better than humans, and what teachers would still need to do themselves."
+        }
+      }
+    },
+    {
+      "weekNumber": 8,
+      "monday": {
+        "word": {
+          "word": "conscientious",
+          "partOfSpeech": "adjective",
+          "definition": "wishing to do one's work well and thoroughly"
+        },
+        "number": "194,628",
+        "dailyActivity": {
+          "prompt": "me and the other students was confused about the test"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "provocative",
+          "partOfSpeech": "adjective",
+          "definition": "causing thought, discussion, or strong reactions"
+        },
+        "number": "7,532,841",
+        "dailyActivity": {
+          "prompt": "Reading in dim light damages your eyes.",
+          "answer": "Fiction - Reading in dim light can cause eye strain and tiredness, but it doesn't cause permanent damage to your eyes. Your eyes might feel tired, but they'll recover with rest!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "endeavor",
+          "partOfSpeech": "noun",
+          "definition": "an attempt to achieve a goal"
+        },
+        "number": "8,416,723",
+        "dailyActivity": {
+          "prompt": "Describe a long-term project or goal you're working toward. What steps will get you there?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "exemplary",
+          "partOfSpeech": "adjective",
+          "definition": "serving as a desirable model or representing the best"
+        },
+        "number": "563,297",
+        "dailyActivity": {
+          "prompt": "emigrate, immigrate",
+          "details": "Write two sentences: one using 'emigrate' (to leave your country) and one using 'immigrate' (to enter a new country). It's about direction - out vs. in!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "unanimous",
+          "partOfSpeech": "adjective",
+          "definition": "fully in agreement"
+        },
+        "number": "9,999,999",
+        "numberDetails": "What number comes after 9,999,999? How many millions are in my number? If you add 1 to me, how many millions does that number have? What happened?",
+        "dailyActivity": {
+          "prompt": "Create a new Olympic sport that would be exciting to watch and fair to compete in.",
+          "details": "Draw athletes competing in your sport. Write 5-6 sentences explaining the rules, how to score points, what skills are needed, and why it would be entertaining to watch."
+        }
+      }
+    },
+    {
+      "weekNumber": 9,
+      "monday": {
+        "word": {
+          "word": "pragmatic",
+          "partOfSpeech": "adjective",
+          "definition": "dealing with things in a practical way"
+        },
+        "number": "271,549",
+        "dailyActivity": {
+          "prompt": "the teams and there coaches was preparing for the tournament"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "aesthetic",
+          "partOfSpeech": "adjective",
+          "definition": "concerned with beauty or artistic appreciation"
+        },
+        "number": "4,827,316",
+        "dailyActivity": {
+          "prompt": "Toilet water spins in different directions in the Northern and Southern Hemispheres.",
+          "answer": "Fiction - The Coriolis effect does affect large weather systems, but it's far too weak to affect the direction water spins in your toilet. The direction depends on the toilet's design and how water enters the bowl!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "comprehensive",
+          "partOfSpeech": "adjective",
+          "definition": "complete and including everything necessary"
+        },
+        "number": "6,194,582",
+        "dailyActivity": {
+          "prompt": "If you could add one subject to school that isn't taught now, what should it be and why?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "tedious",
+          "partOfSpeech": "adjective",
+          "definition": "too long, slow, or dull; tiresome"
+        },
+        "number": "938,461",
+        "dailyActivity": {
+          "prompt": "discreet, discrete",
+          "details": "Write two sentences: one using 'discreet' (careful and subtle) and one using 'discrete' (separate and distinct). The extra 'e' changes everything!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "reconcile",
+          "partOfSpeech": "verb",
+          "definition": "to restore friendly relations or make compatible"
+        },
+        "number": "7/10",
+        "numberDetails": "What is 7/10 as a decimal? As a percentage? If you answered 7 out of 10 questions correctly on a test, what percentage did you get right? Show your work.",
+        "dailyActivity": {
+          "prompt": "Design a museum dedicated to something you're passionate about. What would visitors see?",
+          "details": "Draw a floor plan showing at least 4 different exhibit rooms. Write 5-6 sentences describing each exhibit, what visitors learn, and why your museum topic deserves a whole building!"
+        }
+      }
+    },
+    {
+      "weekNumber": 10,
+      "monday": {
+        "word": {
+          "word": "inevitable",
+          "partOfSpeech": "adjective",
+          "definition": "certain to happen and unable to be avoided"
+        },
+        "number": "518,367",
+        "dailyActivity": {
+          "prompt": "my classmates and me was working together on the science experiment"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "unprecedented",
+          "partOfSpeech": "adjective",
+          "definition": "never done or known before"
+        },
+        "number": "2,659,473",
+        "dailyActivity": {
+          "prompt": "Fingerprints are unique to each person.",
+          "answer": "Fact - No two people have the same fingerprints, not even identical twins! The patterns of ridges on your fingers form before you're born and stay the same your whole life. This is why fingerprints are used for identification."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "significance",
+          "partOfSpeech": "noun",
+          "definition": "the quality of being important or meaningful"
+        },
+        "number": "7,841,265",
+        "dailyActivity": {
+          "prompt": "What moment from this school year will you remember for the rest of your life? Why is it so significant?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "persistent",
+          "partOfSpeech": "adjective",
+          "definition": "continuing firmly despite difficulty or opposition"
+        },
+        "number": "1,485,729",
+        "dailyActivity": {
+          "prompt": "peak, peek, pique",
+          "details": "Write three sentences using 'peak' (the top), 'peek' (a quick look), and 'pique' (to arouse interest). All three sound the same but mean completely different things!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "commemorate",
+          "partOfSpeech": "verb",
+          "definition": "to honor the memory of an important person or event"
+        },
+        "number": "3,456,789",
+        "numberDetails": "Look at my digits: 3, 4, 5, 6, 7, 8, 9. They're in order! If you round me to the nearest million, what do you get? If you round me to the nearest hundred thousand, what do you get?",
+        "dailyActivity": {
+          "prompt": "Create a time capsule for future Year 4-5 students. What would you include and why?",
+          "details": "Draw 6-8 items you'd put in the time capsule. Write 5-6 sentences explaining why each item represents this year and what future students would learn from them."
+        }
+      }
+    },
+    {
+      "weekNumber": 11,
+      "monday": {
+        "word": {
+          "word": "gratitude",
+          "partOfSpeech": "noun",
+          "definition": "the quality of being thankful and showing appreciation"
+        },
+        "number": "842,193",
+        "dailyActivity": {
+          "prompt": "the students and there teachers was celebrating the end of term"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "resilient",
+          "partOfSpeech": "adjective",
+          "definition": "able to recover quickly from difficulties"
+        },
+        "number": "5,283,746",
+        "dailyActivity": {
+          "prompt": "We only dream during REM sleep.",
+          "answer": "Fiction - While we do have more vivid and memorable dreams during REM (Rapid Eye Movement) sleep, we actually dream during all stages of sleep. Non-REM dreams tend to be more thought-like and less vivid."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "achievement",
+          "partOfSpeech": "noun",
+          "definition": "something accomplished through effort or skill"
+        },
+        "number": "9,627,481",
+        "dailyActivity": {
+          "prompt": "Reflect on Term 2: What's the most important thing you learned, and how will you use it in Term 3?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "demonstrate",
+          "partOfSpeech": "verb",
+          "definition": "to show clearly by giving proof or evidence"
+        },
+        "number": "2,764,531",
+        "dailyActivity": {
+          "prompt": "ensure, insure, assure",
+          "details": "Write three sentences using all three: 'ensure' (to make certain), 'insure' (to protect with insurance), and 'assure' (to tell confidently). These are commonly confused!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "culminate",
+          "partOfSpeech": "verb",
+          "definition": "to reach the highest point or final stage"
+        },
+        "number": "0.25",
+        "numberDetails": "0.25 equals what fraction? What percentage? If 0.25 is one quarter, how many quarters make 1 whole? How many quarters make 2? Show this with a drawing or equation.",
+        "dailyActivity": {
+          "prompt": "Design a celebration event for the end of Term 2. What activities would make it memorable?",
+          "details": "Create a schedule showing 4-5 different activities throughout the day. Write 5-6 sentences explaining why each activity was chosen and how it celebrates students' achievements this term."
+        }
+      }
+    }
+  ]
+}
