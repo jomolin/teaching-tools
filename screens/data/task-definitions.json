@@ -30,7 +30,7 @@
     "tuesday": {
       "type": "Number Sentence",
       "instruction": "Create two different number sentences that equal the number of the day",
-      "example": "123 = 100 + 23 or 123 = 120 + 3"
+      "example": "123 = 100 + 23 or 123 = 130 - 7"
     },
     "wednesday": {
       "type": "Word Form",
