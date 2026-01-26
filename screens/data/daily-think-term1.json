@@ -84,8 +84,8 @@
         },
         "number": "803",
         "dailyActivity": {
-          "prompt": "A handwritten letter is more personal than a text message.",
-          "answer": "Opinion/Debatable - This is a matter of personal preference. Some people feel handwriting is more thoughtful, while others value the speed and convenience of texts."
+          "prompt": "Bats are blind.",
+          "answer": "Fiction - Bats can see, though many species use echolocation (sound waves) to navigate in the dark. Their eyesight is actually quite good!"
         }
       },
       "wednesday": {
@@ -123,6 +123,564 @@
         "dailyActivity": {
           "prompt": "Draw a dinosaur doing something funny or unexpected (like riding a bike, eating ice cream, or going to school).",
           "details": "Label your drawing and write 3-4 sentences about what's happening in your picture. Make it creative and silly!"
+        }
+      }
+    },
+    {
+      "weekNumber": 3,
+      "monday": {
+        "word": {
+          "word": "patient",
+          "partOfSpeech": "adjective",
+          "definition": "able to wait calmly without getting annoyed"
+        },
+        "number": "1,204",
+        "dailyActivity": {
+          "prompt": "we was playing soccer and it started raining"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "creative",
+          "partOfSpeech": "adjective",
+          "definition": "using imagination to make new and original things"
+        },
+        "number": "6,789",
+        "dailyActivity": {
+          "prompt": "The Great Wall of China is visible from space.",
+          "answer": "Fiction - This is a common myth. The Great Wall is not visible from space with the naked eye. Astronauts cannot see it from the International Space Station without magnification."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "courageous",
+          "partOfSpeech": "adjective",
+          "definition": "brave and not afraid to face danger or difficulty"
+        },
+        "number": "14,562",
+        "dailyActivity": {
+          "prompt": "Describe a time when you tried something new that felt scary at first."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "brilliant",
+          "partOfSpeech": "adjective",
+          "definition": "exceptionally clever or talented"
+        },
+        "number": "3,847",
+        "dailyActivity": {
+          "prompt": "to, too, two",
+          "details": "Write three sentences, each using one of these homophones correctly. Explain what each word means."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "determine",
+          "partOfSpeech": "verb",
+          "definition": "to find out or decide something with certainty"
+        },
+        "number": "27,530",
+        "numberDetails": "I have 2 ten thousands, 7 thousands, 5 hundreds, 3 tens, and 0 ones. What number am I? Write the answer in both number form and word form.",
+        "dailyActivity": {
+          "prompt": "Create your own special celebration day. What would it be called and how would people celebrate?",
+          "details": "Draw symbols or decorations for your special day. Write 3-4 sentences explaining the activities and why this day deserves to be celebrated!"
+        }
+      }
+    },
+    {
+      "weekNumber": 4,
+      "monday": {
+        "word": {
+          "word": "confident",
+          "partOfSpeech": "adjective",
+          "definition": "feeling sure about your abilities or qualities"
+        },
+        "number": "958",
+        "dailyActivity": {
+          "prompt": "john and me builded a sandcastle at the beach"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "enthusiastic",
+          "partOfSpeech": "adjective",
+          "definition": "showing intense and eager enjoyment or interest"
+        },
+        "number": "4,206",
+        "dailyActivity": {
+          "prompt": "Goldfish have a 3-second memory.",
+          "answer": "Fiction - This is a myth! Goldfish can remember things for at least 3 months and can be trained to recognize shapes, colors, and sounds."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "fortunate",
+          "partOfSpeech": "adjective",
+          "definition": "lucky or favored by good things happening"
+        },
+        "number": "11,825",
+        "dailyActivity": {
+          "prompt": "What are three things you feel grateful for today?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "observe",
+          "partOfSpeech": "verb",
+          "definition": "to watch or notice something carefully"
+        },
+        "number": "6,543",
+        "dailyActivity": {
+          "prompt": "its, it's",
+          "details": "Write two sentences: one using 'its' correctly and one using 'it's' correctly. Explain the difference between these two words."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "accomplish",
+          "partOfSpeech": "verb",
+          "definition": "to complete or achieve something successfully"
+        },
+        "number": "83,219",
+        "numberDetails": "Start with 80,000. Add 3,000. Add 200. Add 19. What is my number? Show your addition steps.",
+        "dailyActivity": {
+          "prompt": "Invent a machine that does your least favorite chore for you.",
+          "details": "Draw and label your machine. Write 3-4 sentences explaining how it works and which chore it does. Make it fun and creative!"
+        }
+      }
+    },
+    {
+      "weekNumber": 5,
+      "monday": {
+        "word": {
+          "word": "responsible",
+          "partOfSpeech": "adjective",
+          "definition": "being trusted to do what is right or expected"
+        },
+        "number": "2,973",
+        "dailyActivity": {
+          "prompt": "me and sarah goes to the library every saturday"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "sincere",
+          "partOfSpeech": "adjective",
+          "definition": "honest and genuinely meaning what you say"
+        },
+        "number": "15,408",
+        "dailyActivity": {
+          "prompt": "Chameleons change color to blend in with their surroundings.",
+          "answer": "Partially Fiction - Chameleons do change color, but mainly to show their mood, temperature, or to communicate with other chameleons, not primarily for camouflage!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "persistent",
+          "partOfSpeech": "adjective",
+          "definition": "continuing to try despite difficulties"
+        },
+        "number": "7,654",
+        "dailyActivity": {
+          "prompt": "Write about something you kept trying at until you finally succeeded."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "wisdom",
+          "partOfSpeech": "noun",
+          "definition": "knowledge and good judgment gained from experience"
+        },
+        "number": "19,276",
+        "dailyActivity": {
+          "prompt": "affect, effect",
+          "details": "Write two sentences showing the difference: 'affect' is usually a verb (to influence) and 'effect' is usually a noun (the result). Give an example of each."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "collaborate",
+          "partOfSpeech": "verb",
+          "definition": "to work together with others toward a common goal"
+        },
+        "number": "1/2",
+        "numberDetails": "If you have 10 cookies and eat half of them, how many did you eat? What fraction is left? Draw a picture to show both fractions.",
+        "dailyActivity": {
+          "prompt": "Design a board game that you could play with your classmates at indoor break time.",
+          "details": "Draw the game board and write 4-5 sentences explaining the rules, how to win, and what makes it fun to play together."
+        }
+      }
+    },
+    {
+      "weekNumber": 6,
+      "monday": {
+        "word": {
+          "word": "independent",
+          "partOfSpeech": "adjective",
+          "definition": "able to do things by yourself without help"
+        },
+        "number": "4,185",
+        "dailyActivity": {
+          "prompt": "yesterday me and my brother went shopping"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "compassionate",
+          "partOfSpeech": "adjective",
+          "definition": "feeling concern for others and wanting to help them"
+        },
+        "number": "9,632",
+        "dailyActivity": {
+          "prompt": "Lightning never strikes the same place twice.",
+          "answer": "Fiction - Lightning can and does strike the same place multiple times. The Empire State Building is struck by lightning about 20-25 times per year!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "distinguish",
+          "partOfSpeech": "verb",
+          "definition": "to recognize differences between things"
+        },
+        "number": "23,847",
+        "dailyActivity": {
+          "prompt": "If you could have any animal as a classroom pet, which would you choose and why?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "extraordinary",
+          "partOfSpeech": "adjective",
+          "definition": "very unusual, remarkable, or impressive"
+        },
+        "number": "12,509",
+        "dailyActivity": {
+          "prompt": "then, than",
+          "details": "Write two sentences showing the difference: 'then' is about time (what happens next) and 'than' is for comparisons. Give clear examples."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "innovate",
+          "partOfSpeech": "verb",
+          "definition": "to create new ideas, methods, or products"
+        },
+        "number": "56,342",
+        "numberDetails": "My number is between 50,000 and 60,000. It has a 6 in the thousands place and a 3 in the hundreds place. The tens digit is 4 and the ones digit is 2. My ten thousands digit is 5. What number am I?",
+        "dailyActivity": {
+          "prompt": "Create a new emoji that doesn't exist yet. What emotion or idea does it show?",
+          "details": "Draw your emoji large and in color. Write 3-4 sentences explaining when people would use it and what it means."
+        }
+      }
+    },
+    {
+      "weekNumber": 7,
+      "monday": {
+        "word": {
+          "word": "grateful",
+          "partOfSpeech": "adjective",
+          "definition": "feeling or showing thanks and appreciation"
+        },
+        "number": "8,417",
+        "dailyActivity": {
+          "prompt": "last weekend my family and me went hiking in the mountains"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "considerate",
+          "partOfSpeech": "adjective",
+          "definition": "careful not to upset others and thinking of their needs"
+        },
+        "number": "3,294",
+        "dailyActivity": {
+          "prompt": "Bulls get angry when they see the color red.",
+          "answer": "Fiction - Bulls are actually colorblind to red and green. They react to the movement of the matador's cape, not its color. Any color moving would get the same reaction!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "humble",
+          "partOfSpeech": "adjective",
+          "definition": "not proud or boastful about your abilities"
+        },
+        "number": "17,680",
+        "dailyActivity": {
+          "prompt": "Write about someone you know who is really good at something but doesn't brag about it."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "peaceful",
+          "partOfSpeech": "adjective",
+          "definition": "calm, quiet, and free from disturbance"
+        },
+        "number": "21,935",
+        "dailyActivity": {
+          "prompt": "accept, except",
+          "details": "Write two sentences: one using 'accept' (to receive or agree) and one using 'except' (to exclude or leave out). Explain how they're different."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "participate",
+          "partOfSpeech": "verb",
+          "definition": "to take part in an activity or event"
+        },
+        "number": "2/5",
+        "numberDetails": "A chocolate bar has 5 equal pieces. You eat 2 pieces. What fraction did you eat? What fraction is left? If your friend eats 1 more piece, what fraction is left now?",
+        "dailyActivity": {
+          "prompt": "Imagine you discovered a new planet. Describe what it looks like and what lives there.",
+          "details": "Draw your planet and at least one creature that lives there. Write 4-5 sentences about the planet's environment, weather, and inhabitants."
+        }
+      }
+    },
+    {
+      "weekNumber": 8,
+      "monday": {
+        "word": {
+          "word": "optimistic",
+          "partOfSpeech": "adjective",
+          "definition": "hopeful and confident about the future"
+        },
+        "number": "13,572",
+        "dailyActivity": {
+          "prompt": "my sister and me likes to play video games after school"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "genuine",
+          "partOfSpeech": "adjective",
+          "definition": "real, authentic, and not fake"
+        },
+        "number": "5,843",
+        "dailyActivity": {
+          "prompt": "You only use 10% of your brain.",
+          "answer": "Fiction - This is a popular myth! You actually use all parts of your brain, just not all at the same time. Brain scans show activity throughout the entire brain every day."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "reliable",
+          "partOfSpeech": "adjective",
+          "definition": "able to be trusted and depended upon"
+        },
+        "number": "29,461",
+        "dailyActivity": {
+          "prompt": "What makes someone a good friend? Describe the qualities that matter most to you."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "attentive",
+          "partOfSpeech": "adjective",
+          "definition": "paying close attention to something or someone"
+        },
+        "number": "7,208",
+        "dailyActivity": {
+          "prompt": "lose, loose",
+          "details": "Write two sentences: one using 'lose' (to misplace or not win) and one using 'loose' (not tight). Many people confuse these spellings!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "challenge",
+          "partOfSpeech": "noun",
+          "definition": "a difficult task that tests your abilities"
+        },
+        "number": "91,847",
+        "numberDetails": "I am thinking of a number close to 92,000. If you subtract 153 from 92,000, you get my number. What number am I? Show your subtraction work.",
+        "dailyActivity": {
+          "prompt": "Design a superhero whose power is related to learning or school.",
+          "details": "Draw your superhero with their costume and symbol. Write 4-5 sentences about their powers, their superhero name, and how they use their powers to help students."
+        }
+      }
+    },
+    {
+      "weekNumber": 9,
+      "monday": {
+        "word": {
+          "word": "flexible",
+          "partOfSpeech": "adjective",
+          "definition": "able to change and adapt easily to new situations"
+        },
+        "number": "6,129",
+        "dailyActivity": {
+          "prompt": "tom and me was late for school because the bus breaked down"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "inspire",
+          "partOfSpeech": "verb",
+          "definition": "to fill someone with the urge to do something"
+        },
+        "number": "18,305",
+        "dailyActivity": {
+          "prompt": "Mount Everest is the tallest mountain in the world.",
+          "answer": "Fact - Mount Everest is Earth's highest mountain above sea level at 8,849 meters (29,032 feet) tall. However, Mauna Kea in Hawaii is taller if measured from its base on the ocean floor!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "cooperate",
+          "partOfSpeech": "verb",
+          "definition": "to work together toward the same goal"
+        },
+        "number": "34,726",
+        "dailyActivity": {
+          "prompt": "If your class could go on a field trip anywhere in New Zealand, where should you go and why?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "thoughtful",
+          "partOfSpeech": "adjective",
+          "definition": "showing care and consideration for others"
+        },
+        "number": "9,584",
+        "dailyActivity": {
+          "prompt": "who's, whose",
+          "details": "Write two sentences: one using 'who's' (who is) and one using 'whose' (belonging to whom). Show you understand the contraction versus the possessive."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "appreciate",
+          "partOfSpeech": "verb",
+          "definition": "to recognize the value and quality of something"
+        },
+        "number": "0.5",
+        "numberDetails": "0.5 is the same as what fraction? If you have $1.00 and spend $0.50, what fraction of your money did you spend? Draw coins to show this amount.",
+        "dailyActivity": {
+          "prompt": "Create a new holiday tradition for your family.",
+          "details": "Draw a picture showing your tradition. Write 4-5 sentences explaining what happens, when it would occur, and why your family would enjoy it."
+        }
+      }
+    },
+    {
+      "weekNumber": 10,
+      "monday": {
+        "word": {
+          "word": "respectful",
+          "partOfSpeech": "adjective",
+          "definition": "showing consideration and courtesy toward others"
+        },
+        "number": "10,643",
+        "dailyActivity": {
+          "prompt": "the children was playing outside when it started to rain"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "communicate",
+          "partOfSpeech": "verb",
+          "definition": "to share information, ideas, or feelings with others"
+        },
+        "number": "24,871",
+        "dailyActivity": {
+          "prompt": "Touching a baby bird will make its mother reject it.",
+          "answer": "Fiction - This is a myth! Most birds have a poor sense of smell and won't reject their babies if humans touch them. However, it's still best not to touch baby birds unless they're in danger."
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "encourage",
+          "partOfSpeech": "verb",
+          "definition": "to give support, confidence, or hope to someone"
+        },
+        "number": "47,259",
+        "dailyActivity": {
+          "prompt": "Write about a time when someone's encouragement helped you accomplish something difficult."
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "valuable",
+          "partOfSpeech": "adjective",
+          "definition": "worth a lot of money or very useful and important"
+        },
+        "number": "16,432",
+        "dailyActivity": {
+          "prompt": "weather, whether",
+          "details": "Write two sentences: one using 'weather' (temperature and conditions outside) and one using 'whether' (if or expressing a choice between options)."
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "celebrate",
+          "partOfSpeech": "verb",
+          "definition": "to honor or mark a special occasion with festivities"
+        },
+        "number": "73,506",
+        "numberDetails": "I am a 5-digit number. My digits from left to right are: 7, 3, 5, 0, 6. What is the value of the 7? What is the value of the 5? Add those two values together.",
+        "dailyActivity": {
+          "prompt": "Invent a sport that can only be played in zero gravity (in space).",
+          "details": "Draw the playing field and players. Write 4-5 sentences explaining the rules, how to score points, and what makes it exciting. Remember - there's no up or down in space!"
+        }
+      }
+    },
+    {
+      "weekNumber": 11,
+      "monday": {
+        "word": {
+          "word": "support",
+          "partOfSpeech": "verb",
+          "definition": "to give help, encouragement, or assistance"
+        },
+        "number": "19,285",
+        "dailyActivity": {
+          "prompt": "me and my best friend has been friends since kindy"
+        }
+      },
+      "tuesday": {
+        "word": {
+          "word": "unique",
+          "partOfSpeech": "adjective",
+          "definition": "one of a kind and unlike anything else"
+        },
+        "number": "8,097",
+        "dailyActivity": {
+          "prompt": "Eating carrots will give you night vision.",
+          "answer": "Fiction - While carrots contain vitamin A which is good for eye health, they won't give you night vision or let you see in the dark. This myth started as British propaganda during World War II!"
+        }
+      },
+      "wednesday": {
+        "word": {
+          "word": "include",
+          "partOfSpeech": "verb",
+          "definition": "to make someone or something part of a group"
+        },
+        "number": "52,614",
+        "dailyActivity": {
+          "prompt": "Describe a time when someone included you in an activity when you felt left out. How did it make you feel?"
+        }
+      },
+      "thursday": {
+        "word": {
+          "word": "balance",
+          "partOfSpeech": "noun",
+          "definition": "an even distribution of weight or keeping steady"
+        },
+        "number": "25,738",
+        "dailyActivity": {
+          "prompt": "principal, principle",
+          "details": "Write two sentences: one using 'principal' (the head of a school or main) and one using 'principle' (a rule or belief). These sound the same but mean different things!"
+        }
+      },
+      "friday": {
+        "word": {
+          "word": "conclude",
+          "partOfSpeech": "verb",
+          "definition": "to bring something to an end or reach a decision"
+        },
+        "number": "99,999",
+        "numberDetails": "What number comes after 99,999? What number is exactly halfway between 99,000 and 100,000? Show your thinking using a number line if it helps.",
+        "dailyActivity": {
+          "prompt": "Looking back at Term 1, what is one thing you're proud of learning or improving at?",
+          "details": "Draw a picture representing your achievement. Write 4-5 sentences explaining what you learned, how you improved, and what you'll work on in Term 2."
         }
       }
     }
