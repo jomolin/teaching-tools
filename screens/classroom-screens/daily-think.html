@@ -148,16 +148,25 @@
                     <p class="text-xl text-blue-600 dark:text-blue-400"></p>
                 </div>
                 
-                <!-- Answer reveal (for Fact or Fiction only) - collapsible -->
-                <details id="daily-activity-answer-container" class="hidden">
-                    <summary class="cursor-pointer text-xl font-semibold text-yellow-600 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300">
-                        Click to reveal answer
-                    </summary>
-                    <div class="mt-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg">
-                        <p class="text-xl font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Answer:</p>
-                        <p id="daily-activity-answer" class="text-xl text-yellow-700 dark:text-yellow-300"></p>
-                    </div>
-                </details>
+                <!-- Answer button (for Fact or Fiction only) -->
+                <button id="show-answer-btn" class="mt-4 px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-bold text-xl transition-colors hidden">
+                    Show Answer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Answer Modal (hidden by default) -->
+    <div id="answer-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-8">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-2xl w-full border-4 border-yellow-400">
+            <div class="p-8">
+                <h3 class="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mb-4">Answer:</h3>
+                <p id="modal-answer-text" class="text-2xl text-gray-800 dark:text-gray-200 leading-relaxed"></p>
+            </div>
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 p-6 flex justify-end border-t-2 border-yellow-400">
+                <button id="close-answer-btn" class="px-8 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-bold text-xl transition-colors">
+                    Close
+                </button>
             </div>
         </div>
     </div>
@@ -205,6 +214,16 @@
             document.getElementById('week-select').addEventListener('change', handleWeekChange);
             document.getElementById('prev-day').addEventListener('click', () => changeDay(-1));
             document.getElementById('next-day').addEventListener('click', () => changeDay(1));
+
+            // Modal event listeners
+            document.getElementById('show-answer-btn').addEventListener('click', showAnswerModal);
+            document.getElementById('close-answer-btn').addEventListener('click', closeAnswerModal);
+            document.getElementById('answer-modal').addEventListener('click', (e) => {
+                // Close if clicking outside the modal content
+                if (e.target.id === 'answer-modal') {
+                    closeAnswerModal();
+                }
+            });
 
             // Initial display
             updateDisplay();
@@ -365,18 +384,26 @@
                 challengeContainer.classList.add('hidden');
             }
 
-            // Show answer for Fact or Fiction only
-            const answerContainer = document.getElementById('daily-activity-answer-container');
-            const answerText = document.getElementById('daily-activity-answer');
+            // Show answer button for Fact or Fiction only
+            const answerBtn = document.getElementById('show-answer-btn');
+            const modalAnswerText = document.getElementById('modal-answer-text');
             
             if (dayData.dailyActivity.answer) {
-                answerText.textContent = dayData.dailyActivity.answer;
-                answerContainer.classList.remove('hidden');
-                // Reset to collapsed state
-                answerContainer.removeAttribute('open');
+                modalAnswerText.textContent = dayData.dailyActivity.answer;
+                answerBtn.classList.remove('hidden');
             } else {
-                answerContainer.classList.add('hidden');
+                answerBtn.classList.add('hidden');
             }
+        }
+
+        // Show answer modal
+        function showAnswerModal() {
+            document.getElementById('answer-modal').classList.remove('hidden');
+        }
+
+        // Close answer modal
+        function closeAnswerModal() {
+            document.getElementById('answer-modal').classList.add('hidden');
         }
 
         // Display message when no activity available
