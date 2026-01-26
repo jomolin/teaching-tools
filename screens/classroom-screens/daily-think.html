@@ -83,9 +83,14 @@
     <!-- Main Content: Two Columns -->
     <div class="flex-1 flex gap-5 min-h-0">
         
-        <!-- LEFT COLUMN: Word of the Day -->
+        <!-- LEFT COLUMN: Special Day + Word of the Day -->
         <div class="flex-1 flex flex-col gap-5">
-            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col overflow-hidden">
+            <!-- Special Day Display -->
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+                <p id="special-day" class="text-4xl font-bold text-center text-primary dark:text-blue-400"></p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col overflow-hidden flex-1">
                 <!-- Word of the Day (lighter background) -->
                 <div class="bg-blue-50 dark:bg-blue-900/20 p-6 border-b-2 border-gray-300 dark:border-gray-700">
                     <h2 class="text-2xl font-bold text-primary dark:text-blue-400 mb-3">Word of the Day</h2>
@@ -102,18 +107,13 @@
                     <p id="word-task-instruction" class="text-3xl text-gray-700 dark:text-gray-300 leading-relaxed"></p>
                 </div>
             </div>
-
-            <!-- Special Day Display -->
-            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm">
-                <p id="special-day" class="text-4xl font-bold text-center text-primary dark:text-blue-400"></p>
-            </div>
         </div>
 
         <!-- RIGHT COLUMN: Number + Daily Activity -->
         <div class="flex-1 flex flex-col gap-5">
             
-            <!-- Number of the Day Container -->
-            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex-1 flex flex-col overflow-hidden">
+            <!-- Number of the Day Container (flexible sizing) -->
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col">
                 <!-- Number of the Day (lighter background) -->
                 <div class="bg-green-50 dark:bg-green-900/20 p-6 border-b-2 border-gray-300 dark:border-gray-700">
                     <h2 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-3">Number of the Day</h2>
@@ -121,7 +121,7 @@
                 </div>
                 
                 <!-- Number Task -->
-                <div class="p-6 flex-1 flex flex-col justify-center">
+                <div class="p-6 flex flex-col justify-center">
                     <h3 class="text-3xl font-bold text-green-600 dark:text-green-400 mb-4">
                         <span id="number-task-type"></span>
                     </h3>
@@ -133,8 +133,8 @@
                 </div>
             </div>
 
-            <!-- Daily Rotation Activity (separate container) -->
-            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex-1 flex flex-col p-6 overflow-y-auto">
+            <!-- Daily Rotation Activity (flexible sizing, takes remaining space) -->
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col p-6 overflow-y-auto flex-1 min-h-0">
                 <div class="flex items-center justify-between mb-4">
                     <span id="daily-activity-type" class="px-6 py-2 bg-purple-500 dark:bg-purple-600 text-white rounded-full text-xl font-bold"></span>
                 </div>
