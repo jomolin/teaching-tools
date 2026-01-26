@@ -22,8 +22,8 @@
         },
         "number": "582",
         "dailyActivity": {
-          "prompt": "Penguins can fly underwater using their wings as flippers.",
-          "answer": "Fact - Penguins use their wings to 'fly' through water at speeds up to 22 mph."
+          "prompt": "Birds can sleep while flying.",
+          "answer": "Fact - Some birds, like frigatebirds, can sleep while soaring. They take quick naps lasting only a few seconds at a time."
         }
       },
       "wednesday": {
@@ -34,7 +34,7 @@
         },
         "number": "1,769",
         "dailyActivity": {
-          "prompt": "If you could design a new school subject, what would it be and what would students learn?"
+          "prompt": "If you could invent something to make learning easier, what would it be?"
         }
       },
       "thursday": {
@@ -45,7 +45,8 @@
         },
         "number": "8,924",
         "dailyActivity": {
-          "prompt": "there, their, they're"
+          "prompt": "there, their, they're",
+          "details": "Write three sentences, each using one of these homophones correctly. Label which word you used in each sentence and explain what it means."
         }
       },
       "friday": {
@@ -56,8 +57,8 @@
         },
         "number": "45,678",
         "dailyActivity": {
-          "prompt": "Design a robot that helps students learn maths.",
-          "details": "Draw your robot and label at least 3 features. Write 2-3 sentences explaining how it works."
+          "prompt": "Design a new toy or game that kids your age would love to play.",
+          "details": "Draw your invention and label at least 3 features. Write 2-3 sentences explaining how it works and why it would be fun."
         }
       }
     },
@@ -82,8 +83,8 @@
         },
         "number": "803",
         "dailyActivity": {
-          "prompt": "Bananas grow on trees.",
-          "answer": "Fiction - Bananas grow on large herbaceous plants (herbs), not trees. The 'trunk' is actually tightly packed leaves."
+          "prompt": "A handwritten letter is more personal than a text message.",
+          "answer": "Opinion/Debatable - This is a matter of personal preference. Some people feel handwriting is more thoughtful, while others value the speed and convenience of texts."
         }
       },
       "wednesday": {
@@ -94,8 +95,8 @@
         },
         "number": "5,438",
         "dailyActivity": {
-          "prompt": "What is your favourite season and why?",
-          "details": "Include at least two specific reasons with examples."
+          "prompt": "If you could solve one problem in the world, what would it be and why?",
+          "details": "Include at least two specific reasons with examples. Think about Puzzle Day - life is full of problems waiting to be solved!"
         }
       },
       "thursday": {
@@ -106,7 +107,8 @@
         },
         "number": "791",
         "dailyActivity": {
-          "prompt": "your, you're"
+          "prompt": "your, you're",
+          "details": "Write two sentences: one using 'your' correctly and one using 'you're' correctly. Then explain the difference between them."
         }
       },
       "friday": {
@@ -116,9 +118,10 @@
           "definition": "willing to try new and exciting things"
         },
         "number": "3/4",
+        "numberDetails": "If a pizza is cut into 4 equal slices and you eat 3 slices, what fraction of the pizza did you eat? Draw a picture to show your answer.",
         "dailyActivity": {
-          "prompt": "Invent a new sport that combines two existing sports.",
-          "details": "Draw a diagram of how the game is played. Write 3-4 sentences explaining the rules."
+          "prompt": "Draw a dinosaur doing something funny or unexpected (like riding a bike, eating ice cream, or going to school).",
+          "details": "Label your drawing and write 3-4 sentences about what's happening in your picture. Make it creative and silly!"
         }
       }
     }

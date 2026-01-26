@@ -10,7 +10,7 @@
     },
     "wednesday": {
       "type": "Draw It",
-      "instruction": "Draw a picture that shows what the word of the day means. Label your drawing."
+      "instruction": "Draw a picture that shows what the word of the day means. Label your drawing. Challenge: Can you connect your drawing to today's special day?"
     },
     "thursday": {
       "type": "Word Makeover",
@@ -39,8 +39,8 @@
       "instruction": "What is the value of each digit in the number of the day? (e.g., in 456: 4 = 400, 5 = 50, 6 = 6)"
     },
     "friday": {
-      "type": "Math Riddle",
-      "instruction": "Solve today's number riddle. Show your working and explain your thinking."
+      "type": "Math Challenge",
+      "instruction": "Complete today's math challenge. Show your working and explain your thinking."
     }
   },
   "dailyActivities": {
@@ -50,15 +50,15 @@
     },
     "tuesday": {
       "type": "Fact or Fiction",
-      "instruction": "Is this fact or fiction? Write your answer and explain your reasoning."
+      "instruction": "Is this fact or fiction? Write your answer and explain your reasoning. Can you link this to today's special day?"
     },
     "wednesday": {
       "type": "Quick Write",
-      "instruction": "Write 4-5 sentences responding to today's prompt."
+      "instruction": "Write 4-5 sentences responding to today's prompt. Challenge: Try to use the word of the day in your writing!"
     },
     "thursday": {
       "type": "Grammar Focus",
-      "instruction": "Complete today's grammar challenge. Show your understanding with clear examples."
+      "instruction": "Look at the words shown. Write sentences using each word correctly to show you understand the difference between them."
     },
     "friday": {
       "type": "Creative Challenge",

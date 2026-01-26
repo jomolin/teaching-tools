@@ -105,7 +105,7 @@
 
             <!-- Special Day Display -->
             <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm">
-                <p id="special-day" class="text-3xl font-bold text-center text-primary dark:text-blue-400"></p>
+                <p id="special-day" class="text-4xl font-bold text-center text-primary dark:text-blue-400"></p>
             </div>
         </div>
 
@@ -136,18 +136,18 @@
                 </div>
                 
                 <p id="daily-activity-prompt" class="text-4xl font-bold mb-4 text-purple-600 dark:text-purple-400"></p>
-                <p id="daily-activity-instruction" class="text-2xl text-gray-700 dark:text-gray-300 leading-relaxed"></p>
+                <p id="daily-activity-instruction" class="text-2xl text-gray-700 dark:text-gray-300 leading-relaxed mb-4"></p>
                 
-                <!-- Answer reveal (for Fact or Fiction only) -->
-                <div id="daily-activity-answer-container" class="mt-6 hidden">
-                    <button id="reveal-answer-btn" class="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-bold text-xl transition-colors">
-                        Show Answer
-                    </button>
-                    <div id="daily-activity-answer" class="mt-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg hidden">
+                <!-- Answer reveal (for Fact or Fiction only) - collapsible -->
+                <details id="daily-activity-answer-container" class="hidden">
+                    <summary class="cursor-pointer text-xl font-semibold text-yellow-600 dark:text-yellow-400 hover:text-yellow-700 dark:hover:text-yellow-300">
+                        Click to reveal answer
+                    </summary>
+                    <div class="mt-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded-lg">
                         <p class="text-xl font-semibold text-yellow-800 dark:text-yellow-200 mb-2">Answer:</p>
-                        <p class="text-xl text-yellow-700 dark:text-yellow-300"></p>
+                        <p id="daily-activity-answer" class="text-xl text-yellow-700 dark:text-yellow-300"></p>
                     </div>
-                </div>
+                </details>
             </div>
         </div>
     </div>
@@ -324,7 +324,10 @@
             // Update Number of the Day
             document.getElementById('number').textContent = dayData.number;
             document.getElementById('number-task-type').textContent = numberTask.type;
-            document.getElementById('number-task-instruction').textContent = numberTask.instruction;
+            
+            // Use numberDetails if provided (for Friday riddles), otherwise use default instruction
+            const numberInstruction = dayData.numberDetails || numberTask.instruction;
+            document.getElementById('number-task-instruction').textContent = numberInstruction;
 
             // Update Daily Activity
             document.getElementById('daily-activity-type').textContent = dailyActivityDef.type;
@@ -334,37 +337,15 @@
             const instruction = dayData.dailyActivity.details || dailyActivityDef.instruction;
             document.getElementById('daily-activity-instruction').textContent = instruction;
 
-            // Show answer container for Fact or Fiction only
+            // Show answer for Fact or Fiction only
             const answerContainer = document.getElementById('daily-activity-answer-container');
-            const answerBox = document.getElementById('daily-activity-answer');
-            const revealBtn = document.getElementById('reveal-answer-btn');
+            const answerText = document.getElementById('daily-activity-answer');
             
             if (dayData.dailyActivity.answer) {
-                // Set answer text
-                answerBox.querySelector('p:last-child').textContent = dayData.dailyActivity.answer;
-                
-                // Show container but keep answer hidden
+                answerText.textContent = dayData.dailyActivity.answer;
                 answerContainer.classList.remove('hidden');
-                answerBox.classList.add('hidden');
-                revealBtn.classList.remove('hidden');
-                
-                // Reset button text
-                revealBtn.textContent = 'Show Answer';
-                
-                // Set up click handler (remove old listeners first)
-                const newRevealBtn = revealBtn.cloneNode(true);
-                revealBtn.parentNode.replaceChild(newRevealBtn, revealBtn);
-                
-                newRevealBtn.addEventListener('click', function() {
-                    const answerBox = document.getElementById('daily-activity-answer');
-                    if (answerBox.classList.contains('hidden')) {
-                        answerBox.classList.remove('hidden');
-                        this.textContent = 'Hide Answer';
-                    } else {
-                        answerBox.classList.add('hidden');
-                        this.textContent = 'Show Answer';
-                    }
-                });
+                // Reset to collapsed state
+                answerContainer.removeAttribute('open');
             } else {
                 answerContainer.classList.add('hidden');
             }
