@@ -105,6 +105,12 @@
                         <span id="word-task-type"></span>
                     </h3>
                     <p id="word-task-instruction" class="text-3xl text-gray-700 dark:text-gray-300 leading-relaxed"></p>
+                    
+                    <!-- Optional Challenge (for Wednesday Draw It) -->
+                    <div id="word-task-challenge" class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400 hidden">
+                        <p class="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-1">Challenge:</p>
+                        <p class="text-xl text-blue-600 dark:text-blue-400"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -117,7 +123,10 @@
                 <!-- Number of the Day (lighter background) -->
                 <div class="bg-green-50 dark:bg-green-900/20 p-6 border-b-2 border-gray-300 dark:border-gray-700">
                     <h2 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-3">Number of the Day</h2>
-                    <p id="number" class="text-6xl font-bold text-green-600 dark:text-green-400"></p>
+                    <div id="number-display" class="cursor-pointer hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg p-2 transition-colors" title="Click to reveal on Fridays">
+                        <p id="number" class="text-6xl font-bold text-green-600 dark:text-green-400"></p>
+                        <p id="number-hint" class="text-lg text-green-700 dark:text-green-300 italic mt-2 hidden">Click to reveal the answer!</p>
+                    </div>
                 </div>
                 
                 <!-- Number Task -->
@@ -349,9 +358,53 @@
             document.getElementById('word-definition').textContent = dayData.word.definition;
             document.getElementById('word-task-type').textContent = wordTask.type;
             document.getElementById('word-task-instruction').textContent = wordTask.instruction;
+            
+            // Show word task challenge if available (for Wednesday Draw It)
+            const wordChallengeContainer = document.getElementById('word-task-challenge');
+            if (wordTask.challenge) {
+                wordChallengeContainer.querySelector('p:last-child').textContent = wordTask.challenge;
+                wordChallengeContainer.classList.remove('hidden');
+            } else {
+                wordChallengeContainer.classList.add('hidden');
+            }
 
             // Update Number of the Day
-            document.getElementById('number').textContent = dayData.number;
+            const numberElement = document.getElementById('number');
+            const numberDisplay = document.getElementById('number-display');
+            const numberHint = document.getElementById('number-hint');
+            const actualNumber = dayData.number;
+            
+            // Check if it's Friday (day 5) and has a riddle
+            const isFriday = dayName === 'friday';
+            const hasRiddle = dayData.numberDetails && dayData.numberDetails.length > 0;
+            
+            if (isFriday && hasRiddle) {
+                // Show question mark initially, reveal on click
+                let revealed = false;
+                numberElement.textContent = '?';
+                numberHint.classList.remove('hidden');
+                numberDisplay.style.cursor = 'pointer';
+                
+                // Remove old click listeners
+                const newNumberDisplay = numberDisplay.cloneNode(true);
+                numberDisplay.parentNode.replaceChild(newNumberDisplay, numberDisplay);
+                
+                newNumberDisplay.addEventListener('click', function() {
+                    const num = document.getElementById('number');
+                    const hint = document.getElementById('number-hint');
+                    if (!revealed) {
+                        num.textContent = actualNumber;
+                        hint.classList.add('hidden');
+                        revealed = true;
+                    }
+                });
+            } else {
+                // Not Friday or no riddle - show number normally
+                numberElement.textContent = actualNumber;
+                numberHint.classList.add('hidden');
+                numberDisplay.style.cursor = 'default';
+            }
+            
             document.getElementById('number-task-type').textContent = numberTask.type;
             
             // Use numberDetails if provided (for Friday riddles), otherwise use default instruction

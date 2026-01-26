@@ -10,7 +10,8 @@
     },
     "wednesday": {
       "type": "Draw It",
-      "instruction": "Draw a picture that shows what the word of the day means. Label your drawing. Challenge: Can you connect your drawing to today's special day?"
+      "instruction": "Draw a picture that shows what the word of the day means. Label your drawing.",
+      "challenge": "Can you connect your drawing to today's special day?"
     },
     "thursday": {
       "type": "Word Makeover",
@@ -30,7 +31,7 @@
     "tuesday": {
       "type": "Number Sentence",
       "instruction": "Create two different number sentences that equal the number of the day",
-      "example": "123 = 100 + 23 or 123 = 130 - 7"
+      "example": "123 = 100 + 23 or 123 = 120 + 3"
     },
     "wednesday": {
       "type": "Word Form",
