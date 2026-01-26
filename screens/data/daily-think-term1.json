@@ -56,6 +56,7 @@
           "definition": "to form a picture or idea in your mind"
         },
         "number": "45,678",
+        "numberDetails": "I am a 5-digit number. My ten thousands digit is 4. My thousands digit is half of 10. My hundreds digit is 6. My tens digit is 7. My ones digit is double 4. What number am I?",
         "dailyActivity": {
           "prompt": "Design a new toy or game that kids your age would love to play.",
           "details": "Draw your invention and label at least 3 features. Write 2-3 sentences explaining how it works and why it would be fun."

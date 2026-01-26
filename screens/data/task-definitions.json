@@ -24,19 +24,23 @@
   "numberTasks": {
     "monday": {
       "type": "Expanded Form",
-      "instruction": "Show the number of the day in expanded form (e.g., 123 = 100 + 20 + 3)"
+      "instruction": "Show the number of the day in expanded form",
+      "example": "123 = 100 + 20 + 3"
     },
     "tuesday": {
       "type": "Number Sentence",
-      "instruction": "Create two different number sentences that equal the number of the day (e.g., 123 = 100 + 23 or 123 = 120 + 3)"
+      "instruction": "Create two different number sentences that equal the number of the day",
+      "example": "123 = 100 + 23 or 123 = 120 + 3"
     },
     "wednesday": {
       "type": "Word Form",
-      "instruction": "Write the number of the day in words (e.g., 456 = four hundred and fifty-six)"
+      "instruction": "Write the number of the day in words",
+      "example": "456 = four hundred and fifty-six"
     },
     "thursday": {
       "type": "Place Value",
-      "instruction": "What is the value of each digit in the number of the day? (e.g., in 456: 4 = 400, 5 = 50, 6 = 6)"
+      "instruction": "What is the value of each digit in the number of the day?",
+      "example": "In 456: 4 = 400, 5 = 50, 6 = 6"
     },
     "friday": {
       "type": "Math Challenge",
@@ -54,7 +58,8 @@
     },
     "wednesday": {
       "type": "Quick Write",
-      "instruction": "Write 4-5 sentences responding to today's prompt. Challenge: Try to use the word of the day in your writing!"
+      "instruction": "Write 4-5 sentences responding to today's prompt.",
+      "challenge": "Try to use the word of the day in your writing!"
     },
     "thursday": {
       "type": "Grammar Focus",

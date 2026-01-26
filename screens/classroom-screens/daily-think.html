@@ -125,7 +125,11 @@
                     <h3 class="text-3xl font-bold text-green-600 dark:text-green-400 mb-4">
                         <span id="number-task-type"></span>
                     </h3>
-                    <p id="number-task-instruction" class="text-3xl text-gray-700 dark:text-gray-300 leading-relaxed"></p>
+                    <p id="number-task-instruction" class="text-3xl text-gray-700 dark:text-gray-300 leading-relaxed mb-3"></p>
+                    <div id="number-task-example" class="mt-2 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-400 hidden">
+                        <p class="text-lg font-semibold text-green-700 dark:text-green-300 mb-1">Example:</p>
+                        <p class="text-2xl text-green-600 dark:text-green-400"></p>
+                    </div>
                 </div>
             </div>
 
@@ -137,6 +141,12 @@
                 
                 <p id="daily-activity-prompt" class="text-4xl font-bold mb-4 text-purple-600 dark:text-purple-400"></p>
                 <p id="daily-activity-instruction" class="text-2xl text-gray-700 dark:text-gray-300 leading-relaxed mb-4"></p>
+                
+                <!-- Optional Challenge (for Quick Write) -->
+                <div id="daily-activity-challenge" class="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400 hidden">
+                    <p class="text-lg font-semibold text-blue-700 dark:text-blue-300 mb-1">Challenge:</p>
+                    <p class="text-xl text-blue-600 dark:text-blue-400"></p>
+                </div>
                 
                 <!-- Answer reveal (for Fact or Fiction only) - collapsible -->
                 <details id="daily-activity-answer-container" class="hidden">
@@ -328,6 +338,15 @@
             // Use numberDetails if provided (for Friday riddles), otherwise use default instruction
             const numberInstruction = dayData.numberDetails || numberTask.instruction;
             document.getElementById('number-task-instruction').textContent = numberInstruction;
+            
+            // Show example if available (not on Friday which has custom challenge)
+            const exampleContainer = document.getElementById('number-task-example');
+            if (numberTask.example && !dayData.numberDetails) {
+                exampleContainer.querySelector('p:last-child').textContent = numberTask.example;
+                exampleContainer.classList.remove('hidden');
+            } else {
+                exampleContainer.classList.add('hidden');
+            }
 
             // Update Daily Activity
             document.getElementById('daily-activity-type').textContent = dailyActivityDef.type;
@@ -336,6 +355,15 @@
             // Use specific instruction if provided in day data, otherwise use default from definitions
             const instruction = dayData.dailyActivity.details || dailyActivityDef.instruction;
             document.getElementById('daily-activity-instruction').textContent = instruction;
+
+            // Show challenge if available (for Wednesday Quick Write)
+            const challengeContainer = document.getElementById('daily-activity-challenge');
+            if (dailyActivityDef.challenge) {
+                challengeContainer.querySelector('p:last-child').textContent = dailyActivityDef.challenge;
+                challengeContainer.classList.remove('hidden');
+            } else {
+                challengeContainer.classList.add('hidden');
+            }
 
             // Show answer for Fact or Fiction only
             const answerContainer = document.getElementById('daily-activity-answer-container');
