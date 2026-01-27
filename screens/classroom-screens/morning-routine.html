@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Think - Teaching Tools</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0066cc',
+                        'primary-dark': '#0052a3',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Theme sync loaded from config.js - must be in head to prevent flash -->
+    <script src="../config.js"></script>
+    <style>
+        body {
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 p-5 flex flex-col gap-5">
+    
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-white dark:bg-gray-950 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="w-12 h-12 border-4 border-gray-200 dark:border-gray-700 border-t-blue-500 rounded-full animate-spin mx-auto mb-4"></div>
+            <div class="text-gray-500 dark:text-gray-400 text-sm">Loading Daily Think...</div>
+        </div>
+    </div>
+
+    <!-- Header Row -->
+    <div class="flex gap-5 flex-wrap items-stretch">
+        <!-- Left Column: Selectors + Music -->
+        <div class="flex flex-col gap-3">
+            <!-- Term/Week Selectors -->
+            <div class="flex gap-3 items-center opacity-50 hover:opacity-100 transition-opacity">
+                <select id="term-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <option value="1">Term 1</option>
+                    <option value="2">Term 2</option>
+                    <option value="3">Term 3</option>
+                    <option value="4">Term 4</option>
+                </select>
+                <select id="week-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                    <!-- Will be populated 1-11 -->
+                </select>
+            </div>
+            <!-- Music Player -->
+            <div class="music-player-widget"></div>
+        </div>
+
+        <!-- Date Display (center) -->
+        <div class="flex-1 text-center flex flex-col items-center justify-center bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm px-6">
+            <div class="flex items-center gap-6">
+                <button id="prev-day" class="p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <div>
+                    <h1 id="full-date" class="text-5xl font-bold whitespace-nowrap"></h1>
+                    <p id="short-date" class="text-2xl text-gray-600 dark:text-gray-400 mt-1"></p>
+                </div>
+                <button id="next-day" class="p-3 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mode Toggle + Simple Timer (right) -->
+        <div class="flex flex-col gap-3">
+            <button id="mode-toggle" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg font-bold text-sm transition-colors">
+                Morning Routine
+            </button>
+            <div class="simple-timer-widget" data-time="20:00"></div>
+        </div>
+    </div>
+
+    <!-- Main Content: Two Columns -->
+    <div id="daily-think-content" class="flex-1 flex gap-5 min-h-0">
+        
+        <!-- LEFT COLUMN: Special Day + Word of the Day -->
+        <div class="flex-1 flex flex-col gap-5">
+            <!-- Special Day Display -->
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm">
+                <p id="special-day" class="text-3xl font-bold text-center text-primary dark:text-blue-400"></p>
+            </div>
+
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col overflow-hidden flex-1">
+                <!-- Word of the Day (lighter background) -->
+                <div class="bg-blue-50 dark:bg-blue-900/20 p-4 border-b-2 border-gray-300 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-primary dark:text-blue-400 mb-2">Word of the Day</h2>
+                    <p id="word" class="text-5xl font-bold mb-2"></p>
+                    <p id="word-part-of-speech" class="text-lg text-gray-500 dark:text-gray-400 italic mb-2"></p>
+                    <p id="word-definition" class="text-xl text-gray-700 dark:text-gray-300 italic"></p>
+                </div>
+                
+                <!-- Word Work Task -->
+                <div class="p-4 flex-1 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-primary dark:text-blue-400 mb-3">
+                        <span id="word-task-type"></span>
+                    </h3>
+                    <p id="word-task-instruction" class="text-2xl text-gray-700 dark:text-gray-300 leading-relaxed"></p>
+                    
+                    <!-- Optional Challenge (for Wednesday Draw It) -->
+                    <div id="word-task-challenge" class="mt-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400 hidden">
+                        <p class="text-base font-semibold text-blue-700 dark:text-blue-300 mb-1">Challenge:</p>
+                        <p class="text-lg text-blue-600 dark:text-blue-400"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Number + Daily Activity -->
+        <div class="flex-1 flex flex-col gap-5">
+            
+            <!-- Number of the Day Container (flexible sizing) -->
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col">
+                <!-- Number of the Day (lighter background) -->
+                <div class="bg-green-50 dark:bg-green-900/20 p-4 border-b-2 border-gray-300 dark:border-gray-700">
+                    <h2 class="text-xl font-bold text-green-600 dark:text-green-400 mb-2">Number of the Day</h2>
+                    <div id="number-display" class="cursor-pointer hover:bg-green-100 dark:hover:bg-green-900/30 rounded-lg p-2 transition-colors">
+                        <p id="number" class="text-5xl font-bold text-green-600 dark:text-green-400"></p>
+                    </div>
+                </div>
+                
+                <!-- Number Task -->
+                <div class="p-4 flex flex-col justify-center">
+                    <h3 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-3">
+                        <span id="number-task-type"></span>
+                    </h3>
+                    <p id="number-task-instruction" class="text-2xl text-gray-700 dark:text-gray-300 leading-relaxed mb-2"></p>
+                    <div id="number-task-example" class="mt-2 p-2 bg-green-50 dark:bg-green-900/20 rounded-lg border-l-4 border-green-400 hidden">
+                        <p class="text-base font-semibold text-green-700 dark:text-green-300 mb-1">Example:</p>
+                        <p class="text-xl text-green-600 dark:text-green-400"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Rotation Activity (flexible sizing, takes remaining space) -->
+            <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl shadow-sm flex flex-col p-4 overflow-y-auto flex-1 min-h-0">
+                <div class="flex items-center justify-between mb-3">
+                    <span id="daily-activity-type" class="px-4 py-2 bg-purple-500 dark:bg-purple-600 text-white rounded-full text-lg font-bold"></span>
+                </div>
+                
+                <p id="daily-activity-prompt" class="text-3xl font-bold mb-3 text-purple-600 dark:text-purple-400"></p>
+                <p id="daily-activity-instruction" class="text-xl text-gray-700 dark:text-gray-300 leading-relaxed mb-3"></p>
+                
+                <!-- Optional Challenge (for Quick Write) -->
+                <div id="daily-activity-challenge" class="mb-3 p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border-l-4 border-blue-400 hidden">
+                    <p class="text-base font-semibold text-blue-700 dark:text-blue-300 mb-1">Challenge:</p>
+                    <p class="text-lg text-blue-600 dark:text-blue-400"></p>
+                </div>
+                
+                <!-- Answer button (for Fact or Fiction only) -->
+                <button id="show-answer-btn" class="mt-3 px-4 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-bold text-lg transition-colors hidden">
+                    Show Answer
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Answer Modal (hidden by default) -->
+    <div id="answer-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-8">
+        <div class="bg-white dark:bg-gray-900 rounded-xl shadow-2xl max-w-2xl w-full border-4 border-yellow-400">
+            <div class="p-6">
+                <h3 class="text-2xl font-bold text-yellow-600 dark:text-yellow-400 mb-3">Answer:</h3>
+                <p id="modal-answer-text" class="text-xl text-gray-800 dark:text-gray-200 leading-relaxed"></p>
+            </div>
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 p-4 flex justify-end border-t-2 border-yellow-400">
+                <button id="close-answer-btn" class="px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg font-bold text-lg transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Morning Routine Content (hidden by default) -->
+    <div id="morning-routine-content" class="hidden flex-1 flex flex-col gap-5 min-h-0">
+        <!-- Special Day -->
+        <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm">
+            <p id="routine-special-day" class="text-3xl font-bold text-center text-primary dark:text-blue-400"></p>
+        </div>
+
+        <!-- Word and Number Row -->
+        <div class="flex gap-5">
+            <!-- Word of the Day -->
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm text-center">
+                <h2 class="text-2xl font-bold text-primary dark:text-blue-400 mb-4">Word of the Day</h2>
+                <p id="routine-word" class="text-6xl font-bold mb-2"></p>
+                <p id="routine-word-pos" class="text-2xl text-gray-500 dark:text-gray-400 italic"></p>
+            </div>
+
+            <!-- Number of the Day - Place Value Chart -->
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm">
+                <h2 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-4 text-center">Number of the Day</h2>
+                <div id="place-value-chart" class="text-center">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Morning Routine Instructions and Announcements -->
+        <div class="flex-1 flex gap-5 min-h-0">
+            <!-- Morning Routine Instructions -->
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm overflow-y-auto">
+                <h2 class="text-3xl font-bold text-primary dark:text-blue-400 mb-4 text-center">Morning Routine</h2>
+                
+                <div class="space-y-6">
+                    <!-- Before the Bell -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-3">Before the Bell:</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-xl text-gray-700 dark:text-gray-300">
+                            <li>Put your bag in the cloakroom</li>
+                            <li>Put on your hat</li>
+                            <li>Go outside until the bell rings</li>
+                            <li>Play safely and include others</li>
+                        </ol>
+                    </div>
+
+                    <!-- After the Bell -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-3">After the Bell:</h3>
+                        <ol class="list-decimal list-inside space-y-2 text-xl text-gray-700 dark:text-gray-300">
+                            <li>Line up quietly outside your classroom</li>
+                            <li>Leave shoes outside with toes to the wall</li>
+                            <li>Walk quietly to your seat</li>
+                            <li>Sit down and wait for attendance</li>
+                            <li>Begin your bell ringer activity</li>
+                        </ol>
+                    </div>
+
+                    <!-- Weather Reminder -->
+                    <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded text-lg text-yellow-800 dark:text-yellow-200">
+                        <strong>Remember:</strong> Students should only be inside on days when the weather is really bad!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Announcements (Editable) -->
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm overflow-y-auto">
+                <h2 class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-4 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-2" id="announcements-title">
+                    Today's Announcements
+                </h2>
+                <div id="announcements-content" class="text-xl text-gray-700 dark:text-gray-300 leading-relaxed cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-4 min-h-[200px]">
+                    <p class="text-gray-400 dark:text-gray-500 italic">Click here to add announcements...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../widgets/utils.js"></script>
+    <script src="../widgets/simple-timer.js"></script>
+    <script src="../widgets/music-player.js"></script>
+    <script>
+        // Global state
+        let currentDate = new Date();
+        let termData = null;
+        let specialDaysData = null;
+        let taskDefinitions = null;
+
+        // Day names mapping
+        const dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+        const dayNamesDisplay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+        // Initialize
+        async function init() {
+            // Populate week selector
+            const weekSelect = document.getElementById('week-select');
+            for (let i = 1; i <= 11; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = `Week ${i}`;
+                weekSelect.appendChild(option);
+            }
+
+            // Load saved term/week from localStorage
+            const savedTerm = localStorage.getItem('dailyThinkTerm') || '1';
+            const savedWeek = localStorage.getItem('dailyThinkWeek') || '1';
+            document.getElementById('term-select').value = savedTerm;
+            document.getElementById('week-select').value = savedWeek;
+
+            // Load data (task definitions first, then term-specific data)
+            await loadTaskDefinitions();
+            await loadSpecialDays();
+            await loadTermData(savedTerm);
+
+            // Set up event listeners
+            document.getElementById('term-select').addEventListener('change', handleTermChange);
+            document.getElementById('week-select').addEventListener('change', handleWeekChange);
+            document.getElementById('prev-day').addEventListener('click', () => changeDay(-1));
+            document.getElementById('next-day').addEventListener('click', () => changeDay(1));
+            document.getElementById('mode-toggle').addEventListener('click', toggleMode);
+
+            // Announcements editing
+            setupAnnouncementsEditing();
+
+            // Modal event listeners
+            document.getElementById('show-answer-btn').addEventListener('click', showAnswerModal);
+            document.getElementById('close-answer-btn').addEventListener('click', closeAnswerModal);
+            document.getElementById('answer-modal').addEventListener('click', (e) => {
+                // Close if clicking outside the modal content
+                if (e.target.id === 'answer-modal') {
+                    closeAnswerModal();
+                }
+            });
+
+            // Initial display
+            updateDisplay();
+
+            // Hide loading overlay
+            document.getElementById('loading-overlay').style.display = 'none';
+        }
+
+        // Load task definitions (reusable instructions by day of week)
+        async function loadTaskDefinitions() {
+            try {
+                const response = await fetch('../data/task-definitions.json');
+                taskDefinitions = await response.json();
+            } catch (error) {
+                console.error('Error loading task definitions:', error);
+                taskDefinitions = { wordTasks: {}, numberTasks: {}, dailyActivities: {} };
+            }
+        }
+
+        // Load term data
+        async function loadTermData(term) {
+            try {
+                const response = await fetch(`../data/daily-think-term${term}.json`);
+                termData = await response.json();
+            } catch (error) {
+                console.error('Error loading term data:', error);
+                termData = { weeks: [] };
+            }
+        }
+
+        // Load special days data
+        async function loadSpecialDays() {
+            try {
+                const response = await fetch('../data/special-days.json');
+                specialDaysData = await response.json();
+            } catch (error) {
+                console.error('Error loading special days:', error);
+                specialDaysData = { days: {} };
+            }
+        }
+
+        // Handle term change
+        async function handleTermChange(e) {
+            const term = e.target.value;
+            localStorage.setItem('dailyThinkTerm', term);
+            await loadTermData(term);
+            updateDisplay();
+        }
+
+        // Handle week change
+        function handleWeekChange(e) {
+            const week = e.target.value;
+            localStorage.setItem('dailyThinkWeek', week);
+            updateDisplay();
+        }
+
+        // Change day (forward/back)
+        function changeDay(days) {
+            currentDate.setDate(currentDate.getDate() + days);
+            updateDisplay();
+        }
+
+        // Update all display elements
+        function updateDisplay() {
+            updateDateDisplay();
+            updateSpecialDay();
+            updateDailyThink();
+        }
+
+        // Update date display
+        function updateDateDisplay() {
+            const dayName = dayNamesDisplay[currentDate.getDay()];
+            const day = currentDate.getDate();
+            const month = monthNames[currentDate.getMonth()];
+            const year = currentDate.getFullYear();
+
+            // Full date: "Monday 23 January 2026"
+            document.getElementById('full-date').textContent = `${dayName} ${day} ${month} ${year}`;
+
+            // Short date: "23.01.2026"
+            const shortDay = String(day).padStart(2, '0');
+            const shortMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
+            document.getElementById('short-date').textContent = `${shortDay}.${shortMonth}.${year}`;
+        }
+
+        // Update special day display
+        function updateSpecialDay() {
+            if (!specialDaysData) return;
+
+            const month = currentDate.getMonth() + 1;
+            const day = currentDate.getDate();
+            const key = `${month}-${day}`;
+
+            const specialDay = specialDaysData.days[key] || 'No Special Day';
+            document.getElementById('special-day').textContent = `Today is ${specialDay}!`;
+        }
+
+        // Update daily think content
+        function updateDailyThink() {
+            if (!termData || !termData.weeks || !taskDefinitions) return;
+
+            const weekNumber = parseInt(document.getElementById('week-select').value);
+            const dayOfWeek = currentDate.getDay();
+            const dayName = dayNames[dayOfWeek];
+
+            // Get the week data
+            const weekData = termData.weeks.find(w => w.weekNumber === weekNumber);
+            if (!weekData || !weekData[dayName]) {
+                displayNoActivity();
+                return;
+            }
+
+            const dayData = weekData[dayName];
+
+            // Merge task definitions with day data
+            const wordTask = taskDefinitions.wordTasks[dayName];
+            const numberTask = taskDefinitions.numberTasks[dayName];
+            const dailyActivityDef = taskDefinitions.dailyActivities[dayName];
+
+            // Update Word of the Day
+            document.getElementById('word').textContent = dayData.word.word;
+            document.getElementById('word-part-of-speech').textContent = `(${dayData.word.partOfSpeech})`;
+            document.getElementById('word-definition').textContent = dayData.word.definition;
+            document.getElementById('word-task-type').textContent = wordTask.type;
+            document.getElementById('word-task-instruction').textContent = wordTask.instruction;
+            
+            // Show word task challenge if available (for Wednesday Draw It)
+            const wordChallengeContainer = document.getElementById('word-task-challenge');
+            if (wordTask.challenge) {
+                wordChallengeContainer.querySelector('p:last-child').textContent = wordTask.challenge;
+                wordChallengeContainer.classList.remove('hidden');
+            } else {
+                wordChallengeContainer.classList.add('hidden');
+            }
+
+            // Update Number of the Day
+            const numberElement = document.getElementById('number');
+            const numberDisplay = document.getElementById('number-display');
+            const actualNumber = dayData.number;
+            
+            // Check if it's Friday (day 5) and has a riddle
+            const isFriday = dayName === 'friday';
+            const hasRiddle = dayData.numberDetails && dayData.numberDetails.length > 0;
+            
+            if (isFriday && hasRiddle) {
+                // Show question mark initially, toggle on click
+                let revealed = false;
+                numberElement.textContent = '?';
+                numberDisplay.style.cursor = 'pointer';
+                
+                // Remove old click listeners
+                const newNumberDisplay = numberDisplay.cloneNode(true);
+                numberDisplay.parentNode.replaceChild(newNumberDisplay, numberDisplay);
+                
+                newNumberDisplay.addEventListener('click', function() {
+                    const num = document.getElementById('number');
+                    if (!revealed) {
+                        num.textContent = actualNumber;
+                        revealed = true;
+                    } else {
+                        num.textContent = '?';
+                        revealed = false;
+                    }
+                });
+            } else {
+                // Not Friday or no riddle - show number normally
+                numberElement.textContent = actualNumber;
+                numberDisplay.style.cursor = 'default';
+            }
+            
+            document.getElementById('number-task-type').textContent = numberTask.type;
+            
+            // Use numberDetails if provided (for Friday riddles), otherwise use default instruction
+            const numberInstruction = dayData.numberDetails || numberTask.instruction;
+            document.getElementById('number-task-instruction').textContent = numberInstruction;
+            
+            // Show example if available (not on Friday which has custom challenge)
+            const exampleContainer = document.getElementById('number-task-example');
+            if (numberTask.example && !dayData.numberDetails) {
+                exampleContainer.querySelector('p:last-child').textContent = numberTask.example;
+                exampleContainer.classList.remove('hidden');
+            } else {
+                exampleContainer.classList.add('hidden');
+            }
+
+            // Update Daily Activity
+            document.getElementById('daily-activity-type').textContent = dailyActivityDef.type;
+            document.getElementById('daily-activity-prompt').textContent = dayData.dailyActivity.prompt;
+            
+            // Use specific instruction if provided in day data, otherwise use default from definitions
+            const instruction = dayData.dailyActivity.details || dailyActivityDef.instruction;
+            document.getElementById('daily-activity-instruction').textContent = instruction;
+
+            // Show challenge if available (for Wednesday Quick Write)
+            const challengeContainer = document.getElementById('daily-activity-challenge');
+            if (dailyActivityDef.challenge) {
+                challengeContainer.querySelector('p:last-child').textContent = dailyActivityDef.challenge;
+                challengeContainer.classList.remove('hidden');
+            } else {
+                challengeContainer.classList.add('hidden');
+            }
+
+            // Show answer button for Fact or Fiction only
+            const answerBtn = document.getElementById('show-answer-btn');
+            const modalAnswerText = document.getElementById('modal-answer-text');
+            
+            if (dayData.dailyActivity.answer) {
+                modalAnswerText.textContent = dayData.dailyActivity.answer;
+                answerBtn.classList.remove('hidden');
+            } else {
+                answerBtn.classList.add('hidden');
+            }
+        }
+
+        // Show answer modal
+        function showAnswerModal() {
+            document.getElementById('answer-modal').classList.remove('hidden');
+        }
+
+        // Close answer modal
+        function closeAnswerModal() {
+            document.getElementById('answer-modal').classList.add('hidden');
+        }
+
+        // Display message when no activity available
+        function displayNoActivity() {
+            document.getElementById('word').textContent = 'No Data';
+            document.getElementById('word-definition').textContent = 'No activity scheduled for this day.';
+            document.getElementById('word-task-type').textContent = '';
+            document.getElementById('word-task-instruction').textContent = '';
+            
+            document.getElementById('number').textContent = '---';
+            document.getElementById('number-task-type').textContent = '';
+            document.getElementById('number-task-instruction').textContent = '';
+            
+            document.getElementById('daily-activity-type').textContent = 'No Activity';
+            document.getElementById('daily-activity-prompt').textContent = '';
+            document.getElementById('daily-activity-instruction').textContent = 'No activity scheduled for this day.';
+            document.getElementById('daily-activity-answer').classList.add('hidden');
+        }
+
+        // Toggle between Daily Think and Morning Routine modes
+        function toggleMode() {
+            const dailyThinkContent = document.getElementById('daily-think-content');
+            const morningRoutineContent = document.getElementById('morning-routine-content');
+            const toggleBtn = document.getElementById('mode-toggle');
+
+            if (dailyThinkContent.classList.contains('hidden')) {
+                // Switch to Daily Think mode
+                dailyThinkContent.classList.remove('hidden');
+                morningRoutineContent.classList.add('hidden');
+                toggleBtn.textContent = 'Morning Routine';
+            } else {
+                // Switch to Morning Routine mode
+                dailyThinkContent.classList.add('hidden');
+                morningRoutineContent.classList.remove('hidden');
+                toggleBtn.textContent = 'Daily Think';
+                updateMorningRoutine();
+            }
+        }
+
+        // Update morning routine content
+        function updateMorningRoutine() {
+            if (!termData || !termData.weeks || !specialDaysData) return;
+
+            const weekNumber = parseInt(document.getElementById('week-select').value);
+            const dayOfWeek = currentDate.getDay();
+            const dayName = dayNames[dayOfWeek];
+
+            // Update special day
+            const month = currentDate.getMonth() + 1;
+            const day = currentDate.getDate();
+            const key = `${month}-${day}`;
+            const specialDay = specialDaysData.days[key] || 'No Special Day';
+            document.getElementById('routine-special-day').textContent = `Today is ${specialDay}!`;
+
+            // Get the week data
+            const weekData = termData.weeks.find(w => w.weekNumber === weekNumber);
+            if (!weekData || !weekData[dayName]) return;
+
+            const dayData = weekData[dayName];
+
+            // Update word of the day
+            document.getElementById('routine-word').textContent = dayData.word.word;
+            document.getElementById('routine-word-pos').textContent = `(${dayData.word.partOfSpeech})`;
+
+            // Update number and place value chart
+            createPlaceValueChart(dayData.number);
+        }
+
+        // Create place value chart for a number
+        function createPlaceValueChart(numberStr) {
+            const chartContainer = document.getElementById('place-value-chart');
+            
+            // Handle fractions differently
+            if (numberStr.includes('/')) {
+                chartContainer.innerHTML = `<p class="text-6xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>`;
+                return;
+            }
+
+            // Handle decimals and whole numbers
+            const hasDecimal = numberStr.includes('.');
+            const cleanNumber = numberStr.replace(/,/g, '');
+            
+            if (hasDecimal) {
+                const [whole, decimal] = cleanNumber.split('.');
+                chartContainer.innerHTML = `
+                    <div class="flex justify-center items-center gap-2 text-2xl mb-4">
+                        ${createPlaceValueBoxes(whole)}
+                        <span class="text-4xl font-bold text-green-600 dark:text-green-400">.</span>
+                        ${createDecimalPlaceValueBoxes(decimal)}
+                    </div>
+                    <p class="text-3xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>
+                `;
+            } else {
+                chartContainer.innerHTML = `
+                    <div class="flex justify-center items-center gap-2 text-2xl mb-4">
+                        ${createPlaceValueBoxes(cleanNumber)}
+                    </div>
+                    <p class="text-3xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>
+                `;
+            }
+        }
+
+        // Create place value boxes for whole numbers
+        function createPlaceValueBoxes(numberStr) {
+            const placeNames = ['Ones', 'Tens', 'Hundreds', 'Thousands', 'Ten Th.', 'Hundred Th.', 'Millions', 'Ten M.'];
+            const digits = numberStr.split('').reverse();
+            
+            let html = '';
+            for (let i = digits.length - 1; i >= 0; i--) {
+                const showComma = (i === 2 || i === 5) && i < digits.length - 1;
+                html += `
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-100 dark:bg-green-900/30 border-2 border-green-400 rounded px-3 py-2 min-w-[60px]">
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">${digits[i]}</div>
+                        </div>
+                        <div class="text-sm mt-1 text-gray-600 dark:text-gray-400">${placeNames[i] || ''}</div>
+                    </div>
+                    ${showComma ? '<span class="text-3xl font-bold text-green-600 dark:text-green-400 self-start mt-2">,</span>' : ''}
+                `;
+            }
+            return html;
+        }
+
+        // Create place value boxes for decimal places
+        function createDecimalPlaceValueBoxes(decimalStr) {
+            const placeNames = ['Tenths', 'Hundredths', 'Thousandths'];
+            const digits = decimalStr.split('');
+            
+            let html = '';
+            for (let i = 0; i < digits.length; i++) {
+                html += `
+                    <div class="flex flex-col items-center">
+                        <div class="bg-green-100 dark:bg-green-900/30 border-2 border-green-400 rounded px-3 py-2 min-w-[60px]">
+                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">${digits[i]}</div>
+                        </div>
+                        <div class="text-sm mt-1 text-gray-600 dark:text-gray-400">${placeNames[i] || ''}</div>
+                    </div>
+                `;
+            }
+            return html;
+        }
+
+        // Setup announcements editing functionality
+        function setupAnnouncementsEditing() {
+            const contentDiv = document.getElementById('announcements-content');
+            
+            // Load saved announcements
+            const savedAnnouncements = ClassroomUtils.getFromStorage('dailyThinkAnnouncements', '');
+            if (savedAnnouncements) {
+                contentDiv.innerHTML = savedAnnouncements;
+            }
+
+            // Click to edit
+            contentDiv.addEventListener('click', function() {
+                const currentHTML = this.innerHTML;
+                const textarea = document.createElement('textarea');
+                textarea.className = 'w-full h-full min-h-[200px] p-4 text-xl border-2 border-orange-400 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300';
+                textarea.value = currentHTML.replace(/<br>/g, '\n').replace(/<[^>]*>/g, '');
+                
+                // Replace content with textarea
+                this.innerHTML = '';
+                this.appendChild(textarea);
+                textarea.focus();
+
+                // Save on blur
+                textarea.addEventListener('blur', function() {
+                    const text = this.value.trim();
+                    if (text === '') {
+                        contentDiv.innerHTML = '<p class="text-gray-400 dark:text-gray-500 italic">Click here to add announcements...</p>';
+                    } else {
+                        // Convert line breaks to <br> and wrap paragraphs
+                        const formatted = text.split('\n').map(line => `<p>${line || '&nbsp;'}</p>`).join('');
+                        contentDiv.innerHTML = formatted;
+                    }
+                    ClassroomUtils.saveToStorage('dailyThinkAnnouncements', contentDiv.innerHTML);
+                });
+
+                // Save on Ctrl+Enter
+                textarea.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey && e.key === 'Enter') {
+                        this.blur();
+                    }
+                });
+            });
+        }
+
+        // Start the app
+        init();
+    </script>
+
+</body>
+</html>
