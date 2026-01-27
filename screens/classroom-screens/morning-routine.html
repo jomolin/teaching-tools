@@ -37,20 +37,24 @@
     </div>
 
     <!-- Header Row -->
-    <div class="flex gap-5 flex-wrap items-stretch">
+    <div class="flex gap-3 flex-wrap items-stretch">
         <!-- Left Column: Selectors + Music -->
-        <div class="flex flex-col gap-3">
-            <!-- Term/Week Selectors -->
-            <div class="flex gap-3 items-center opacity-50 hover:opacity-100 transition-opacity">
-                <select id="term-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+        <div class="flex flex-col gap-2">
+            <!-- Term/Week Selectors + Mode Toggle in same row -->
+            <div class="flex gap-2 items-center opacity-50 hover:opacity-100 transition-opacity">
+                <select id="term-select" class="px-2 py-1 text-xs rounded bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-primary focus:border-transparent">
                     <option value="1">Term 1</option>
                     <option value="2">Term 2</option>
                     <option value="3">Term 3</option>
                     <option value="4">Term 4</option>
                 </select>
-                <select id="week-select" class="px-3 py-2 text-sm rounded-lg bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 focus:ring-2 focus:ring-primary focus:border-transparent">
+                <select id="week-select" class="px-2 py-1 text-xs rounded bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 focus:ring-1 focus:ring-primary focus:border-transparent">
                     <!-- Will be populated 1-11 -->
                 </select>
+                <!-- Mode Toggle Button -->
+                <button id="mode-toggle" class="px-3 py-1 bg-primary hover:bg-primary-dark text-white rounded text-xs font-bold transition-colors whitespace-nowrap">
+                    Morning Routine
+                </button>
             </div>
             <!-- Music Player -->
             <div class="music-player-widget"></div>
@@ -76,13 +80,8 @@
             </div>
         </div>
 
-        <!-- Mode Toggle + Simple Timer (right) -->
-        <div class="flex flex-col gap-3">
-            <button id="mode-toggle" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded-lg font-bold text-sm transition-colors">
-                Morning Routine
-            </button>
-            <div class="simple-timer-widget" data-time="20:00"></div>
-        </div>
+        <!-- Simple Timer (right) -->
+        <div class="simple-timer-widget" data-time="20:00"></div>
     </div>
 
     <!-- Main Content: Two Columns -->
@@ -185,24 +184,24 @@
     </div>
 
     <!-- Morning Routine Content (hidden by default) -->
-    <div id="morning-routine-content" class="hidden flex-1 flex flex-col gap-5 min-h-0">
+    <div id="morning-routine-content" class="hidden flex-1 flex flex-col gap-3 min-h-0">
         <!-- Special Day -->
-        <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm">
-            <p id="routine-special-day" class="text-3xl font-bold text-center text-primary dark:text-blue-400"></p>
+        <div class="bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-3 shadow-sm">
+            <p id="routine-special-day" class="text-2xl font-bold text-center text-primary dark:text-blue-400"></p>
         </div>
 
         <!-- Word and Number Row -->
-        <div class="flex gap-5">
+        <div class="flex gap-3">
             <!-- Word of the Day -->
-            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm text-center">
-                <h2 class="text-2xl font-bold text-primary dark:text-blue-400 mb-4">Word of the Day</h2>
-                <p id="routine-word" class="text-6xl font-bold mb-2"></p>
-                <p id="routine-word-pos" class="text-2xl text-gray-500 dark:text-gray-400 italic"></p>
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm text-center">
+                <h2 class="text-xl font-bold text-primary dark:text-blue-400 mb-2">Word of the Day</h2>
+                <p id="routine-word" class="text-5xl font-bold mb-1"></p>
+                <p id="routine-word-pos" class="text-lg text-gray-500 dark:text-gray-400 italic"></p>
             </div>
 
             <!-- Number of the Day - Place Value Chart -->
-            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm">
-                <h2 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-4 text-center">Number of the Day</h2>
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm">
+                <h2 class="text-xl font-bold text-green-600 dark:text-green-400 mb-2 text-center">Number of the Day</h2>
                 <div id="place-value-chart" class="text-center">
                     <!-- Will be populated by JavaScript -->
                 </div>
@@ -210,16 +209,16 @@
         </div>
 
         <!-- Morning Routine Instructions and Announcements -->
-        <div class="flex-1 flex gap-5 min-h-0">
+        <div class="flex-1 flex gap-3 min-h-0">
             <!-- Morning Routine Instructions -->
-            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm overflow-y-auto">
-                <h2 class="text-3xl font-bold text-primary dark:text-blue-400 mb-4 text-center">Morning Routine</h2>
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm overflow-y-auto">
+                <h2 class="text-2xl font-bold text-primary dark:text-blue-400 mb-3 text-center">Morning Routine</h2>
                 
-                <div class="space-y-6">
+                <div class="space-y-4">
                     <!-- Before the Bell -->
                     <div>
-                        <h3 class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-3">Before the Bell:</h3>
-                        <ol class="list-decimal list-inside space-y-2 text-xl text-gray-700 dark:text-gray-300">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">Before the Bell:</h3>
+                        <ol class="list-decimal list-inside space-y-1 text-lg text-gray-700 dark:text-gray-300">
                             <li>Put your bag in the cloakroom</li>
                             <li>Put on your hat</li>
                             <li>Go outside until the bell rings</li>
@@ -229,8 +228,8 @@
 
                     <!-- After the Bell -->
                     <div>
-                        <h3 class="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-3">After the Bell:</h3>
-                        <ol class="list-decimal list-inside space-y-2 text-xl text-gray-700 dark:text-gray-300">
+                        <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">After the Bell:</h3>
+                        <ol class="list-decimal list-inside space-y-1 text-lg text-gray-700 dark:text-gray-300">
                             <li>Line up quietly outside your classroom</li>
                             <li>Leave shoes outside with toes to the wall</li>
                             <li>Walk quietly to your seat</li>
@@ -240,18 +239,18 @@
                     </div>
 
                     <!-- Weather Reminder -->
-                    <div class="p-3 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded text-lg text-yellow-800 dark:text-yellow-200">
+                    <div class="p-2 bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-400 rounded text-base text-yellow-800 dark:text-yellow-200">
                         <strong>Remember:</strong> Students should only be inside on days when the weather is really bad!
                     </div>
                 </div>
             </div>
 
             <!-- Today's Announcements (Editable) -->
-            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm overflow-y-auto">
-                <h2 class="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-4 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-2" id="announcements-title">
+            <div class="flex-1 bg-white dark:bg-gray-900 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-4 shadow-sm overflow-y-auto">
+                <h2 class="text-2xl font-bold text-orange-600 dark:text-orange-400 mb-3 text-center cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-2" id="announcements-title">
                     Today's Announcements
                 </h2>
-                <div id="announcements-content" class="text-xl text-gray-700 dark:text-gray-300 leading-relaxed cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-4 min-h-[200px]">
+                <div id="announcements-content" class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-3 min-h-[150px]">
                     <p class="text-gray-400 dark:text-gray-500 italic">Click here to add announcements...</p>
                 </div>
             </div>
@@ -611,7 +610,7 @@
             
             // Handle fractions differently
             if (numberStr.includes('/')) {
-                chartContainer.innerHTML = `<p class="text-6xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>`;
+                chartContainer.innerHTML = `<p class="text-5xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>`;
                 return;
             }
 
@@ -622,26 +621,26 @@
             if (hasDecimal) {
                 const [whole, decimal] = cleanNumber.split('.');
                 chartContainer.innerHTML = `
-                    <div class="flex justify-center items-center gap-2 text-2xl mb-4">
+                    <div class="flex justify-center items-center gap-1 text-lg mb-2">
                         ${createPlaceValueBoxes(whole)}
-                        <span class="text-4xl font-bold text-green-600 dark:text-green-400">.</span>
+                        <span class="text-3xl font-bold text-green-600 dark:text-green-400">.</span>
                         ${createDecimalPlaceValueBoxes(decimal)}
                     </div>
-                    <p class="text-3xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>
+                    <p class="text-2xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>
                 `;
             } else {
                 chartContainer.innerHTML = `
-                    <div class="flex justify-center items-center gap-2 text-2xl mb-4">
+                    <div class="flex justify-center items-center gap-1 text-lg mb-2">
                         ${createPlaceValueBoxes(cleanNumber)}
                     </div>
-                    <p class="text-3xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>
+                    <p class="text-2xl font-bold text-green-600 dark:text-green-400">${numberStr}</p>
                 `;
             }
         }
 
         // Create place value boxes for whole numbers
         function createPlaceValueBoxes(numberStr) {
-            const placeNames = ['Ones', 'Tens', 'Hundreds', 'Thousands', 'Ten Th.', 'Hundred Th.', 'Millions', 'Ten M.'];
+            const placeNames = ['Ones', 'Tens', 'Hund.', 'Thous.', 'Ten Th.', 'Hund. Th.', 'Mill.', 'Ten M.'];
             const digits = numberStr.split('').reverse();
             
             let html = '';
@@ -649,12 +648,12 @@
                 const showComma = (i === 2 || i === 5) && i < digits.length - 1;
                 html += `
                     <div class="flex flex-col items-center">
-                        <div class="bg-green-100 dark:bg-green-900/30 border-2 border-green-400 rounded px-3 py-2 min-w-[60px]">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">${digits[i]}</div>
+                        <div class="bg-green-100 dark:bg-green-900/30 border-2 border-green-400 rounded px-2 py-1 min-w-[50px]">
+                            <div class="text-2xl font-bold text-green-600 dark:text-green-400">${digits[i]}</div>
                         </div>
-                        <div class="text-sm mt-1 text-gray-600 dark:text-gray-400">${placeNames[i] || ''}</div>
+                        <div class="text-xs mt-1 text-gray-600 dark:text-gray-400">${placeNames[i] || ''}</div>
                     </div>
-                    ${showComma ? '<span class="text-3xl font-bold text-green-600 dark:text-green-400 self-start mt-2">,</span>' : ''}
+                    ${showComma ? '<span class="text-2xl font-bold text-green-600 dark:text-green-400 self-start mt-1">,</span>' : ''}
                 `;
             }
             return html;
@@ -662,17 +661,17 @@
 
         // Create place value boxes for decimal places
         function createDecimalPlaceValueBoxes(decimalStr) {
-            const placeNames = ['Tenths', 'Hundredths', 'Thousandths'];
+            const placeNames = ['Tenths', 'Hund.', 'Thous.'];
             const digits = decimalStr.split('');
             
             let html = '';
             for (let i = 0; i < digits.length; i++) {
                 html += `
                     <div class="flex flex-col items-center">
-                        <div class="bg-green-100 dark:bg-green-900/30 border-2 border-green-400 rounded px-3 py-2 min-w-[60px]">
-                            <div class="text-3xl font-bold text-green-600 dark:text-green-400">${digits[i]}</div>
+                        <div class="bg-green-100 dark:bg-green-900/30 border-2 border-green-400 rounded px-2 py-1 min-w-[50px]">
+                            <div class="text-2xl font-bold text-green-600 dark:text-green-400">${digits[i]}</div>
                         </div>
-                        <div class="text-sm mt-1 text-gray-600 dark:text-gray-400">${placeNames[i] || ''}</div>
+                        <div class="text-xs mt-1 text-gray-600 dark:text-gray-400">${placeNames[i] || ''}</div>
                     </div>
                 `;
             }
@@ -693,7 +692,7 @@
             contentDiv.addEventListener('click', function() {
                 const currentHTML = this.innerHTML;
                 const textarea = document.createElement('textarea');
-                textarea.className = 'w-full h-full min-h-[200px] p-4 text-xl border-2 border-orange-400 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300';
+                textarea.className = 'w-full h-full min-h-[150px] p-3 text-lg border-2 border-orange-400 rounded focus:outline-none focus:ring-2 focus:ring-orange-500 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300';
                 textarea.value = currentHTML.replace(/<br>/g, '\n').replace(/<[^>]*>/g, '');
                 
                 // Replace content with textarea
