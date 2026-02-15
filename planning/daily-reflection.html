@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Reflections - PCT Training</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    
+    <!-- Theme sync -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+            
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'theme') {
+                    if (e.newValue === 'dark') {
+                        document.documentElement.classList.add('dark');
+                    } else {
+                        document.documentElement.classList.remove('dark');
+                    }
+                }
+            });
+        })();
+    </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div class="max-w-4xl mx-auto px-6 py-6">
+        <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">Daily Reflections</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">PCT Training Reflection Tool</p>
+
+        <!-- Current Week Display -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100" id="weekTitle">This Week</h2>
+                <button onclick="showNewEntryForm()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">
+                    New Reflection
+                </button>
+            </div>
+            
+            <!-- Previous reflections for current week -->
+            <div id="currentWeekReflections" class="space-y-3"></div>
+            
+            <div id="noReflectionsMessage" class="text-center text-gray-500 dark:text-gray-400 py-8 hidden">
+                No reflections yet this week. Click "New Reflection" to add one.
+            </div>
+        </div>
+
+        <!-- New Entry Form (hidden by default) -->
+        <div id="newEntryForm" class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6 hidden">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">New Reflection</h3>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Date</label>
+                <input type="date" id="reflectionDate" 
+                       class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+            </div>
+
+            <!-- What went well -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">What went well today?</label>
+                <select id="wentWellDropdown" onchange="toggleCustomInput('wentWell')" 
+                        class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 mb-2">
+                    <option value="">-- Select or type your own --</option>
+                    <option value="Student engagement">Student engagement</option>
+                    <option value="Lesson pacing">Lesson pacing</option>
+                    <option value="Behavior management">Behavior management</option>
+                    <option value="Differentiation">Differentiation</option>
+                    <option value="Assessment">Assessment</option>
+                    <option value="Relationships">Relationships</option>
+                    <option value="custom">Type my own...</option>
+                </select>
+                <textarea id="wentWellText" rows="2" 
+                          class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 hidden"
+                          placeholder="Describe what went well..."></textarea>
+            </div>
+
+            <!-- Challenges -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">What challenges did you face?</label>
+                <select id="challengesDropdown" onchange="toggleCustomInput('challenges')" 
+                        class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 mb-2">
+                    <option value="">-- Select or type your own --</option>
+                    <option value="Time management">Time management</option>
+                    <option value="Student behavior">Student behavior</option>
+                    <option value="Differentiation">Differentiation</option>
+                    <option value="Resource preparation">Resource preparation</option>
+                    <option value="Curriculum coverage">Curriculum coverage</option>
+                    <option value="custom">Type my own...</option>
+                </select>
+                <textarea id="challengesText" rows="2" 
+                          class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 hidden"
+                          placeholder="Describe the challenges..."></textarea>
+            </div>
+
+            <!-- Improvements -->
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">What will you aim to improve?</label>
+                <select id="improvementsDropdown" onchange="toggleCustomInput('improvements')" 
+                        class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 mb-2">
+                    <option value="">-- Select or type your own --</option>
+                    <option value="Planning ahead">Planning ahead</option>
+                    <option value="Classroom management strategies">Classroom management strategies</option>
+                    <option value="Differentiation approaches">Differentiation approaches</option>
+                    <option value="Assessment methods">Assessment methods</option>
+                    <option value="Student relationships">Student relationships</option>
+                    <option value="custom">Type my own...</option>
+                </select>
+                <textarea id="improvementsText" rows="2" 
+                          class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 hidden"
+                          placeholder="Describe what you'll improve..."></textarea>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="saveReflection()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition-colors">
+                    Save Reflection
+                </button>
+                <button onclick="cancelNewEntry()" class="px-4 py-2 bg-gray-600 hover:bg-gray-700 text-white font-semibold rounded-md transition-colors">
+                    Cancel
+                </button>
+            </div>
+        </div>
+
+        <!-- Export Section -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 mb-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Export for PCT Reflection</h3>
+            
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Select Week to Export</label>
+                <select id="weekSelector" 
+                        class="w-full p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                    <option value="current">Current Week (Auto-detect)</option>
+                </select>
+            </div>
+
+            <button onclick="exportWeek()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">
+                Copy Week Data
+            </button>
+
+            <div id="exportOutput" class="mt-4 hidden">
+                <div class="flex justify-between items-center mb-2">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">Exported Data (Ready for Claude Project)</label>
+                    <button onclick="copyExportData()" class="px-3 py-1 bg-gray-600 hover:bg-gray-700 text-white text-sm font-semibold rounded transition-colors">
+                        Copy to Clipboard
+                    </button>
+                </div>
+                <pre id="exportText" class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-96 overflow-y-auto text-gray-900 dark:text-gray-100"></pre>
+            </div>
+        </div>
+
+        <!-- Data Management -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-4">Data Management</h3>
+            <div class="flex gap-3 flex-wrap">
+                <button onclick="downloadAllData()" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition-colors">
+                    Download All Data
+                </button>
+                <button onclick="document.getElementById('importFile').click()" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors">
+                    Import Data
+                </button>
+                <button onclick="clearAllData()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md transition-colors">
+                    Clear All Data
+                </button>
+                <input type="file" id="importFile" accept=".json" class="hidden" onchange="importData(event)">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'pct-reflections';
+        let reflections = [];
+
+        // Initialize
+        function init() {
+            loadReflections();
+            setTodayDate();
+            renderCurrentWeek();
+            populateWeekSelector();
+        }
+
+        // Load reflections from localStorage
+        function loadReflections() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            reflections = saved ? JSON.parse(saved) : [];
+        }
+
+        // Save reflections to localStorage
+        function saveReflectionsToStorage() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(reflections));
+        }
+
+        // Set today's date in the form
+        function setTodayDate() {
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('reflectionDate').value = today;
+        }
+
+        // Get Monday of a given date
+        function getMondayOfWeek(date) {
+            const d = new Date(date);
+            const day = d.getDay();
+            const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+            return new Date(d.setDate(diff));
+        }
+
+        // Get Friday of a given date
+        function getFridayOfWeek(date) {
+            const monday = getMondayOfWeek(date);
+            return new Date(monday.getTime() + 4 * 24 * 60 * 60 * 1000);
+        }
+
+        // Format date as YYYY-MM-DD
+        function formatDate(date) {
+            return date.toISOString().split('T')[0];
+        }
+
+        // Format date as readable string
+        function formatReadableDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00');
+            return date.toLocaleDateString('en-NZ', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+
+        // Get current week's date range
+        function getCurrentWeekRange() {
+            const today = new Date();
+            const monday = getMondayOfWeek(today);
+            const friday = getFridayOfWeek(today);
+            
+            // If today is Saturday or Sunday, get next week
+            if (today.getDay() === 0 || today.getDay() === 6) {
+                monday.setDate(monday.getDate() + 7);
+                friday.setDate(friday.getDate() + 7);
+            }
+            
+            return { start: formatDate(monday), end: formatDate(friday) };
+        }
+
+        // Get week range for a specific date
+        function getWeekRange(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00');
+            const monday = getMondayOfWeek(date);
+            const friday = getFridayOfWeek(date);
+            return { start: formatDate(monday), end: formatDate(friday) };
+        }
+
+        // Render current week's reflections
+        function renderCurrentWeek() {
+            const { start, end } = getCurrentWeekRange();
+            const weekReflections = reflections.filter(r => r.date >= start && r.date <= end);
+            
+            weekReflections.sort((a, b) => a.date.localeCompare(b.date));
+            
+            const container = document.getElementById('currentWeekReflections');
+            const noMessage = document.getElementById('noReflectionsMessage');
+            
+            if (weekReflections.length === 0) {
+                container.innerHTML = '';
+                noMessage.classList.remove('hidden');
+                document.getElementById('weekTitle').textContent = `This Week (${formatReadableDate(start)} - ${formatReadableDate(end)})`;
+                return;
+            }
+            
+            noMessage.classList.add('hidden');
+            document.getElementById('weekTitle').textContent = `This Week (${formatReadableDate(start)} - ${formatReadableDate(end)})`;
+            
+            container.innerHTML = weekReflections.map((r, index) => `
+                <div class="border-l-4 border-blue-500 bg-gray-50 dark:bg-gray-700 p-4 rounded-r">
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="font-semibold text-gray-900 dark:text-gray-100">${formatReadableDate(r.date)}</div>
+                        <button onclick="deleteReflection('${r.date}')" class="text-red-600 hover:text-red-700 text-sm">Delete</button>
+                    </div>
+                    <div class="space-y-2 text-sm">
+                        <div><strong class="text-green-600 dark:text-green-400">What went well:</strong> <span class="text-gray-900 dark:text-gray-100">${r.wentWell}</span></div>
+                        <div><strong class="text-orange-600 dark:text-orange-400">Challenges:</strong> <span class="text-gray-900 dark:text-gray-100">${r.challenges}</span></div>
+                        <div><strong class="text-blue-600 dark:text-blue-400">Improvements:</strong> <span class="text-gray-900 dark:text-gray-100">${r.improvements}</span></div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Populate week selector
+        function populateWeekSelector() {
+            const selector = document.getElementById('weekSelector');
+            
+            // Get all unique weeks from reflections
+            const weeks = new Set();
+            reflections.forEach(r => {
+                const { start } = getWeekRange(r.date);
+                weeks.add(start);
+            });
+            
+            // Sort weeks descending (most recent first)
+            const sortedWeeks = Array.from(weeks).sort((a, b) => b.localeCompare(a));
+            
+            // Clear existing options except current week
+            selector.innerHTML = '<option value="current">Current Week (Auto-detect)</option>';
+            
+            // Add historical weeks
+            sortedWeeks.forEach(weekStart => {
+                const { start, end } = getWeekRange(weekStart);
+                const option = document.createElement('option');
+                option.value = weekStart;
+                option.textContent = `Week of ${formatReadableDate(start)}`;
+                selector.appendChild(option);
+            });
+        }
+
+        // Toggle custom input
+        function toggleCustomInput(field) {
+            const dropdown = document.getElementById(`${field}Dropdown`);
+            const textarea = document.getElementById(`${field}Text`);
+            
+            if (dropdown.value === 'custom') {
+                textarea.classList.remove('hidden');
+                textarea.focus();
+            } else {
+                textarea.classList.add('hidden');
+                textarea.value = '';
+            }
+        }
+
+        // Show new entry form
+        function showNewEntryForm() {
+            document.getElementById('newEntryForm').classList.remove('hidden');
+            setTodayDate();
+        }
+
+        // Cancel new entry
+        function cancelNewEntry() {
+            document.getElementById('newEntryForm').classList.add('hidden');
+            
+            // Reset form
+            document.getElementById('wentWellDropdown').value = '';
+            document.getElementById('challengesDropdown').value = '';
+            document.getElementById('improvementsDropdown').value = '';
+            document.getElementById('wentWellText').classList.add('hidden');
+            document.getElementById('challengesText').classList.add('hidden');
+            document.getElementById('improvementsText').classList.add('hidden');
+            document.getElementById('wentWellText').value = '';
+            document.getElementById('challengesText').value = '';
+            document.getElementById('improvementsText').value = '';
+            setTodayDate();
+        }
+
+        // Save reflection
+        function saveReflection() {
+            const date = document.getElementById('reflectionDate').value;
+            
+            // Get values from dropdowns or text areas
+            const wentWellDropdown = document.getElementById('wentWellDropdown').value;
+            const wentWell = wentWellDropdown === 'custom' 
+                ? document.getElementById('wentWellText').value 
+                : wentWellDropdown;
+                
+            const challengesDropdown = document.getElementById('challengesDropdown').value;
+            const challenges = challengesDropdown === 'custom' 
+                ? document.getElementById('challengesText').value 
+                : challengesDropdown;
+                
+            const improvementsDropdown = document.getElementById('improvementsDropdown').value;
+            const improvements = improvementsDropdown === 'custom' 
+                ? document.getElementById('improvementsText').value 
+                : improvementsDropdown;
+            
+            // Validation
+            if (!date) {
+                alert('Please select a date');
+                return;
+            }
+            
+            if (!wentWell || !challenges || !improvements) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Check if reflection for this date already exists
+            const existingIndex = reflections.findIndex(r => r.date === date);
+            
+            const reflection = {
+                date,
+                wentWell,
+                challenges,
+                improvements,
+                timestamp: new Date().toISOString()
+            };
+            
+            if (existingIndex >= 0) {
+                if (confirm('A reflection for this date already exists. Overwrite it?')) {
+                    reflections[existingIndex] = reflection;
+                } else {
+                    return;
+                }
+            } else {
+                reflections.push(reflection);
+            }
+            
+            saveReflectionsToStorage();
+            renderCurrentWeek();
+            populateWeekSelector();
+            cancelNewEntry();
+            
+            // Notify Chrome extension that reflection was completed
+            if (typeof chrome !== 'undefined' && chrome.runtime && chrome.runtime.sendMessage) {
+                chrome.runtime.sendMessage({ action: 'reflectionCompleted' }, () => {
+                    // Extension notified
+                });
+            }
+        }
+
+        // Delete reflection
+        function deleteReflection(date) {
+            if (!confirm('Delete this reflection?')) return;
+            
+            reflections = reflections.filter(r => r.date !== date);
+            saveReflectionsToStorage();
+            renderCurrentWeek();
+            populateWeekSelector();
+        }
+
+        // Export week
+        function exportWeek() {
+            const selector = document.getElementById('weekSelector');
+            const selectedValue = selector.value;
+            
+            let weekRange;
+            if (selectedValue === 'current') {
+                weekRange = getCurrentWeekRange();
+            } else {
+                weekRange = getWeekRange(selectedValue);
+            }
+            
+            const weekReflections = reflections.filter(r => r.date >= weekRange.start && r.date <= weekRange.end);
+            weekReflections.sort((a, b) => a.date.localeCompare(b.date));
+            
+            if (weekReflections.length === 0) {
+                alert('No reflections found for this week');
+                return;
+            }
+            
+            // Format for Claude
+            let exportText = `PCT REFLECTIONS - Week of ${formatReadableDate(weekRange.start)}\n`;
+            exportText += `Date Range: ${formatReadableDate(weekRange.start)} to ${formatReadableDate(weekRange.end)}\n`;
+            exportText += `Number of Days: ${weekReflections.length}\n\n`;
+            exportText += `=".repeat(70)}\n\n`;
+            
+            weekReflections.forEach(r => {
+                exportText += `DATE: ${formatReadableDate(r.date)}\n\n`;
+                exportText += `What went well:\n${r.wentWell}\n\n`;
+                exportText += `Challenges faced:\n${r.challenges}\n\n`;
+                exportText += `Planned improvements:\n${r.improvements}\n\n`;
+                exportText += `${"-".repeat(70)}\n\n`;
+            });
+            
+            document.getElementById('exportText').textContent = exportText;
+            document.getElementById('exportOutput').classList.remove('hidden');
+        }
+
+        // Copy export data
+        function copyExportData() {
+            const text = document.getElementById('exportText').textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Copied to clipboard! You can now paste this into your Claude Project.');
+            });
+        }
+
+        // Download all data
+        function downloadAllData() {
+            const data = JSON.stringify(reflections, null, 2);
+            const blob = new Blob([data], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `pct-reflections-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Import data
+        function importData(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    
+                    if (!Array.isArray(imported)) {
+                        alert('Invalid file format');
+                        return;
+                    }
+                    
+                    if (confirm(`Import ${imported.length} reflections? This will merge with existing data.`)) {
+                        // Merge imported data with existing, avoiding duplicates by date
+                        imported.forEach(importedReflection => {
+                            const existingIndex = reflections.findIndex(r => r.date === importedReflection.date);
+                            if (existingIndex >= 0) {
+                                reflections[existingIndex] = importedReflection;
+                            } else {
+                                reflections.push(importedReflection);
+                            }
+                        });
+                        
+                        saveReflectionsToStorage();
+                        renderCurrentWeek();
+                        populateWeekSelector();
+                        alert('Data imported successfully!');
+                    }
+                } catch (err) {
+                    alert('Error importing file: ' + err.message);
+                }
+                
+                event.target.value = '';
+            };
+            reader.readAsText(file);
+        }
+
+        // Clear all data
+        function clearAllData() {
+            if (!confirm('Clear ALL reflections? This cannot be undone.')) return;
+            
+            reflections = [];
+            saveReflectionsToStorage();
+            renderCurrentWeek();
+            populateWeekSelector();
+            document.getElementById('exportOutput').classList.add('hidden');
+        }
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
