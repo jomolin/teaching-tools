@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Manager - Teaching Tools</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Theme sync - MUST be in head to prevent flash -->
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') document.documentElement.classList.add('dark');
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'theme') {
+                    if (e.newValue === 'dark') document.documentElement.classList.add('dark');
+                    else document.documentElement.classList.remove('dark');
+                }
+            });
+        })();
+    </script>
+
+    <style>
+        /* Drag-over highlight for reordering - can't do conditional borders in Tailwind */
+        .drag-over {
+            border-top: 3px solid #2563eb;
+        }
+        /* Line clamp for preview text */
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+
+    <div id="mainContent">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+
+            <!-- Header -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 dark:text-gray-100">List Manager</h1>
+                    <p class="text-gray-600 dark:text-gray-400 mt-1">Manage shared lists used across all classroom tools</p>
+                </div>
+                <div class="flex gap-2 flex-wrap">
+                    <button onclick="ListManager.createList()"
+                            class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors inline-flex items-center gap-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i> New List
+                    </button>
+                    <button onclick="ListManager.importLists()"
+                            class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold rounded-md transition-colors inline-flex items-center gap-2">
+                        <i data-lucide="upload" class="w-4 h-4"></i> Import
+                    </button>
+                    <button onclick="ListManager.exportLists()"
+                            class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold rounded-md transition-colors inline-flex items-center gap-2">
+                        <i data-lucide="download" class="w-4 h-4"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Stats Bar -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-6">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="statTotalLists">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Lists</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="statTotalItems">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Total Items</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-amber-600 dark:text-amber-400" id="statCategories">0</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Categories</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-gray-900 dark:text-gray-100" id="statStorageSize">0 KB</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-400">Storage Used</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter / Search Bar -->
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-6">
+                <div class="flex flex-wrap gap-3 items-center">
+                    <div class="relative flex-1 min-w-[200px]">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="searchInput" placeholder="Search lists..."
+                               oninput="ListManager.render()"
+                               class="w-full pl-10 pr-4 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    </div>
+                    <select id="categoryFilter" onchange="ListManager.render()"
+                            class="px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">All Categories</option>
+                    </select>
+                    <select id="sortOrder" onchange="ListManager.render()"
+                            class="px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="alpha">A &#8594; Z</option>
+                        <option value="alpha-desc">Z &#8594; A</option>
+                        <option value="items-desc">Most Items</option>
+                        <option value="items-asc">Fewest Items</option>
+                        <option value="category">By Category</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Lists Container -->
+            <div id="listsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Rendered by JS -->
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden text-center py-16">
+                <div class="text-gray-400 dark:text-gray-600 mb-4">
+                    <i data-lucide="list" class="w-16 h-16 mx-auto"></i>
+                </div>
+                <p class="text-xl font-semibold text-gray-500 dark:text-gray-400 mb-2">No lists yet</p>
+                <p class="text-gray-400 dark:text-gray-500 mb-6">Create a new list or import existing ones to get started.</p>
+                <button onclick="ListManager.createList()"
+                        class="px-6 py-3 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors inline-flex items-center gap-2">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Create First List
+                </button>
+            </div>
+
+            <!-- No Results State -->
+            <div id="noResults" class="hidden text-center py-16">
+                <div class="text-gray-400 dark:text-gray-600 mb-4">
+                    <i data-lucide="search-x" class="w-16 h-16 mx-auto"></i>
+                </div>
+                <p class="text-xl font-semibold text-gray-500 dark:text-gray-400">No lists match your search</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Edit List Modal -->
+    <div id="editModal" class="fixed inset-0 bg-black/50 flex items-center justify-center hidden z-50">
+        <div class="bg-white dark:bg-gray-800 rounded-xl p-6 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto shadow-2xl">
+            <h2 id="modalTitle" class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Edit List</h2>
+
+            <!-- List Name -->
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">List Name</label>
+                <input type="text" id="modalListName"
+                       class="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                       placeholder="e.g. Students 2026">
+            </div>
+
+            <!-- Category -->
+            <div class="mb-4">
+                <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1">Category</label>
+                <div class="flex gap-2">
+                    <select id="modalCategory"
+                            class="flex-1 px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="">Uncategorised</option>
+                    </select>
+                    <button onclick="ListManager.addNewCategory()"
+                            class="px-3 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 rounded-md transition-colors"
+                            title="Add new category">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Items -->
+            <div class="mb-4">
+                <div class="flex justify-between items-center mb-1">
+                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300">Items (one per line)</label>
+                    <span id="modalItemCount" class="text-sm text-gray-500 dark:text-gray-400">0 items</span>
+                </div>
+                <textarea id="modalItems" rows="12"
+                          oninput="ListManager.updateModalItemCount()"
+                          class="w-full px-3 py-2 rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-y"
+                          placeholder="Enter items, one per line..."></textarea>
+            </div>
+
+            <!-- Sort Items Button -->
+            <div class="mb-4 flex gap-2">
+                <button onclick="ListManager.sortModalItems('asc')"
+                        class="px-3 py-1.5 text-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 rounded-md transition-colors inline-flex items-center gap-1">
+                    <i data-lucide="arrow-down-a-z" class="w-3.5 h-3.5"></i> Sort A&#8594;Z
+                </button>
+                <button onclick="ListManager.sortModalItems('desc')"
+                        class="px-3 py-1.5 text-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 rounded-md transition-colors inline-flex items-center gap-1">
+                    <i data-lucide="arrow-up-z-a" class="w-3.5 h-3.5"></i> Sort Z&#8594;A
+                </button>
+                <button onclick="ListManager.removeDuplicates()"
+                        class="px-3 py-1.5 text-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 rounded-md transition-colors inline-flex items-center gap-1">
+                    <i data-lucide="filter" class="w-3.5 h-3.5"></i> Remove Duplicates
+                </button>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-3 mt-6">
+                <button onclick="ListManager.closeModal()"
+                        class="flex-1 bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold py-3 rounded-lg transition-colors">
+                    Cancel
+                </button>
+                <button onclick="ListManager.saveFromModal()"
+                        class="flex-1 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold py-3 rounded-lg transition-colors">
+                    Save
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden file input for import -->
+    <input type="file" id="importFileInput" accept=".json" class="hidden" onchange="ListManager.handleImport(event)">
+
+    <script>
+    /**
+     * List Manager - Central hub for managing shared lists
+     * Reads/writes to localStorage key 'randomPickerLists' (shared with random picker widget)
+     * Category metadata stored in 'listManagerCategories'
+     */
+    const ListManager = (function() {
+        'use strict';
+
+        const STORAGE_KEY = 'randomPickerLists';
+        const CATEGORIES_KEY = 'listManagerCategories';
+
+        // State
+        let lists = {};           // { "List Name": ["item1", "item2", ...], ... }
+        let categories = {};      // { "List Name": "Category Name", ... }
+        let editingListName = null; // Track which list is being edited (null = new list)
+
+        /**
+         * Initialise: load data and render
+         */
+        function init() {
+            loadData();
+            render();
+            lucide.createIcons();
+        }
+
+        /**
+         * Load lists from localStorage
+         */
+        function loadData() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                lists = stored ? JSON.parse(stored) : {};
+            } catch (e) {
+                console.error('Error loading lists:', e);
+                lists = {};
+            }
+
+            try {
+                const stored = localStorage.getItem(CATEGORIES_KEY);
+                categories = stored ? JSON.parse(stored) : {};
+            } catch (e) {
+                console.error('Error loading categories:', e);
+                categories = {};
+            }
+
+            // Clean up categories for lists that no longer exist
+            Object.keys(categories).forEach(name => {
+                if (!lists[name]) delete categories[name];
+            });
+        }
+
+        /**
+         * Save lists to localStorage
+         */
+        function saveLists() {
+            try {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(lists));
+            } catch (e) {
+                console.error('Error saving lists:', e);
+                alert('Error saving lists. Storage may be full.');
+            }
+        }
+
+        /**
+         * Save category metadata to localStorage
+         */
+        function saveCategories() {
+            try {
+                localStorage.setItem(CATEGORIES_KEY, JSON.stringify(categories));
+            } catch (e) {
+                console.error('Error saving categories:', e);
+            }
+        }
+
+        /**
+         * Get unique category names sorted alphabetically
+         */
+        function getUniqueCategories() {
+            const cats = new Set(Object.values(categories).filter(c => c && c.trim()));
+            return [...cats].sort((a, b) => a.localeCompare(b));
+        }
+
+        /**
+         * Get filtered and sorted list names based on current UI state
+         */
+        function getFilteredLists() {
+            const search = document.getElementById('searchInput').value.toLowerCase().trim();
+            const catFilter = document.getElementById('categoryFilter').value;
+            const sortOrder = document.getElementById('sortOrder').value;
+
+            let names = Object.keys(lists);
+
+            // Filter by search
+            if (search) {
+                names = names.filter(name => {
+                    const nameMatch = name.toLowerCase().includes(search);
+                    const itemMatch = lists[name].some(item => item.toLowerCase().includes(search));
+                    const catMatch = (categories[name] || '').toLowerCase().includes(search);
+                    return nameMatch || itemMatch || catMatch;
+                });
+            }
+
+            // Filter by category
+            if (catFilter) {
+                if (catFilter === '__uncategorised__') {
+                    names = names.filter(name => !categories[name] || !categories[name].trim());
+                } else {
+                    names = names.filter(name => categories[name] === catFilter);
+                }
+            }
+
+            // Sort
+            switch (sortOrder) {
+                case 'alpha':
+                    names.sort((a, b) => a.localeCompare(b));
+                    break;
+                case 'alpha-desc':
+                    names.sort((a, b) => b.localeCompare(a));
+                    break;
+                case 'items-desc':
+                    names.sort((a, b) => (lists[b]?.length || 0) - (lists[a]?.length || 0));
+                    break;
+                case 'items-asc':
+                    names.sort((a, b) => (lists[a]?.length || 0) - (lists[b]?.length || 0));
+                    break;
+                case 'category':
+                    names.sort((a, b) => {
+                        const catA = categories[a] || 'zzz'; // uncategorised last
+                        const catB = categories[b] || 'zzz';
+                        if (catA !== catB) return catA.localeCompare(catB);
+                        return a.localeCompare(b);
+                    });
+                    break;
+            }
+
+            return names;
+        }
+
+        /**
+         * Main render function
+         */
+        function render() {
+            updateCategoryFilter();
+            updateStats();
+
+            const container = document.getElementById('listsContainer');
+            const emptyState = document.getElementById('emptyState');
+            const noResults = document.getElementById('noResults');
+            const allNames = Object.keys(lists);
+            const filteredNames = getFilteredLists();
+
+            // Show/hide states
+            if (allNames.length === 0) {
+                container.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                noResults.classList.add('hidden');
+                lucide.createIcons();
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            if (filteredNames.length === 0) {
+                container.classList.add('hidden');
+                noResults.classList.remove('hidden');
+                lucide.createIcons();
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            container.classList.remove('hidden');
+
+            // Build list cards
+            container.innerHTML = filteredNames.map(name => {
+                const items = lists[name] || [];
+                const cat = categories[name] || '';
+                const preview = items.slice(0, 5).map(i => escapeHTML(i)).join(', ');
+                const remaining = items.length > 5 ? ` +${items.length - 5} more` : '';
+
+                return `
+                <div class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <div class="flex items-start justify-between gap-2 mb-2">
+                        <div class="min-w-0">
+                            <h3 class="text-lg font-bold text-gray-900 dark:text-gray-100 truncate">${escapeHTML(name)}</h3>
+                            ${cat ? `<span class="inline-block text-xs font-medium px-2 py-0.5 rounded-full bg-blue-100 dark:bg-blue-900 dark:bg-opacity-40 text-blue-700 dark:text-blue-300 mt-1">${escapeHTML(cat)}</span>` : ''}
+                        </div>
+                        <span class="text-sm font-semibold text-gray-500 dark:text-gray-400 whitespace-nowrap">${items.length} item${items.length !== 1 ? 's' : ''}</span>
+                    </div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 line-clamp-2">${preview}<span class="text-gray-400 dark:text-gray-500">${remaining}</span></p>
+                    <div class="flex gap-2 flex-wrap">
+                        <button onclick="ListManager.editList('${escapeAttr(name)}')"
+                                class="px-3 py-1.5 text-sm bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors inline-flex items-center gap-1">
+                            <i data-lucide="edit-3" class="w-3.5 h-3.5"></i> Edit
+                        </button>
+                        <button onclick="ListManager.duplicateList('${escapeAttr(name)}')"
+                                class="px-3 py-1.5 text-sm bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-medium rounded-md transition-colors inline-flex items-center gap-1">
+                            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Duplicate
+                        </button>
+                        <button onclick="ListManager.deleteList('${escapeAttr(name)}')"
+                                class="px-3 py-1.5 text-sm bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-medium rounded-md transition-colors inline-flex items-center gap-1">
+                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Delete
+                        </button>
+                    </div>
+                </div>`;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        /**
+         * Update the category filter dropdown
+         */
+        function updateCategoryFilter() {
+            const select = document.getElementById('categoryFilter');
+            const currentVal = select.value;
+            const cats = getUniqueCategories();
+            const hasUncategorised = Object.keys(lists).some(n => !categories[n] || !categories[n].trim());
+
+            select.innerHTML = '<option value="">All Categories</option>';
+            cats.forEach(cat => {
+                select.innerHTML += `<option value="${escapeAttr(cat)}">${escapeHTML(cat)}</option>`;
+            });
+            if (hasUncategorised) {
+                select.innerHTML += '<option value="__uncategorised__">Uncategorised</option>';
+            }
+
+            // Restore previous selection if still valid
+            if (currentVal && select.querySelector(`option[value="${CSS.escape(currentVal)}"]`)) {
+                select.value = currentVal;
+            }
+        }
+
+        /**
+         * Update the modal category dropdown
+         */
+        function updateModalCategoryDropdown(selectedCat) {
+            const select = document.getElementById('modalCategory');
+            const cats = getUniqueCategories();
+
+            select.innerHTML = '<option value="">Uncategorised</option>';
+            cats.forEach(cat => {
+                const sel = cat === selectedCat ? ' selected' : '';
+                select.innerHTML += `<option value="${escapeAttr(cat)}"${sel}>${escapeHTML(cat)}</option>`;
+            });
+
+            // If the selected category isn't in the list, add it
+            if (selectedCat && !cats.includes(selectedCat)) {
+                select.innerHTML += `<option value="${escapeAttr(selectedCat)}" selected>${escapeHTML(selectedCat)}</option>`;
+            }
+        }
+
+        /**
+         * Update stats display
+         */
+        function updateStats() {
+            const names = Object.keys(lists);
+            const totalItems = names.reduce((sum, n) => sum + (lists[n]?.length || 0), 0);
+            const uniqueCats = getUniqueCategories().length;
+
+            document.getElementById('statTotalLists').textContent = names.length;
+            document.getElementById('statTotalItems').textContent = totalItems;
+            document.getElementById('statCategories').textContent = uniqueCats;
+
+            // Estimate storage size
+            try {
+                const listsSize = (localStorage.getItem(STORAGE_KEY) || '').length;
+                const catsSize = (localStorage.getItem(CATEGORIES_KEY) || '').length;
+                const totalBytes = (listsSize + catsSize) * 2; // UTF-16
+                const kb = (totalBytes / 1024).toFixed(1);
+                document.getElementById('statStorageSize').textContent = kb + ' KB';
+            } catch (e) {
+                document.getElementById('statStorageSize').textContent = '?';
+            }
+        }
+
+        // ── Modal Operations ──
+
+        /**
+         * Open modal to create a new list
+         */
+        function createList() {
+            editingListName = null;
+            document.getElementById('modalTitle').textContent = 'New List';
+            document.getElementById('modalListName').value = '';
+            document.getElementById('modalItems').value = '';
+            updateModalCategoryDropdown('');
+            updateModalItemCount();
+            openModal();
+        }
+
+        /**
+         * Open modal to edit an existing list
+         */
+        function editList(name) {
+            editingListName = name;
+            document.getElementById('modalTitle').textContent = 'Edit List';
+            document.getElementById('modalListName').value = name;
+            document.getElementById('modalItems').value = (lists[name] || []).join('\n');
+            updateModalCategoryDropdown(categories[name] || '');
+            updateModalItemCount();
+            openModal();
+        }
+
+        /**
+         * Save list from modal data
+         */
+        function saveFromModal() {
+            const nameInput = document.getElementById('modalListName');
+            const newName = nameInput.value.trim();
+            const itemsText = document.getElementById('modalItems').value;
+            const category = document.getElementById('modalCategory').value;
+
+            // Validate name
+            if (!newName) {
+                nameInput.focus();
+                nameInput.classList.add('ring-2', 'ring-red-500');
+                setTimeout(() => nameInput.classList.remove('ring-2', 'ring-red-500'), 2000);
+                return;
+            }
+
+            // Check for name conflicts (different from current edit name)
+            if (newName !== editingListName && lists[newName]) {
+                if (!confirm(`A list named "${newName}" already exists. Overwrite it?`)) return;
+            }
+
+            // Parse items
+            const items = itemsText.split('\n').map(i => i.trim()).filter(i => i.length > 0);
+
+            // If renaming, delete old entry
+            if (editingListName && editingListName !== newName) {
+                delete lists[editingListName];
+                delete categories[editingListName];
+            }
+
+            // Save
+            lists[newName] = items;
+            if (category) {
+                categories[newName] = category;
+            } else {
+                delete categories[newName];
+            }
+
+            saveLists();
+            saveCategories();
+            closeModal();
+            render();
+        }
+
+        /**
+         * Duplicate a list
+         */
+        function duplicateList(name) {
+            let newName = name + ' (Copy)';
+            let counter = 2;
+            while (lists[newName]) {
+                newName = name + ` (Copy ${counter})`;
+                counter++;
+            }
+
+            lists[newName] = [...(lists[name] || [])];
+            if (categories[name]) {
+                categories[newName] = categories[name];
+            }
+
+            saveLists();
+            saveCategories();
+            render();
+        }
+
+        /**
+         * Delete a list with confirmation
+         */
+        function deleteList(name) {
+            if (!confirm(`Delete "${name}"? This cannot be undone.`)) return;
+
+            delete lists[name];
+            delete categories[name];
+            saveLists();
+            saveCategories();
+            render();
+        }
+
+        /**
+         * Add a new category via prompt
+         */
+        function addNewCategory() {
+            const name = prompt('Enter new category name:');
+            if (!name || !name.trim()) return;
+
+            const select = document.getElementById('modalCategory');
+            // Check if already exists
+            const existing = [...select.options].find(o => o.value === name.trim());
+            if (existing) {
+                select.value = name.trim();
+                return;
+            }
+
+            const option = document.createElement('option');
+            option.value = name.trim();
+            option.textContent = name.trim();
+            option.selected = true;
+            select.appendChild(option);
+        }
+
+        // ── Modal Helpers ──
+
+        /**
+         * Sort items in the modal textarea
+         */
+        function sortModalItems(direction) {
+            const textarea = document.getElementById('modalItems');
+            const items = textarea.value.split('\n').map(i => i.trim()).filter(i => i.length > 0);
+            items.sort((a, b) => direction === 'asc'
+                ? a.localeCompare(b, undefined, { sensitivity: 'base' })
+                : b.localeCompare(a, undefined, { sensitivity: 'base' })
+            );
+            textarea.value = items.join('\n');
+            updateModalItemCount();
+        }
+
+        /**
+         * Remove duplicate items in the modal textarea
+         */
+        function removeDuplicates() {
+            const textarea = document.getElementById('modalItems');
+            const items = textarea.value.split('\n').map(i => i.trim()).filter(i => i.length > 0);
+            const before = items.length;
+            const unique = [...new Set(items)];
+            textarea.value = unique.join('\n');
+            updateModalItemCount();
+            const removed = before - unique.length;
+            if (removed > 0) {
+                alert(`Removed ${removed} duplicate${removed !== 1 ? 's' : ''}.`);
+            } else {
+                alert('No duplicates found.');
+            }
+        }
+
+        /**
+         * Update the item count display in the modal
+         */
+        function updateModalItemCount() {
+            const items = document.getElementById('modalItems').value.split('\n').filter(i => i.trim().length > 0);
+            document.getElementById('modalItemCount').textContent = `${items.length} item${items.length !== 1 ? 's' : ''}`;
+        }
+
+        function openModal() {
+            document.getElementById('editModal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('editModal').classList.add('hidden');
+        }
+
+        // ── Import / Export ──
+
+        /**
+         * Export all lists to JSON file
+         */
+        function exportLists() {
+            const exportData = {
+                lists: lists,
+                categories: categories,
+                exported: new Date().toISOString()
+            };
+            const dataStr = JSON.stringify(exportData, null, 2);
+            const blob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `teaching-tools-lists-${new Date().toISOString().split('T')[0]}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        /**
+         * Trigger file input for import
+         */
+        function importLists() {
+            document.getElementById('importFileInput').click();
+        }
+
+        /**
+         * Handle imported JSON file
+         */
+        function handleImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+
+                    // Support two formats:
+                    // 1. New format: { lists: {...}, categories: {...} }
+                    // 2. Legacy format: { "List Name": [...], ... } (from random-picker export)
+                    let importedLists, importedCategories;
+
+                    if (imported.lists && typeof imported.lists === 'object') {
+                        importedLists = imported.lists;
+                        importedCategories = imported.categories || {};
+                    } else {
+                        // Legacy: flat object of lists
+                        importedLists = imported;
+                        importedCategories = {};
+                    }
+
+                    // Validate structure
+                    for (const [key, val] of Object.entries(importedLists)) {
+                        if (!Array.isArray(val)) {
+                            alert(`Invalid list format: "${key}" is not an array.`);
+                            return;
+                        }
+                    }
+
+                    const importCount = Object.keys(importedLists).length;
+                    const existingCount = Object.keys(lists).length;
+
+                    let mergeChoice;
+                    if (existingCount > 0) {
+                        mergeChoice = confirm(
+                            `Import ${importCount} list${importCount !== 1 ? 's' : ''}.\n\n` +
+                            `OK = Merge with existing lists (keeps both, imported overwrites conflicts)\n` +
+                            `Cancel = Replace all existing lists`
+                        );
+                    } else {
+                        mergeChoice = true; // No existing data, just add
+                    }
+
+                    if (mergeChoice) {
+                        // Merge: imported overwrites on conflict
+                        lists = { ...lists, ...importedLists };
+                        categories = { ...categories, ...importedCategories };
+                    } else {
+                        lists = importedLists;
+                        categories = importedCategories;
+                    }
+
+                    saveLists();
+                    saveCategories();
+                    render();
+                    alert(`Successfully imported ${importCount} list${importCount !== 1 ? 's' : ''}.`);
+                } catch (err) {
+                    console.error('Import error:', err);
+                    alert('Error importing file. Make sure it\'s a valid JSON file.');
+                }
+            };
+            reader.readAsText(file);
+
+            // Reset file input so the same file can be re-imported
+            event.target.value = '';
+        }
+
+        // ── Utilities ──
+
+        function escapeHTML(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        function escapeAttr(str) {
+            return str.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        // Close modal on background click
+        document.getElementById('editModal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Close modal on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Listen for storage changes from other tools
+        window.addEventListener('storage', function(e) {
+            if (e.key === STORAGE_KEY) {
+                loadData();
+                render();
+            }
+        });
+
+        // Public API
+        return {
+            init,
+            render,
+            createList,
+            editList,
+            saveFromModal,
+            duplicateList,
+            deleteList,
+            addNewCategory,
+            sortModalItems,
+            removeDuplicates,
+            updateModalItemCount,
+            closeModal,
+            exportLists,
+            importLists,
+            handleImport
+        };
+    })();
+
+    // Initialise when DOM ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', ListManager.init);
+    } else {
+        ListManager.init();
+    }
+    </script>
+</body>
+</html>

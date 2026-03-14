@@ -1,5 +1,5 @@
 {
-  "generated": "2026-01-21T05:03:25.218Z",
+  "generated": "2026-03-15T00:00:00.000Z",
   "version": "1.0",
   "categories": {
     "classroom-screens": {
@@ -23,6 +23,13 @@
         "folder": "planning",
         "description": "Track and plan BSLA lessons and activities",
         "icon": "file-text"
+      },
+      {
+        "name": "list-manager",
+        "path": "planning/list-manager.html",
+        "folder": "planning",
+        "description": "Manage shared lists used across all classroom tools",
+        "icon": "list"
       },
       {
         "name": "math-tracker",
@@ -78,11 +85,32 @@
     ],
     "classroom-screens": [
       {
+        "name": "bell-ringers",
+        "path": "screens/classroom-screens/bell-ringers.html",
+        "folder": "classroom-screens",
+        "description": "Daily bell ringer activities with special days and curriculum content",
+        "icon": "bell"
+      },
+      {
         "name": "classroom",
         "path": "screens/classroom-screens/classroom.html",
         "folder": "classroom-screens",
         "description": "Full classroom display with timer, noise meter, and random picker",
         "icon": "school"
+      },
+      {
+        "name": "daily-think",
+        "path": "screens/classroom-screens/daily-think.html",
+        "folder": "classroom-screens",
+        "description": "Word of the day, number of the day, and daily rotation activities",
+        "icon": "brain"
+      },
+      {
+        "name": "morning-routine",
+        "path": "screens/classroom-screens/morning-routine.html",
+        "folder": "classroom-screens",
+        "description": "Morning routine display with daily think activities",
+        "icon": "sunrise"
       },
       {
         "name": "ssr",
