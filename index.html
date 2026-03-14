@@ -52,6 +52,9 @@
             .sidebar-collapsed .collapse-icon {
                 transform: rotate(180deg);
             }
+            .sidebar-collapsed .sidebar-header-row {
+                justify-content: center;
+            }
         }
         
         /* Scrollbar styling */
@@ -105,7 +108,7 @@
     >
         <!-- Sidebar Header -->
         <div class="sticky top-0 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 px-6 py-6 z-10">
-            <div class="flex items-start justify-between mb-1">
+            <div class="flex items-start justify-between mb-1 sidebar-header-row">
                 <div class="sidebar-text">
                     <h1 class="text-2xl font-bold text-primary dark:text-blue-400">
                         Teaching Tools
@@ -300,10 +303,15 @@
                 nav.appendChild(section);
             });
 
-            // Initialize Lucide icons
-            if (typeof lucide !== 'undefined') {
-                lucide.createIcons();
+            // Initialize Lucide icons (retry if CDN hasn't loaded yet)
+            function initIcons() {
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                } else {
+                    setTimeout(initIcons, 100);
+                }
             }
+            initIcons();
         }
 
         function renderContent() {
@@ -366,6 +374,10 @@
                 html += '</div>';
                 
                 container.innerHTML = html;
+
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
             }
         }
 
