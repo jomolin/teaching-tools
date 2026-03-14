@@ -25,6 +25,13 @@
         "icon": "file-text"
       },
       {
+        "name": "daily-reflection",
+        "path": "planning/daily-reflection.html",
+        "folder": "planning",
+        "description": "Daily PCT training reflection tool",
+        "icon": "notebook-pen"
+      },
+      {
         "name": "list-manager",
         "path": "planning/list-manager.html",
         "folder": "planning",
@@ -89,7 +96,7 @@
         "path": "screens/classroom-screens/bell-ringers.html",
         "folder": "classroom-screens",
         "description": "Daily bell ringer activities with special days and curriculum content",
-        "icon": "bell"
+        "icon": "bell-ring"
       },
       {
         "name": "classroom",
@@ -103,7 +110,7 @@
         "path": "screens/classroom-screens/daily-think.html",
         "folder": "classroom-screens",
         "description": "Word of the day, number of the day, and daily rotation activities",
-        "icon": "brain"
+        "icon": "lightbulb"
       },
       {
         "name": "morning-routine",

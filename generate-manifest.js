@@ -8,7 +8,10 @@ const OUTPUT_FILE = path.join(REPO_ROOT, 'tools-manifest.json');
 // Tool descriptions for better UX
 const toolDescriptions = {
     'classroom-screens': {
+        'bell-ringers': 'Daily bell ringer activities with special days and curriculum content',
         'classroom': 'Full classroom display with timer, noise meter, and random picker',
+        'daily-think': 'Word of the day, number of the day, and daily rotation activities',
+        'morning-routine': 'Morning routine display with daily think activities',
         'ssr': 'Silent Sustained Reading mode with timer and noise monitoring'
     },
     'classroom-games': {
@@ -21,30 +24,37 @@ const toolDescriptions = {
         'heads-up-7-up': 'Classic classroom game with seven picker tracking'
     },
     'planning': {
-        'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class',
         'bsla-tracker': 'Track and plan BSLA lessons and activities',
+        'daily-reflection': 'Daily PCT training reflection tool',
+        'list-manager': 'Manage shared lists used across all classroom tools',
+        'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class',
         'seating-planner': 'Generate balanced seating arrangements and track student pairings'
     }
 };
 
-// Tool icons for sidebar
+// Tool icons for sidebar — all verified valid Lucide icon names
 const toolIcons = {
     'classroom-screens': {
+        'bell-ringers': 'bell-ring',
         'classroom': 'school',
+        'daily-think': 'lightbulb',
+        'morning-routine': 'sunrise',
         'ssr': 'book-open'
     },
     'classroom-games': {
         'silent-ball': 'volume-x',
         'reverse-charades': 'drama',
         'pass-the-creeper': 'bomb',
-        'this-or-that': 'git-branch',
-        'more-or-less': 'minus-plus',
+        'this-or-that': 'arrow-left-right',
+        'more-or-less': 'scale',
         '7up': 'hand',
         'heads-up-7-up': 'hand'
     },
     'planning': {
-        'math-tracker': 'calculator',
         'bsla-tracker': 'file-text',
+        'daily-reflection': 'notebook-pen',
+        'list-manager': 'list',
+        'math-tracker': 'calculator',
         'seating-planner': 'users'
     }
 };
@@ -98,7 +108,7 @@ function findHtmlFiles(dir, baseDir = dir) {
  * Generate the tools manifest
  */
 function generateManifest() {
-    console.log('🔍 Scanning repository for tools...');
+    console.log('Scanning repository for tools...');
     
     const toolsData = {};
     
@@ -119,6 +129,9 @@ function generateManifest() {
             const subfolders = screenItems.filter(item => item.isDirectory());
             
             for (const subfolder of subfolders) {
+                // Skip data and widgets folders
+                if (subfolder.name === 'data' || subfolder.name === 'widgets') continue;
+                
                 const subfolderPath = path.join(folderPath, subfolder.name);
                 const htmlFiles = findHtmlFiles(subfolderPath);
                 
@@ -164,9 +177,9 @@ function generateManifest() {
     // Write to file
     fs.writeFileSync(OUTPUT_FILE, JSON.stringify(manifest, null, 2));
     
-    console.log('✅ Manifest generated successfully!');
-    console.log(`📁 Output: ${OUTPUT_FILE}`);
-    console.log(`📊 Found ${Object.keys(toolsData).length} categories`);
+    console.log('Manifest generated successfully!');
+    console.log(`Output: ${OUTPUT_FILE}`);
+    console.log(`Found ${Object.keys(toolsData).length} categories`);
     
     // Print summary
     for (const [category, tools] of Object.entries(toolsData)) {
@@ -178,6 +191,6 @@ function generateManifest() {
 try {
     generateManifest();
 } catch (error) {
-    console.error('❌ Error generating manifest:', error);
+    console.error('Error generating manifest:', error);
     process.exit(1);
 }
