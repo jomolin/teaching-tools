@@ -197,6 +197,7 @@
                 <h2 class="text-xl font-bold text-primary dark:text-blue-400 mb-2">Word of the Day</h2>
                 <p id="routine-word" class="text-5xl font-bold mb-1"></p>
                 <p id="routine-word-pos" class="text-lg text-gray-500 dark:text-gray-400 italic"></p>
+                <p id="routine-word-def" class="text-base text-gray-600 dark:text-gray-300 italic mt-1"></p>
             </div>
 
             <!-- Number of the Day - Place Value Chart -->
@@ -222,7 +223,6 @@
                             <li>Put your bag in the cloakroom</li>
                             <li>Put on your hat</li>
                             <li>Go outside until the bell rings</li>
-                            <li>Play safely and include others</li>
                         </ol>
                     </div>
 
@@ -230,11 +230,10 @@
                     <div>
                         <h3 class="text-xl font-bold text-purple-600 dark:text-purple-400 mb-2">After the Bell:</h3>
                         <ol class="list-decimal list-inside space-y-1 text-lg text-gray-700 dark:text-gray-300">
-                            <li>Line up quietly outside your classroom</li>
                             <li>Leave shoes outside with toes to the wall</li>
+                            <li>HANG your hat and jumper in the cloakroom</li>
                             <li>Walk quietly to your seat</li>
                             <li>Sit down and wait for attendance</li>
-                            <li>Begin your bell ringer activity</li>
                         </ol>
                     </div>
 
@@ -602,6 +601,7 @@
             // Update word of the day
             document.getElementById('routine-word').textContent = dayData.word.word;
             document.getElementById('routine-word-pos').textContent = `(${dayData.word.partOfSpeech})`;
+            document.getElementById('routine-word-def').textContent = dayData.word.definition;
 
             // Update number and place value chart
             createPlaceValueChart(dayData.number);
@@ -648,7 +648,7 @@
             
             let html = '';
             for (let i = digits.length - 1; i >= 0; i--) {
-                const showComma = (i === 2 || i === 5) && i < digits.length - 1;
+                const showComma = (i === 3 || i === 6) && i > 0;
                 html += `
                     <div class="flex flex-col items-center">
                         <div class="bg-green-100 dark:bg-green-900/30 border-2 border-green-400 rounded px-2 py-1 min-w-[50px]">
