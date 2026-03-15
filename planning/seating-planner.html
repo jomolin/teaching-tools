@@ -598,8 +598,19 @@
           const tableColor = tableColors[tableIndex] || defaultColors[tableIndex % defaultColors.length].hex;
 
           const island = document.createElement('div');
-          island.className = 'rounded-lg p-4 shadow-lg';
+          island.className = 'rounded-lg p-4 shadow-lg relative';
           island.style.backgroundColor = tableColor;
+
+          // Color-change button in the top-right corner of each table
+          const colorBtn = document.createElement('button');
+          colorBtn.className = 'absolute -top-2 -right-2 w-6 h-6 rounded-full border-2 border-white dark:border-gray-300 shadow hover:scale-125 transition-transform z-10';
+          colorBtn.style.backgroundColor = tableColor;
+          // Use a slightly darker ring to make it visible against the table
+          colorBtn.style.boxShadow = '0 0 0 1px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.2)';
+          colorBtn.title = `Change table color (R${Math.floor(tableIndex / layoutCols) + 1} C${(tableIndex % layoutCols) + 1})`;
+          const tIdx = tableIndex; // closure capture
+          colorBtn.onclick = (e) => { e.stopPropagation(); changeTableColor(tIdx); };
+          island.appendChild(colorBtn);
 
           const numSeats = Math.max(tableSeats.length, 1);
           island.style.display = 'grid';
