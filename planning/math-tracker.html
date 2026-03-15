@@ -148,63 +148,15 @@
         <!-- Planner Tab -->
         <div id="planner" class="tab-content hidden">
             <div id="nextLessonsDisplay" class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6"></div>
-            
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Next 5 Lessons - Weekly Plan Format</h3>
-            <p class="text-gray-600 dark:text-gray-400 mb-4">Each box contains both Year 4 and Year 5 for one day/lesson</p>
-            <div id="combinedPlansContainer"></div>
 
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Lesson Slides Content</h3>
-            
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 4 Slides</h3>
-                    <button id="copySlides4Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">Copy</button>
-                </div>
-                <div id="slides4Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            <!-- Toast notification -->
+            <div id="plannerToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-5 py-3 rounded-lg shadow-lg font-semibold text-sm z-50 transition-all duration-300 opacity-0 pointer-events-none">
+                Copied!
             </div>
 
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 5 Slides</h3>
-                    <button id="copySlides5Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">Copy</button>
-                </div>
-                <div id="slides5Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
-            </div>
-
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Lesson Approach</h3>
-
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 4 Approach</h3>
-                    <button id="copyApproach4Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">Copy</button>
-                </div>
-                <div id="approach4Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
-            </div>
-
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 5 Approach</h3>
-                    <button id="copyApproach5Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">Copy</button>
-                </div>
-                <div id="approach5Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
-            </div>
-
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Content Priority</h3>
-
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 4 Content Priority</h3>
-                    <button id="copyPriority4Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">Copy</button>
-                </div>
-                <div id="priority4Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
-            </div>
-
-            <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-5">
-                <div class="flex justify-between items-center mb-3">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-gray-100">Year 5 Content Priority</h3>
-                    <button id="copyPriority5Btn" class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded transition-colors">Copy</button>
-                </div>
-                <div id="priority5Output" class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap max-h-80 overflow-y-auto"></div>
+            <!-- 5-column weekly grid -->
+            <div class="grid grid-cols-5 gap-3" id="weeklyPlanGrid">
+                <!-- Populated by JS -->
             </div>
         </div>
 
@@ -330,12 +282,6 @@
                     if (e.target.id === 'lessonModal') this.hideLessonModal();
                 });
 
-                ['Slides4', 'Slides5', 'Approach4', 'Approach5', 'Priority4', 'Priority5'].forEach(id => {
-                    const btn = document.getElementById(`copy${id}Btn`);
-                    if (btn) {
-                        btn.addEventListener('click', () => this.copyToClipboard(`${id.toLowerCase()}Output`));
-                    }
-                });
             }
 
             switchTab(tabName) {
@@ -823,42 +769,30 @@
                     });
                     display.innerHTML = html;
                 }
-                this.generateCombinedPlans(nextLessons);
-                this.generateSlidesContent(nextLessons);
-                this.generateApproachContent(nextLessons);
-                this.generatePriorityContent(nextLessons);
+                this.generateWeeklyGrid(nextLessons);
             }
 
-            generateCombinedPlans(nextLessons) {
-                const container = document.getElementById('combinedPlansContainer');
-                container.innerHTML = '';
-                for (let i = 0; i < 5; i++) {
-                    const section = document.createElement('div');
-                    section.className = 'bg-gray-100 dark:bg-gray-800 rounded-lg p-5 mb-4';
-                    let planText = '';
-                    const year4Lesson = nextLessons['4'][i];
-                    const year5Lesson = nextLessons['5'][i];
-                    if (year4Lesson) planText += this.generateWeeklyPlan(year4Lesson, '4') + '\n\n';
-                    if (year5Lesson) planText += this.generateWeeklyPlan(year5Lesson, '5');
-                    if (!year4Lesson && !year5Lesson) planText = 'No lessons scheduled';
-                    section.innerHTML = `
-                        <div class="flex justify-between items-center mb-3">
-                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Day ${i + 1}</h3>
-                            <button class="copy-day-btn px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded">Copy</button>
-                        </div>
-                        <pre class="bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded p-4 font-mono text-sm whitespace-pre-wrap text-gray-900 dark:text-gray-100">${planText}</pre>
-                    `;
-                    section.querySelector('.copy-day-btn').addEventListener('click', function() {
-                        const text = section.querySelector('pre').textContent;
-                        navigator.clipboard.writeText(text).then(() => {
-                            this.textContent = 'Copied!';
-                            setTimeout(() => this.textContent = 'Copy', 2000);
-                        });
-                    });
-                    container.appendChild(section);
-                }
+            /** Show a toast notification at the bottom of the screen */
+            showPlannerToast(message) {
+                const toast = document.getElementById('plannerToast');
+                toast.textContent = message;
+                toast.classList.remove('opacity-0', 'pointer-events-none');
+                toast.classList.add('opacity-100');
+                clearTimeout(this._toastTimeout);
+                this._toastTimeout = setTimeout(() => {
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0', 'pointer-events-none');
+                }, 1500);
             }
 
+            /** Copy text and show toast — attached as click handler on copyable boxes */
+            plannerCopy(text, label) {
+                navigator.clipboard.writeText(text).then(() => {
+                    this.showPlannerToast(`${label} copied!`);
+                });
+            }
+
+            /** Build the plain-text lesson data string for a single lesson */
             generateWeeklyPlan(lesson, year) {
                 let plan = `Year ${year}\nLI: ${lesson.objective}\nTeacher: TB c${lesson.textbook_chapter}`;
                 if (lesson.content_type === 'worksheet') plan += `l${lesson.textbook_lesson}`;
@@ -870,44 +804,95 @@
                 return plan;
             }
 
-            generateSlidesContent(nextLessons) {
-                let slides4 = '', slides5 = '';
-                nextLessons['4'].forEach((l, i) => {
-                    slides4 += `Lesson ${i + 1}\nWALT: ${l.objective}\nSC:\n`;
-                    if (l.formative_assessment) l.formative_assessment.forEach(p => slides4 += `• ${p}\n`);
-                    slides4 += '\n';
-                });
-                nextLessons['5'].forEach((l, i) => {
-                    slides5 += `Lesson ${i + 1}\nWALT: ${l.objective}\nSC:\n`;
-                    if (l.formative_assessment) l.formative_assessment.forEach(p => slides5 += `• ${p}\n`);
-                    slides5 += '\n';
-                });
-                document.getElementById('slides4Output').textContent = slides4 || 'No upcoming lessons.';
-                document.getElementById('slides5Output').textContent = slides5 || 'No upcoming lessons.';
+            /** Build the WALT string for slides */
+            generateWALT(lesson) {
+                let walt = `WALT: ${lesson.objective}\nSC:`;
+                if (lesson.formative_assessment) {
+                    lesson.formative_assessment.forEach(p => walt += `\n${p}`);
+                }
+                return walt;
             }
 
-            generateApproachContent(nextLessons) {
-                let approach4 = '', approach5 = '';
-                nextLessons['4'].forEach((l, i) => {
-                    approach4 += `Lesson ${i + 1} - Chapter ${l.textbook_chapter}, Lesson ${l.textbook_lesson}\n${'='.repeat(50)}\n\n${l.approach || 'No approach details available.'}\n\n`;
-                });
-                nextLessons['5'].forEach((l, i) => {
-                    approach5 += `Lesson ${i + 1} - Chapter ${l.textbook_chapter}, Lesson ${l.textbook_lesson}\n${'='.repeat(50)}\n\n${l.approach || 'No approach details available.'}\n\n`;
-                });
-                document.getElementById('approach4Output').textContent = approach4 || 'No upcoming lessons.';
-                document.getElementById('approach5Output').textContent = approach5 || 'No upcoming lessons.';
+            /** Render the 5-column weekly planner grid */
+            generateWeeklyGrid(nextLessons) {
+                const grid = document.getElementById('weeklyPlanGrid');
+                grid.innerHTML = '';
+                const tracker = this;
+
+                for (let i = 0; i < 5; i++) {
+                    const y4 = nextLessons['4'][i];
+                    const y5 = nextLessons['5'][i];
+
+                    const col = document.createElement('div');
+                    col.className = 'flex flex-col gap-2';
+
+                    // Day header
+                    col.innerHTML = `<div class="text-center font-bold text-gray-900 dark:text-gray-100 text-lg py-2 border-b-2 border-gray-300 dark:border-gray-700">Day ${i + 1}</div>`;
+
+                    // --- Year 4 WALT ---
+                    const y4Walt = y4 ? this.generateWALT(y4) : 'No lesson';
+                    col.appendChild(this.createCopyableBox(
+                        'WALT Year 4',
+                        y4Walt,
+                        `Year 4 WALT`,
+                        'bg-blue-600 dark:bg-blue-700'
+                    ));
+
+                    // --- Year 4 lesson data ---
+                    const y4Plan = y4 ? this.generateWeeklyPlan(y4, '4') : 'No lesson';
+                    col.appendChild(this.createCopyableBox(
+                        'Year 4',
+                        y4Plan,
+                        `Year 4`,
+                        'bg-blue-500 dark:bg-blue-600'
+                    ));
+
+                    // --- Year 5 WALT ---
+                    const y5Walt = y5 ? this.generateWALT(y5) : 'No lesson';
+                    col.appendChild(this.createCopyableBox(
+                        'WALT Year 5',
+                        y5Walt,
+                        `Year 5 WALT`,
+                        'bg-purple-600 dark:bg-purple-700'
+                    ));
+
+                    // --- Year 5 lesson data ---
+                    const y5Plan = y5 ? this.generateWeeklyPlan(y5, '5') : 'No lesson';
+                    col.appendChild(this.createCopyableBox(
+                        'Year 5',
+                        y5Plan,
+                        `Year 5`,
+                        'bg-purple-500 dark:bg-purple-600'
+                    ));
+
+                    grid.appendChild(col);
+                }
             }
 
-            generatePriorityContent(nextLessons) {
-                let priority4 = '', priority5 = '';
-                nextLessons['4'].forEach((l, i) => {
-                    priority4 += `Lesson ${i + 1} - Chapter ${l.textbook_chapter}, Lesson ${l.textbook_lesson}\n${'='.repeat(50)}\n\n${l.content_priority || 'No content priority details available.'}\n\n`;
+            /** Create a labelled, click-to-copy text box */
+            createCopyableBox(heading, text, toastLabel, headerColor) {
+                const tracker = this;
+                const box = document.createElement('div');
+                box.className = 'flex flex-col';
+
+                box.innerHTML = `
+                    <div class="${headerColor} text-white text-xs font-bold px-2 py-1 rounded-t">${heading}</div>
+                    <div class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 border-t-0 rounded-b p-2 font-mono text-xs whitespace-pre-wrap text-gray-900 dark:text-gray-100 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 min-h-[60px] select-all transition-colors" title="Click to copy">${this.escapeHTML(text)}</div>
+                `;
+
+                const textBox = box.querySelector('div:last-child');
+                textBox.addEventListener('click', () => {
+                    tracker.plannerCopy(text, toastLabel);
                 });
-                nextLessons['5'].forEach((l, i) => {
-                    priority5 += `Lesson ${i + 1} - Chapter ${l.textbook_chapter}, Lesson ${l.textbook_lesson}\n${'='.repeat(50)}\n\n${l.content_priority || 'No content priority details available.'}\n\n`;
-                });
-                document.getElementById('priority4Output').textContent = priority4 || 'No upcoming lessons.';
-                document.getElementById('priority5Output').textContent = priority5 || 'No upcoming lessons.';
+
+                return box;
+            }
+
+            /** Escape HTML to prevent XSS in generated content */
+            escapeHTML(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
             }
 
             markNextComplete() {
