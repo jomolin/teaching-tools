@@ -36,7 +36,14 @@
       <!-- Student List Section -->
       <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
         <h2 class="text-xl font-semibold mb-4">1. Student List</h2>
-        <p class="mb-3">Enter student names, one per line:</p>
+        <div class="flex items-center gap-3 mb-3">
+          <label class="font-medium">Load from saved list:</label>
+          <select id="savedListDropdown" onchange="loadFromSavedList()"
+            class="flex-1 max-w-xs p-2 border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 text-sm">
+            <option value="">-- Select a saved list --</option>
+          </select>
+        </div>
+        <p class="mb-3 text-sm text-gray-500 dark:text-gray-400">Or enter student names manually, one per line:</p>
         <textarea
           id="studentList"
           class="w-full p-3 font-mono text-sm border-2 border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-800 resize-y min-h-[150px]"
@@ -835,11 +842,50 @@
       alert('All data cleared');
     }
 
+    // Load saved lists from randomPickerLists into the dropdown
+    function populateSavedListDropdown() {
+      const dropdown = document.getElementById('savedListDropdown');
+      const lists = JSON.parse(localStorage.getItem('randomPickerLists') || '{}');
+      const names = Object.keys(lists).sort();
+
+      dropdown.innerHTML = '<option value="">-- Select a saved list --</option>';
+      names.forEach(name => {
+        const count = lists[name].length;
+        const option = document.createElement('option');
+        option.value = name;
+        option.textContent = `${name} (${count})`;
+        dropdown.appendChild(option);
+      });
+    }
+
+    // Load selected saved list into the textarea
+    function loadFromSavedList() {
+      const dropdown = document.getElementById('savedListDropdown');
+      const listName = dropdown.value;
+      if (!listName) return;
+
+      const lists = JSON.parse(localStorage.getItem('randomPickerLists') || '{}');
+      const items = lists[listName];
+      if (!items || !Array.isArray(items)) return;
+
+      const textarea = document.getElementById('studentList');
+      if (textarea.value.trim() && students.length > 0) {
+        if (!confirm(`Replace current student list with "${listName}"?`)) {
+          dropdown.value = '';
+          return;
+        }
+      }
+
+      textarea.value = items.join('\n');
+      parseStudents();
+    }
+
     // Set today's date
     document.getElementById('planDate').valueAsDate = new Date();
 
     // Load data on startup
     loadData();
+    populateSavedListDropdown();
   </script>
 </body>
 </html>
