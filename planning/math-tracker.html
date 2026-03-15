@@ -794,7 +794,7 @@
 
             /** Build the plain-text lesson data string for a single lesson */
             generateWeeklyPlan(lesson, year) {
-                let plan = `Year ${year}\nLI: ${lesson.objective}\nTeacher: TB c${lesson.textbook_chapter}`;
+                let plan = `LI: ${lesson.objective}\nTeacher: TB c${lesson.textbook_chapter}`;
                 if (lesson.content_type === 'worksheet') plan += `l${lesson.textbook_lesson}`;
                 else if (lesson.content_type.startsWith('revision')) plan += `Revision`;
                 else plan += this.formatContentType(lesson.content_type);
