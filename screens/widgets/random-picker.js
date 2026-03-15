@@ -13,6 +13,14 @@ const RandomPickerWidget = (function() {
         PADDING_OFFSET: 20
     };
 
+    // Derive a page slug from the URL path so each game page gets its own state
+    // e.g. "/screens/classroom-games/pass-the-creeper.html" → "pass-the-creeper"
+    const PAGE_SLUG = (function() {
+        const path = window.location.pathname;
+        const filename = path.split('/').pop() || 'unknown';
+        return filename.replace('.html', '');
+    })();
+
     // Shared saved lists (all instances can access these)
     let savedLists = {};
 
@@ -74,10 +82,12 @@ const RandomPickerWidget = (function() {
     }
 
     /**
-     * Get the localStorage key for an instance's persisted state
+     * Get the localStorage key for an instance's persisted state.
+     * Scoped to the page so the same instanceId (e.g. "studentPicker") on different
+     * game pages gets independent pick tracking.
      */
     function getStateKey(instanceId) {
-        return `randomPickerState_${instanceId}`;
+        return `randomPickerState_${PAGE_SLUG}_${instanceId}`;
     }
 
     /**
@@ -181,10 +191,12 @@ const RandomPickerWidget = (function() {
             instance.lastPicked = picked;
             instance.elements.randomResult.textContent = picked;
 
+            // Measure against the wrapper (parent) which has fixed dimensions via absolute positioning
+            const wrapper = instance.elements.randomResult.parentElement;
             const fontSize = calculateFontSize(
                 picked,
-                instance.elements.randomResult.clientWidth,
-                instance.elements.randomResult.clientHeight
+                wrapper.clientWidth,
+                wrapper.clientHeight
             );
 
             instance.elements.randomResult.style.fontSize = fontSize + 'px';
@@ -410,10 +422,11 @@ const RandomPickerWidget = (function() {
                 // Restore last picked display
                 if (instance.lastPicked && instance.elements.randomResult) {
                     instance.elements.randomResult.textContent = instance.lastPicked;
+                    const wrapper = instance.elements.randomResult.parentElement;
                     const fontSize = calculateFontSize(
                         instance.lastPicked,
-                        instance.elements.randomResult.clientWidth,
-                        instance.elements.randomResult.clientHeight
+                        wrapper.clientWidth,
+                        wrapper.clientHeight
                     );
                     instance.elements.randomResult.style.fontSize = fontSize + 'px';
                     instance.elements.randomResult.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
@@ -446,9 +459,11 @@ const RandomPickerWidget = (function() {
         return `
         <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
             <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">${title}</h2>
-            <div id="randomResult-${instanceId}" 
-                 class="text-center text-blue-600 dark:text-blue-400 font-bold my-5 flex items-center justify-center flex-grow overflow-hidden p-2.5 min-h-0 break-words"
-                 style="font-size: 72px; line-height: 1.2;"></div>
+            <div class="relative flex-grow min-h-0 my-5">
+                <div id="randomResult-${instanceId}" 
+                     class="absolute inset-0 text-center text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center overflow-hidden p-2.5 break-words"
+                     style="font-size: 72px; line-height: 1.2;"></div>
+            </div>
             <div id="remainingCount-${instanceId}" 
                  class="text-center text-gray-600 dark:text-gray-400 text-sm mt-2.5"></div>
             <div class="flex gap-2.5 justify-center flex-wrap mt-4">
