@@ -552,7 +552,10 @@
             document.getElementById('daily-activity-type').textContent = 'No Activity';
             document.getElementById('daily-activity-prompt').textContent = '';
             document.getElementById('daily-activity-instruction').textContent = 'No activity scheduled for this day.';
-            document.getElementById('daily-activity-answer').classList.add('hidden');
+            const answerEl = document.getElementById('daily-activity-answer');
+            if (answerEl) answerEl.classList.add('hidden');
+            const challengeEl = document.getElementById('daily-activity-challenge');
+            if (challengeEl) challengeEl.classList.add('hidden');
         }
 
         // Toggle between Daily Think and Morning Routine modes
