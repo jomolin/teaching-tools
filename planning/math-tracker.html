@@ -804,13 +804,9 @@
                 return plan;
             }
 
-            /** Build the WALT string for slides */
+            /** Get just the objective text for the WALT box */
             generateWALT(lesson) {
-                let walt = `WALT: ${lesson.objective}\nSC:`;
-                if (lesson.formative_assessment) {
-                    lesson.formative_assessment.forEach(p => walt += `\n${p}`);
-                }
-                return walt;
+                return lesson.objective || 'No objective';
             }
 
             /** Render the 5-column weekly planner grid */
