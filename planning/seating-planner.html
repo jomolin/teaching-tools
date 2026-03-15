@@ -31,7 +31,7 @@
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
   <div class="container mx-auto p-5 max-w-7xl">
     <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h1 class="text-3xl font-bold mb-6 text-primary dark:text-blue-400">🪑 Classroom Seating Planner</h1>
+      <h1 class="text-3xl font-bold mb-6 text-primary dark:text-blue-400">&#x1FA91; Classroom Seating Planner</h1>
 
       <!-- Student List Section -->
       <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
@@ -86,7 +86,7 @@
       <!-- Incompatible Pairs Section -->
       <div class="mb-8 p-6 bg-gray-50 dark:bg-gray-700 rounded-lg">
         <h2 class="text-xl font-semibold mb-4">3. Incompatible Pairs & History</h2>
-        <p class="mb-3">Click cells to mark incompatible pairs (red ✗ = NEVER sit together). Green numbers show pairing history.</p>
+        <p class="mb-3">Click cells to mark incompatible pairs (red &#x2717; = NEVER sit together). Green numbers show pairing history.</p>
         <div id="incompatibleMatrix" class="overflow-x-auto"></div>
       </div>
 
@@ -128,6 +128,10 @@
             BACK WALL / WINDOWS
           </div>
         </div>
+        <!-- Hint for click-to-move -->
+        <p id="moveHint" class="mt-2 text-sm text-gray-500 dark:text-gray-400 italic hidden">
+          &#x21C4; Click a student name to move them to a different table.
+        </p>
 
         <div class="mt-4 space-x-2">
           <button onclick="exportSeatingPlan()" class="px-4 py-2 bg-primary hover:bg-primary-dark text-white rounded">
@@ -409,7 +413,7 @@
               ? 'bg-green-100 dark:bg-green-900'
               : 'bg-white dark:bg-gray-800';
 
-            const textContent = isIncompatible ? '✗' : pairCount > 0 ? pairCount : '';
+            const textContent = isIncompatible ? '&#x2717;' : pairCount > 0 ? pairCount : '';
 
             html += `<td class="border border-gray-400 dark:border-gray-600 matrix-cell ${bgColor} cursor-pointer hover:opacity-80 text-center font-bold"
                          onclick="toggleIncompatible('${student1}', '${student2}')">${textContent}</td>`;
@@ -569,7 +573,13 @@
       const seatingArea = document.getElementById('seatingArea');
       seatingArea.innerHTML = '';
 
-      if (!currentPlan) return;
+      if (!currentPlan) {
+        document.getElementById('moveHint').classList.add('hidden');
+        return;
+      }
+
+      // Show the move hint when a plan is displayed
+      document.getElementById('moveHint').classList.remove('hidden');
 
       const totalTables = layoutRows * layoutCols;
       const tables = Array.from({ length: totalTables }, () => []);
@@ -602,8 +612,13 @@
             seat.className = 'rounded p-3 text-center min-h-[60px] flex items-center justify-center text-sm font-medium border-2';
 
             if (tableSeats[i]) {
-              seat.className += ' bg-blue-100 dark:bg-blue-900 border-blue-500 dark:border-blue-400 text-blue-900 dark:text-blue-100';
+              // Clickable student seat - opens move modal
+              seat.className += ' bg-blue-100 dark:bg-blue-900 border-blue-500 dark:border-blue-400 text-blue-900 dark:text-blue-100 cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 hover:shadow-md transition-all';
               seat.textContent = tableSeats[i].student;
+              seat.title = 'Click to move to another table';
+              const studentName = tableSeats[i].student;
+              const currentTable = tableIndex;
+              seat.onclick = () => showMoveStudentModal(studentName, currentTable);
             } else {
               seat.className += ' bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 text-gray-500 dark:text-gray-400';
               seat.textContent = 'Empty';
@@ -617,6 +632,130 @@
 
         seatingArea.appendChild(rowDiv);
       }
+    }
+
+    // Show modal to move a student to a different table by choosing a table color
+    function showMoveStudentModal(studentName, currentTableIndex) {
+      if (!currentPlan) return;
+
+      const totalTables = currentPlan.layoutRows * currentPlan.layoutCols;
+
+      // Build a list of tables with their colors and current occupants
+      const tablesInfo = [];
+      for (let i = 0; i < totalTables; i++) {
+        const color = tableColors[i] || defaultColors[i % defaultColors.length].hex;
+        const occupants = currentPlan.seats
+          .filter(s => s.table === i)
+          .map(s => s.student);
+        const row = Math.floor(i / layoutCols) + 1;
+        const col = (i % layoutCols) + 1;
+        tablesInfo.push({ index: i, color, occupants, row, col });
+      }
+
+      // Create modal overlay
+      const modal = document.createElement('div');
+      modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+      modal.onclick = (e) => {
+        if (e.target === modal) document.body.removeChild(modal);
+      };
+
+      const dialog = document.createElement('div');
+      dialog.className = 'bg-white dark:bg-gray-800 rounded-lg p-6 max-w-lg mx-4 max-h-[80vh] overflow-y-auto';
+
+      // Header
+      const header = document.createElement('h3');
+      header.className = 'text-lg font-bold mb-1 text-gray-900 dark:text-gray-100';
+      header.textContent = `Move ${studentName}`;
+      dialog.appendChild(header);
+
+      const subtext = document.createElement('p');
+      subtext.className = 'text-sm text-gray-500 dark:text-gray-400 mb-4';
+      subtext.textContent = 'Choose a table to move this student to:';
+      dialog.appendChild(subtext);
+
+      // Table grid
+      const grid = document.createElement('div');
+      grid.className = 'grid grid-cols-2 gap-3 mb-4';
+
+      tablesInfo.forEach(info => {
+        const isCurrent = info.index === currentTableIndex;
+        const btn = document.createElement('button');
+        btn.className = 'rounded-lg p-3 text-left border-2 transition-all ' +
+          (isCurrent
+            ? 'border-gray-400 dark:border-gray-500 opacity-50 cursor-not-allowed'
+            : 'border-transparent hover:border-gray-600 dark:hover:border-gray-300 hover:shadow-lg cursor-pointer');
+        btn.style.backgroundColor = info.color;
+        btn.disabled = isCurrent;
+
+        // Table label
+        const label = document.createElement('div');
+        label.className = 'font-bold text-sm text-gray-800 mb-1';
+        label.textContent = `R${info.row} C${info.col}` + (isCurrent ? ' (current)' : '');
+        btn.appendChild(label);
+
+        // Show who is at this table
+        const names = document.createElement('div');
+        names.className = 'text-xs text-gray-700 leading-tight';
+        const otherOccupants = info.occupants.filter(n => n !== studentName);
+        names.textContent = otherOccupants.length > 0 ? otherOccupants.join(', ') : '(empty)';
+        btn.appendChild(names);
+
+        if (!isCurrent) {
+          btn.onclick = () => {
+            moveStudentToTable(studentName, info.index);
+            document.body.removeChild(modal);
+          };
+        }
+
+        grid.appendChild(btn);
+      });
+
+      dialog.appendChild(grid);
+
+      // Cancel button
+      const cancelBtn = document.createElement('button');
+      cancelBtn.className = 'w-full px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded';
+      cancelBtn.textContent = 'Cancel';
+      cancelBtn.onclick = () => document.body.removeChild(modal);
+      dialog.appendChild(cancelBtn);
+
+      modal.appendChild(dialog);
+      document.body.appendChild(modal);
+    }
+
+    // Move a student to a new table, updating the current plan in place
+    function moveStudentToTable(studentName, newTableIndex) {
+      if (!currentPlan) return;
+
+      // Update the table assignment for this student
+      currentPlan.seats.forEach(seat => {
+        if (seat.student === studentName) {
+          seat.table = newTableIndex;
+        }
+      });
+
+      // Recalculate peers for ALL seats (since moving one student affects two tables)
+      const totalTables = currentPlan.layoutRows * currentPlan.layoutCols;
+      const tableGroups = Array.from({ length: totalTables }, () => []);
+      currentPlan.seats.forEach(seat => {
+        tableGroups[seat.table].push(seat.student);
+      });
+
+      currentPlan.seats.forEach(seat => {
+        seat.peers = tableGroups[seat.table].filter(s => s !== seat.student);
+      });
+
+      // Update the seating history entry (currentPlan is a reference to the last history item)
+      // Make sure the history reference is current
+      const histIndex = seatingHistory.indexOf(currentPlan);
+      if (histIndex !== -1) {
+        seatingHistory[histIndex] = currentPlan;
+      }
+
+      saveData();
+      renderSeatingPlan();
+      renderIncompatibleMatrix();
+      displayStats();
     }
 
     // Display statistics
@@ -667,7 +806,7 @@
         const item = document.createElement('div');
         item.className = 'bg-white dark:bg-gray-800 p-4 mb-3 rounded border-l-4 border-primary';
         item.innerHTML = `
-          <strong>${plan.date}</strong> - ${plan.seats.length} students seated (${plan.layoutRows}×${plan.layoutCols} layout)
+          <strong>${plan.date}</strong> - ${plan.seats.length} students seated (${plan.layoutRows}&#xD7;${plan.layoutCols} layout)
           <button onclick="viewPlan(${seatingHistory.length - 1 - index})" class="ml-3 px-3 py-1 bg-primary hover:bg-primary-dark text-white rounded text-sm">View</button>
         `;
         display.appendChild(item);
