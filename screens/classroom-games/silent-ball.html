@@ -3,25 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Silent Ball</title>
+    <title>Silent Ball - Teaching Tools</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#0066cc',
-                        'primary-dark': '#0052a3',
-                    }
-                }
-            }
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
     <!-- Theme sync loaded from config.js - must be in head to prevent flash -->
     <script src="../config.js"></script>
 </head>
-<body class="min-h-screen bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 p-5 flex flex-col gap-5">
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 p-5 flex flex-col gap-5">
     <!-- First row: Title (2/3 width) + Timer (1/3 width) - SAME HEIGHT -->
     <div class="flex gap-5 flex-wrap items-stretch">
         <div class="title-widget flex-[2_1_0] min-w-[300px] min-h-[200px]" 

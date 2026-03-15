@@ -11,11 +11,11 @@ const NoiseMeterWidget = (function() {
         DING_DURATION: 1.5,
         THRESHOLDS: [30, 40, 60, 75, 90],
         THRESHOLD_LABELS: [
-            '🤫 SILENT',
-            '💬 PARTNER VOICE',
-            '🗣️ GROUP VOICE',
-            '📢 PRESENTATION VOICE',
-            '📊 OUTSIDE VOICE'
+            '\u{1F92B} SILENT',
+            '\u{1F4AC} PARTNER VOICE',
+            '\u{1F5E3} GROUP VOICE',
+            '\u{1F4E2} PRESENTATION VOICE',
+            '\u{1F4CA} OUTSIDE VOICE'
         ],
         DEFAULT_THRESHOLD: 2,
         WARNING_MULTIPLIER: 0.7
@@ -91,7 +91,7 @@ const NoiseMeterWidget = (function() {
             const thresholdLevel = thresholdSlider ? parseInt(thresholdSlider.value, 10) : CONSTANTS.DEFAULT_THRESHOLD;
             const threshold = CONSTANTS.THRESHOLDS[thresholdLevel];
             
-            // Change color based on level - KEEP THIS FUNCTIONALITY
+            // Change color based on level
             if (percentage > threshold) {
                 noiseFillEl.style.background = '#ef4444'; // red-500
                 
@@ -220,12 +220,13 @@ const NoiseMeterWidget = (function() {
     }
     
     /**
-     * Create noise meter widget HTML with Tailwind classes
+     * Create noise meter widget HTML
+     * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
      */
     function createNoiseMeterWidget(defaultThreshold = CONSTANTS.DEFAULT_THRESHOLD) {
         return `
-            <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
-                <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">Noise Meter</h2>
+            <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
+                <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Noise Meter</h2>
                 
                 <div class="my-4">
                     <input type="range" 
@@ -237,7 +238,7 @@ const NoiseMeterWidget = (function() {
                            class="w-full h-2 rounded bg-gray-200 dark:bg-gray-700 outline-none cursor-pointer">
                 </div>
                 
-                <div class="relative h-24 bg-gray-200 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden my-5">
+                <div class="relative h-24 bg-gray-200 dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden my-5">
                     <div id="noiseFill" 
                          class="absolute bottom-0 left-0 h-full transition-all duration-100"
                          style="width: 0%; background: #10b981;"></div>
@@ -253,16 +254,16 @@ const NoiseMeterWidget = (function() {
                 <div class="flex gap-2.5 justify-center flex-wrap mt-auto">
                     <button id="startNoise" 
                             onclick="NoiseMeterWidget.start()"
-                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                         Start Monitoring
                     </button>
                     <button id="stopNoise" 
                             onclick="NoiseMeterWidget.stop()"
-                            class="hidden bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            class="hidden bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                         Stop
                     </button>
                     <button onclick="NoiseMeterWidget.resetCounter()"
-                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold px-5 py-2.5 rounded-lg transition-colors">
                         Reset Counter
                     </button>
                 </div>

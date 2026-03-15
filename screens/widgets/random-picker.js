@@ -1,4 +1,5 @@
 // Random Picker Widget Module - Supports Multiple Instances
+// Persists selected list and pick state per instance via localStorage
 const RandomPickerWidget = (function() {
     'use strict';
 
@@ -26,9 +27,17 @@ const RandomPickerWidget = (function() {
     }
 
     /**
-     * Auto-load lists from JSON file if available
+     * Auto-load lists from JSON file if no lists exist in localStorage yet.
+     * Once lists are in localStorage (managed via List Manager), JSON is skipped.
      */
     async function autoLoadListsFromJSON() {
+        // Only auto-load if localStorage has no lists yet (first-time bootstrap)
+        const existingLists = ClassroomUtils.getFromStorage(CONSTANTS.STORAGE_KEY, {});
+        if (Object.keys(existingLists).length > 0) {
+            savedLists = existingLists;
+            return true;
+        }
+
         // Try multiple possible paths for the JSON file
         const possiblePaths = [
             '../data/random-picker-lists.json',  // screens folder structure
@@ -41,20 +50,12 @@ const RandomPickerWidget = (function() {
                 const response = await fetch(path);
                 if (response.ok) {
                     const importedLists = await response.json();
-
-                    // Merge JSON lists with existing localStorage lists
-                    // JSON lists come first, so localStorage takes priority on conflicts
-                    const existingLists = ClassroomUtils.getFromStorage(CONSTANTS.STORAGE_KEY, {});
-
-                    // Merge: existing lists override imported lists with same name
-                    savedLists = { ...importedLists, ...existingLists };
+                    savedLists = importedLists;
                     saveLists();
-
-                    console.log(`Auto-loaded and merged lists from ${path}`);
+                    console.log(`Bootstrap: loaded lists from ${path}`);
                     return true;
                 }
             } catch (error) {
-                // Try next path
                 continue;
             }
         }
@@ -73,6 +74,33 @@ const RandomPickerWidget = (function() {
     }
 
     /**
+     * Get the localStorage key for an instance's persisted state
+     */
+    function getStateKey(instanceId) {
+        return `randomPickerState_${instanceId}`;
+    }
+
+    /**
+     * Save instance pick state to localStorage
+     */
+    function saveInstanceState(instance) {
+        const state = {
+            selectedList: instance.selectedListName || '',
+            allItems: instance.allItems,
+            availableItems: instance.availableItems,
+            lastPicked: instance.lastPicked || ''
+        };
+        ClassroomUtils.saveToStorage(getStateKey(instance.id), state);
+    }
+
+    /**
+     * Load instance pick state from localStorage
+     */
+    function loadInstanceState(instanceId) {
+        return ClassroomUtils.getFromStorage(getStateKey(instanceId), null);
+    }
+
+    /**
      * Create a single picker instance
      */
     function createInstance(container, instanceId) {
@@ -82,6 +110,8 @@ const RandomPickerWidget = (function() {
             container: container,
             availableItems: [],
             allItems: [],
+            selectedListName: '',
+            lastPicked: '',
             elements: {}
         };
 
@@ -148,6 +178,7 @@ const RandomPickerWidget = (function() {
             instance.availableItems.splice(randomIndex, 1);
 
             // Display result with optimal font size
+            instance.lastPicked = picked;
             instance.elements.randomResult.textContent = picked;
 
             const fontSize = calculateFontSize(
@@ -166,188 +197,271 @@ const RandomPickerWidget = (function() {
             } else {
                 instance.elements.remainingCount.textContent = `${instance.availableItems.length} remaining`;
             }
+
+            // Persist pick state
+            saveInstanceState(instance);
         };
 
         /**
-         * Reset the picker
+         * Reset the picker (clears pick state, keeps list loaded)
          */
         instance.reset = function() {
             instance.availableItems = [];
             instance.allItems = [];
+            instance.lastPicked = '';
             if (instance.elements.randomResult) instance.elements.randomResult.textContent = '';
             if (instance.elements.remainingCount) instance.elements.remainingCount.textContent = '';
+            saveInstanceState(instance);
         };
 
-            /**
-             * Open the edit modal
-             */
-            instance.openModal = function() {
-                ClassroomUtils.toggleModal(instance.elements.editModal, true);
-            };
+        /**
+         * Open the edit modal
+         */
+        instance.openModal = function() {
+            ClassroomUtils.toggleModal(instance.elements.editModal, true);
+        };
 
-            /**
-             * Close the edit modal
-             */
-            instance.closeModal = function() {
-                ClassroomUtils.toggleModal(instance.elements.editModal, false);
-            };
+        /**
+         * Close the edit modal
+         */
+        instance.closeModal = function() {
+            ClassroomUtils.toggleModal(instance.elements.editModal, false);
+        };
 
-            /**
-             * Save current list with a name
-             */
-            instance.saveList = function() {
-                if (!instance.elements.itemsList) return;
+        /**
+         * Save current list with a name
+         */
+        instance.saveList = function() {
+            if (!instance.elements.itemsList) return;
 
-                const listName = prompt('Enter a name for this list:');
-                if (!listName || listName.trim() === '') return;
+            const listName = prompt('Enter a name for this list:');
+            if (!listName || listName.trim() === '') return;
 
-                const text = instance.elements.itemsList.value;
-                const items = text.split('\n').filter(item => item.trim() !== '');
+            const text = instance.elements.itemsList.value;
+            const items = text.split('\n').filter(item => item.trim() !== '');
 
-                if (items.length === 0) {
-                    alert('Cannot save an empty list!');
-                    return;
-                }
+            if (items.length === 0) {
+                alert('Cannot save an empty list!');
+                return;
+            }
 
-                savedLists[listName.trim()] = items;
+            savedLists[listName.trim()] = items;
+            saveLists();
+            alert(`List "${listName}" saved!`);
+            // Update all instance dropdowns
+            instances.forEach(inst => inst.updateListDropdown());
+        };
+
+        /**
+         * Load a saved list from the dropdown
+         */
+        instance.loadList = function() {
+            if (!instance.elements.listSelector || !instance.elements.itemsList) return;
+
+            const listName = instance.elements.listSelector.value;
+            if (!listName) return;
+
+            const items = savedLists[listName];
+            if (items && Array.isArray(items)) {
+                instance.elements.itemsList.value = items.join('\n');
+                instance.selectedListName = listName;
+                // Reset pick state when loading a new list
+                instance.availableItems = [];
+                instance.allItems = [];
+                instance.lastPicked = '';
+                if (instance.elements.randomResult) instance.elements.randomResult.textContent = '';
+                if (instance.elements.remainingCount) instance.elements.remainingCount.textContent = '';
+                // Persist selected list name and reset state
+                saveInstanceState(instance);
+            }
+        };
+
+        /**
+         * Delete a saved list
+         */
+        instance.deleteList = function() {
+            if (!instance.elements.listSelector) return;
+
+            const listName = instance.elements.listSelector.value;
+            if (!listName) return;
+
+            if (confirm(`Delete list "${listName}"?`)) {
+                delete savedLists[listName];
                 saveLists();
-                alert(`List "${listName}" saved!`);
-                instance.updateListDropdown();
-            };
-
-            /**
-             * Load a saved list
-             */
-            instance.loadList = function() {
-                if (!instance.elements.listSelector || !instance.elements.itemsList) return;
-
-                const listName = instance.elements.listSelector.value;
-                if (!listName) return;
-
-                const items = savedLists[listName];
-                if (items && Array.isArray(items)) {
-                    instance.elements.itemsList.value = items.join('\n');
+                // Update all instance dropdowns
+                instances.forEach(inst => inst.updateListDropdown());
+                if (instance.elements.itemsList) instance.elements.itemsList.value = '';
+                // Clear persisted state if deleted list was the active one
+                if (instance.selectedListName === listName) {
+                    instance.selectedListName = '';
                     instance.availableItems = [];
                     instance.allItems = [];
-                    if (instance.elements.randomResult) instance.elements.randomResult.textContent = '';
-                    if (instance.elements.remainingCount) instance.elements.remainingCount.textContent = '';
+                    instance.lastPicked = '';
+                    saveInstanceState(instance);
                 }
-            };
+            }
+        };
 
-            /**
-             * Delete a saved list
-             */
-            instance.deleteList = function() {
-                if (!instance.elements.listSelector) return;
+        /**
+         * Update the list dropdown selector, restoring previous selection if available
+         */
+        instance.updateListDropdown = function() {
+            if (!instance.elements.listSelector) return;
 
-                const listName = instance.elements.listSelector.value;
-                if (!listName) return;
+            instance.elements.listSelector.innerHTML = '<option value="">-- Select a saved list --</option>';
 
-                if (confirm(`Delete list "${listName}"?`)) {
-                    delete savedLists[listName];
+            Object.keys(savedLists).sort().forEach(listName => {
+                const option = document.createElement('option');
+                option.value = listName;
+                option.textContent = listName;
+                // Restore previously selected list
+                if (listName === instance.selectedListName) {
+                    option.selected = true;
+                }
+                instance.elements.listSelector.appendChild(option);
+            });
+        };
+
+        /**
+         * Export lists to JSON file
+         */
+        instance.exportLists = function() {
+            const dataStr = JSON.stringify(savedLists, null, 2);
+            ClassroomUtils.downloadFile(dataStr, 'random-picker-lists.json', 'application/json');
+        };
+
+        /**
+         * Import lists from JSON file
+         */
+        instance.importLists = function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'application/json';
+
+            input.onchange = function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+
+                reader.onload = function(event) {
+                    const importedLists = ClassroomUtils.safeParseJSON(event.target.result, null);
+
+                    if (!importedLists || typeof importedLists !== 'object') {
+                        alert('Error importing file. Make sure it\'s a valid JSON file.');
+                        return;
+                    }
+
+                    const shouldReplace = confirm('Replace existing lists? (Cancel to merge with current lists)');
+
+                    if (shouldReplace) {
+                        savedLists = importedLists;
+                    } else {
+                        savedLists = { ...savedLists, ...importedLists };
+                    }
+
                     saveLists();
-                    instance.updateListDropdown();
-                    if (instance.elements.itemsList) instance.elements.itemsList.value = '';
-                }
-            };
-
-            /**
-             * Update the list dropdown selector
-             */
-            instance.updateListDropdown = function() {
-                if (!instance.elements.listSelector) return;
-
-                instance.elements.listSelector.innerHTML = '<option value="">-- Select a saved list --</option>';
-
-                Object.keys(savedLists).sort().forEach(listName => {
-                    const option = document.createElement('option');
-                    option.value = listName;
-                    option.textContent = listName;
-                    instance.elements.listSelector.appendChild(option);
-                });
-            };
-
-            /**
-             * Export lists to JSON file
-             */
-            instance.exportLists = function() {
-                const dataStr = JSON.stringify(savedLists, null, 2);
-                ClassroomUtils.downloadFile(dataStr, 'random-picker-lists.json', 'application/json');
-            };
-
-            /**
-             * Import lists from JSON file
-             */
-            instance.importLists = function() {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'application/json';
-
-                input.onchange = function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-
-                    const reader = new FileReader();
-
-                    reader.onload = function(event) {
-                        const importedLists = ClassroomUtils.safeParseJSON(event.target.result, null);
-
-                        if (!importedLists || typeof importedLists !== 'object') {
-                            alert('Error importing file. Make sure it\'s a valid JSON file.');
-                            return;
-                        }
-
-                        const shouldReplace = confirm('Replace existing lists? (Cancel to merge with current lists)');
-
-                        if (shouldReplace) {
-                            savedLists = importedLists;
-                        } else {
-                            savedLists = { ...savedLists, ...importedLists };
-                        }
-
-                        saveLists();
-                        // Update all instance dropdowns
-                        instances.forEach(inst => inst.updateListDropdown());
-                        alert('Lists imported successfully!');
-                    };
-
-                    reader.onerror = function() {
-                        console.error('Error reading file');
-                        alert('Error reading file. Please try again.');
-                    };
-
-                    reader.readAsText(file);
+                    // Update all instance dropdowns
+                    instances.forEach(inst => inst.updateListDropdown());
+                    alert('Lists imported successfully!');
                 };
 
-                input.click();
+                reader.onerror = function() {
+                    console.error('Error reading file');
+                    alert('Error reading file. Please try again.');
+                };
+
+                reader.readAsText(file);
             };
 
-            return instance;
+            input.click();
+        };
+
+        /**
+         * Restore persisted state on init: reload the selected list and pick position
+         */
+        instance.restoreState = function() {
+            const saved = loadInstanceState(instance.id);
+            if (!saved) return;
+
+            instance.selectedListName = saved.selectedList || '';
+
+            // If a list was previously selected, reload it into the textarea
+            if (instance.selectedListName && savedLists[instance.selectedListName]) {
+                const items = savedLists[instance.selectedListName];
+                if (instance.elements.itemsList) {
+                    instance.elements.itemsList.value = items.join('\n');
+                }
+                // Restore pick state
+                instance.allItems = saved.allItems || [];
+                instance.availableItems = saved.availableItems || [];
+                instance.lastPicked = saved.lastPicked || '';
+
+                // Verify allItems still matches the current list data
+                // (list may have been edited in List Manager since last session)
+                const currentItems = items;
+                if (JSON.stringify(instance.allItems) !== JSON.stringify(currentItems)) {
+                    // List changed since last session — reset pick state but keep list loaded
+                    instance.allItems = [];
+                    instance.availableItems = [];
+                    instance.lastPicked = '';
+                }
+
+                // Restore last picked display
+                if (instance.lastPicked && instance.elements.randomResult) {
+                    instance.elements.randomResult.textContent = instance.lastPicked;
+                    const fontSize = calculateFontSize(
+                        instance.lastPicked,
+                        instance.elements.randomResult.clientWidth,
+                        instance.elements.randomResult.clientHeight
+                    );
+                    instance.elements.randomResult.style.fontSize = fontSize + 'px';
+                    instance.elements.randomResult.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
+                }
+
+                // Restore remaining count
+                if (instance.elements.remainingCount) {
+                    if (instance.allItems.length > 0 && instance.availableItems.length > 0) {
+                        instance.elements.remainingCount.textContent = `${instance.availableItems.length} remaining`;
+                    } else if (instance.allItems.length > 0 && instance.availableItems.length === 0) {
+                        instance.elements.remainingCount.textContent = 'All items picked! Click "Pick Random" to start over.';
+                    }
+                }
+            }
+
+            // Restore dropdown selection
+            if (instance.elements.listSelector && instance.selectedListName) {
+                instance.elements.listSelector.value = instance.selectedListName;
+            }
+        };
+
+        return instance;
     }
 
     /**
      * Create random picker widget HTML
+     * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
      */
     function createRandomPickerWidget(instanceId, title = 'Random Picker') {
         return `
-        <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
-            <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">${title}</h2>
+        <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
+            <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">${title}</h2>
             <div id="randomResult-${instanceId}" 
-                 class="text-center text-primary dark:text-blue-400 font-bold my-5 flex items-center justify-center flex-grow overflow-hidden p-2.5 min-h-0 break-words"
+                 class="text-center text-blue-600 dark:text-blue-400 font-bold my-5 flex items-center justify-center flex-grow overflow-hidden p-2.5 min-h-0 break-words"
                  style="font-size: 72px; line-height: 1.2;"></div>
             <div id="remainingCount-${instanceId}" 
                  class="text-center text-gray-600 dark:text-gray-400 text-sm mt-2.5"></div>
             <div class="flex gap-2.5 justify-center flex-wrap mt-4">
                 <button onclick="RandomPickerWidget.pick('${instanceId}')"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                     Pick Random
                 </button>
                 <button onclick="RandomPickerWidget.openModal('${instanceId}')"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                     Edit List
                 </button>
                 <button onclick="RandomPickerWidget.reset('${instanceId}')"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold px-5 py-2.5 rounded-lg transition-colors">
                     Reset List
                 </button>
             </div>
@@ -356,44 +470,45 @@ const RandomPickerWidget = (function() {
     }
 
     /**
-     * Create modal HTML with Tailwind classes
+     * Create modal HTML with Tailwind classes matching design doc
+     * Uses Unicode symbols instead of emoji for button labels
      */
     function createModalHTML(instanceId) {
         return `
         <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onclick="RandomPickerWidget.closeModal('${instanceId}')"></div>
-        <div class="relative bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-8 max-w-[600px] w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl z-50">
+        <div class="relative bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-8 max-w-[600px] w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl z-50">
             <h2 class="text-gray-900 dark:text-gray-100 mb-5 text-2xl font-semibold">Edit List</h2>
             <div class="my-4">
                 <select id="listSelector-${instanceId}" 
                         onchange="RandomPickerWidget.loadList('${instanceId}')" 
-                        class="w-full p-2.5 text-base bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-primary dark:border-blue-400 rounded-lg focus:outline-none">
+                        class="w-full p-2.5 text-base bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">-- Select a saved list --</option>
                 </select>
             </div>
             <textarea id="itemsList-${instanceId}" 
                       placeholder="Enter items (one per line)&#10;Student 1&#10;Student 2&#10;Student 3" 
-                      class="w-full h-52 p-2.5 text-base bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-primary dark:border-blue-400 rounded-lg my-2.5 focus:outline-none"></textarea>
+                      class="w-full h-52 p-2.5 text-base bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 rounded-lg my-2.5 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
             <div class="flex gap-2.5 mt-2.5 flex-wrap">
                 <button onclick="RandomPickerWidget.saveList('${instanceId}')"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
-                    💾 Save Current List
+                        class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                    \u2913 Save Current List
                 </button>
                 <button onclick="RandomPickerWidget.deleteList('${instanceId}')"
-                        class="bg-red-500 text-white border-2 border-red-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-600 transition-all">
-                    🗑️ Delete Selected
+                        class="bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                    \u2715 Delete Selected
                 </button>
                 <button onclick="RandomPickerWidget.exportLists('${instanceId}')"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
-                    📤 Export All Lists
+                        class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                    \u2191 Export All Lists
                 </button>
                 <button onclick="RandomPickerWidget.importLists('${instanceId}')"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
-                    📥 Import Lists
+                        class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                    \u2193 Import Lists
                 </button>
             </div>
             <div class="flex gap-2.5 mt-2.5 flex-wrap">
                 <button onclick="RandomPickerWidget.closeModal('${instanceId}')"
-                        class="bg-gray-500 dark:bg-gray-700 text-white border-2 border-gray-600 dark:border-gray-600 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                        class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold px-5 py-2.5 rounded-lg transition-colors">
                     Close
                 </button>
             </div>
@@ -412,10 +527,10 @@ const RandomPickerWidget = (function() {
      * Initialize random picker widgets
      */
     async function init() {
-        // Load saved lists
+        // Load saved lists from localStorage
         loadSavedLists();
 
-        // Auto-load from JSON file if available
+        // Bootstrap from JSON only if localStorage is empty (first-time setup)
         await autoLoadListsFromJSON();
 
         // Create widget HTML for each container
@@ -451,6 +566,9 @@ const RandomPickerWidget = (function() {
 
             // Initialize dropdown
             instance.updateListDropdown();
+
+            // Restore persisted state (selected list + pick position)
+            instance.restoreState();
         });
     }
 

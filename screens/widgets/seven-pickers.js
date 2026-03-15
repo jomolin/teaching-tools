@@ -36,7 +36,7 @@ const SevenPickersWidget = (function() {
     }
 
     /**
-     * Get all available student lists from random picker
+     * Get all available student lists from random picker storage
      */
     function getAvailableLists() {
         const lists = ClassroomUtils.getFromStorage(CONSTANTS.RANDOM_PICKER_STORAGE, {});
@@ -101,7 +101,7 @@ const SevenPickersWidget = (function() {
      */
     function randomizeUnlocked() {
         if (studentList.length === 0) {
-            alert('No students in list! Click "Edit Student List" to add students.');
+            alert('No students in list! Use the List Manager to add a student list.');
             return;
         }
 
@@ -159,7 +159,7 @@ const SevenPickersWidget = (function() {
     }
 
     /**
-     * Open info modal (now just explains how to use Random Picker)
+     * Open info modal
      */
     function openStudentEditor() {
         const modal = containerElement.querySelector('#studentListModal');
@@ -175,27 +175,28 @@ const SevenPickersWidget = (function() {
     }
 
     /**
-     * Render the pickers
+     * Render the pickers grid
+     * Uses design doc card styling and Unicode symbols instead of emoji
      */
     function renderPickers() {
         if (!containerElement) return;
 
         const pickersHTML = pickerStates.map((picker, index) => `
         <div class="flex items-center gap-2 p-3 bg-white dark:bg-gray-800 border-2 ${picker.locked ? 'border-yellow-400 dark:border-yellow-500' : 'border-gray-300 dark:border-gray-700'} rounded-lg">
-            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-primary dark:bg-blue-500 text-white rounded-full font-bold text-sm">${index + 1}</div>
+            <div class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-blue-600 dark:bg-blue-500 text-white rounded-full font-bold text-sm">${index + 1}</div>
             <input
                 type="text"
-                class="flex-1 min-w-0 px-3 py-2 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary dark:focus:border-blue-400 text-sm"
+                class="flex-1 min-w-0 px-3 py-2 bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                 value="${picker.name}"
                 placeholder="Empty"
                 onchange="SevenPickersWidget.updateName(${index}, this.value)"
             >
             <button
-                class="flex-shrink-0 w-9 h-9 flex items-center justify-center text-xl hover:scale-110 transition-transform"
+                class="flex-shrink-0 w-9 h-9 flex items-center justify-center text-lg hover:scale-110 transition-transform ${picker.locked ? 'text-yellow-500' : 'text-gray-400 dark:text-gray-500'}"
                 onclick="SevenPickersWidget.toggleLock(${index})"
                 title="${picker.locked ? 'Unlock' : 'Lock'}"
             >
-                ${picker.locked ? '🔒' : '🔓'}
+                ${picker.locked ? '\u{1F512}' : '\u{1F513}'}
             </button>
         </div>
         `).join('');
@@ -204,48 +205,49 @@ const SevenPickersWidget = (function() {
     }
 
     /**
-     * Create widget HTML with Tailwind classes and student list dropdown
+     * Create widget HTML
+     * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
+     * Unicode symbols for UI buttons, modal references List Manager
      */
     function createWidgetHTML() {
         return `
-        <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
+        <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-primary dark:text-blue-400 text-2xl font-semibold">The 7 Pickers</h2>
+                <h2 class="text-blue-600 dark:text-blue-400 text-2xl font-semibold">The 7 Pickers</h2>
                 <select id="studentListDropdown" 
                         onchange="SevenPickersWidget.switchList(this.value)"
-                        class="px-3 py-1.5 text-sm bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:border-primary dark:focus:border-blue-400">
+                        class="px-3 py-1.5 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">Select a list...</option>
                 </select>
             </div>
             <div class="pickers-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 mb-4 flex-grow"></div>
             <div class="flex gap-2.5 justify-center flex-wrap mt-4">
                 <button onclick="SevenPickersWidget.randomize()"
-                        class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
-                    🎲 Pick 7 Random
+                        class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
+                    \u2684 Pick 7 Random
                 </button>
                 <button onclick="SevenPickersWidget.clearAll()"
-                        class="bg-red-500 text-white border-2 border-red-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-600 transition-all">
+                        class="bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                     Clear All
                 </button>
             </div>
 
             <div id="studentListModal" class="hidden fixed top-0 left-0 w-full h-full z-[1000] items-center justify-center">
                 <div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-40" onclick="SevenPickersWidget.closeEditor()"></div>
-                <div class="relative bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-8 max-w-[600px] w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl z-50">
+                <div class="relative bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-8 max-w-[600px] w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl z-50">
                     <h2 class="text-gray-900 dark:text-gray-100 mb-5 text-2xl font-semibold">Student List Info</h2>
-                    <p class="text-gray-600 dark:text-gray-400 mb-2.5">This widget loads student lists from the Random Picker widget.</p>
+                    <p class="text-gray-600 dark:text-gray-400 mb-2.5">This widget loads student lists from the List Manager.</p>
                     <p class="text-gray-600 dark:text-gray-400 mb-4">To add or edit student lists:</p>
                     <ol class="list-decimal ml-6 text-gray-600 dark:text-gray-400 mb-4 space-y-1">
-                        <li>Open any page with the Random Picker widget</li>
-                        <li>Click "Edit List" button</li>
-                        <li>Create or select a list with "Students" in the name</li>
+                        <li>Open the <strong>List Manager</strong> tool from the sidebar</li>
+                        <li>Create a new list with "Students" in the name</li>
                         <li>Add your student names (one per line)</li>
-                        <li>Click "Save Current List"</li>
+                        <li>Save the list</li>
                     </ol>
                     <p class="text-gray-600 dark:text-gray-400 mb-4">Then return here and select it from the dropdown above!</p>
                     <div class="flex gap-2.5 mt-4 flex-wrap">
                         <button onclick="SevenPickersWidget.closeEditor()"
-                                class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                                class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                             Got It!
                         </button>
                     </div>
@@ -282,7 +284,7 @@ const SevenPickersWidget = (function() {
         if (availableLists.length === 0) {
             const option = document.createElement('option');
             option.value = "";
-            option.textContent = "No student lists found - use Random Picker to create one";
+            option.textContent = "No student lists found - add one in List Manager";
             option.disabled = true;
             dropdown.appendChild(option);
         }

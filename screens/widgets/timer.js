@@ -196,34 +196,35 @@ const TimerWidget = (function() {
     }
     
     /**
-     * Create timer widget HTML with Tailwind classes
+     * Create timer widget HTML
+     * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
      */
     function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME) {
         return `
-            <div class="bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-lg p-6 shadow-md flex flex-col h-full">
-                <h2 class="text-primary dark:text-blue-400 mb-4 text-2xl font-semibold">Timer</h2>
+            <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
+                <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Timer</h2>
                 
                 <div id="timerDisplay-${instanceId}" 
                      contenteditable="true"
-                     class="text-7xl text-center text-primary dark:text-blue-400 font-bold my-5 border-2 border-transparent p-2.5 rounded-lg cursor-text focus:outline-none focus:border-primary dark:focus:border-blue-400 focus:bg-gray-50 dark:focus:bg-gray-800"
+                     class="text-7xl text-center text-blue-600 dark:text-blue-400 font-bold my-5 border-2 border-transparent p-2.5 rounded-lg cursor-text focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-gray-50 dark:focus:bg-gray-900"
                 >${defaultTime}</div>
                 
                 <div class="flex gap-2.5 justify-center flex-wrap mt-auto">
                     <button onclick="TimerWidget.start('${instanceId}')"
-                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                         Start
                     </button>
                     <button onclick="TimerWidget.pause('${instanceId}')"
-                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                         Pause
                     </button>
                     <button onclick="TimerWidget.reset('${instanceId}')"
-                            class="bg-primary dark:bg-blue-500 text-white border-2 border-primary dark:border-blue-500 font-semibold px-5 py-2.5 rounded-lg hover:opacity-85 hover:-translate-y-0.5 transition-all">
+                            class="bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold px-5 py-2.5 rounded-lg transition-colors">
                         Reset
                     </button>
                     <button id="stopAlarm-${instanceId}" 
                             onclick="TimerWidget.stopAlarm('${instanceId}')"
-                            class="hidden bg-red-500 text-white border-2 border-red-600 font-semibold px-5 py-2.5 rounded-lg hover:bg-red-600 transition-all">
+                            class="hidden bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold px-5 py-2.5 rounded-lg transition-colors">
                         STOP ALARM
                     </button>
                 </div>
