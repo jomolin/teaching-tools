@@ -94,9 +94,9 @@
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
     <!-- Loading Overlay -->
-    <div id="loadingOverlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(243, 244, 246, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;">
+    <div id="loadingOverlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(243, 244, 246, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;" class="dark:bg-gray-900 dark:bg-opacity-95">
         <div class="text-center">
-            <div class="text-6xl mb-4">📚</div>
+            <div class="text-4xl mb-4 text-gray-400">&#9881;</div>
             <div class="text-xl font-semibold text-gray-700 dark:text-gray-300">Loading lesson data...</div>
         </div>
     </div>
@@ -127,16 +127,16 @@
             </div>
 
             <div class="flex gap-3 mb-6 flex-wrap">
-                <button id="markNextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors">
+                <button id="markNextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">
                     Mark Next Complete
                 </button>
-                <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md transition-colors">
+                <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold rounded-md transition-colors">
                     Reset
                 </button>
-                <button id="exportBtn" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-md transition-colors">
+                <button id="exportBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">
                     Export
                 </button>
-                <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors">
+                <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">
                     Import
                 </button>
                 <input type="file" id="importFile" accept=".json" class="hidden">
@@ -147,7 +147,7 @@
 
         <!-- Planner Tab -->
         <div id="planner" class="tab-content hidden">
-            <div id="nextLessonsDisplay" class="bg-yellow-50 dark:bg-yellow-900/20 border-l-4 border-yellow-500 p-4 mb-6 rounded"></div>
+            <div id="nextLessonsDisplay" class="bg-blue-50 dark:bg-blue-900 dark:bg-opacity-20 border border-blue-200 dark:border-blue-800 rounded-lg p-4 mb-6"></div>
             
             <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mt-8 mb-4">Next 5 Lessons - Weekly Plan Format</h3>
             <p class="text-gray-600 dark:text-gray-400 mb-4">Each box contains both Year 4 and Year 5 for one day/lesson</p>
@@ -298,7 +298,7 @@
                     console.error('Error loading lesson data:', error);
                     document.getElementById('loadingOverlay').innerHTML = `
                         <div class="text-center max-w-2xl mx-auto p-6">
-                            <div class="text-6xl mb-4">❌</div>
+                            <div class="text-4xl mb-4 text-red-500">&#10060;</div>
                             <div class="text-xl font-semibold text-red-600 mb-4">Failed to load lesson data</div>
                             <div class="text-gray-700 mb-4">${error.message}</div>
                             <button onclick="location.reload()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md">Retry</button>
@@ -500,7 +500,7 @@
                         </div>
                     </div>
                     <div class="text-sm text-gray-700 dark:text-gray-300 mb-2 line-clamp-2">${lesson.objective || 'No objective'}</div>
-                    ${combineInfo ? `<div class="text-xs text-blue-600 dark:text-blue-400 mb-2">💡 Combine with L${combineInfo}</div>` : ''}
+                    ${combineInfo ? `<div class="text-xs text-blue-600 dark:text-blue-400 mb-2">&#8594; Combine with L${combineInfo}</div>` : ''}
                     ${tags.length > 0 ? `<div class="flex flex-wrap gap-1 mb-2">${tags.map(tag => {
                         const isOptional = tag === 'Optional';
                         const bgColor = isOptional ? 'bg-amber-500 dark:bg-amber-600' : 'bg-gray-200 dark:bg-gray-700';
@@ -597,7 +597,7 @@
                 }
 
                 if (lesson.textbook_url || lesson.workbook_url) {
-                    html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Resources</h4><div class="flex gap-3">${lesson.textbook_url ? `<a href="${lesson.textbook_url}" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold">📘 Textbook</a>` : ''}${lesson.workbook_url ? `<a href="${lesson.workbook_url}" target="_blank" class="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded font-semibold">📗 Workbook</a>` : ''}</div></div>`;
+                    html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Resources</h4><div class="flex gap-3">${lesson.textbook_url ? `<a href="${lesson.textbook_url}" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded font-semibold">Textbook</a>` : ''}${lesson.workbook_url ? `<a href="${lesson.workbook_url}" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded font-semibold">Workbook</a>` : ''}</div></div>`;
                 }
 
                 content.innerHTML = html;
@@ -813,7 +813,7 @@
                 const nextLessons = this.getNextLessons(5);
                 const display = document.getElementById('nextLessonsDisplay');
                 if (nextLessons['4'].length === 0 && nextLessons['5'].length === 0) {
-                    display.innerHTML = '<p class="text-gray-600 dark:text-gray-400">All lessons completed! 🎉</p>';
+                    display.innerHTML = '<p class="text-gray-600 dark:text-gray-400">All lessons completed! &#10003;</p>';
                 } else {
                     let html = '<h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-3">Upcoming Lessons</h3>';
                     ['4', '5'].forEach(year => {
