@@ -126,37 +126,28 @@ const RandomPickerWidget = (function() {
         };
 
         /**
-         * Calculate optimal font size for display
+         * Fit the text inside the result element by shrinking font size until
+         * nothing overflows. Measures in-place on the real DOM element so
+         * line-wrapping, padding, and font metrics are all accurate.
          */
-        function calculateFontSize(text, containerWidth, containerHeight) {
-            const tempSpan = document.createElement('span');
-            tempSpan.style.visibility = 'hidden';
-            tempSpan.style.position = 'absolute';
-            tempSpan.style.whiteSpace = 'normal';
-            tempSpan.style.wordBreak = 'break-word';
-            tempSpan.style.width = (containerWidth - CONSTANTS.PADDING_OFFSET) + 'px';
-            tempSpan.style.display = 'flex';
-            tempSpan.style.alignItems = 'center';
-            tempSpan.style.justifyContent = 'center';
-            tempSpan.style.textAlign = 'center';
-            tempSpan.textContent = text;
-            document.body.appendChild(tempSpan);
+        function fitTextToContainer(element) {
+            const wrapper = element.parentElement;
+            if (!wrapper) return;
 
-            const availableHeight = containerHeight - CONSTANTS.PADDING_OFFSET;
+            const availW = wrapper.clientWidth;
+            const availH = wrapper.clientHeight;
+            if (availW === 0 || availH === 0) return;
+
             let fontSize = CONSTANTS.MAX_FONT_SIZE;
+            element.style.fontSize = fontSize + 'px';
+            element.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
 
-            while (fontSize > CONSTANTS.MIN_FONT_SIZE) {
-                tempSpan.style.fontSize = fontSize + 'px';
-                tempSpan.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
-
-                if (tempSpan.offsetHeight <= availableHeight) {
-                    break;
-                }
+            // Shrink until the text fits entirely within the wrapper
+            while (fontSize > CONSTANTS.MIN_FONT_SIZE &&
+                   (element.scrollWidth > availW || element.scrollHeight > availH)) {
                 fontSize -= CONSTANTS.FONT_STEP;
+                element.style.fontSize = fontSize + 'px';
             }
-
-            document.body.removeChild(tempSpan);
-            return fontSize;
         }
 
         /**
@@ -190,17 +181,7 @@ const RandomPickerWidget = (function() {
             // Display result with optimal font size
             instance.lastPicked = picked;
             instance.elements.randomResult.textContent = picked;
-
-            // Measure against the wrapper (parent) which has fixed dimensions via absolute positioning
-            const wrapper = instance.elements.randomResult.parentElement;
-            const fontSize = calculateFontSize(
-                picked,
-                wrapper.clientWidth,
-                wrapper.clientHeight
-            );
-
-            instance.elements.randomResult.style.fontSize = fontSize + 'px';
-            instance.elements.randomResult.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
+            fitTextToContainer(instance.elements.randomResult);
 
             // Show remaining count
             if (instance.availableItems.length === 0) {
@@ -422,14 +403,7 @@ const RandomPickerWidget = (function() {
                 // Restore last picked display
                 if (instance.lastPicked && instance.elements.randomResult) {
                     instance.elements.randomResult.textContent = instance.lastPicked;
-                    const wrapper = instance.elements.randomResult.parentElement;
-                    const fontSize = calculateFontSize(
-                        instance.lastPicked,
-                        wrapper.clientWidth,
-                        wrapper.clientHeight
-                    );
-                    instance.elements.randomResult.style.fontSize = fontSize + 'px';
-                    instance.elements.randomResult.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
+                    fitTextToContainer(instance.elements.randomResult);
                 }
 
                 // Restore remaining count
@@ -461,7 +435,7 @@ const RandomPickerWidget = (function() {
             <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">${title}</h2>
             <div class="relative flex-grow min-h-0 my-5">
                 <div id="randomResult-${instanceId}" 
-                     class="absolute inset-0 text-center text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center overflow-hidden p-2.5 break-words"
+                     class="absolute inset-0 text-center text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center p-2.5 break-words"
                      style="font-size: 72px; line-height: 1.2;"></div>
             </div>
             <div id="remainingCount-${instanceId}" 
