@@ -1,0 +1,3028 @@
+{
+  "taumata": 10,
+  "year_level": "4-5",
+  "theme": "Water, its properties and uses",
+  "global_resources": {
+    "phom_activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+    "phom_lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+    "reading_comp_lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+    "reading_comp_ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+    "reading_texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link",
+    "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link",
+    "sentence_level_ppt": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link",
+    "scope_and_sequence": "https://drive.google.com/file/d/1RFUHdn0suXQn2j4ZZAcq0SxoCqDIQUKL/view?usp=drive_link",
+    "spelling_lessons_ppt": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link",
+    "better_spelling_test_pdf": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+    "better_spelling_test_page_note": "Page 1 = Taumata 10, Page 2 = Taumata 11, Page 3 = Taumata 12"
+  },
+  "phom_activity_pages": {
+    "Morpheme Bingo": 1,
+    "Morpheme Card": 2,
+    "Word-Definition Matching": 3,
+    "Word Sort": 4,
+    "Morpheme Map": 5,
+    "Word Breakdown": 6,
+    "Word Study": 7,
+    "Word Sums": 8,
+    "Fill the Blanks": 9,
+    "Sentence Completion": 10,
+    "Word/Sentence Generation": 11,
+    "Word Usage": 12
+  },
+  "sentence_level_bonus_lessons": [
+    {
+      "title": "Write statements & questions from a text",
+      "slide": 19
+    },
+    {
+      "title": "Sentence vs fragment (revisited)",
+      "slide": 28
+    },
+    {
+      "title": "Expand with conjunctions (text-based)",
+      "slide": 39
+    },
+    {
+      "title": "Expand: when, where, how, why",
+      "slide": 53
+    },
+    {
+      "title": "Compound predicate",
+      "slide": 76
+    },
+    {
+      "title": "Compound subject",
+      "slide": 80
+    }
+  ],
+  "phom": [
+    {
+      "unit": "1",
+      "morpheme": "inter-",
+      "meaning": "between/among",
+      "spelling_words": [
+        "intercept",
+        "intersect",
+        "interrupt",
+        "intercom",
+        "interlock",
+        "interject",
+        "intercity",
+        "interview"
+      ],
+      "transfer_words": [
+        "intervene",
+        "interchange",
+        "interfere",
+        "interconnect",
+        "interlocking"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 1,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Match word with prefix inter to its definition",
+            "activity_key": "Word-Definition Matching"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1QberKR82GBfKdlmcbvifyjvncWmz48l0fWvLv55G0Hk/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 3,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 2,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for inter + sentence with an inter word",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Map for inter",
+            "activity_key": "Morpheme Map"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 6,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 5
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 3,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Match word with prefix inter to its definition",
+            "activity_key": "Word-Definition Matching"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1QberKR82GBfKdlmcbvifyjvncWmz48l0fWvLv55G0Hk/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 3,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 4,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for inter + sentence with an inter word",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Map for inter",
+            "activity_key": "Morpheme Map"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 6,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 5
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 5,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 8
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "2",
+      "morpheme": "under-",
+      "meaning": "beneath/lower",
+      "spelling_words": [
+        "underground",
+        "undercover",
+        "underage",
+        "undergrowth",
+        "underweight",
+        "undervalue",
+        "underpay",
+        "underuse"
+      ],
+      "transfer_words": [
+        "underarm",
+        "underestimate",
+        "undercooked",
+        "underfoot",
+        "underpass",
+        "underside",
+        "undertone",
+        "underachieve",
+        "underline"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 6,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Match word with prefix under to its definition",
+            "activity_key": "Word-Definition Matching"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1VuT1w_liTlBMwy1fFAY6hhqazBQKLtAPfPH_9nQRfUI/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 3,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 7,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for under + sentence",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Bingo for under",
+            "activity_key": "Morpheme Bingo"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 9,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 8,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Match word with prefix under to its definition",
+            "activity_key": "Word-Definition Matching"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1VuT1w_liTlBMwy1fFAY6hhqazBQKLtAPfPH_9nQRfUI/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 3,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 9,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for under + sentence",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Bingo for under",
+            "activity_key": "Morpheme Bingo"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 9,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 10,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 11
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "3",
+      "morpheme": "over-",
+      "meaning": "above/excessive",
+      "spelling_words": [
+        "override",
+        "overcharge",
+        "overrated",
+        "overjoyed",
+        "overpower",
+        "overcrowded",
+        "overheat",
+        "overweight"
+      ],
+      "transfer_words": [
+        "overflow",
+        "overlap",
+        "overcook",
+        "overload"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 11,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word Sums and Sentence Generation",
+            "activity_key": "Word Sums"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1_CcwHy72RGoBmiI5LmV8K72yk_f5TwjY-fHQjyiWpbA/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 8,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 12,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for over + Word Breakdown",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Map for over",
+            "activity_key": "Morpheme Map"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 12,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 5
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 13,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word Sums and Sentence Generation",
+            "activity_key": "Word Sums"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1_CcwHy72RGoBmiI5LmV8K72yk_f5TwjY-fHQjyiWpbA/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 8,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 14,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for over + Word Breakdown",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Map for over",
+            "activity_key": "Morpheme Map"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 12,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 5
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 15,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 14
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "4a",
+      "morpheme": "-al",
+      "meaning": "pertaining to / having the form or character of",
+      "spelling_words": [
+        "personal",
+        "logical",
+        "national",
+        "emotional",
+        "cultural",
+        "bridal",
+        "global",
+        "arrival"
+      ],
+      "transfer_words": [
+        "chemical",
+        "clinical",
+        "ethical",
+        "frontal",
+        "herbal",
+        "musical",
+        "nautical",
+        "pivotal"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 16,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Morpheme Bingo for -al",
+            "activity_key": "Morpheme Bingo"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/14mbX172M72H00NVZe01af9KY5pylefRYB9AUUQMzBWw/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 1,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 17,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for al",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort for al",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 15,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 18,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Morpheme Bingo for -al",
+            "activity_key": "Morpheme Bingo"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/14mbX172M72H00NVZe01af9KY5pylefRYB9AUUQMzBWw/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 1,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 19,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for al",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort for al",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 15,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 20,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 19
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "4b",
+      "morpheme": "-ial",
+      "meaning": "of / relating to / connected with",
+      "spelling_words": [
+        "burial",
+        "colonial",
+        "remedial",
+        "denial",
+        "memorial",
+        "territorial"
+      ],
+      "transfer_words": [],
+      "lessons": [
+        {
+          "lesson_number": 21,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word/Sentence Generation for -ial",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1ckhRRZCkUlGJeVX4HGhatlx1Xkdu5K64dyKMewEoUcA/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 22,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation for ial",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort for ial",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 18,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 23,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word/Sentence Generation for -ial",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1ckhRRZCkUlGJeVX4HGhatlx1Xkdu5K64dyKMewEoUcA/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 24,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation for ial",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort for ial",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 18,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 25,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 19
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "5",
+      "morpheme": "-ist",
+      "meaning": "as in artist (one who does)",
+      "spelling_words": [
+        "dentist",
+        "cyclist",
+        "machinist",
+        "journalist",
+        "artist",
+        "hygienist",
+        "specialist",
+        "tourist"
+      ],
+      "transfer_words": [],
+      "lessons": [
+        {
+          "lesson_number": 26,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Fill the Blanks",
+            "activity_key": "Fill the Blanks"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/15LTxL5Li7UgN2a7RmYpx6WA6HNduNJsu3xz7HfNTXIo/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 27,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 20,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 28,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Fill the Blanks",
+            "activity_key": "Fill the Blanks"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/15LTxL5Li7UgN2a7RmYpx6WA6HNduNJsu3xz7HfNTXIo/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 29,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 20,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 30,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 22
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "6",
+      "morpheme": "-or",
+      "meaning": "as in doctor (one who does)",
+      "spelling_words": [
+        "inventor",
+        "conductor",
+        "editor",
+        "visitor",
+        "survivor",
+        "narrator",
+        "translator"
+      ],
+      "transfer_words": [
+        "counsellor",
+        "governor",
+        "professor",
+        "monitor",
+        "director"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 31,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Fill the Blanks",
+            "activity_key": "Fill the Blanks"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1jxRi-A2HWw8yWq0ArrxRCwLjuL4EQi2mlA5o_aXiDPQ/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 32,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Bingo",
+            "activity_key": "Morpheme Bingo"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 23,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 33,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Fill the Blanks",
+            "activity_key": "Fill the Blanks"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1jxRi-A2HWw8yWq0ArrxRCwLjuL4EQi2mlA5o_aXiDPQ/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 34,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Bingo",
+            "activity_key": "Morpheme Bingo"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 23,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 35,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 25
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "7",
+      "morpheme": "Root words (intro)",
+      "meaning": "Introduction to root words (prerequisite for Unit 8)",
+      "spelling_words": [
+        "erupted",
+        "constructed",
+        "deformed",
+        "import",
+        "scribbled",
+        "scribe",
+        "distracted"
+      ],
+      "transfer_words": [
+        "platform",
+        "rupture",
+        "instruct",
+        "portal",
+        "detract",
+        "subscribe"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 36,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word Usage and Sentence Generation",
+            "activity_key": "Word Usage"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1Fjptdit8LpGt-sffJ6b56XEeu3W_WLYliGSG9dcTuME/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 12,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 37,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 26,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 38,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word Usage and Sentence Generation",
+            "activity_key": "Word Usage"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1Fjptdit8LpGt-sffJ6b56XEeu3W_WLYliGSG9dcTuME/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 12,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 39,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 26,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 40,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 28
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "8",
+      "morpheme": "form",
+      "meaning": "shape (root word)",
+      "spelling_words": [
+        "reform",
+        "uniform",
+        "deform",
+        "formal",
+        "transform",
+        "platform",
+        "perform",
+        "formed"
+      ],
+      "transfer_words": [
+        "information",
+        "formative",
+        "waveform",
+        "formula",
+        "format"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 41,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Fill the Blanks",
+            "activity_key": "Fill the Blanks"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1_AR_OgmLfDTy_-3JdJf_jRfPRivoW7-ih03Q8OtEbGk/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 42,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for form + sentence",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Bingo",
+            "activity_key": "Morpheme Bingo"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 29,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 43,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Fill the Blanks",
+            "activity_key": "Fill the Blanks"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1_AR_OgmLfDTy_-3JdJf_jRfPRivoW7-ih03Q8OtEbGk/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 44,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Morpheme Card for form + sentence",
+            "activity_key": "Morpheme Card"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Morpheme Bingo",
+            "activity_key": "Morpheme Bingo"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 29,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2,
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 45,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 31
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "9",
+      "morpheme": "Multimorphemic words",
+      "meaning": "Building complex words with multiple morphemes",
+      "spelling_words": [
+        "overactive",
+        "preheated",
+        "internationally",
+        "irresponsible",
+        "transformer",
+        "performed"
+      ],
+      "transfer_words": [],
+      "lessons": [
+        {
+          "lesson_number": 46,
+          "day": 1,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (first half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word Sums and Sentence Generation",
+            "activity_key": "Word Sums"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study and Word Sums",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1o6oQyBNZquW9_MttVYssDFlmiegTwkQsPFBaBXRT2cU/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 8,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 47,
+          "day": 2,
+          "type": "Paper",
+          "description": "Paper Plan L2: We Do + You Do",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Word/Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 32,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practice writing words and phrases with target pattern words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 48,
+          "day": 3,
+          "type": "PPT",
+          "description": "PPT Lesson 1 (second half)",
+          "link_to_rw": {
+            "lesson": "L1",
+            "activity": "Word Sums and Sentence Generation",
+            "activity_key": "Word Sums"
+          },
+          "other_activity": {
+            "lesson": "L1",
+            "activity": "Word Study and Word Sums",
+            "activity_key": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://docs.google.com/presentation/d/1o6oQyBNZquW9_MttVYssDFlmiegTwkQsPFBaBXRT2cU/edit?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 8,
+            "game_page": 7
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "No spelling lesson this day",
+            "description": null,
+            "duration_minutes": 0,
+            "resource": null
+          }
+        },
+        {
+          "lesson_number": 49,
+          "day": 4,
+          "type": "Paper",
+          "description": "Paper Plan L2: Spelling + OWLs",
+          "link_to_rw": {
+            "lesson": "L2",
+            "activity": "Word/Sentence Generation",
+            "activity_key": "Word/Sentence Generation"
+          },
+          "other_activity": {
+            "lesson": "L2",
+            "activity": "Word Sort",
+            "activity_key": "Word Sort"
+          },
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "lesson_plans_page": 32,
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11,
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play game/activity using words from the week",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 50,
+          "day": 5,
+          "type": "Review",
+          "description": "Review & Assessment + OWLS",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 34
+          },
+          "spelling": {
+            "lesson": null,
+            "type": "Weekly spelling review/test",
+            "description": "Optional weekly review or informal spelling check",
+            "duration_minutes": 10,
+            "resource": null
+          }
+        }
+      ]
+    },
+    {
+      "unit": "10",
+      "morpheme": "Review",
+      "meaning": "Teacher's choice",
+      "spelling_words": [],
+      "transfer_words": [],
+      "lessons": [
+        {
+          "lesson_number": 51,
+          "day": 1,
+          "type": "Review",
+          "description": "Teacher's choice - Review",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 37
+          },
+          "spelling": {
+            "type": "end_of_taumata_test",
+            "resource": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+            "page": 1,
+            "note": "Better Spelling End of Taumata 10 Test"
+          }
+        },
+        {
+          "lesson_number": 52,
+          "day": 2,
+          "type": "Review",
+          "description": "Teacher's choice - Review",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 37
+          },
+          "spelling": {
+            "type": "end_of_taumata_test",
+            "resource": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+            "page": 1,
+            "note": "Better Spelling End of Taumata 10 Test"
+          }
+        },
+        {
+          "lesson_number": 53,
+          "day": 3,
+          "type": "Review",
+          "description": "Teacher's choice - Review",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 37
+          },
+          "spelling": {
+            "type": "end_of_taumata_test",
+            "resource": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+            "page": 1,
+            "note": "Better Spelling End of Taumata 10 Test"
+          }
+        },
+        {
+          "lesson_number": 54,
+          "day": 4,
+          "type": "Review",
+          "description": "Teacher's choice - Review",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 37
+          },
+          "spelling": {
+            "type": "end_of_taumata_test",
+            "resource": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+            "page": 1,
+            "note": "Better Spelling End of Taumata 10 Test"
+          }
+        },
+        {
+          "lesson_number": 55,
+          "day": 5,
+          "type": "Review",
+          "description": "Teacher's choice - Review",
+          "link_to_rw": null,
+          "other_activity": null,
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1YYi7rGURxu5PLKh4wUuYeEfKkJwaZ6_K/view?usp=drive_link",
+            "owls_page": 37
+          },
+          "spelling": {
+            "type": "end_of_taumata_test",
+            "resource": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+            "page": 1,
+            "note": "Better Spelling End of Taumata 10 Test"
+          }
+        }
+      ]
+    }
+  ],
+  "reading": [
+    {
+      "week": 1,
+      "text_a": "Red Flags",
+      "source_a": "SJL1 No 5, 2008",
+      "text_b": "Sons of Ma'afu",
+      "source_b": "SJL2, Oct 2015",
+      "comprehension_focus": "QAR (Right There, Think & Search, Author & Me, On My Own)",
+      "graphic_organiser": "Narrative Organiser",
+      "lessons": [
+        {
+          "lesson_number": 1,
+          "label": "L1",
+          "type": "PPT",
+          "text": "Red Flags",
+          "source": "SJL1 No 5, 2008",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 2,
+          "label": "L2",
+          "type": "Paper",
+          "text": "Red Flags",
+          "source": "SJL1 No 5, 2008",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 15,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 3,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Sons of Ma'afu",
+          "source": "SJL2, Oct 2015",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 4,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Sons of Ma'afu",
+          "source": "SJL2, Oct 2015",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 15,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 5,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 17
+          }
+        }
+      ]
+    },
+    {
+      "week": 2,
+      "text_a": "Where's Toki?",
+      "source_a": "SJL2, May 2019",
+      "text_b": "Where's Toki?",
+      "source_b": "SJL2, May 2019",
+      "comprehension_focus": "All QAR categories + Summarise with story structure",
+      "graphic_organiser": "Story Structure Cards / Narrative Organiser",
+      "lessons": [
+        {
+          "lesson_number": 6,
+          "label": "L1",
+          "type": "PPT",
+          "text": "Where's Toki?",
+          "source": "SJL2, May 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 7,
+          "label": "L2",
+          "type": "Paper",
+          "text": "Where's Toki?",
+          "source": "SJL2, May 2019",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 19,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 8,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Where's Toki?",
+          "source": "SJL2, May 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 9,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Where's Toki?",
+          "source": "SJL2, May 2019",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 19,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 10,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 21
+          }
+        }
+      ]
+    },
+    {
+      "week": 3,
+      "text_a": "Ngāti Kurī Proud",
+      "source_a": "SJL2, Nov 2019",
+      "text_b": "Ngāti Kurī Proud",
+      "source_b": "SJL2, Nov 2019",
+      "comprehension_focus": "Anticipation Guide + QAR review (mixed order)",
+      "graphic_organiser": "Narrative Organiser",
+      "lessons": [
+        {
+          "lesson_number": 11,
+          "label": "L1",
+          "type": "PPT",
+          "text": "Ngāti Kurī Proud",
+          "source": "SJL2, Nov 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 12,
+          "label": "L2",
+          "type": "Paper",
+          "text": "Ngāti Kurī Proud",
+          "source": "SJL2, Nov 2019",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 23,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 13,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Ngāti Kurī Proud",
+          "source": "SJL2, Nov 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 14,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Ngāti Kurī Proud",
+          "source": "SJL2, Nov 2019",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 23,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 15,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 25
+          }
+        }
+      ]
+    },
+    {
+      "week": 4,
+      "text_a": "Monsters of the Deep",
+      "source_a": "Connected 1, 2009",
+      "text_b": "Monsters of the Deep",
+      "source_b": "Connected 1, 2009",
+      "comprehension_focus": "Non-fiction: Descriptive Web + KWL",
+      "graphic_organiser": "Descriptive Web",
+      "lessons": [
+        {
+          "lesson_number": 16,
+          "label": "L1",
+          "type": "PPT",
+          "text": "Monsters of the Deep",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 17,
+          "label": "L2",
+          "type": "Paper",
+          "text": "Monsters of the Deep",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 27,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 18,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Monsters of the Deep",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 19,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Monsters of the Deep",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 27,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 20,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 29
+          }
+        }
+      ]
+    },
+    {
+      "week": 5,
+      "text_a": "Te Papa's Colossal Squid",
+      "source_a": "Connected 1, 2009",
+      "text_b": "Te Papa's Colossal Squid",
+      "source_b": "Connected 1, 2009",
+      "comprehension_focus": "Non-fiction: Descriptive Web",
+      "graphic_organiser": "Descriptive Web",
+      "lessons": [
+        {
+          "lesson_number": 21,
+          "label": "L1",
+          "type": "PPT",
+          "text": "Te Papa's Colossal Squid",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 22,
+          "label": "L2",
+          "type": "Paper",
+          "text": "Te Papa's Colossal Squid",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 30,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 23,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Te Papa's Colossal Squid",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 24,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Te Papa's Colossal Squid",
+          "source": "Connected 1, 2009",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 30,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 25,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 31
+          }
+        }
+      ]
+    },
+    {
+      "week": 6,
+      "text_a": "Kaitiaki of the Estuary",
+      "source_a": "SJL2, Nov 2022",
+      "text_b": "Estuaries",
+      "source_b": "SJL2, Nov 2022",
+      "comprehension_focus": "Non-fiction: Descriptive Web",
+      "graphic_organiser": "Descriptive Web",
+      "lessons": [
+        {
+          "lesson_number": 26,
+          "label": "L1",
+          "type": "PPT",
+          "text": "Kaitiaki of the Estuary",
+          "source": "SJL2, Nov 2022",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 27,
+          "label": "L2",
+          "type": "Paper",
+          "text": "Kaitiaki of the Estuary",
+          "source": "SJL2, Nov 2022",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 33,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 28,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Estuaries",
+          "source": "SJL2, Nov 2022",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 29,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Estuaries",
+          "source": "SJL2, Nov 2022",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 33,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 30,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 34
+          }
+        }
+      ]
+    },
+    {
+      "week": 7,
+      "text_a": "The Big Chill & the Big Drill",
+      "source_a": "Connected L1&2, 2008",
+      "text_b": "The Ice Hotel",
+      "source_b": "Connected 2, 2006",
+      "comprehension_focus": "Non-fiction: Sequential String",
+      "graphic_organiser": "Sequential String",
+      "lessons": [
+        {
+          "lesson_number": 31,
+          "label": "L1",
+          "type": "PPT",
+          "text": "The Big Chill & the Big Drill",
+          "source": "Connected L1&2, 2008",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 32,
+          "label": "L2",
+          "type": "Paper",
+          "text": "The Big Chill & the Big Drill",
+          "source": "Connected L1&2, 2008",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 36,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 33,
+          "label": "L3",
+          "type": "PPT",
+          "text": "The Ice Hotel",
+          "source": "Connected 2, 2006",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 34,
+          "label": "L4",
+          "type": "Paper",
+          "text": "The Ice Hotel",
+          "source": "Connected 2, 2006",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 36,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 35,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 38
+          }
+        }
+      ]
+    },
+    {
+      "week": 8,
+      "text_a": "Jago Descends",
+      "source_a": "Connected 2, 2000",
+      "text_b": "Harwoods Hole",
+      "source_b": "SJL2, May 2019",
+      "comprehension_focus": "Non-fiction: Sequential String",
+      "graphic_organiser": "Sequential String",
+      "lessons": [
+        {
+          "lesson_number": 36,
+          "label": "L1",
+          "type": "PPT",
+          "text": "Jago Descends",
+          "source": "Connected 2, 2000",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 37,
+          "label": "L2",
+          "type": "Paper",
+          "text": "Jago Descends",
+          "source": "Connected 2, 2000",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 39,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 38,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Harwoods Hole",
+          "source": "SJL2, May 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 39,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Harwoods Hole",
+          "source": "SJL2, May 2019",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 39,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 40,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 40
+          }
+        }
+      ]
+    },
+    {
+      "week": 9,
+      "text_a": "The Water Cycle",
+      "source_a": "Connected L2, 2002",
+      "text_b": "Coral Reefs: An Endangered Paradise",
+      "source_b": "Connected 2, 2001",
+      "comprehension_focus": "Non-fiction: Sequential String",
+      "graphic_organiser": "Sequential String",
+      "lessons": [
+        {
+          "lesson_number": 41,
+          "label": "L1",
+          "type": "PPT",
+          "text": "The Water Cycle",
+          "source": "Connected L2, 2002",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 42,
+          "label": "L2",
+          "type": "Paper",
+          "text": "The Water Cycle",
+          "source": "Connected L2, 2002",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 42,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 43,
+          "label": "L3",
+          "type": "PPT",
+          "text": "Coral Reefs: An Endangered Paradise",
+          "source": "Connected 2, 2001",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/14Ckwks6WUtWRAzzvUsnW7ih__m5WJxPC?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 44,
+          "label": "L4",
+          "type": "Paper",
+          "text": "Coral Reefs: An Endangered Paradise",
+          "source": "Connected 2, 2001",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 42,
+            "texts_folder": "https://drive.google.com/drive/folders/1N87gj3Z5oSlfXakXIz4cjXOcu4bXFv1n?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 45,
+          "label": "L5",
+          "type": "OWLS",
+          "text": "Cross-curricular extension (Oral, Written, Language Creativity, Social Sci/Science)",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "owls_page": 43
+          }
+        }
+      ]
+    },
+    {
+      "week": 10,
+      "text_a": "Teacher's Choice",
+      "source_a": "",
+      "text_b": "Teacher's Choice",
+      "source_b": "",
+      "comprehension_focus": "Review & Assessment",
+      "graphic_organiser": "",
+      "lessons": [
+        {
+          "lesson_number": 46,
+          "label": "L1",
+          "type": "Review",
+          "text": "Teacher's Choice",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 45
+          }
+        },
+        {
+          "lesson_number": 47,
+          "label": "L2",
+          "type": "Review",
+          "text": "Teacher's Choice",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 45
+          }
+        },
+        {
+          "lesson_number": 48,
+          "label": "L3",
+          "type": "Review",
+          "text": "Teacher's Choice",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 45
+          }
+        },
+        {
+          "lesson_number": 49,
+          "label": "L4",
+          "type": "Review",
+          "text": "Teacher's Choice",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 45
+          }
+        },
+        {
+          "lesson_number": 50,
+          "label": "L5",
+          "type": "Review",
+          "text": "Teacher's Choice",
+          "source": "",
+          "resources": {
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1seWLHgyy4ICXmgsEeZDp54Qd-23W8NV3/view?usp=drive_link",
+            "lesson_plans_page": 45
+          }
+        }
+      ]
+    }
+  ],
+  "writing": [
+    {
+      "week": 1,
+      "lessons": [
+        {
+          "lesson_number": 1,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 2,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 3,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 4,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 5,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Identify sentence vs fragment",
+        "slide": 2,
+        "note": "Foundation — diagnostic to see where your class is at.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 2,
+      "lessons": [
+        {
+          "lesson_number": 6,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 7,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 8,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 9,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 10,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Identify four sentence types",
+        "slide": 8,
+        "note": "Statement, question, command, exclamation.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 3,
+      "lessons": [
+        {
+          "lesson_number": 11,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 12,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 13,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 14,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 15,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Write four sentence types",
+        "slide": 12,
+        "note": "Move from identifying to writing each type.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 4,
+      "lessons": [
+        {
+          "lesson_number": 16,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 17,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 18,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 19,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 20,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Identify subject and predicate",
+        "slide": 25,
+        "note": "The Who and the Do. Essential for expansion.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 5,
+      "lessons": [
+        {
+          "lesson_number": 21,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 22,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 23,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 24,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 25,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Sort words / turn fragments into sentences",
+        "slide": 31,
+        "note": "Consolidate before moving to expansion.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 6,
+      "lessons": [
+        {
+          "lesson_number": 26,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 27,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 28,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 29,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 30,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Use conjunctions: because, but, so",
+        "slide": 35,
+        "note": "First expansion skill. High-impact for writing.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 7,
+      "lessons": [
+        {
+          "lesson_number": 31,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 32,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 33,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 34,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 35,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Expand sentences to summarise key ideas",
+        "slide": 44,
+        "note": "Ties sentence skills to reading comprehension.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 8,
+      "lessons": [
+        {
+          "lesson_number": 36,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 37,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 38,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 39,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 40,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Expand with adjectives and adverbs",
+        "slide": 48,
+        "note": "Adds detail and interest to writing.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 9,
+      "lessons": [
+        {
+          "lesson_number": 41,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 42,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 43,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 44,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 45,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Compound sentences (coordinating conjunctions)",
+        "slide": 62,
+        "note": "FANBOYS. Simple to compound sentences.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    },
+    {
+      "week": 10,
+      "lessons": [
+        {
+          "lesson_number": 46,
+          "stage": "I Do",
+          "type": "Modelled Writing",
+          "focus": "Teacher demonstrates the writing process",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 47,
+          "stage": "We Do",
+          "type": "Shared Writing",
+          "focus": "Teacher and students co-construct writing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 48,
+          "stage": "We Do",
+          "type": "Paired Writing",
+          "focus": "Students practise with peer support",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 49,
+          "stage": "You Do",
+          "type": "Independent Writing",
+          "focus": "Students write independently",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 50,
+          "stage": "Share",
+          "type": "Review & Feedback",
+          "focus": "Reflection and peer sharing",
+          "resources": {
+            "writing_lesson_plans_pdf": "https://drive.google.com/file/d/1KAH7NsiLzExnrMW-13fwNUX4SB6WTtLb/view?usp=drive_link"
+          }
+        }
+      ],
+      "sentence_level": {
+        "title": "Complex sentences (subordinating conjunctions)",
+        "slide": 70,
+        "note": "Because, although, when, if. Highest level.",
+        "ppt_link": "https://docs.google.com/presentation/d/1C9w5EoFMRwznShB45iFIFy3epppv5khVr5jptAg8idY/edit?usp=drive_link"
+      }
+    }
+  ],
+  "spelling": {
+    "frequency": "3 x 10 min per week",
+    "structure": {
+      "lesson_1": {
+        "name": "Introduce pattern",
+        "description": "Explicitly introduce grapheme/phoneme/morpheme pattern",
+        "duration_minutes": 10,
+        "day": "Same day as PhOM PPT L1 (first half)"
+      },
+      "lesson_2": {
+        "name": "Review + practise writing",
+        "description": "Review and practice writing words and phrases with target pattern words",
+        "duration_minutes": 10,
+        "day": "Same day as PhOM Paper L2 (We Do + You Do)"
+      },
+      "lesson_3": {
+        "name": "Review + game/activity",
+        "description": "Review and play game/activity using words from the week",
+        "duration_minutes": 10,
+        "day": "Same day as PhOM Paper L2 (Spelling + OWLs)"
+      }
+    },
+    "resources": {
+      "lessons_ppt": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link",
+      "note": "Single PPT covers all Taumata-wide spelling lessons with scripts and guidance on lesson structure."
+    },
+    "end_of_taumata_test": {
+      "pdf": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+      "taumata_10_page": 1,
+      "taumata_11_page": 2,
+      "taumata_12_page": 3,
+      "note": "Administered in Week 10 of each Taumata."
+    }
+  }
+}
