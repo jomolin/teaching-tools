@@ -616,7 +616,7 @@ class LiteracyPlanner {
         const unit = item.unit;
         const c = this.getColorClasses(strand);
         let summaryLines = [];
-        let links = [];
+        let links = []; // { label, url }
 
         if (strand === 'phom') {
             summaryLines.push(`L${lesson.lesson_number} (Day ${lesson.day}) — ${lesson.type}`);
@@ -630,12 +630,19 @@ class LiteracyPlanner {
             if (lesson.spelling && lesson.spelling.type !== 'No spelling lesson this day') {
                 summaryLines.push(`Spelling: ${lesson.spelling.type} (${lesson.spelling.duration_minutes}min)`);
             }
+            // Resources — day 5 (Review) has no page numbers
             if (lesson.resources.ppt) links.push({ label: 'PPT', url: lesson.resources.ppt });
-            if (lesson.resources.lesson_plans_pdf) links.push({ label: `Plans p.${lesson.resources.lesson_plans_page}`, url: lesson.resources.lesson_plans_pdf });
+            if (lesson.resources.lesson_plans_pdf) {
+                const page = lesson.resources.lesson_plans_page;
+                links.push({ label: page ? `Plans p.${page}` : 'Plans PDF', url: lesson.resources.lesson_plans_pdf });
+            }
             if (lesson.resources.activities_pdf) {
                 let actLabel = 'Activities';
                 if (lesson.resources.link_to_rw_page) actLabel += ` p.${lesson.resources.link_to_rw_page}`;
                 links.push({ label: actLabel, url: lesson.resources.activities_pdf });
+            }
+            if (lesson.resources.owls_page) {
+                links.push({ label: `OWLs p.${lesson.resources.owls_page}`, url: lesson.resources.lesson_plans_pdf });
             }
             if (lesson.spelling && lesson.spelling.resource) links.push({ label: 'Spelling PPT', url: lesson.spelling.resource });
 
@@ -643,10 +650,17 @@ class LiteracyPlanner {
             summaryLines.push(`${lesson.label} — ${lesson.type}`);
             summaryLines.push(`Text: ${lesson.text}`);
             if (lesson.source) summaryLines.push(`Source: ${lesson.source}`);
+            // Resources — day 5 (OWLs) has no lesson_plans_page
             if (lesson.resources.ppt_folder) links.push({ label: 'PPT Folder', url: lesson.resources.ppt_folder });
-            if (lesson.resources.lesson_plans_pdf) links.push({ label: `Plans p.${lesson.resources.lesson_plans_page || '?'}`, url: lesson.resources.lesson_plans_pdf });
+            if (lesson.resources.lesson_plans_pdf && lesson.resources.lesson_plans_page) {
+                links.push({ label: `Plans p.${lesson.resources.lesson_plans_page}`, url: lesson.resources.lesson_plans_pdf });
+            } else if (lesson.resources.lesson_plans_pdf && !lesson.resources.owls_page) {
+                links.push({ label: 'Plans PDF', url: lesson.resources.lesson_plans_pdf });
+            }
             if (lesson.resources.texts_folder) links.push({ label: 'Texts', url: lesson.resources.texts_folder });
-            if (lesson.resources.owls_page) links.push({ label: `OWLs p.${lesson.resources.owls_page}`, url: lesson.resources.lesson_plans_pdf });
+            if (lesson.resources.owls_page) {
+                links.push({ label: `OWLs p.${lesson.resources.owls_page}`, url: lesson.resources.lesson_plans_pdf });
+            }
 
         } else if (strand === 'writing') {
             summaryLines.push(`L${lesson.lesson_number} — ${lesson.stage}`);
@@ -663,7 +677,7 @@ class LiteracyPlanner {
 
         let html = `<div class="bg-white dark:bg-gray-800 border ${c.border} rounded-lg overflow-hidden">`;
 
-        // Clickable copy area
+        // Clickable copy area — copies lesson summary text
         html += `<div class="p-2 cursor-pointer ${c.hoverBg} dark:hover:bg-opacity-30 transition-colors planner-copy" data-copy="${this.escapeAttr(copyText)}" data-label="${strandLabel}">
             <div class="text-xs space-y-0.5">`;
         for (const line of summaryLines) {
@@ -671,11 +685,14 @@ class LiteracyPlanner {
         }
         html += `</div></div>`;
 
-        // Resource links bar
+        // Resource links bar — each link opens in new tab, copy button copies URL
         if (links.length > 0) {
-            html += `<div class="border-t ${c.linkBarBorder} px-2 py-1 ${c.linkBarBg} flex flex-wrap gap-1">`;
+            html += `<div class="border-t ${c.linkBarBorder} px-2 py-1 ${c.linkBarBg} flex flex-wrap gap-x-2 gap-y-0.5 items-center">`;
             for (const link of links) {
-                html += `<a href="${link.url}" target="_blank" rel="noopener" class="text-xs ${c.linkText} underline hover:no-underline">${link.label} &#8599;</a>`;
+                html += `<span class="inline-flex items-center gap-0.5">
+                    <a href="${link.url}" target="_blank" rel="noopener" class="text-xs ${c.linkText} underline hover:no-underline">${link.label} &#8599;</a>
+                    <button class="copy-link-btn text-xs text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 px-0.5" data-url="${this.escapeAttr(link.url)}" data-label="${this.escapeAttr(link.label)}" title="Copy link">&#9112;</button>
+                </span>`;
             }
             html += `</div>`;
         }
@@ -809,6 +826,21 @@ class LiteracyPlanner {
 
         // Planner copy clicks
         document.getElementById('plannerContent').addEventListener('click', (e) => {
+            // Copy-link button — copies just the URL
+            const linkBtn = e.target.closest('.copy-link-btn');
+            if (linkBtn) {
+                e.stopPropagation();
+                const url = linkBtn.dataset.url;
+                const label = linkBtn.dataset.label;
+                navigator.clipboard.writeText(url).then(() => {
+                    this.showToast(`${label} link copied!`);
+                }).catch(() => {
+                    this.showToast(`${label} link copied!`);
+                });
+                return;
+            }
+
+            // Summary copy — copies lesson text
             const copyEl = e.target.closest('.planner-copy');
             if (copyEl) {
                 const text = copyEl.dataset.copy;
@@ -816,7 +848,6 @@ class LiteracyPlanner {
                 navigator.clipboard.writeText(text).then(() => {
                     this.showToast(`${label} copied!`);
                 }).catch(() => {
-                    // Fallback
                     this.showToast(`${label} copied!`);
                 });
             }
