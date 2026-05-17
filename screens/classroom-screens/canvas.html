@@ -11,8 +11,10 @@
         tailwind.config = { darkMode: 'class' }
     </script>
 
-    <!-- Theme sync from shared config - MUST be in head -->
-    <script src="./config.js"></script>
+    <!-- Theme sync from shared config - MUST be in head.
+         canvas.html lives in /screens/classroom-screens/ alongside the other screens,
+         so config.js is one directory up at /screens/config.js. -->
+    <script src="../config.js"></script>
 
     <!-- Lucide icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -388,12 +390,12 @@
          pre-render step (registered above) will have populated the grid-stack
          div with tile divs that have the matching CSS classes, so each widget
          finds its containers and initializes normally. -->
-    <script src="./widgets/utils.js"></script>
-    <script src="./widgets/title.js"></script>
-    <script src="./widgets/timer.js"></script>
-    <script src="./widgets/noise-meter.js"></script>
-    <script src="./widgets/random-picker.js"></script>
-    <script src="./widgets/seven-pickers.js"></script>
+    <script src="../widgets/utils.js"></script>
+    <script src="../widgets/title.js"></script>
+    <script src="../widgets/timer.js"></script>
+    <script src="../widgets/noise-meter.js"></script>
+    <script src="../widgets/random-picker.js"></script>
+    <script src="../widgets/seven-pickers.js"></script>
 
     <script>
     /* ============================================================

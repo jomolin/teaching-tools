@@ -8,6 +8,7 @@ const OUTPUT_FILE = path.join(REPO_ROOT, 'tools-manifest.json');
 // Tool descriptions for better UX
 const toolDescriptions = {
     'classroom-screens': {
+        'canvas': 'Modular classroom display with draggable widgets and saved layouts',
         'bell-ringers': 'Daily bell ringer activities with special days and curriculum content',
         'classroom': 'Full classroom display with timer, noise meter, and random picker',
         'daily-think': 'Word of the day, number of the day, and daily rotation activities',
@@ -35,6 +36,7 @@ const toolDescriptions = {
 // Tool icons for sidebar — all verified valid Lucide icon names
 const toolIcons = {
     'classroom-screens': {
+        'canvas': 'layout-grid',
         'bell-ringers': 'bell-ring',
         'classroom': 'school',
         'daily-think': 'lightbulb',
