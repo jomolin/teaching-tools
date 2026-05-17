@@ -1,4 +1,13 @@
 // Seven Pickers Widget Module - For Heads Up 7-Up
+//
+// Phase 2 updates:
+//   - Title ("The 7 Pickers") hidden by default. Opt-in via data-show-title="true".
+//   - Idempotent init() (skips containers already marked data-initialized).
+//   - Exposes SevenPickersWidget on window for the canvas controller.
+//
+// Note: this widget still uses module-scoped state (single instance per page),
+// matching its previous design. Multiple seven-pickers on one page would share
+// state.
 const SevenPickersWidget = (function() {
     'use strict';
 
@@ -10,22 +19,18 @@ const SevenPickersWidget = (function() {
         NUM_PICKERS: 7
     };
 
-    // Widget state
+    // Widget state (module-scoped - single instance per page)
     let pickerStates = [];
     let studentList = [];
     let selectedListName = '';
     let containerElement = null;
+    let showTitle = false; // resolved from data-show-title in init()
 
-    /**
-     * Load student list from random picker storage based on selected list
-     */
+    // ----- Student list loading ----------------------------------------------
+
     function loadStudentList() {
-        // Load which list was last selected
         selectedListName = ClassroomUtils.getFromStorage(CONSTANTS.SELECTED_LIST_KEY, CONSTANTS.DEFAULT_LIST);
-        
-        // Load all lists from random picker storage
         const lists = ClassroomUtils.getFromStorage(CONSTANTS.RANDOM_PICKER_STORAGE, null);
-        
         if (lists && lists[selectedListName]) {
             studentList = lists[selectedListName];
             console.log(`Loaded student list: ${selectedListName}`);
@@ -35,42 +40,28 @@ const SevenPickersWidget = (function() {
         }
     }
 
-    /**
-     * Get all available student lists from random picker storage
-     */
     function getAvailableLists() {
         const lists = ClassroomUtils.getFromStorage(CONSTANTS.RANDOM_PICKER_STORAGE, {});
         return Object.keys(lists).filter(key => key.toLowerCase().includes('student'));
     }
 
-    /**
-     * Switch to a different student list
-     */
     function switchStudentList(listName) {
         selectedListName = listName;
         ClassroomUtils.saveToStorage(CONSTANTS.SELECTED_LIST_KEY, listName);
         loadStudentList();
-        
-        // Update the dropdown
         const dropdown = containerElement.querySelector('#studentListDropdown');
-        if (dropdown) {
-            dropdown.value = listName;
-        }
+        if (dropdown) dropdown.value = listName;
     }
 
-    /**
-     * Load saved picker states from localStorage
-     */
+    // ----- Picker state ------------------------------------------------------
+
     function loadPickerStates() {
         pickerStates = ClassroomUtils.getFromStorage(CONSTANTS.STORAGE_KEY, null);
-        
         if (pickerStates) {
-            // Ensure we have exactly 7 pickers
             while (pickerStates.length < CONSTANTS.NUM_PICKERS) {
                 pickerStates.push({ name: '', locked: false });
             }
         } else {
-            // Initialize empty pickers
             pickerStates = Array(CONSTANTS.NUM_PICKERS).fill(null).map(() => ({
                 name: '',
                 locked: false
@@ -78,27 +69,17 @@ const SevenPickersWidget = (function() {
         }
     }
 
-    /**
-     * Save picker states to localStorage
-     */
     function savePickerStates() {
         ClassroomUtils.saveToStorage(CONSTANTS.STORAGE_KEY, pickerStates);
     }
 
-    /**
-     * Get available students (not already picked and not locked)
-     */
     function getAvailableStudents() {
         const lockedNames = pickerStates
-        .filter(p => p.locked && p.name)
-        .map(p => p.name);
-
+            .filter(p => p.locked && p.name)
+            .map(p => p.name);
         return studentList.filter(name => !lockedNames.includes(name));
     }
 
-    /**
-     * Randomize unlocked pickers
-     */
     function randomizeUnlocked() {
         if (studentList.length === 0) {
             alert('No students in list! Use the List Manager to add a student list.');
@@ -107,18 +88,15 @@ const SevenPickersWidget = (function() {
 
         const available = getAvailableStudents();
         const unlockedIndices = pickerStates
-        .map((p, i) => p.locked ? -1 : i)
-        .filter(i => i >= 0);
+            .map((p, i) => p.locked ? -1 : i)
+            .filter(i => i >= 0);
 
         if (available.length < unlockedIndices.length) {
             alert('Not enough students available to fill all unlocked slots!');
             return;
         }
 
-        // Shuffle available students
         const shuffled = [...available].sort(() => Math.random() - 0.5);
-
-        // Assign to unlocked pickers
         unlockedIndices.forEach((index, i) => {
             pickerStates[index].name = shuffled[i];
         });
@@ -127,26 +105,17 @@ const SevenPickersWidget = (function() {
         renderPickers();
     }
 
-    /**
-     * Toggle lock on a picker
-     */
     function toggleLock(index) {
         pickerStates[index].locked = !pickerStates[index].locked;
         savePickerStates();
         renderPickers();
     }
 
-    /**
-     * Update picker name manually
-     */
     function updatePickerName(index, name) {
         pickerStates[index].name = name;
         savePickerStates();
     }
 
-    /**
-     * Clear all pickers
-     */
     function clearAll() {
         if (confirm('Clear all 7 pickers?')) {
             pickerStates = Array(CONSTANTS.NUM_PICKERS).fill(null).map(() => ({
@@ -158,26 +127,20 @@ const SevenPickersWidget = (function() {
         }
     }
 
-    /**
-     * Open info modal
-     */
+    // ----- Modal -------------------------------------------------------------
+
     function openStudentEditor() {
         const modal = containerElement.querySelector('#studentListModal');
         ClassroomUtils.toggleModal(modal, true);
     }
 
-    /**
-     * Close info modal
-     */
     function closeStudentEditor() {
         const modal = containerElement.querySelector('#studentListModal');
         ClassroomUtils.toggleModal(modal, false);
     }
 
-    /**
-     * Render the pickers grid
-     * Uses design doc card styling and Unicode symbols instead of emoji
-     */
+    // ----- Rendering ---------------------------------------------------------
+
     function renderPickers() {
         if (!containerElement) return;
 
@@ -201,20 +164,23 @@ const SevenPickersWidget = (function() {
         </div>
         `).join('');
 
-        containerElement.querySelector('.pickers-grid').innerHTML = pickersHTML;
+        const grid = containerElement.querySelector('.pickers-grid');
+        if (grid) grid.innerHTML = pickersHTML;
     }
 
-    /**
-     * Create widget HTML
-     * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
-     * Unicode symbols for UI buttons, modal references List Manager
-     */
-    function createWidgetHTML(showTitle = false) {
+    // Phase 2: title hidden by default. Opt in with data-show-title="true".
+    // Pre-build the title block as a separate variable to keep the template
+    // literal readable.
+    function createWidgetHTML() {
+        const titleHTML = showTitle
+            ? `<h2 class="text-blue-600 dark:text-blue-400 text-2xl font-semibold">The 7 Pickers</h2>`
+            : '';
+
         return `
         <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
             <div class="flex items-center justify-between mb-4">
-                ${showTitle ? '<h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Seven Pickers</h2>' : ''}
-                <select id="studentListDropdown" 
+                ${titleHTML}
+                <select id="studentListDropdown"
                         onchange="SevenPickersWidget.switchList(this.value)"
                         class="px-3 py-1.5 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <option value="">Select a list...</option>
@@ -257,66 +223,58 @@ const SevenPickersWidget = (function() {
         `;
     }
 
-    /**
-     * Populate the student list dropdown
-     */
     function populateDropdown() {
         const dropdown = containerElement.querySelector('#studentListDropdown');
         if (!dropdown) return;
 
         const availableLists = getAvailableLists();
-        
-        // Clear existing options except the first placeholder
+
         dropdown.innerHTML = '<option value="">Select a list...</option>';
-        
-        // Add all available student lists
+
         availableLists.forEach(listName => {
             const option = document.createElement('option');
             option.value = listName;
             option.textContent = listName;
-            if (listName === selectedListName) {
-                option.selected = true;
-            }
+            if (listName === selectedListName) option.selected = true;
             dropdown.appendChild(option);
         });
-        
-        // If no lists found, show helpful message
+
         if (availableLists.length === 0) {
             const option = document.createElement('option');
-            option.value = "";
-            option.textContent = "No student lists found - add one in List Manager";
+            option.value = '';
+            option.textContent = 'No student lists found - add one in List Manager';
             option.disabled = true;
             dropdown.appendChild(option);
         }
     }
 
-    /**
-     * Initialize the widget
-     */
+    // ----- Init --------------------------------------------------------------
+
     function init() {
         containerElement = document.querySelector('.seven-pickers-widget');
         if (!containerElement) return;
         if (containerElement.dataset.initialized === 'true') return;
 
+        // Resolve title preference (off by default; opt in with "true")
+        showTitle = containerElement.getAttribute('data-show-title') === 'true';
+
         loadStudentList();
         loadPickerStates();
 
-        const showTitle = container.getAttribute('data-show-title') === 'true';
-        containerElement.innerHTML = createWidgetHTML(showTitle);
+        containerElement.innerHTML = createWidgetHTML();
         populateDropdown();
         renderPickers();
 
-        // Show info if no students
+        // If there's no student list set up yet, show the info modal
         if (studentList.length === 0) {
-            setTimeout(() => {
-                openStudentEditor();
-            }, 500);
+            setTimeout(() => openStudentEditor(), 500);
         }
 
         containerElement.dataset.initialized = 'true';
     }
 
-    // Public API
+    // ----- Public API --------------------------------------------------------
+
     return {
         init: init,
         randomize: randomizeUnlocked,
@@ -331,5 +289,4 @@ const SevenPickersWidget = (function() {
 
 window.SevenPickersWidget = SevenPickersWidget;
 
-// Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', SevenPickersWidget.init);
