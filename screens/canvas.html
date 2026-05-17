@@ -31,21 +31,38 @@
             background: rgba(96, 165, 250, 0.10);
             border-color: rgb(96, 165, 250);
         }
+        /* Widget content slot fills its grid cell and clips overflow so
+           widget internals stay inside the tile when resized small. */
         .grid-stack-item-content {
             inset: 0 !important;
-            overflow: visible !important;
+            overflow: hidden !important;
             display: flex;
             flex-direction: column;
+            border-radius: 0.75rem;
         }
         .grid-stack-item-content > .widget-host {
             flex: 1;
             min-height: 0;
             display: flex;
             flex-direction: column;
+            overflow: hidden;
         }
+        /* The widgets' top-level Tailwind containers (the bg-white card divs
+           inside their templates) need to fill height and allow internal
+           scrolling rather than overflowing the tile. */
         .grid-stack-item-content > .widget-host > * {
             flex: 1;
             min-height: 0;
+            height: 100%;
+            overflow: auto;
+        }
+        /* Widget-specific overrides: noise meter and random picker have their
+           own layout logic and shouldn't show scrollbars on the outer card.
+           They use flex layouts internally that need to be respected. */
+        .grid-stack-item-content > .noise-meter-widget > *,
+        .grid-stack-item-content > .random-picker-widget > *,
+        .grid-stack-item-content > .seven-pickers-widget > * {
+            overflow: visible;
         }
         .tile-chrome {
             display: none;
@@ -405,6 +422,11 @@
         let grid = null;
         let editMode = false;
         let suppressSave = false;
+        // Set to true right before a deliberate location.reload(). Prevents the
+        // beforeunload handler from running persistCurrentLayout() and clobbering
+        // the data we just saved (the grid still has the OLD nodes at this point,
+        // so persisting would write the pre-add state back over our new state).
+        let suppressBeforeUnload = false;
 
         function readJSON(key, fallback) {
             try {
@@ -517,6 +539,7 @@
             persistCurrentLayout();
             activeLayout = name;
             saveActive();
+            suppressBeforeUnload = true;
             location.reload();
         }
         function newLayout() {
@@ -527,6 +550,7 @@
             saveLayouts();
             activeLayout = name;
             saveActive();
+            suppressBeforeUnload = true;
             location.reload();
         }
         function renameLayout() {
@@ -554,6 +578,7 @@
             saveLayouts();
             activeLayout = name;
             saveActive();
+            suppressBeforeUnload = true;
             location.reload();
         }
         function deleteLayout() {
@@ -567,6 +592,7 @@
             saveLayouts();
             activeLayout = Object.keys(layouts)[0];
             saveActive();
+            suppressBeforeUnload = true;
             location.reload();
         }
 
@@ -626,7 +652,9 @@
             };
             layouts[activeLayout].items.push(item);
             saveLayouts();
-            // Reload so the widget's own DOMContentLoaded handler picks up the new tile
+            // Reload so the widget's own DOMContentLoaded handler picks up the new tile.
+            // Suppress beforeunload save so the (stale) grid state doesn't overwrite our work.
+            suppressBeforeUnload = true;
             location.reload();
         }
 
@@ -659,7 +687,9 @@
                 document.getElementById('deleteLayoutBtn').addEventListener('click', deleteLayout);
                 document.getElementById('editModeBtn').addEventListener('click', () => setEditMode(!editMode));
 
-                window.addEventListener('beforeunload', persistCurrentLayout);
+                window.addEventListener('beforeunload', () => {
+                    if (!suppressBeforeUnload) persistCurrentLayout();
+                });
 
                 let tries = 0;
                 (function r() {
