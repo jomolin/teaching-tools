@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screen Canvas - Teaching Tools</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+
+    <!-- Theme sync from shared config - MUST be in head -->
+    <script src="../config.js"></script>
+
+    <!-- Lucide icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <!-- Gridstack: drag/resize grid -->
+    <link href="https://cdn.jsdelivr.net/npm/gridstack@10.3.1/dist/gridstack.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/gridstack@10.3.1/dist/gridstack-all.js"></script>
+
+    <style>
+        /* Gridstack visual tweaks to match the design system.
+           Most styling is handled by Tailwind on the widget containers themselves;
+           these rules only touch Gridstack's own chrome (placeholder, resize handles, drag preview). */
+
+        /* Placeholder shown while dragging - subtle dashed outline that respects dark mode */
+        .grid-stack > .grid-stack-placeholder > .placeholder-content {
+            background: rgba(59, 130, 246, 0.08);
+            border: 2px dashed rgb(59, 130, 246);
+            border-radius: 0.75rem;
+        }
+        html.dark .grid-stack > .grid-stack-placeholder > .placeholder-content {
+            background: rgba(96, 165, 250, 0.10);
+            border-color: rgb(96, 165, 250);
+        }
+
+        /* The widget content slot fills its grid cell */
+        .grid-stack-item-content {
+            inset: 0 !important;
+            overflow: visible !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Make every widget root inside a tile stretch to fill the cell */
+        .grid-stack-item-content > .widget-host {
+            flex: 1;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .grid-stack-item-content > .widget-host > * {
+            flex: 1;
+            min-height: 0;
+        }
+
+        /* Tile chrome - the little controls bar at the top of each tile, visible only in edit mode */
+        .tile-chrome {
+            display: none;
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            z-index: 10;
+            gap: 4px;
+        }
+        body.edit-mode .tile-chrome {
+            display: flex;
+        }
+
+        /* Drag handle covers the top edge in edit mode so the tile can be grabbed without
+           interfering with widget interactions */
+        .drag-handle {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 28px;
+            z-index: 9;
+            cursor: move;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.04), transparent);
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+        }
+        html.dark .drag-handle {
+            background: linear-gradient(to bottom, rgba(255,255,255,0.06), transparent);
+        }
+        body.edit-mode .drag-handle {
+            display: block;
+        }
+
+        /* When NOT in edit mode, disable gridstack's resize handles entirely so they don't show */
+        body:not(.edit-mode) .ui-resizable-handle {
+            display: none !important;
+        }
+
+        /* Lucide icons - make sure they size properly inside buttons */
+        [data-lucide] {
+            width: 1em;
+            height: 1em;
+            stroke-width: 2;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
+
+    <!-- Toolbar -->
+    <header class="flex items-center gap-3 px-5 py-3 bg-white dark:bg-gray-800 border-b-2 border-gray-300 dark:border-gray-700 shadow-sm">
+        <a href="../index.html"
+           class="px-3 py-2 rounded-md font-medium text-blue-600 dark:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+           title="Back to screens">
+            <i data-lucide="arrow-left"></i>
+            <span class="hidden sm:inline">Back</span>
+        </a>
+
+        <div class="h-6 w-px bg-gray-300 dark:bg-gray-700"></div>
+
+        <!-- Layout selector -->
+        <label class="text-sm font-medium text-gray-600 dark:text-gray-400 hidden md:inline">Layout</label>
+        <select id="layoutSelect"
+                class="px-3 py-2 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-gray-100 font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors">
+            <!-- populated by JS -->
+        </select>
+
+        <button id="newLayoutBtn"
+                class="px-3 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold rounded-md transition-colors flex items-center gap-1.5"
+                title="New layout">
+            <i data-lucide="plus"></i>
+            <span class="hidden sm:inline">New</span>
+        </button>
+
+        <button id="renameLayoutBtn"
+                class="px-3 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold rounded-md transition-colors flex items-center gap-1.5"
+                title="Rename layout">
+            <i data-lucide="edit-3"></i>
+        </button>
+
+        <button id="duplicateLayoutBtn"
+                class="px-3 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold rounded-md transition-colors flex items-center gap-1.5"
+                title="Duplicate layout">
+            <i data-lucide="copy"></i>
+        </button>
+
+        <button id="deleteLayoutBtn"
+                class="px-3 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-red-600 dark:text-red-400 font-semibold rounded-md transition-colors flex items-center gap-1.5"
+                title="Delete layout">
+            <i data-lucide="trash-2"></i>
+        </button>
+
+        <!-- Spacer -->
+        <div class="flex-1"></div>
+
+        <!-- Edit mode toggle -->
+        <button id="editModeBtn"
+                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors flex items-center gap-2"
+                title="Toggle edit mode">
+            <i data-lucide="edit"></i>
+            <span class="hidden sm:inline">Edit</span>
+        </button>
+    </header>
+
+    <!-- Edit-mode subtoolbar: add widget buttons -->
+    <div id="editToolbar"
+         class="hidden bg-blue-50 dark:bg-gray-800 border-b border-blue-200 dark:border-gray-700 px-5 py-2 flex items-center gap-2 flex-wrap">
+        <span class="text-sm font-medium text-gray-600 dark:text-gray-400 mr-2">Add:</span>
+        <!-- Add-widget buttons populated by JS -->
+        <div id="addWidgetButtons" class="flex items-center gap-2 flex-wrap"></div>
+
+        <div class="flex-1"></div>
+
+        <span class="text-xs text-gray-500 dark:text-gray-400 italic">
+            Drag the top of a tile to move • Drag corner to resize
+        </span>
+    </div>
+
+    <!-- Grid -->
+    <main class="flex-1 p-5">
+        <div class="grid-stack"></div>
+
+        <!-- Empty-state hint -->
+        <div id="emptyState"
+             class="hidden text-center py-20 text-gray-500 dark:text-gray-400">
+            <div class="text-5xl mb-4">&#9881;</div>
+            <div class="text-xl font-semibold mb-2">This layout is empty</div>
+            <div class="text-sm">Click <strong>Edit</strong> above, then add a widget to get started.</div>
+        </div>
+    </main>
+
+    <!-- Load widget utilities and modules.
+         IMPORTANT load order:
+           1. utils.js (provides ClassroomUtils used by every widget)
+           2. each widget IIFE (registers a global like TitleWidget, TimerWidget, etc.)
+         The canvas controller below is loaded last because it depends on those globals. -->
+    <script src="../widgets/utils.js"></script>
+    <script src="../widgets/title.js"></script>
+    <script src="../widgets/timer.js"></script>
+    <script src="../widgets/noise-meter.js"></script>
+    <script src="../widgets/random-picker.js"></script>
+    <script src="../widgets/seven-pickers.js"></script>
+
+    <script>
+    /* ============================================================
+       Screen Canvas Controller
+       ------------------------------------------------------------
+       Manages:
+         - Named layouts persisted in localStorage
+         - Gridstack tiles, each hosting an existing widget
+         - Edit mode (move/resize/add/delete)
+         - Active layout slug exposed via window so widgets that
+           derive their per-instance storage keys from the page can
+           segregate state per layout.
+
+       Storage keys (camelCase per design doc):
+         screenLayouts          : { [layoutName]: { items: [...] } }
+         screenCanvasActive     : current layout name
+       Each layout item is shape:
+         { id, type, x, y, w, h, opts: { ...data-* attrs } }
+    ============================================================ */
+    (function() {
+        'use strict';
+
+        const STORAGE = {
+            LAYOUTS: 'screenLayouts',
+            ACTIVE: 'screenCanvasActive'
+        };
+
+        // Catalog of available widget types. Each entry describes:
+        //   class:   CSS class the widget scans for
+        //   default: starting size {w, h} on the 12-col grid
+        //   attrs:   default data-* attributes set on the host element
+        //   needsId: whether the widget requires a unique id on its container
+        //            (random picker reads its container's id to scope its state)
+        const WIDGET_TYPES = {
+            title: {
+                label: 'Title',
+                icon: 'type',
+                cls: 'title-widget',
+                init: () => window.TitleWidget && TitleWidget.init(),
+                default: { w: 8, h: 3 },
+                attrs: {
+                    'data-title': 'New Title',
+                    'data-instructions': '<ol><li>Edit me by clicking</li></ol>'
+                },
+                needsId: false
+            },
+            timer: {
+                label: 'Timer',
+                icon: 'timer',
+                cls: 'timer-widget',
+                init: () => window.TimerWidget && TimerWidget.init(),
+                default: { w: 4, h: 3 },
+                attrs: { 'data-time': '05:00' },
+                needsId: false
+            },
+            'noise-meter': {
+                label: 'Noise Meter',
+                icon: 'volume-2',
+                cls: 'noise-meter-widget',
+                init: () => window.NoiseMeterWidget && NoiseMeterWidget.init(),
+                default: { w: 6, h: 5 },
+                attrs: { 'data-threshold': '2' },
+                needsId: false
+            },
+            'random-picker': {
+                label: 'Random Picker',
+                icon: 'shuffle',
+                cls: 'random-picker-widget',
+                init: () => window.RandomPickerWidget && RandomPickerWidget.init(),
+                default: { w: 6, h: 5 },
+                attrs: { 'data-title': 'Random Picker' },
+                needsId: true
+            },
+            'seven-pickers': {
+                label: 'Seven Pickers',
+                icon: 'users',
+                cls: 'seven-pickers-widget',
+                init: () => window.SevenPickersWidget && SevenPickersWidget.init(),
+                default: { w: 12, h: 5 },
+                attrs: {},
+                needsId: false
+            }
+        };
+
+        // ----- State -----
+        let layouts = {};            // { name: { items: [...] } }
+        let activeLayout = null;     // string name
+        let grid = null;             // Gridstack instance
+        let editMode = false;
+        let suppressSave = false;    // true while we're populating, so the change/added listeners don't write back mid-load
+
+        // ----- Storage helpers -----
+        function loadLayouts() {
+            layouts = ClassroomUtils.getFromStorage(STORAGE.LAYOUTS, null) || {};
+            // Seed a default layout on first run so the page isn't empty
+            if (Object.keys(layouts).length === 0) {
+                layouts['Classroom'] = {
+                    items: [
+                        { id: genId(), type: 'title', x: 0, y: 0, w: 8, h: 3,
+                          opts: { 'data-title': 'Welcome', 'data-instructions': '<ol><li>Sit down</li><li>Get ready to learn</li></ol>' } },
+                        { id: genId(), type: 'timer', x: 8, y: 0, w: 4, h: 3,
+                          opts: { 'data-time': '05:00' } },
+                        { id: genId(), type: 'random-picker', x: 0, y: 3, w: 6, h: 5,
+                          opts: { 'data-title': 'Student Picker' } },
+                        { id: genId(), type: 'noise-meter', x: 6, y: 3, w: 6, h: 5,
+                          opts: { 'data-threshold': '2' } }
+                    ]
+                };
+                saveLayouts();
+            }
+            activeLayout = ClassroomUtils.getFromStorage(STORAGE.ACTIVE, null);
+            if (!activeLayout || !layouts[activeLayout]) {
+                activeLayout = Object.keys(layouts)[0];
+                saveActive();
+            }
+        }
+        function saveLayouts() {
+            ClassroomUtils.saveToStorage(STORAGE.LAYOUTS, layouts);
+        }
+        function saveActive() {
+            ClassroomUtils.saveToStorage(STORAGE.ACTIVE, activeLayout);
+        }
+
+        function genId() {
+            return 'w-' + Math.random().toString(36).slice(2, 9);
+        }
+
+        // Expose active layout to widgets that scope per-page state.
+        // The random picker derives a PAGE_SLUG from window.location.pathname; for the
+        // canvas we want per-layout segregation, so we expose the active layout slug
+        // here. (Phase 2 will modify widgets to read this directly. For now they fall
+        // back to the URL path, which still gives one bucket per canvas - acceptable
+        // for Phase 1 since layout switching reuses the same widget instance IDs.)
+        function syncActiveSlug() {
+            window.__activeCanvasLayout = activeLayout;
+        }
+
+        // ----- Layout selector UI -----
+        function refreshLayoutSelector() {
+            const sel = document.getElementById('layoutSelect');
+            sel.innerHTML = '';
+            Object.keys(layouts).sort().forEach(name => {
+                const opt = document.createElement('option');
+                opt.value = name;
+                opt.textContent = name;
+                if (name === activeLayout) opt.selected = true;
+                sel.appendChild(opt);
+            });
+        }
+
+        // ----- Grid management -----
+        function initGrid() {
+            grid = GridStack.init({
+                column: 12,
+                cellHeight: 70,
+                margin: 10,
+                handle: '.drag-handle',
+                resizable: { handles: 'se, sw, ne, nw, e, w, n, s' },
+                disableDrag: true,     // toggled on in edit mode
+                disableResize: true,   // toggled on in edit mode
+                float: true,           // allow gaps; teachers expect to drop things wherever
+                animate: true
+            });
+
+            // Persist layout whenever tiles move or resize
+            grid.on('change', () => { if (!suppressSave) persistCurrentLayout(); });
+            grid.on('added', () => { if (!suppressSave) persistCurrentLayout(); });
+            grid.on('removed', () => { if (!suppressSave) persistCurrentLayout(); });
+        }
+
+        function clearGrid() {
+            if (!grid) return;
+            suppressSave = true;
+            grid.removeAll(false); // false = don't remove the DOM nodes outside the grid's tracking
+            // Manually clear any lingering DOM in the grid container in case removeAll left strays
+            document.querySelector('.grid-stack').innerHTML = '';
+            suppressSave = false;
+        }
+
+        function renderActiveLayout() {
+            const layout = layouts[activeLayout];
+            if (!layout) return;
+
+            syncActiveSlug();
+
+            suppressSave = true;
+            try {
+                clearGrid();
+
+                layout.items.forEach(item => {
+                    addTileToGrid(item, /*persist=*/false);
+                });
+
+                // After all tiles are in the DOM, run each widget type's init() exactly once.
+                // The widget IIFEs scan the document for their CSS class and create instances
+                // for any container they haven't seen yet. This is the simplest way to plug
+                // existing widgets in without modifying them.
+                Object.values(WIDGET_TYPES).forEach(type => {
+                    try { type.init(); } catch (e) { console.error('Widget init failed:', e); }
+                });
+            } finally {
+                suppressSave = false;
+            }
+
+            updateEmptyState();
+            // Re-render Lucide icons on the toolbar (new tile-chrome elements need icons too)
+            lucide.createIcons();
+        }
+
+        // Add a single tile to the grid. If persist=true (a brand new tile from the Add buttons)
+        // we save and run the widget's init() so it boots immediately.
+        function addTileToGrid(item, persist) {
+            const tile = document.createElement('div');
+            tile.className = 'grid-stack-item';
+            tile.setAttribute('gs-id', item.id);
+            tile.setAttribute('gs-x', item.x);
+            tile.setAttribute('gs-y', item.y);
+            tile.setAttribute('gs-w', item.w);
+            tile.setAttribute('gs-h', item.h);
+
+            const content = document.createElement('div');
+            content.className = 'grid-stack-item-content relative';
+
+            // Drag handle along the top of the tile (visible only in edit mode)
+            const handle = document.createElement('div');
+            handle.className = 'drag-handle';
+            content.appendChild(handle);
+
+            // Tile chrome - delete button (and room for future per-tile controls)
+            const chrome = document.createElement('div');
+            chrome.className = 'tile-chrome';
+            chrome.innerHTML = `
+                <button class="tile-delete px-2 py-1 bg-white dark:bg-gray-700 hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600 rounded-md text-sm shadow-sm transition-colors flex items-center gap-1"
+                        title="Remove this widget">
+                    <i data-lucide="x"></i>
+                </button>
+            `;
+            chrome.querySelector('.tile-delete').addEventListener('click', () => {
+                if (confirm('Remove this widget? Its data (text, picks, etc.) will be kept and restored if you add it back to this layout.')) {
+                    removeTile(item.id);
+                }
+            });
+            content.appendChild(chrome);
+
+            // The widget host - this is where the widget IIFE will render its UI.
+            // Apply the widget class and all default data-* attributes.
+            const host = document.createElement('div');
+            const type = WIDGET_TYPES[item.type];
+            if (!type) {
+                host.textContent = `Unknown widget type: ${item.type}`;
+            } else {
+                host.className = `widget-host ${type.cls}`;
+                if (type.needsId) host.id = item.id;
+                const attrs = item.opts || type.attrs;
+                Object.entries(attrs).forEach(([k, v]) => host.setAttribute(k, v));
+            }
+            content.appendChild(host);
+
+            tile.appendChild(content);
+
+            // Add to gridstack. makeWidget is for existing DOM nodes.
+            document.querySelector('.grid-stack').appendChild(tile);
+            grid.makeWidget(tile);
+
+            if (persist) {
+                persistCurrentLayout();
+                // Run this widget type's init so the new instance boots
+                try { type.init(); } catch (e) { console.error('Widget init failed:', e); }
+                lucide.createIcons();
+                updateEmptyState();
+            }
+        }
+
+        function removeTile(id) {
+            const el = document.querySelector(`.grid-stack-item[gs-id="${id}"]`);
+            if (!el) return;
+            grid.removeWidget(el, true); // true = also remove from DOM
+            persistCurrentLayout();
+            updateEmptyState();
+        }
+
+        // Walk the current grid and serialize it back into layouts[activeLayout]
+        function persistCurrentLayout() {
+            if (!activeLayout || !grid) return;
+            const items = [];
+            grid.engine.nodes.forEach(node => {
+                const el = node.el;
+                if (!el) return;
+                const id = el.getAttribute('gs-id');
+                const host = el.querySelector('.widget-host');
+                if (!host) return;
+                // Identify widget type by checking which class is present
+                let type = null;
+                for (const [k, v] of Object.entries(WIDGET_TYPES)) {
+                    if (host.classList.contains(v.cls)) { type = k; break; }
+                }
+                if (!type) return;
+                // Pull current data-* attrs back off the host (so edits made via the widget's
+                // own UI - e.g. title widget being clicked and retyped - are captured)
+                const opts = {};
+                Array.from(host.attributes).forEach(a => {
+                    if (a.name.startsWith('data-')) opts[a.name] = a.value;
+                });
+                items.push({
+                    id, type,
+                    x: node.x, y: node.y, w: node.w, h: node.h,
+                    opts
+                });
+            });
+            layouts[activeLayout].items = items;
+            saveLayouts();
+        }
+
+        function updateEmptyState() {
+            const empty = document.getElementById('emptyState');
+            const hasItems = layouts[activeLayout] && layouts[activeLayout].items.length > 0;
+            empty.classList.toggle('hidden', hasItems);
+        }
+
+        // ----- Layout CRUD -----
+        function switchLayout(name) {
+            if (!layouts[name]) return;
+            // Save anything pending on the current layout before switching
+            persistCurrentLayout();
+            activeLayout = name;
+            saveActive();
+            renderActiveLayout();
+        }
+
+        function newLayout() {
+            const name = prompt('Name for the new layout:', 'New Layout');
+            if (!name) return;
+            if (layouts[name]) { alert('A layout with that name already exists.'); return; }
+            layouts[name] = { items: [] };
+            saveLayouts();
+            activeLayout = name;
+            saveActive();
+            refreshLayoutSelector();
+            renderActiveLayout();
+        }
+
+        function renameLayout() {
+            if (!activeLayout) return;
+            const newName = prompt('Rename layout:', activeLayout);
+            if (!newName || newName === activeLayout) return;
+            if (layouts[newName]) { alert('A layout with that name already exists.'); return; }
+            layouts[newName] = layouts[activeLayout];
+            delete layouts[activeLayout];
+            activeLayout = newName;
+            saveLayouts();
+            saveActive();
+            refreshLayoutSelector();
+        }
+
+        function duplicateLayout() {
+            if (!activeLayout) return;
+            const base = activeLayout;
+            let name = base + ' (copy)';
+            let n = 2;
+            while (layouts[name]) { name = base + ' (copy ' + n + ')'; n++; }
+            // Deep-ish clone of items so the two layouts have independent tile IDs
+            const cloned = layouts[base].items.map(it => ({
+                ...it,
+                id: genId(),
+                opts: { ...it.opts }
+            }));
+            layouts[name] = { items: cloned };
+            saveLayouts();
+            activeLayout = name;
+            saveActive();
+            refreshLayoutSelector();
+            renderActiveLayout();
+        }
+
+        function deleteLayout() {
+            if (!activeLayout) return;
+            if (Object.keys(layouts).length <= 1) {
+                alert('You need at least one layout. Rename this one or create another first.');
+                return;
+            }
+            if (!confirm(`Delete the layout "${activeLayout}"? Widget data saved by other layouts is unaffected.`)) return;
+            delete layouts[activeLayout];
+            saveLayouts();
+            activeLayout = Object.keys(layouts)[0];
+            saveActive();
+            refreshLayoutSelector();
+            renderActiveLayout();
+        }
+
+        // ----- Edit mode -----
+        function setEditMode(on) {
+            editMode = on;
+            document.body.classList.toggle('edit-mode', on);
+            document.getElementById('editToolbar').classList.toggle('hidden', !on);
+            const btn = document.getElementById('editModeBtn');
+            btn.innerHTML = on
+                ? '<i data-lucide="check"></i><span class="hidden sm:inline">Done</span>'
+                : '<i data-lucide="edit"></i><span class="hidden sm:inline">Edit</span>';
+            btn.classList.toggle('bg-green-600', on);
+            btn.classList.toggle('hover:bg-green-700', on);
+            btn.classList.toggle('bg-blue-600', !on);
+            btn.classList.toggle('hover:bg-blue-700', !on);
+            if (on) {
+                grid.enableMove(true);
+                grid.enableResize(true);
+            } else {
+                grid.enableMove(false);
+                grid.enableResize(false);
+                persistCurrentLayout(); // capture any final attribute changes
+            }
+            lucide.createIcons();
+        }
+
+        // ----- Add-widget buttons -----
+        function buildAddWidgetButtons() {
+            const container = document.getElementById('addWidgetButtons');
+            container.innerHTML = '';
+            Object.entries(WIDGET_TYPES).forEach(([key, type]) => {
+                const btn = document.createElement('button');
+                btn.className = 'px-3 py-1.5 bg-white dark:bg-gray-700 border-2 border-blue-600 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-600 font-medium rounded-md transition-colors flex items-center gap-1.5 text-sm';
+                btn.innerHTML = `<i data-lucide="${type.icon}"></i><span>${type.label}</span>`;
+                btn.addEventListener('click', () => addNewWidget(key));
+                container.appendChild(btn);
+            });
+        }
+
+        function addNewWidget(typeKey) {
+            const type = WIDGET_TYPES[typeKey];
+            if (!type) return;
+            const item = {
+                id: genId(),
+                type: typeKey,
+                x: 0, y: 0, // gridstack will auto-pack since we don't pin a position
+                w: type.default.w,
+                h: type.default.h,
+                opts: { ...type.attrs }
+            };
+            // Gridstack auto-positions when x/y not enforced; we just append.
+            // (autoPosition true would be cleaner but isn't supported in makeWidget path;
+            // instead, find the lowest free row and stick it there.)
+            const existing = layouts[activeLayout].items;
+            let maxY = 0;
+            existing.forEach(it => { maxY = Math.max(maxY, it.y + it.h); });
+            item.y = maxY;
+            layouts[activeLayout].items.push(item);
+            addTileToGrid(item, true);
+        }
+
+        // ----- Wire up -----
+        function init() {
+            loadLayouts();
+            initGrid();
+            refreshLayoutSelector();
+            buildAddWidgetButtons();
+            renderActiveLayout();
+
+            document.getElementById('layoutSelect').addEventListener('change', e => switchLayout(e.target.value));
+            document.getElementById('newLayoutBtn').addEventListener('click', newLayout);
+            document.getElementById('renameLayoutBtn').addEventListener('click', renameLayout);
+            document.getElementById('duplicateLayoutBtn').addEventListener('click', duplicateLayout);
+            document.getElementById('deleteLayoutBtn').addEventListener('click', deleteLayout);
+            document.getElementById('editModeBtn').addEventListener('click', () => setEditMode(!editMode));
+
+            // Save before the tab closes - belt and braces, persistCurrentLayout already runs
+            // on every change event but this catches anything still in-flight.
+            window.addEventListener('beforeunload', persistCurrentLayout);
+
+            // Lucide icon rendering. Retry loop guards against the script not being
+            // fully parsed yet on slow connections.
+            let tries = 0;
+            (function renderIcons() {
+                if (typeof lucide !== 'undefined' && lucide.createIcons) {
+                    lucide.createIcons();
+                } else if (tries++ < 20) {
+                    setTimeout(renderIcons, 100);
+                }
+            })();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+    })();
+    </script>
+</body>
+</html>
