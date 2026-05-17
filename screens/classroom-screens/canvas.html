@@ -100,6 +100,9 @@
         }
         body.boot-failed #bootError { display: block; }
         body.boot-failed .normal-ui { display: none; }
+
+        /* Settings modal display - swap from hidden to flex when opened */
+        #settingsModal:not(.hidden) { display: flex; }
     </style>
 
     <!--
@@ -198,6 +201,26 @@
         </main>
     </div>
 
+    <!-- Settings modal: shown when the gear icon on a tile is clicked.
+         Built dynamically from the widget type's `settings` schema. -->
+    <div id="settingsModal" class="hidden fixed inset-0 z-[2000] items-center justify-center">
+        <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" id="settingsModalBackdrop"></div>
+        <div class="relative bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 max-w-md w-[90%] max-h-[80vh] overflow-y-auto shadow-2xl">
+            <h2 id="settingsModalTitle" class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-4">Widget settings</h2>
+            <form id="settingsForm" class="flex flex-col gap-4"></form>
+            <div class="flex gap-2.5 justify-end mt-5 flex-wrap">
+                <button type="button" id="settingsCancelBtn"
+                        class="px-4 py-2 bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-900 dark:text-gray-100 font-semibold rounded-md transition-colors">
+                    Cancel
+                </button>
+                <button type="button" id="settingsApplyBtn"
+                        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition-colors">
+                    Apply
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Synchronous pre-render: build initial tile DOM from localStorage BEFORE
          widget scripts run. Each widget's auto-init DOMContentLoaded handler
          then finds the containers and renders into them. -->
@@ -210,6 +233,15 @@
             ACTIVE: 'screenCanvasActive'
         };
 
+        // Each widget type declares a `settings` schema: a list of fields that
+        // can be edited via the per-tile gear menu. The canvas builds form
+        // inputs from this schema and applies edits by updating the widget
+        // container's data-* attributes and re-running the widget's init().
+        //
+        // Field types: 'text', 'select', 'checkbox'
+        //   - text: { type: 'text', attr, label, placeholder? }
+        //   - select: { type: 'select', attr, label, options: [{value, label}] }
+        //   - checkbox: { type: 'checkbox', attr, label } - "true"/"false" string
         const WIDGET_TYPES = {
             title: {
                 label: 'Title', icon: 'type', cls: 'title-widget',
@@ -220,7 +252,9 @@
                 attrs: {
                     'data-content': '# New Title\n\nClick to edit.'
                 },
-                needsId: false
+                needsId: false,
+                // No gear settings - click into the widget itself to edit markdown
+                settings: []
             },
             timer: {
                 label: 'Timer', icon: 'timer', cls: 'timer-widget',
@@ -229,28 +263,49 @@
                 // Hide the "Timer" h2 on the canvas - obvious from context, and
                 // removing it lets the time display fit in smaller tiles.
                 attrs: { 'data-time': '05:00', 'data-show-title': 'false' },
-                needsId: false
+                needsId: false,
+                settings: [
+                    { type: 'text', attr: 'data-time', label: 'Starting time (MM:SS)', placeholder: '05:00' },
+                    { type: 'checkbox', attr: 'data-show-title', label: 'Show "Timer" header' }
+                ]
             },
             'noise-meter': {
                 label: 'Noise Meter', icon: 'volume-2', cls: 'noise-meter-widget',
                 globalName: 'NoiseMeterWidget',
                 default: { w: 6, h: 5 },
                 attrs: { 'data-threshold': '2', 'data-show-title': 'false' },
-                needsId: false
+                needsId: false,
+                settings: [
+                    { type: 'select', attr: 'data-threshold', label: 'Threshold level', options: [
+                        { value: '0', label: 'Silent' },
+                        { value: '1', label: 'Partner voice' },
+                        { value: '2', label: 'Group voice' },
+                        { value: '3', label: 'Presentation voice' },
+                        { value: '4', label: 'Outside voice' }
+                    ]},
+                    { type: 'checkbox', attr: 'data-show-title', label: 'Show "Noise Meter" header' }
+                ]
             },
             'random-picker': {
                 label: 'Random Picker', icon: 'shuffle', cls: 'random-picker-widget',
                 globalName: 'RandomPickerWidget',
                 default: { w: 6, h: 5 },
                 attrs: { 'data-title': 'Random Picker', 'data-show-title': 'false' },
-                needsId: true
+                needsId: true,
+                settings: [
+                    { type: 'text', attr: 'data-title', label: 'Header text (when visible)', placeholder: 'Random Picker' },
+                    { type: 'checkbox', attr: 'data-show-title', label: 'Show header' }
+                ]
             },
             'seven-pickers': {
                 label: 'Seven Pickers', icon: 'users', cls: 'seven-pickers-widget',
                 globalName: 'SevenPickersWidget',
                 default: { w: 12, h: 5 },
                 attrs: { 'data-show-title': 'false' },
-                needsId: false
+                needsId: false,
+                settings: [
+                    { type: 'checkbox', attr: 'data-show-title', label: 'Show "The 7 Pickers" header' }
+                ]
             }
         };
 
@@ -305,6 +360,19 @@
 
             const chrome = document.createElement('div');
             chrome.className = 'tile-chrome';
+
+            // Gear button - only shown if this widget type has settings.
+            // The actual click handler is wired in the controller (below in this
+            // file) via the data-settings-id attribute, same pattern as delete.
+            if (type && type.settings && type.settings.length > 0) {
+                const gearBtn = document.createElement('button');
+                gearBtn.className = 'tile-settings px-2 py-1 bg-white dark:bg-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/30 text-blue-600 dark:text-blue-400 border border-gray-300 dark:border-gray-600 rounded-md text-sm shadow-sm transition-colors flex items-center gap-1';
+                gearBtn.title = 'Settings';
+                gearBtn.setAttribute('data-settings-id', item.id);
+                gearBtn.innerHTML = '<i data-lucide="settings"></i>';
+                chrome.appendChild(gearBtn);
+            }
+
             const delBtn = document.createElement('button');
             delBtn.className = 'tile-delete px-2 py-1 bg-white dark:bg-gray-700 hover:bg-red-50 dark:hover:bg-red-900/30 text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600 rounded-md text-sm shadow-sm transition-colors flex items-center gap-1';
             delBtn.title = 'Remove this widget';
@@ -474,6 +542,7 @@
 
             grid.on('change', () => { if (!suppressSave) persistCurrentLayout(); });
             wireDeleteButtons();
+            wireSettingsButtons();
         }
 
         // Attach click handlers to all tile-delete buttons currently in the DOM.
@@ -489,6 +558,172 @@
                 });
                 btn.dataset.wired = 'true';
             });
+        }
+
+        // Wire gear-icon click handlers for all settings buttons currently in
+        // the DOM. Called after initial render and after every dynamic add.
+        function wireSettingsButtons() {
+            document.querySelectorAll('.tile-settings[data-settings-id]').forEach(btn => {
+                if (btn.dataset.wired === 'true') return;
+                const id = btn.getAttribute('data-settings-id');
+                btn.addEventListener('click', () => openSettingsModal(id));
+                btn.dataset.wired = 'true';
+            });
+        }
+
+        // ----- Settings modal -----------------------------------------------------
+        // Builds form inputs from the widget type's `settings` schema, applies
+        // the user's edits by updating data-* attributes on the widget host,
+        // and re-initializes the widget so it picks up the new values.
+
+        let activeSettingsTileId = null;
+
+        function findItemById(id) {
+            if (!activeLayout) return null;
+            return (layouts[activeLayout].items || []).find(it => it.id === id);
+        }
+
+        function findHostByTileId(id) {
+            const tile = document.querySelector('.grid-stack-item[gs-id="' + id + '"]');
+            if (!tile) return null;
+            return tile.querySelector('.widget-host');
+        }
+
+        function buildSettingsForm(type, currentAttrs) {
+            const form = document.getElementById('settingsForm');
+            form.innerHTML = '';
+            type.settings.forEach(field => {
+                const current = currentAttrs[field.attr] !== undefined ? currentAttrs[field.attr] : '';
+
+                const wrap = document.createElement('label');
+                wrap.className = 'flex flex-col gap-1 text-sm font-medium text-gray-700 dark:text-gray-300';
+
+                if (field.type === 'checkbox') {
+                    // Use a row layout for checkboxes
+                    wrap.className = 'flex items-center gap-2 text-sm font-medium text-gray-700 dark:text-gray-300 cursor-pointer';
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    input.dataset.attr = field.attr;
+                    input.dataset.fieldType = 'checkbox';
+                    input.checked = current === 'true';
+                    input.className = 'w-4 h-4 accent-blue-600 cursor-pointer';
+                    wrap.appendChild(input);
+                    const span = document.createElement('span');
+                    span.textContent = field.label;
+                    wrap.appendChild(span);
+                } else {
+                    const labelText = document.createElement('span');
+                    labelText.textContent = field.label;
+                    wrap.appendChild(labelText);
+
+                    let input;
+                    if (field.type === 'select') {
+                        input = document.createElement('select');
+                        input.className = 'px-3 py-2 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500';
+                        (field.options || []).forEach(opt => {
+                            const o = document.createElement('option');
+                            o.value = opt.value;
+                            o.textContent = opt.label;
+                            if (opt.value === String(current)) o.selected = true;
+                            input.appendChild(o);
+                        });
+                    } else { // text
+                        input = document.createElement('input');
+                        input.type = 'text';
+                        input.value = current;
+                        if (field.placeholder) input.placeholder = field.placeholder;
+                        input.className = 'px-3 py-2 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 rounded-md text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500';
+                    }
+                    input.dataset.attr = field.attr;
+                    input.dataset.fieldType = field.type;
+                    wrap.appendChild(input);
+                }
+                form.appendChild(wrap);
+            });
+        }
+
+        function openSettingsModal(tileId) {
+            const item = findItemById(tileId);
+            if (!item) return;
+            const type = WIDGET_TYPES[item.type];
+            if (!type || !type.settings || type.settings.length === 0) return;
+
+            activeSettingsTileId = tileId;
+            document.getElementById('settingsModalTitle').textContent = type.label + ' settings';
+
+            // Build form from schema; current values come from the item's opts
+            // (which mirror the data-* attrs on the host)
+            buildSettingsForm(type, item.opts || {});
+
+            const modal = document.getElementById('settingsModal');
+            modal.classList.remove('hidden');
+            renderIconsSafely();
+        }
+
+        function closeSettingsModal() {
+            const modal = document.getElementById('settingsModal');
+            modal.classList.add('hidden');
+            activeSettingsTileId = null;
+        }
+
+        // Apply edits from the form: gather values, update the item's opts,
+        // update the widget host's data-* attrs, reset its initialized flag,
+        // then call the widget's init() so it re-renders with the new attrs.
+        // Per-instance widget state (timer remaining time, picker selection,
+        // etc.) lives in separate localStorage keys and survives this re-render.
+        function applySettings() {
+            if (!activeSettingsTileId) return;
+            const item = findItemById(activeSettingsTileId);
+            if (!item) { closeSettingsModal(); return; }
+            const type = WIDGET_TYPES[item.type];
+            if (!type) { closeSettingsModal(); return; }
+
+            const host = findHostByTileId(activeSettingsTileId);
+            if (!host) { closeSettingsModal(); return; }
+
+            // Collect values from form
+            const form = document.getElementById('settingsForm');
+            const inputs = form.querySelectorAll('[data-attr]');
+            const newAttrs = { ...(item.opts || {}) };
+            inputs.forEach(inp => {
+                const attr = inp.dataset.attr;
+                const fieldType = inp.dataset.fieldType;
+                let value;
+                if (fieldType === 'checkbox') {
+                    value = inp.checked ? 'true' : 'false';
+                } else {
+                    value = inp.value;
+                }
+                newAttrs[attr] = value;
+                host.setAttribute(attr, value);
+            });
+
+            // Persist
+            item.opts = newAttrs;
+            saveLayouts();
+
+            // Re-initialize the widget on this host. Clear its initialized flag
+            // so the widget's idempotency guard lets it re-render.
+            delete host.dataset.initialized;
+            // Multi-instance widgets (random-picker) cache instance state in an
+            // internal array keyed by id. The stale entry would shadow the new
+            // one when getInstance() does a `.find()`, breaking button clicks.
+            // Widgets that need cleanup expose a `forget(id)` method; we call
+            // it before re-init so the stale entry is removed first.
+            const widget = window[type.globalName];
+            if (widget && typeof widget.forget === 'function') {
+                try { widget.forget(activeSettingsTileId); } catch (e) { /* ignore */ }
+            }
+            if (widget && typeof widget.init === 'function') {
+                try { widget.init(); } catch (e) { console.error('Re-init failed for', item.type, e); }
+            }
+
+            // Re-observe the host (the ResizeObserver should still have it, but
+            // we re-add to be safe - browsers dedupe on the same element)
+            if (tileResizeObserver) tileResizeObserver.observe(host);
+
+            renderIconsSafely();
+            closeSettingsModal();
         }
 
         // ----- Resize observation ------------------------------------------------
@@ -751,6 +986,7 @@
 
             // Wire its delete button
             wireDeleteButtons();
+            wireSettingsButtons();
             // Start observing the new widget host for resize events
             const newHost = tile.querySelector('.widget-host');
             if (newHost) observeTile(newHost);
@@ -786,6 +1022,17 @@
                 document.getElementById('duplicateLayoutBtn').addEventListener('click', duplicateLayout);
                 document.getElementById('deleteLayoutBtn').addEventListener('click', deleteLayout);
                 document.getElementById('editModeBtn').addEventListener('click', () => setEditMode(!editMode));
+
+                // Settings modal wiring
+                document.getElementById('settingsCancelBtn').addEventListener('click', closeSettingsModal);
+                document.getElementById('settingsApplyBtn').addEventListener('click', applySettings);
+                document.getElementById('settingsModalBackdrop').addEventListener('click', closeSettingsModal);
+                document.addEventListener('keydown', e => {
+                    if (e.key === 'Escape') {
+                        const modal = document.getElementById('settingsModal');
+                        if (!modal.classList.contains('hidden')) closeSettingsModal();
+                    }
+                });
 
                 // Save on tab close. No suppress flag needed in Phase 2: we never
                 // do a deliberate reload, so there's no stale-grid-state concern.

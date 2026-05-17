@@ -461,6 +461,14 @@ const RandomPickerWidget = (function() {
 
     return {
         init: init,
+        // Phase 2: settings modal calls this before re-init so the stale
+        // instance is removed from the internal array. Otherwise getInstance(id)
+        // would return the old instance (pointing at deleted DOM) and clicks
+        // would silently fail.
+        forget: function(instanceId) {
+            const idx = instances.findIndex(inst => inst.id === instanceId);
+            if (idx >= 0) instances.splice(idx, 1);
+        },
         // Called by the canvas's ResizeObserver when a tile is resized. Re-runs
         // font-fit logic so the picked-name text scales with the tile.
         onResize: function(container) {

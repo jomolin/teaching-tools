@@ -311,6 +311,18 @@ function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME, sho
     // Public API
     return {
         init: init,
+        // Settings modal calls this before re-init to remove stale instance refs
+        forget: function(instanceId) {
+            // Stop any running timer / alarm on the stale instance first so
+            // its setInterval doesn't keep firing against deleted DOM
+            const inst = instances.find(i => i.id === instanceId);
+            if (inst) {
+                try { if (typeof inst.pause === 'function') inst.pause(); } catch (e) {}
+                try { if (typeof inst.stopAlarm === 'function') inst.stopAlarm(); } catch (e) {}
+            }
+            const idx = instances.findIndex(i => i.id === instanceId);
+            if (idx >= 0) instances.splice(idx, 1);
+        },
         // Canvas calls this when a tile is resized
         onResize: function(container) {
             const instance = findInstanceByContainer(container);
