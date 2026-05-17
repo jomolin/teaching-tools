@@ -33,8 +33,6 @@
             background: rgba(96, 165, 250, 0.10);
             border-color: rgb(96, 165, 250);
         }
-        /* Widget content slot fills its grid cell and clips overflow so
-           widget internals stay inside the tile when resized small. */
         .grid-stack-item-content {
             inset: 0 !important;
             overflow: hidden !important;
@@ -49,18 +47,13 @@
             flex-direction: column;
             overflow: hidden;
         }
-        /* The widgets' top-level Tailwind containers (the bg-white card divs
-           inside their templates) need to fill height and allow internal
-           scrolling rather than overflowing the tile. */
         .grid-stack-item-content > .widget-host > * {
             flex: 1;
             min-height: 0;
             height: 100%;
             overflow: auto;
         }
-        /* Widget-specific overrides: noise meter and random picker have their
-           own layout logic and shouldn't show scrollbars on the outer card.
-           They use flex layouts internally that need to be respected. */
+        /* Picker widgets manage their own internal scrolling */
         .grid-stack-item-content > .noise-meter-widget > *,
         .grid-stack-item-content > .random-picker-widget > *,
         .grid-stack-item-content > .seven-pickers-widget > * {
@@ -110,24 +103,24 @@
     </style>
 
     <!--
-        ARCHITECTURE NOTE
-        -----------------
-        Each widget IIFE in /screens/widgets/ is declared as `const TitleWidget = ...`,
-        which does NOT attach to `window` in script-tag context. So the canvas cannot
-        look up `window.TitleWidget` to call `init()` after adding new tiles.
+        PHASE 2 ARCHITECTURE
+        --------------------
+        Each widget now exports its IIFE on window (TitleWidget, TimerWidget,
+        NoiseMeterWidget, RandomPickerWidget, SevenPickersWidget) and each one's
+        init() is idempotent: it skips containers already marked with
+        data-initialized="true".
 
-        TWO-PART STRATEGY:
-          1. For the INITIAL render, build the tile DOM synchronously in <head>
-             before the widget scripts load. Each widget's own DOMContentLoaded
-             handler then scans the document, finds the containers, and initializes
-             them - exactly like every other screen page.
-          2. For ADDING a new tile via the Add bar, OR SWITCHING layouts, we trigger
-             a full page reload. Reloads are cheap (everything is in localStorage)
-             and they sidestep every concern about widgets not exposing public APIs.
+        That changes everything for the canvas:
+          - To add a new widget, we build the tile DOM, append it, and call
+            window.WidgetName.init() to bootstrap just the new container.
+          - To switch layouts, we tear down the current grid (uninitializing
+            tiles), build the new layout's tile DOM, then call init() for every
+            widget type to pick up the new containers.
+          - No more location.reload() anywhere.
 
-        For Phase 2, each widget file gets one line added to expose its IIFE on
-        window, after which we can do clean dynamic add/remove without reload.
-        Phase 1 keeps the widgets untouched.
+        The initial render path is still synchronous pre-render in <head>, then
+        widget DOMContentLoaded scans pick up the seeded tiles, exactly like
+        Phase 1. The dynamic add/switch paths run after that.
     -->
 </head>
 <body class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 flex flex-col">
@@ -190,7 +183,7 @@
             <div id="addWidgetButtons" class="flex items-center gap-2 flex-wrap"></div>
             <div class="flex-1"></div>
             <span class="text-xs text-gray-500 dark:text-gray-400 italic hidden md:inline">
-                Drag top of tile to move &middot; Drag corner to resize &middot; Adding a widget reloads the page
+                Drag top of tile to move &middot; Drag corner to resize
             </span>
         </div>
 
@@ -205,13 +198,9 @@
         </main>
     </div>
 
-    <!--
-        STEP 1: synchronously build tile DOM from localStorage BEFORE widget scripts run.
-        This must be inline (not external) and use no async APIs. localStorage is sync,
-        so this works. When the widget <script> tags below execute, they queue their
-        DOMContentLoaded handlers; when DOM parsing finishes, those handlers fire and
-        find our containers ready.
-    -->
+    <!-- Synchronous pre-render: build initial tile DOM from localStorage BEFORE
+         widget scripts run. Each widget's auto-init DOMContentLoaded handler
+         then finds the containers and renders into them. -->
     <script>
     (function() {
         'use strict';
@@ -221,11 +210,10 @@
             ACTIVE: 'screenCanvasActive'
         };
 
-        // Widget catalog used both by the pre-render step (here) and by the canvas
-        // controller (below). Single source of truth.
         const WIDGET_TYPES = {
             title: {
                 label: 'Title', icon: 'type', cls: 'title-widget',
+                globalName: 'TitleWidget',
                 default: { w: 8, h: 3 },
                 attrs: {
                     'data-title': 'New Title',
@@ -235,24 +223,28 @@
             },
             timer: {
                 label: 'Timer', icon: 'timer', cls: 'timer-widget',
+                globalName: 'TimerWidget',
                 default: { w: 4, h: 3 },
                 attrs: { 'data-time': '05:00' },
                 needsId: false
             },
             'noise-meter': {
                 label: 'Noise Meter', icon: 'volume-2', cls: 'noise-meter-widget',
+                globalName: 'NoiseMeterWidget',
                 default: { w: 6, h: 5 },
                 attrs: { 'data-threshold': '2' },
                 needsId: false
             },
             'random-picker': {
                 label: 'Random Picker', icon: 'shuffle', cls: 'random-picker-widget',
+                globalName: 'RandomPickerWidget',
                 default: { w: 6, h: 5 },
                 attrs: { 'data-title': 'Random Picker' },
                 needsId: true
             },
             'seven-pickers': {
                 label: 'Seven Pickers', icon: 'users', cls: 'seven-pickers-widget',
+                globalName: 'SevenPickersWidget',
                 default: { w: 12, h: 5 },
                 attrs: {},
                 needsId: false
@@ -261,14 +253,12 @@
 
         function genId() { return 'w-' + Math.random().toString(36).slice(2, 9); }
 
-        // Load layouts, seeding a default on first run.
         let layouts = {};
         try {
             const raw = localStorage.getItem(STORAGE.LAYOUTS);
             if (raw) layouts = JSON.parse(raw) || {};
-        } catch (e) {
-            console.error('Could not read screenLayouts:', e);
-        }
+        } catch (e) { console.error('Could not read screenLayouts:', e); }
+
         if (Object.keys(layouts).length === 0) {
             layouts['Classroom'] = {
                 items: [
@@ -292,46 +282,7 @@
             try { localStorage.setItem(STORAGE.ACTIVE, JSON.stringify(activeLayout)); } catch (e) {}
         }
 
-        // Stash everything for the controller below so it doesn't redo the work.
-        window.__CANVAS = {
-            STORAGE: STORAGE,
-            WIDGET_TYPES: WIDGET_TYPES,
-            layouts: layouts,
-            activeLayout: activeLayout,
-            genId: genId
-        };
-
-        // Render the tile DOM into .grid-stack as plain divs. Gridstack will be
-        // initialized below and will adopt these existing children via init().
-        // We use document.write only as a *fallback* if the .grid-stack element
-        // doesn't exist yet (it shouldn't at this point, since this script is in
-        // <head>) - actually we just defer the DOM building to DOMContentLoaded
-        // BUT we mark the layout for the controller to render.
-        // Actually we need to be smarter: this script runs BEFORE body parsing,
-        // so the .grid-stack div doesn't exist yet. We can't insert tiles here.
-        // Instead, the controller (below) builds tiles in its own DOMContentLoaded
-        // handler - which fires BEFORE the widget DOMContentLoaded handlers because
-        // listeners run in registration order, and the controller script runs
-        // immediately after the widget <script> tags.
-        //
-        // WAIT - all DOMContentLoaded handlers attached before the event fires run
-        // in registration order. Widget scripts register theirs when they execute.
-        // The controller script below them registers later. So controller fires
-        // AFTER widgets - too late.
-        //
-        // Real fix: the controller registers its handler in this CURRENT script
-        // (which runs before any widget script), so the controller fires FIRST.
-        document.addEventListener('DOMContentLoaded', function preRender() {
-            const gridEl = document.querySelector('.grid-stack');
-            if (!gridEl) return;
-            const items = layouts[activeLayout].items;
-            items.forEach(function(item) {
-                gridEl.appendChild(buildTileElement(item));
-            });
-        });
-
-        // Tile builder - also used by the controller for new tiles after init.
-        // Putting it on __CANVAS so the controller can call it.
+        // Tile builder. Phase 2: shared between pre-render and dynamic add.
         function buildTileElement(item) {
             const type = WIDGET_TYPES[item.type];
             const tile = document.createElement('div');
@@ -375,9 +326,30 @@
             tile.appendChild(content);
             return tile;
         }
-        window.__CANVAS.buildTileElement = buildTileElement;
 
-        // Boot error trap
+        // Stash everything for the controller below
+        window.__CANVAS = {
+            STORAGE: STORAGE,
+            WIDGET_TYPES: WIDGET_TYPES,
+            layouts: layouts,
+            activeLayout: activeLayout,
+            genId: genId,
+            buildTileElement: buildTileElement
+        };
+
+        // Pre-render: this DOMContentLoaded handler is registered BEFORE the widget
+        // scripts load, so it fires before their handlers. By the time the widgets'
+        // DOMContentLoaded scans run, our tiles will be in the DOM with the right
+        // CSS classes, and each widget will find and initialize its containers.
+        document.addEventListener('DOMContentLoaded', function preRender() {
+            const gridEl = document.querySelector('.grid-stack');
+            if (!gridEl) return;
+            const items = layouts[activeLayout].items;
+            items.forEach(function(item) {
+                gridEl.appendChild(buildTileElement(item));
+            });
+        });
+
         window.__bootErrors = [];
         window.addEventListener('error', function(e) {
             console.error('Boot error:', e.message, e.filename);
@@ -386,10 +358,7 @@
     })();
     </script>
 
-    <!-- Widget scripts. By the time their DOMContentLoaded handlers fire, the
-         pre-render step (registered above) will have populated the grid-stack
-         div with tile divs that have the matching CSS classes, so each widget
-         finds its containers and initializes normally. -->
+    <!-- Widget scripts -->
     <script src="../widgets/utils.js"></script>
     <script src="../widgets/title.js"></script>
     <script src="../widgets/timer.js"></script>
@@ -399,10 +368,16 @@
 
     <script>
     /* ============================================================
-       Canvas Controller
-       Runs after widgets have auto-initialized via their own
-       DOMContentLoaded handlers. We just wire up the toolbar and
-       Gridstack.
+       Canvas Controller (Phase 2)
+       ------------------------------------------------------------
+       Differences from Phase 1:
+         - No location.reload() anywhere. All add/switch/duplicate/etc.
+           operations work in-place via window.WidgetName.init() calls.
+         - Switching layouts tears down the grid, replaces its DOM,
+           and re-initializes Gridstack and all widgets.
+       Storage keys (camelCase per design doc):
+         screenLayouts          : { [layoutName]: { items: [...] } }
+         screenCanvasActive     : current layout name
     ============================================================ */
     (function() {
         'use strict';
@@ -424,11 +399,6 @@
         let grid = null;
         let editMode = false;
         let suppressSave = false;
-        // Set to true right before a deliberate location.reload(). Prevents the
-        // beforeunload handler from running persistCurrentLayout() and clobbering
-        // the data we just saved (the grid still has the OLD nodes at this point,
-        // so persisting would write the pre-add state back over our new state).
-        let suppressBeforeUnload = false;
 
         function readJSON(key, fallback) {
             try {
@@ -463,19 +433,31 @@
             });
         }
 
+        // Call a widget's init() if it's exposed on window. Wrapped in try/catch
+        // so a broken widget doesn't kill the whole flow.
+        function initWidgetType(typeKey) {
+            const type = WIDGET_TYPES[typeKey];
+            if (!type) return;
+            const w = window[type.globalName];
+            if (!w || typeof w.init !== 'function') {
+                console.warn('Widget global not available:', type.globalName);
+                return;
+            }
+            try { w.init(); } catch (e) { console.error('Init failed for', typeKey, e); }
+        }
+
+        function initAllWidgets() {
+            Object.keys(WIDGET_TYPES).forEach(initWidgetType);
+        }
+
         function initGrid() {
-            // Initialize Gridstack on the existing pre-rendered tile DOM.
-            // Gridstack picks up children with class 'grid-stack-item' and reads
-            // their gs-* attributes automatically.
             grid = GridStack.init({
                 column: 12,
                 cellHeight: 70,
                 margin: 10,
                 handle: '.drag-handle',
-                // Bottom corners and sides only. The top edge is reserved for the
-                // drag-handle bar, and the top-right corner is reserved for the
-                // delete button - including 'n', 'ne', or 'nw' here would steal
-                // clicks from those controls.
+                // Bottom corners and sides only - top is reserved for drag handle
+                // and top-right is reserved for the delete button.
                 resizable: { handles: 'se, sw, e, w, s' },
                 disableDrag: true,
                 disableResize: true,
@@ -484,15 +466,21 @@
             });
 
             grid.on('change', () => { if (!suppressSave) persistCurrentLayout(); });
+            wireDeleteButtons();
+        }
 
-            // Wire delete buttons (we set data-delete-id during pre-render)
+        // Attach click handlers to all tile-delete buttons currently in the DOM.
+        // Called after initial render and after every dynamic add.
+        function wireDeleteButtons() {
             document.querySelectorAll('.tile-delete[data-delete-id]').forEach(btn => {
+                if (btn.dataset.wired === 'true') return;
                 const id = btn.getAttribute('data-delete-id');
                 btn.addEventListener('click', () => {
                     if (confirm('Remove this widget from this layout? Its saved data (text, picks, etc.) is preserved.')) {
                         removeTile(id);
                     }
                 });
+                btn.dataset.wired = 'true';
             });
         }
 
@@ -520,7 +508,9 @@
                 if (!type) return;
                 const opts = {};
                 Array.from(host.attributes).forEach(a => {
-                    if (a.name.startsWith('data-')) opts[a.name] = a.value;
+                    if (a.name.startsWith('data-') && a.name !== 'data-initialized') {
+                        opts[a.name] = a.value;
+                    }
                 });
                 items.push({
                     id, type,
@@ -538,27 +528,57 @@
             empty.classList.toggle('hidden', hasItems);
         }
 
-        // Layout switching reloads the page so widget DOMContentLoaded handlers
-        // run again against the new tiles. Pragmatic, robust, fast.
+        // ----- Layout switching, in-place (Phase 2) -----
+        // Tear down current grid, clear its DOM, build new layout's tiles,
+        // re-init Gridstack and all widgets.
+        function rebuildGridForActiveLayout() {
+            suppressSave = true;
+            try {
+                if (grid) {
+                    grid.destroy(false); // false = keep grid DOM element
+                    grid = null;
+                }
+                const gridEl = document.querySelector('.grid-stack');
+                gridEl.innerHTML = '';
+                const items = layouts[activeLayout].items || [];
+                items.forEach(item => {
+                    gridEl.appendChild(buildTileElement(item));
+                });
+                initGrid();
+                if (editMode) {
+                    grid.enableMove(true);
+                    grid.enableResize(true);
+                }
+                // Initialize all widget types so they pick up the new tiles
+                initAllWidgets();
+            } finally {
+                suppressSave = false;
+            }
+            updateEmptyState();
+            renderIconsSafely();
+        }
+
         function switchLayout(name) {
             if (!layouts[name]) return;
             persistCurrentLayout();
             activeLayout = name;
             saveActive();
-            suppressBeforeUnload = true;
-            location.reload();
+            rebuildGridForActiveLayout();
         }
+
         function newLayout() {
             const name = prompt('Name for the new layout:', 'New Layout');
             if (!name) return;
             if (layouts[name]) { alert('A layout with that name already exists.'); return; }
+            persistCurrentLayout();
             layouts[name] = { items: [] };
             saveLayouts();
             activeLayout = name;
             saveActive();
-            suppressBeforeUnload = true;
-            location.reload();
+            refreshLayoutSelector();
+            rebuildGridForActiveLayout();
         }
+
         function renameLayout() {
             if (!activeLayout) return;
             const newName = prompt('Rename layout:', activeLayout);
@@ -571,8 +591,10 @@
             saveActive();
             refreshLayoutSelector();
         }
+
         function duplicateLayout() {
             if (!activeLayout) return;
+            persistCurrentLayout();
             const base = activeLayout;
             let name = base + ' (copy)';
             let n = 2;
@@ -584,9 +606,10 @@
             saveLayouts();
             activeLayout = name;
             saveActive();
-            suppressBeforeUnload = true;
-            location.reload();
+            refreshLayoutSelector();
+            rebuildGridForActiveLayout();
         }
+
         function deleteLayout() {
             if (!activeLayout) return;
             if (Object.keys(layouts).length <= 1) {
@@ -598,8 +621,8 @@
             saveLayouts();
             activeLayout = Object.keys(layouts)[0];
             saveActive();
-            suppressBeforeUnload = true;
-            location.reload();
+            refreshLayoutSelector();
+            rebuildGridForActiveLayout();
         }
 
         function setEditMode(on) {
@@ -628,9 +651,6 @@
         function buildAddWidgetButtons() {
             const container = document.getElementById('addWidgetButtons');
             container.innerHTML = '';
-            // We don't have a way to detect which widget IIFEs loaded (they use
-            // const not window). Just show all of them - if the file failed, the
-            // resulting empty tile is the same visible feedback as any other failure.
             Object.entries(WIDGET_TYPES).forEach(([key, type]) => {
                 const btn = document.createElement('button');
                 btn.className = 'px-3 py-1.5 bg-white dark:bg-gray-700 border-2 border-blue-600 dark:border-blue-700 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-600 font-medium rounded-md transition-colors flex items-center gap-1.5 text-sm';
@@ -640,14 +660,24 @@
             });
         }
 
+        // Phase 2: add tile in place, no reload. Uses Gridstack's makeWidget()
+        // on the new DOM node, then calls the appropriate widget's init() to
+        // bootstrap the freshly-added container. Existing tiles are unaffected
+        // because their widgets' init() functions are idempotent (skip
+        // containers with data-initialized="true").
         function addNewWidget(typeKey) {
             const type = WIDGET_TYPES[typeKey];
             if (!type) return;
-            // Save current state of the layout before adding the new item
+
+            // Capture the current grid state (including any in-flight edits the
+            // user made before clicking Add)
             persistCurrentLayout();
+
+            // Find a free row at the bottom of the current grid
             const existing = layouts[activeLayout].items;
             let maxY = 0;
             existing.forEach(it => { maxY = Math.max(maxY, it.y + it.h); });
+
             const item = {
                 id: genId(),
                 type: typeKey,
@@ -658,10 +688,19 @@
             };
             layouts[activeLayout].items.push(item);
             saveLayouts();
-            // Reload so the widget's own DOMContentLoaded handler picks up the new tile.
-            // Suppress beforeunload save so the (stale) grid state doesn't overwrite our work.
-            suppressBeforeUnload = true;
-            location.reload();
+
+            // Build and add the tile
+            const tile = buildTileElement(item);
+            document.querySelector('.grid-stack').appendChild(tile);
+            grid.makeWidget(tile);
+
+            // Bootstrap the widget inside this tile
+            initWidgetType(typeKey);
+
+            // Wire its delete button
+            wireDeleteButtons();
+            renderIconsSafely();
+            updateEmptyState();
         }
 
         function renderIconsSafely() {
@@ -693,9 +732,9 @@
                 document.getElementById('deleteLayoutBtn').addEventListener('click', deleteLayout);
                 document.getElementById('editModeBtn').addEventListener('click', () => setEditMode(!editMode));
 
-                window.addEventListener('beforeunload', () => {
-                    if (!suppressBeforeUnload) persistCurrentLayout();
-                });
+                // Save on tab close. No suppress flag needed in Phase 2: we never
+                // do a deliberate reload, so there's no stale-grid-state concern.
+                window.addEventListener('beforeunload', persistCurrentLayout);
 
                 let tries = 0;
                 (function r() {
@@ -712,12 +751,6 @@
             }
         }
 
-        // The pre-render script registered its DOMContentLoaded handler before any
-        // widget script ran. Widgets registered theirs as they loaded. We register
-        // ours now (last in the document), so we fire LAST - after every widget has
-        // initialized its instances on the pre-rendered tiles. That's the right
-        // order: don't init Gridstack until widgets have rendered their UIs into
-        // the tile hosts.
         if (document.readyState === 'loading') {
             document.addEventListener('DOMContentLoaded', init);
         } else {

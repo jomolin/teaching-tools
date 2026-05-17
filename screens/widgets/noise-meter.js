@@ -278,8 +278,10 @@ const NoiseMeterWidget = (function() {
         const containers = document.querySelectorAll('.noise-meter-widget');
         
         containers.forEach(container => {
+            if (container.dataset.initialized === 'true') return;
             const defaultThreshold = parseInt(container.getAttribute('data-threshold'), 10) || CONSTANTS.DEFAULT_THRESHOLD;
             container.innerHTML = createNoiseMeterWidget(defaultThreshold);
+            container.dataset.initialized = 'true';
         });
         
         // Cache DOM elements
@@ -304,6 +306,8 @@ const NoiseMeterWidget = (function() {
         resetCounter: resetThresholdCounter
     };
 })();
+
+window.NoiseMeterWidget = NoiseMeterWidget;
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', NoiseMeterWidget.init);

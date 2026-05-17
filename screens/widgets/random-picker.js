@@ -526,6 +526,7 @@ const RandomPickerWidget = (function() {
         const containers = document.querySelectorAll('.random-picker-widget');
 
         containers.forEach((container, index) => {
+            if (container.dataset.initialized === 'true') return;
             // Create unique ID for this instance
             const instanceId = container.id || `picker-${index}`;
 
@@ -558,6 +559,7 @@ const RandomPickerWidget = (function() {
 
             // Restore persisted state (selected list + pick position)
             instance.restoreState();
+            container.dataset.initialized = 'true';
         });
     }
 
@@ -602,6 +604,8 @@ const RandomPickerWidget = (function() {
         }
     };
 })();
+
+window.RandomPickerWidget = RandomPickerWidget;
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', RandomPickerWidget.init);

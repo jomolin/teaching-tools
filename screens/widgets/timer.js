@@ -246,6 +246,12 @@ const TimerWidget = (function() {
         const containers = document.querySelectorAll('.timer-widget');
         
         containers.forEach((container, index) => {
+            // Phase 2 idempotency: don't reinitialize already-rendered containers
+            // (the canvas re-calls init() after adding a new tile; existing tiles
+            // must keep their state and DOM intact)
+            if (container.dataset.initialized === 'true') return;
+
+
             // Create unique ID for this instance
             const instanceId = container.id || `timer-${index}`;
             const defaultTime = container.getAttribute('data-time') || CONSTANTS.DEFAULT_TIME;
@@ -260,6 +266,7 @@ const TimerWidget = (function() {
             // Cache DOM elements for this instance
             instance.elements.timerDisplay = document.getElementById(`timerDisplay-${instanceId}`);
             instance.elements.stopAlarmBtn = document.getElementById(`stopAlarm-${instanceId}`);
+            container.dataset.initialized = 'true';
         });
     }
     
@@ -284,6 +291,9 @@ const TimerWidget = (function() {
         }
     };
 })();
+
+// Expose on window so the canvas controller can re-trigger init()
+window.TimerWidget = TimerWidget;
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', TimerWidget.init);

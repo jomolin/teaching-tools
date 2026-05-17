@@ -296,6 +296,7 @@ const SevenPickersWidget = (function() {
     function init() {
         containerElement = document.querySelector('.seven-pickers-widget');
         if (!containerElement) return;
+        if (containerElement.dataset.initialized === 'true') return;
 
         loadStudentList();
         loadPickerStates();
@@ -310,6 +311,8 @@ const SevenPickersWidget = (function() {
                 openStudentEditor();
             }, 500);
         }
+
+        containerElement.dataset.initialized = 'true';
     }
 
     // Public API
@@ -324,6 +327,8 @@ const SevenPickersWidget = (function() {
         closeEditor: closeStudentEditor
     };
 })();
+
+window.SevenPickersWidget = SevenPickersWidget;
 
 // Initialize on DOM ready
 document.addEventListener('DOMContentLoaded', SevenPickersWidget.init);
