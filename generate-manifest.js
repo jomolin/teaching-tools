@@ -10,7 +10,6 @@ const toolDescriptions = {
     'classroom-screens': {
         'canvas': 'Modular classroom display with draggable widgets and saved layouts',
         'bell-ringers': 'Daily bell ringer activities with special days and curriculum content',
-        'classroom': 'Full classroom display with timer, noise meter, and random picker',
         'daily-think': 'Word of the day, number of the day, and daily rotation activities',
         'morning-routine': 'Morning routine display with daily think activities',
         'ssr': 'Silent Sustained Reading mode with timer and noise monitoring'
@@ -38,7 +37,6 @@ const toolIcons = {
     'classroom-screens': {
         'canvas': 'layout-grid',
         'bell-ringers': 'bell-ring',
-        'classroom': 'school',
         'daily-think': 'lightbulb',
         'morning-routine': 'sunrise',
         'ssr': 'book-open'
