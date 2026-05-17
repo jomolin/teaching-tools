@@ -11,8 +11,10 @@
         tailwind.config = { darkMode: 'class' }
     </script>
 
-    <!-- Theme sync from shared config - MUST be in head -->
-    <script src="../config.js"></script>
+    <!-- Theme sync from shared config - MUST be in head.
+         canvas.html sits at /screens/canvas.html, so config.js is a sibling
+         (the other screens live in /screens/classroom-screens/ and use ../config.js). -->
+    <script src="./config.js"></script>
 
     <!-- Lucide icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -198,12 +200,12 @@
             window.__bootErrors.push(e.message + ' (' + (e.filename || 'inline') + ')');
         });
     </script>
-    <script src="../widgets/utils.js"></script>
-    <script src="../widgets/title.js"></script>
-    <script src="../widgets/timer.js"></script>
-    <script src="../widgets/noise-meter.js"></script>
-    <script src="../widgets/random-picker.js"></script>
-    <script src="../widgets/seven-pickers.js"></script>
+    <script src="./widgets/utils.js"></script>
+    <script src="./widgets/title.js"></script>
+    <script src="./widgets/timer.js"></script>
+    <script src="./widgets/noise-meter.js"></script>
+    <script src="./widgets/random-picker.js"></script>
+    <script src="./widgets/seven-pickers.js"></script>
 
     <script>
     /* ============================================================
