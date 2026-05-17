@@ -470,7 +470,11 @@
                 cellHeight: 70,
                 margin: 10,
                 handle: '.drag-handle',
-                resizable: { handles: 'se, sw, ne, nw, e, w, n, s' },
+                // Bottom corners and sides only. The top edge is reserved for the
+                // drag-handle bar, and the top-right corner is reserved for the
+                // delete button - including 'n', 'ne', or 'nw' here would steal
+                // clicks from those controls.
+                resizable: { handles: 'se, sw, e, w, s' },
                 disableDrag: true,
                 disableResize: true,
                 float: true,
