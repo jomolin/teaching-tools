@@ -206,7 +206,7 @@ function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME, sho
                 
                 <div id="timerDisplay-${instanceId}" 
                      contenteditable="true"
-                     class="text-7xl text-center text-blue-600 dark:text-blue-400 font-bold my-5 border-2 border-transparent p-2.5 rounded-lg cursor-text focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-gray-50 dark:focus:bg-gray-900"
+                     class="text-center text-blue-600 dark:text-blue-400 font-bold my-5 border-2 border-transparent p-2.5 rounded-lg cursor-text focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-gray-50 dark:focus:bg-gray-900"
                 >${defaultTime}</div>
                 
                 <div class="flex gap-2.5 justify-center flex-wrap mt-auto">
@@ -238,6 +238,44 @@ function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME, sho
     function getInstance(instanceId) {
         return instances.find(inst => inst.id === instanceId);
     }
+
+    /**
+     * Scale the timer display font to fit its container.
+     * Called on render and on resize. Uses the same shrink-to-fit approach as
+     * random-picker.
+     */
+    function fitTimerDisplay(displayElement) {
+        if (!displayElement) return;
+        const wrapper = displayElement.parentElement;
+        if (!wrapper) return;
+
+        // Available space for the digit display, leaving room for the header
+        // and button row above and below it.
+        const availW = wrapper.clientWidth - 20;  // account for padding
+        const availH = displayElement.parentElement.clientHeight * 0.5; // half the card
+        if (availW <= 0 || availH <= 0) return;
+
+        // Start large and shrink until it fits
+        const MIN = 24;
+        const MAX = 180;
+        const STEP = 4;
+        let fontSize = MAX;
+        displayElement.style.fontSize = fontSize + 'px';
+        displayElement.style.lineHeight = '1.1';
+
+        while (fontSize > MIN &&
+               (displayElement.scrollWidth > availW || displayElement.scrollHeight > availH)) {
+            fontSize -= STEP;
+            displayElement.style.fontSize = fontSize + 'px';
+        }
+    }
+
+    /**
+     * Find which instance owns a given DOM container element
+     */
+    function findInstanceByContainer(container) {
+        return instances.find(inst => inst.container === container);
+    }
     
     /**
      * Initialize timer widgets
@@ -258,18 +296,27 @@ function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME, sho
             instances.push(instance);
             
             // Add widget HTML
-            container.innerHTML = createTimerWidget(instanceId, defaultTime, showTitle);
+            container.innerHTML = createTimerWidget(instanceId, defaultTime);
             
             // Cache DOM elements for this instance
             instance.elements.timerDisplay = document.getElementById(`timerDisplay-${instanceId}`);
             instance.elements.stopAlarmBtn = document.getElementById(`stopAlarm-${instanceId}`);
             container.dataset.initialized = 'true';
+            
+            // Initial font fit (rAF so the browser commits dimensions first)
+            requestAnimationFrame(() => fitTimerDisplay(instance.elements.timerDisplay));
         });
     }
     
     // Public API
     return {
         init: init,
+        // Canvas calls this when a tile is resized
+        onResize: function(container) {
+            const instance = findInstanceByContainer(container);
+            if (!instance) return;
+            requestAnimationFrame(() => fitTimerDisplay(instance.elements.timerDisplay));
+        },
         start: function(instanceId) {
             const instance = getInstance(instanceId);
             if (instance) instance.start();

@@ -89,6 +89,30 @@ const RandomPickerWidget = (function() {
         return ClassroomUtils.getFromStorage(getStateKey(instanceId), null);
     }
 
+    // ----- Font fit utility ---------------------------------------------------
+    // Shrinks the result-text font size until nothing overflows the wrapper.
+    // Module-scoped (not inside createInstance) so onResize can call it from
+    // outside the instance closure.
+    function fitTextToContainer(element) {
+        if (!element) return;
+        const wrapper = element.parentElement;
+        if (!wrapper) return;
+
+        const availW = wrapper.clientWidth;
+        const availH = wrapper.clientHeight;
+        if (availW === 0 || availH === 0) return;
+
+        let fontSize = CONSTANTS.MAX_FONT_SIZE;
+        element.style.fontSize = fontSize + 'px';
+        element.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
+
+        while (fontSize > CONSTANTS.MIN_FONT_SIZE &&
+               (element.scrollWidth > availW || element.scrollHeight > availH)) {
+            fontSize -= CONSTANTS.FONT_STEP;
+            element.style.fontSize = fontSize + 'px';
+        }
+    }
+
     // ----- Instance factory ---------------------------------------------------
 
     function createInstance(container, instanceId) {
@@ -101,28 +125,6 @@ const RandomPickerWidget = (function() {
             lastPicked: '',
             elements: {}
         };
-
-        // Shrink the result-text font size until nothing overflows the wrapper.
-        // Measures in-place on the real DOM element so line-wrapping, padding,
-        // and font metrics are accurate.
-        function fitTextToContainer(element) {
-            const wrapper = element.parentElement;
-            if (!wrapper) return;
-
-            const availW = wrapper.clientWidth;
-            const availH = wrapper.clientHeight;
-            if (availW === 0 || availH === 0) return;
-
-            let fontSize = CONSTANTS.MAX_FONT_SIZE;
-            element.style.fontSize = fontSize + 'px';
-            element.style.lineHeight = CONSTANTS.LINE_HEIGHT.toString();
-
-            while (fontSize > CONSTANTS.MIN_FONT_SIZE &&
-                   (element.scrollWidth > availW || element.scrollHeight > availH)) {
-                fontSize -= CONSTANTS.FONT_STEP;
-                element.style.fontSize = fontSize + 'px';
-            }
-        }
 
         instance.pick = function() {
             if (!instance.elements.itemsList || !instance.elements.randomResult || !instance.elements.remainingCount) return;
@@ -452,8 +454,24 @@ const RandomPickerWidget = (function() {
 
     // ----- Public API ----------------------------------------------------------
 
+    // Find which instance owns a given DOM container element (used by onResize)
+    function findInstanceByContainer(container) {
+        return instances.find(inst => inst.container === container);
+    }
+
     return {
         init: init,
+        // Called by the canvas's ResizeObserver when a tile is resized. Re-runs
+        // font-fit logic so the picked-name text scales with the tile.
+        onResize: function(container) {
+            const instance = findInstanceByContainer(container);
+            if (!instance) return;
+            // requestAnimationFrame lets the browser commit the new dimensions
+            // before we measure - avoids reading stale clientWidth/clientHeight
+            requestAnimationFrame(() => {
+                fitTextToContainer(instance.elements.randomResult);
+            });
+        },
         pick: function(instanceId) {
             const instance = getInstance(instanceId);
             if (instance) instance.pick();

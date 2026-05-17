@@ -141,6 +141,39 @@ const SevenPickersWidget = (function() {
 
     // ----- Rendering ---------------------------------------------------------
 
+    // Recompute font size for picker name inputs based on cell dimensions.
+    // Called on render and on resize. Keeps fonts readable in big tiles and
+    // legible in small ones.
+    function fitPickerFonts() {
+        if (!containerElement) return;
+        const cells = containerElement.querySelectorAll('.pickers-grid > div');
+        if (cells.length === 0) return;
+
+        // Use the first cell as a reference since they're all in the same grid
+        const first = cells[0];
+        const cellH = first.clientHeight;
+        const cellW = first.clientWidth;
+        if (cellH === 0 || cellW === 0) return;
+
+        // Heuristic: font size scales with cell height, clamped to a readable range.
+        // For typical tile heights (50-120px per cell), this yields 12-24px font.
+        const fontSize = Math.max(11, Math.min(24, Math.floor(cellH * 0.32)));
+
+        // Index number badge scales too, but more conservatively
+        const badgeSize = Math.max(24, Math.min(40, Math.floor(cellH * 0.45)));
+
+        cells.forEach(cell => {
+            const input = cell.querySelector('input[type=text]');
+            if (input) input.style.fontSize = fontSize + 'px';
+            const badge = cell.querySelector('div'); // first div in cell is the number badge
+            if (badge) {
+                badge.style.width = badgeSize + 'px';
+                badge.style.height = badgeSize + 'px';
+                badge.style.fontSize = Math.floor(badgeSize * 0.45) + 'px';
+            }
+        });
+    }
+
     function renderPickers() {
         if (!containerElement) return;
 
@@ -166,6 +199,9 @@ const SevenPickersWidget = (function() {
 
         const grid = containerElement.querySelector('.pickers-grid');
         if (grid) grid.innerHTML = pickersHTML;
+
+        // Recompute fonts after the DOM commits the new grid.
+        requestAnimationFrame(fitPickerFonts);
     }
 
     // Phase 2: title hidden by default. Opt in with data-show-title="true".
@@ -277,6 +313,10 @@ const SevenPickersWidget = (function() {
 
     return {
         init: init,
+        // Canvas calls this when a tile is resized
+        onResize: function() {
+            requestAnimationFrame(fitPickerFonts);
+        },
         randomize: randomizeUnlocked,
         toggleLock: toggleLock,
         updateName: updatePickerName,

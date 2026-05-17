@@ -402,6 +402,10 @@
         let grid = null;
         let editMode = false;
         let suppressSave = false;
+        // ResizeObserver instance. Watches every widget-host element; when a tile
+        // is resized, calls the matching widget's onResize() so it can rescale
+        // its internal content (font auto-fit).
+        let tileResizeObserver = null;
 
         function readJSON(key, fallback) {
             try {
@@ -487,6 +491,49 @@
             });
         }
 
+        // ----- Resize observation ------------------------------------------------
+        // Single ResizeObserver watches every tile's widget-host. When a tile is
+        // resized, dispatch onResize to the matching widget so it can rescale
+        // its content (font auto-fit etc).
+        //
+        // Why widget-host and not the gridstack tile? The gridstack tile fires
+        // resize events too, but the widget cares about the content area's actual
+        // dimensions which is the widget-host inner div. Easier to just watch the
+        // host directly.
+        function setupResizeObserver() {
+            if (tileResizeObserver) {
+                tileResizeObserver.disconnect();
+            }
+            tileResizeObserver = new ResizeObserver(entries => {
+                entries.forEach(entry => {
+                    const host = entry.target;
+                    if (!host || !host.classList) return;
+                    // Find which widget type this host belongs to and call its onResize
+                    for (const [, type] of Object.entries(WIDGET_TYPES)) {
+                        if (host.classList.contains(type.cls)) {
+                            const widget = window[type.globalName];
+                            if (widget && typeof widget.onResize === 'function') {
+                                try { widget.onResize(host); } catch (e) {
+                                    console.error('onResize failed for', type.globalName, e);
+                                }
+                            }
+                            break;
+                        }
+                    }
+                });
+            });
+            // Observe all current widget-host elements
+            document.querySelectorAll('.widget-host').forEach(host => {
+                tileResizeObserver.observe(host);
+            });
+        }
+
+        // Observe a single newly-added widget host (called after adding a tile)
+        function observeTile(host) {
+            if (!host || !tileResizeObserver) return;
+            tileResizeObserver.observe(host);
+        }
+
         function removeTile(id) {
             const el = document.querySelector('.grid-stack-item[gs-id="' + id + '"]');
             if (!el) return;
@@ -559,6 +606,8 @@
             }
             updateEmptyState();
             renderIconsSafely();
+            // Re-attach the ResizeObserver to the freshly-rendered widget hosts
+            setupResizeObserver();
         }
 
         function switchLayout(name) {
@@ -702,6 +751,9 @@
 
             // Wire its delete button
             wireDeleteButtons();
+            // Start observing the new widget host for resize events
+            const newHost = tile.querySelector('.widget-host');
+            if (newHost) observeTile(newHost);
             renderIconsSafely();
             updateEmptyState();
         }
@@ -738,6 +790,11 @@
                 // Save on tab close. No suppress flag needed in Phase 2: we never
                 // do a deliberate reload, so there's no stale-grid-state concern.
                 window.addEventListener('beforeunload', persistCurrentLayout);
+
+                // Set up resize observation for font-fit on tile resize.
+                // Deferred to next tick so the initial widget DOMContentLoaded
+                // handlers (pre-render path) have finished rendering into hosts.
+                setTimeout(setupResizeObserver, 50);
 
                 let tries = 0;
                 (function r() {
