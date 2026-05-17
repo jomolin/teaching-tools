@@ -199,10 +199,10 @@ const TimerWidget = (function() {
      * Create timer widget HTML
      * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
      */
-    function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME) {
+function createTimerWidget(instanceId, defaultTime = CONSTANTS.DEFAULT_TIME, showTitle = false) {
         return `
             <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
-                <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Timer</h2>
+                ${showTitle ? '<h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Timer</h2>' : ''}
                 
                 <div id="timerDisplay-${instanceId}" 
                      contenteditable="true"
@@ -246,22 +246,19 @@ const TimerWidget = (function() {
         const containers = document.querySelectorAll('.timer-widget');
         
         containers.forEach((container, index) => {
-            // Phase 2 idempotency: don't reinitialize already-rendered containers
-            // (the canvas re-calls init() after adding a new tile; existing tiles
-            // must keep their state and DOM intact)
             if (container.dataset.initialized === 'true') return;
-
 
             // Create unique ID for this instance
             const instanceId = container.id || `timer-${index}`;
             const defaultTime = container.getAttribute('data-time') || CONSTANTS.DEFAULT_TIME;
-            
+            const showTitle = container.getAttribute('data-show-title') === 'true';
+
             // Create instance
             const instance = createInstance(container, instanceId, defaultTime);
             instances.push(instance);
             
             // Add widget HTML
-            container.innerHTML = createTimerWidget(instanceId, defaultTime);
+            container.innerHTML = createTimerWidget(instanceId, defaultTime, showTitle);
             
             // Cache DOM elements for this instance
             instance.elements.timerDisplay = document.getElementById(`timerDisplay-${instanceId}`);

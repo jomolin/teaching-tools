@@ -429,10 +429,10 @@ const RandomPickerWidget = (function() {
      * Create random picker widget HTML
      * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
      */
-    function createRandomPickerWidget(instanceId, title = 'Random Picker') {
+    function createRandomPickerWidget(instanceId, title = 'Random Picker', showTitle = false) {
         return `
         <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
-            <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">${title}</h2>
+            ${showTitle ? `<h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">${title}</h2>` : ''}
             <div class="relative flex-grow min-h-0 my-5">
                 <div id="randomResult-${instanceId}" 
                      class="absolute inset-0 text-center text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center p-2.5 break-words"
@@ -527,18 +527,21 @@ const RandomPickerWidget = (function() {
 
         containers.forEach((container, index) => {
             if (container.dataset.initialized === 'true') return;
+            const title = container.getAttribute('data-title') || 'Random Picker';
+            const showTitle = container.getAttribute('data-show-title') !== 'false';
             // Create unique ID for this instance
             const instanceId = container.id || `picker-${index}`;
 
             // Get custom title from data attribute
             const customTitle = container.getAttribute('data-title') || 'Random Picker';
+            const showTitle = container.getAttribute('data-show-title') === 'true';
 
             // Create instance
             const instance = createInstance(container, instanceId);
             instances.push(instance);
 
             // Add widget HTML
-            container.innerHTML = createRandomPickerWidget(instanceId, customTitle);
+            container.innerHTML = createRandomPickerWidget(instanceId, customTitle, showTitle);
 
             // Add modal to container (each instance has its own modal)
             const modal = document.createElement('div');

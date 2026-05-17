@@ -209,11 +209,11 @@ const SevenPickersWidget = (function() {
      * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
      * Unicode symbols for UI buttons, modal references List Manager
      */
-    function createWidgetHTML() {
+    function createWidgetHTML(showTitle = false) {
         return `
         <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
             <div class="flex items-center justify-between mb-4">
-                <h2 class="text-blue-600 dark:text-blue-400 text-2xl font-semibold">The 7 Pickers</h2>
+                ${showTitle ? '<h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Seven Pickers</h2>' : ''}
                 <select id="studentListDropdown" 
                         onchange="SevenPickersWidget.switchList(this.value)"
                         class="px-3 py-1.5 text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 border-2 border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
@@ -301,7 +301,8 @@ const SevenPickersWidget = (function() {
         loadStudentList();
         loadPickerStates();
 
-        containerElement.innerHTML = createWidgetHTML();
+        const showTitle = container.getAttribute('data-show-title') === 'true';
+        containerElement.innerHTML = createWidgetHTML(showTitle);
         populateDropdown();
         renderPickers();
 

@@ -223,10 +223,10 @@ const NoiseMeterWidget = (function() {
      * Create noise meter widget HTML
      * Uses design doc standard: bg-white dark:bg-gray-800, text-blue-600 dark:text-blue-400
      */
-    function createNoiseMeterWidget(defaultThreshold = CONSTANTS.DEFAULT_THRESHOLD) {
+    function createNoiseMeterWidget(defaultThreshold, showTitle = false) {
         return `
             <div class="bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 rounded-xl p-6 shadow-sm flex flex-col h-full">
-                <h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Noise Meter</h2>
+                ${showTitle ? '<h2 class="text-blue-600 dark:text-blue-400 mb-4 text-2xl font-semibold">Noise Meter</h2>' : ''}
                 
                 <div class="my-4">
                     <input type="range" 
@@ -280,7 +280,8 @@ const NoiseMeterWidget = (function() {
         containers.forEach(container => {
             if (container.dataset.initialized === 'true') return;
             const defaultThreshold = parseInt(container.getAttribute('data-threshold'), 10) || CONSTANTS.DEFAULT_THRESHOLD;
-            container.innerHTML = createNoiseMeterWidget(defaultThreshold);
+            const showTitle = container.getAttribute('data-show-title') === 'true';
+            container.innerHTML = createNoiseMeterWidget(defaultThreshold, showTitle);
             container.dataset.initialized = 'true';
         });
         

@@ -215,9 +215,10 @@
                 label: 'Title', icon: 'type', cls: 'title-widget',
                 globalName: 'TitleWidget',
                 default: { w: 8, h: 3 },
+                // The title widget has no internal <h2> - it IS the title display.
+                // So data-show-title doesn't apply here.
                 attrs: {
-                    'data-title': 'New Title',
-                    'data-instructions': '<ol><li>Edit me by clicking</li></ol>'
+                    'data-content': '# New Title\n\nClick to edit.'
                 },
                 needsId: false
             },
@@ -225,28 +226,30 @@
                 label: 'Timer', icon: 'timer', cls: 'timer-widget',
                 globalName: 'TimerWidget',
                 default: { w: 4, h: 3 },
-                attrs: { 'data-time': '05:00' },
+                // Hide the "Timer" h2 on the canvas - obvious from context, and
+                // removing it lets the time display fit in smaller tiles.
+                attrs: { 'data-time': '05:00', 'data-show-title': 'false' },
                 needsId: false
             },
             'noise-meter': {
                 label: 'Noise Meter', icon: 'volume-2', cls: 'noise-meter-widget',
                 globalName: 'NoiseMeterWidget',
                 default: { w: 6, h: 5 },
-                attrs: { 'data-threshold': '2' },
+                attrs: { 'data-threshold': '2', 'data-show-title': 'false' },
                 needsId: false
             },
             'random-picker': {
                 label: 'Random Picker', icon: 'shuffle', cls: 'random-picker-widget',
                 globalName: 'RandomPickerWidget',
                 default: { w: 6, h: 5 },
-                attrs: { 'data-title': 'Random Picker' },
+                attrs: { 'data-title': 'Random Picker', 'data-show-title': 'false' },
                 needsId: true
             },
             'seven-pickers': {
                 label: 'Seven Pickers', icon: 'users', cls: 'seven-pickers-widget',
                 globalName: 'SevenPickersWidget',
                 default: { w: 12, h: 5 },
-                attrs: {},
+                attrs: { 'data-show-title': 'false' },
                 needsId: false
             }
         };
@@ -263,13 +266,13 @@
             layouts['Classroom'] = {
                 items: [
                     { id: genId(), type: 'title', x: 0, y: 0, w: 8, h: 3,
-                      opts: { 'data-title': 'Welcome', 'data-instructions': '<ol><li>Sit down</li><li>Get ready to learn</li></ol>' } },
+                      opts: { 'data-content': '# Welcome\n\n1. Sit down\n2. Get ready to learn' } },
                     { id: genId(), type: 'timer', x: 8, y: 0, w: 4, h: 3,
-                      opts: { 'data-time': '05:00' } },
+                      opts: { 'data-time': '05:00', 'data-show-title': 'false' } },
                     { id: genId(), type: 'random-picker', x: 0, y: 3, w: 6, h: 5,
-                      opts: { 'data-title': 'Student Picker' } },
+                      opts: { 'data-title': 'Student Picker', 'data-show-title': 'false' } },
                     { id: genId(), type: 'noise-meter', x: 6, y: 3, w: 6, h: 5,
-                      opts: { 'data-threshold': '2' } }
+                      opts: { 'data-threshold': '2', 'data-show-title': 'false' } }
                 ]
             };
             try { localStorage.setItem(STORAGE.LAYOUTS, JSON.stringify(layouts)); } catch (e) {}
