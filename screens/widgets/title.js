@@ -34,6 +34,20 @@ const TitleWidget = (function() {
     const STORAGE_PREFIX = 'titleWidget_';
     let instanceCounter = 0;
 
+    // Page slug derived from URL pathname so different host pages (classroom.html,
+    // ssr.html, the canvas, etc.) get separate state buckets and don't trample
+    // each other's title content. Matches the convention used elsewhere in the
+    // codebase (widgetState_{pageslug}_{instanceId}).
+    const PAGE_SLUG = (function() {
+        try {
+            const path = window.location.pathname || '';
+            const file = path.split('/').pop() || 'index';
+            return file.replace(/\.html?$/i, '') || 'index';
+        } catch (e) {
+            return 'index';
+        }
+    })();
+
     // ----- Marked.js loading --------------------------------------------------
     // Marked is loaded from CDN lazily so existing host HTML pages don't need
     // an extra <script> tag. Until marked finishes loading we render the raw
@@ -155,7 +169,7 @@ const TitleWidget = (function() {
 
     // ----- Per-instance state -------------------------------------------------
     function storageKey(instanceId) {
-        return STORAGE_PREFIX + instanceId;
+        return STORAGE_PREFIX + PAGE_SLUG + '_' + instanceId;
     }
     function loadContent(instanceId, defaultMd) {
         try {
