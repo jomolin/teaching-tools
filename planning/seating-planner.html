@@ -470,86 +470,100 @@
       }
 
       const totalTables = layoutRows * layoutCols;
-      const studentsPerTable = Math.ceil(students.length / totalTables);
 
-      // Calculate pairing scores for each student pair
-      const pairScores = {};
-      students.forEach(s1 => {
-        students.forEach(s2 => {
-          if (s1 !== s2) {
-            const key = [s1, s2].sort().join('|');
-            if (!pairScores[key]) {
-              // Score = number of times they've sat together
-              // Lower score = should sit together (haven't sat together much)
-              pairScores[key] = countPairings(s1, s2);
-            }
+      // Precompute pair counts so the score function is fast
+      const pairCounts = {};
+      for (let i = 0; i < students.length; i++) {
+        for (let j = i + 1; j < students.length; j++) {
+          const key = [students[i], students[j]].sort().join('|');
+          pairCounts[key] = countPairings(students[i], students[j]);
+        }
+      }
+      function getPairCount(s1, s2) {
+        return pairCounts[[s1, s2].sort().join('|')] || 0;
+      }
+
+      // Build per-student set of table colors they've sat at in the last 3 rounds
+      const RECENT_ROUNDS = 3;
+      const studentRecentColors = {};
+      students.forEach(s => { studentRecentColors[s] = new Set(); });
+      seatingHistory.slice(-RECENT_ROUNDS).forEach(plan => {
+        const planColors = plan.tableColors || tableColors;
+        plan.seats.forEach(seat => {
+          const colorHex = planColors[seat.table];
+          if (colorHex && studentRecentColors[seat.student]) {
+            studentRecentColors[seat.student].add(colorHex);
           }
         });
       });
 
-      // Try to create a balanced seating arrangement
-      let bestArrangement = null;
-      let bestScore = Infinity;
-      const maxAttempts = 100;
-
-      for (let attempt = 0; attempt < maxAttempts; attempt++) {
-        // Shuffle students randomly
-        const shuffled = [...students].sort(() => Math.random() - 0.5);
-
-        // Assign students to tables
-        const tables = [];
-        for (let i = 0; i < totalTables; i++) {
-          tables.push([]);
-        }
-
-        shuffled.forEach((student, index) => {
-          const tableIndex = index % totalTables;
-          tables[tableIndex].push(student);
-        });
-
-        // Calculate score for this arrangement
+      // Score a table arrangement — lower is better.
+      // Weights: incompatible pairs >> repeated pairings >> recent table color
+      function scoreTables(tables) {
         let score = 0;
-        let incompatibleCount = 0;
-
-        tables.forEach(tableStudents => {
-          // For each pair at the table
-          for (let i = 0; i < tableStudents.length; i++) {
-            for (let j = i + 1; j < tableStudents.length; j++) {
-              const s1 = tableStudents[i];
-              const s2 = tableStudents[j];
-              const key = [s1, s2].sort().join('|');
-
-              // Heavy penalty for incompatible pairs
-              if (areIncompatible(s1, s2)) {
-                incompatibleCount += 1000;
-              }
-
-              // Add the pairing count to score (lower is better)
-              score += pairScores[key] || 0;
+        for (let ti = 0; ti < tables.length; ti++) {
+          const group = tables[ti];
+          const tColor = tableColors[ti];
+          for (let i = 0; i < group.length; i++) {
+            const s1 = group[i];
+            if (tColor && studentRecentColors[s1] && studentRecentColors[s1].has(tColor)) {
+              score += 200; // sat at this color recently
+            }
+            for (let j = i + 1; j < group.length; j++) {
+              const s2 = group[j];
+              if (areIncompatible(s1, s2)) { score += 1000000; continue; }
+              score += getPairCount(s1, s2) * 1000;
             }
           }
-        });
-
-        score += incompatibleCount;
-
-        // Keep track of best arrangement
-        if (score < bestScore) {
-          bestScore = score;
-          bestArrangement = tables;
         }
-
-        // If we found a perfect arrangement (no incompatible pairs and balanced), use it
-        if (incompatibleCount === 0 && score < students.length) {
-          break;
-        }
+        return score;
       }
 
-      // Create seating plan from best arrangement
+      // Hill-climbing: repeatedly try random student swaps between tables,
+      // keeping any swap that improves the score.
+      function localSearch(tables, iterations) {
+        let score = scoreTables(tables);
+        for (let iter = 0; iter < iterations; iter++) {
+          const t1 = Math.floor(Math.random() * totalTables);
+          const t2 = Math.floor(Math.random() * totalTables);
+          if (t1 === t2 || tables[t1].length === 0 || tables[t2].length === 0) continue;
+          const i1 = Math.floor(Math.random() * tables[t1].length);
+          const i2 = Math.floor(Math.random() * tables[t2].length);
+
+          [tables[t1][i1], tables[t2][i2]] = [tables[t2][i2], tables[t1][i1]];
+          const newScore = scoreTables(tables);
+          if (newScore < score) {
+            score = newScore;
+          } else {
+            [tables[t1][i1], tables[t2][i2]] = [tables[t2][i2], tables[t1][i1]]; // revert
+          }
+        }
+        return score;
+      }
+
+      // Multiple random restarts: each time start from a fresh random shuffle
+      // and hill-climb, keeping the globally best result.
+      let bestTables = null;
+      let bestScore = Infinity;
+
+      for (let restart = 0; restart < 25; restart++) {
+        const shuffled = [...students].sort(() => Math.random() - 0.5);
+        const tables = Array.from({ length: totalTables }, () => []);
+        shuffled.forEach((s, idx) => tables[idx % totalTables].push(s));
+
+        const score = localSearch(tables, 3000);
+        if (score < bestScore) {
+          bestScore = score;
+          bestTables = tables.map(t => [...t]);
+        }
+        if (bestScore === 0) break;
+      }
+
+      // Build seat records from best arrangement
       const seats = [];
-      bestArrangement.forEach((tableStudents, tableIndex) => {
+      bestTables.forEach((tableStudents, tableIndex) => {
         tableStudents.forEach(student => {
-          const peers = tableStudents.filter(s => s !== student);
-          seats.push({ student, table: tableIndex, peers });
+          seats.push({ student, table: tableIndex, peers: tableStudents.filter(s => s !== student) });
         });
       });
 
@@ -557,14 +571,15 @@
         date,
         seats,
         layoutRows,
-        layoutCols
+        layoutCols,
+        tableColors: { ...tableColors } // snapshot so color history stays accurate
       };
 
       seatingHistory.push(currentPlan);
       saveData();
 
       renderSeatingPlan();
-      renderIncompatibleMatrix(); // Update matrix to show new pairing counts
+      renderIncompatibleMatrix();
       displayStats();
     }
 
