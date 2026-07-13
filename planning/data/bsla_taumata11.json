@@ -1,0 +1,1587 @@
+{
+  "taumata": 11,
+  "year_level": "4-5",
+  "theme": "Water, its properties and uses",
+  "global_resources": {
+    "phom_activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+    "phom_lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+    "reading_comp_lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link",
+    "reading_comp_ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+    "reading_texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+    "writing_lesson_plans_pdf": "",
+    "sentence_level_ppt": "",
+    "scope_and_sequence": "https://drive.google.com/file/d/1RFUHdn0suXQn2j4ZZAcq0SxoCqDIQUKL/view?usp=drive_link",
+    "spelling_lessons_ppt": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link",
+    "better_spelling_test_pdf": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+    "better_spelling_test_page_note": "Page 1 = Taumata 10, Page 2 = Taumata 11, Page 3 = Taumata 12"
+  },
+  "phom_activity_pages": {
+    "Morpheme Bingo": 1,
+    "Morpheme Card": 2,
+    "Word-Definition Matching": 3,
+    "Word Sort": 4,
+    "Morpheme Map": 5,
+    "Word Breakdown": 6,
+    "Word Study": 7,
+    "Word Sums": 8,
+    "Fill the Blanks": 9,
+    "Sentence Completion": 10,
+    "Word/Sentence Generation": 11,
+    "Word Usage": 12
+  },
+  "phom": [
+    {
+      "unit": "1",
+      "morpheme": "in-",
+      "meaning": "inside / into",
+      "spelling_words": [
+        "inhabit",
+        "inpatient",
+        "insisted",
+        "intake",
+        "involve",
+        "income",
+        "insert",
+        "influx",
+        "inflate",
+        "inflates",
+        "inflated",
+        "inflation",
+        "inflating",
+        "infect",
+        "infects",
+        "infected",
+        "infection",
+        "infecting",
+        "intakes",
+        "ingrown"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 1,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Match the word with the prefix in, to its definition"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 3
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 2,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 3,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Morpheme Card and Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 4,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Map"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 5
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 5,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "2",
+      "morpheme": "super-",
+      "meaning": "above / excessive",
+      "spelling_words": [
+        "superfluous",
+        "superhuman",
+        "superglue",
+        "superfine",
+        "superhero",
+        "supervise",
+        "supernova"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 6,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Fill the Blanks"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 7,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 8,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Morpheme Card and Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 9,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Bingo"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 10,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "3",
+      "morpheme": "trans-",
+      "meaning": "across / through",
+      "spelling_words": [
+        "transcribe",
+        "transmit",
+        "transplant",
+        "transport",
+        "transparent",
+        "translucent",
+        "transfusion",
+        "transition",
+        "transports",
+        "transported",
+        "transporting",
+        "transform",
+        "transforms",
+        "transformed",
+        "transforming",
+        "transfer",
+        "transfers",
+        "transferred",
+        "transferring",
+        "transmits",
+        "transmitted",
+        "transmitting"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 11,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Match the word with the prefix trans to its definition"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 3
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 12,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 13,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Word Breakdown"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 6
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 14,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Map"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 5
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 15,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "4",
+      "morpheme": "-ent",
+      "meaning": "action / state / referent",
+      "spelling_words": [
+        "consistent",
+        "permanent",
+        "obedient",
+        "opponent",
+        "emergent",
+        "confident",
+        "detergent",
+        "dependent",
+        "persistent",
+        "absorbent",
+        "violent"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 16,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Word Sort"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 4
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 17,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 18,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Morpheme Card and Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 19,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Bingo"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 20,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "5",
+      "morpheme": "-ant",
+      "meaning": "action / state / referent",
+      "spelling_words": [
+        "applicant",
+        "celebrant",
+        "pleasant",
+        "buoyant",
+        "defendant",
+        "observant",
+        "participant",
+        "servant",
+        "accountant",
+        "attendant"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 21,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Fill the Blanks"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 22,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 23,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 24,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Bingo"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 25,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "6",
+      "morpheme": "-ate",
+      "meaning": "cause / make / show",
+      "spelling_words": [
+        "fortunate",
+        "approximate",
+        "affectionate",
+        "passionate",
+        "articulate",
+        "advocate",
+        "celebrate",
+        "adequate",
+        "elaborate"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 26,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Word/Sentence Generation for ate"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 27,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 28,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 29,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Bingo"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 30,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "7",
+      "morpheme": "port",
+      "meaning": "carry / bring",
+      "spelling_words": [
+        "export",
+        "portable",
+        "passport",
+        "portal",
+        "transport",
+        "airport",
+        "carport"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 31,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Word Sums and Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 8
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 32,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 33,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Morpheme Card and Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 2
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 34,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Bingo"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 1
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 35,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "8",
+      "morpheme": "struct",
+      "meaning": "build",
+      "spelling_words": [
+        "instruct",
+        "destruction",
+        "obstruct",
+        "structure",
+        "reconstruct",
+        "construct",
+        "constructive",
+        "destruct",
+        "construction",
+        "constructor",
+        "constructed",
+        "constructing",
+        "obstruction",
+        "obstructor",
+        "obstructed",
+        "obstructing",
+        "destructor",
+        "destructed",
+        "destructing"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 36,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Match the word with the root struct, to its definition"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 3
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 37,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 38,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Fill the Blanks"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 9
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 39,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Morpheme Map"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 5
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 40,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "9",
+      "morpheme": "Multimorphemic words",
+      "meaning": "known prefixes, roots & suffixes combined",
+      "spelling_words": [
+        "inhaled",
+        "celebrates",
+        "residents",
+        "reconstruction",
+        "unsupervised",
+        "transporting",
+        "transformation",
+        "superpowers",
+        "supernatural",
+        "permanent",
+        "dependents",
+        "participants",
+        "applicants",
+        "reporters",
+        "important",
+        "constructive",
+        "structure",
+        "transformed",
+        "intake",
+        "exported"
+      ],
+      "lessons": [
+        {
+          "lesson_number": 41,
+          "type": "PPT",
+          "description": "Introduce the morpheme — PowerPoint (first half)",
+          "link_to_rw": {
+            "activity": "Word Sort"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 4
+          },
+          "spelling": {
+            "lesson": 1,
+            "type": "Introduce pattern",
+            "description": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 42,
+          "type": "PPT",
+          "description": "Consolidate — PowerPoint (second half) + game",
+          "other_activity": {
+            "activity": "Word Study and Word Sums"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 7
+          }
+        },
+        {
+          "lesson_number": 43,
+          "type": "Paper",
+          "description": "Guided practice — Paper lesson (first half)",
+          "link_to_rw": {
+            "activity": "Word and Sentence Generation"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "link_to_rw_page": 11
+          },
+          "spelling": {
+            "lesson": 2,
+            "type": "Review + practise writing",
+            "description": "Review and practise writing words/phrases with the target pattern",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 44,
+          "type": "Paper",
+          "description": "Independent practice + spelling — Paper lesson (second half)",
+          "other_activity": {
+            "activity": "Word Sort"
+          },
+          "resources": {
+            "ppt": "https://drive.google.com/drive/folders/1flTEQtf2uNJ-DD0J7VePjetXCAvoprqY?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1Buillisn6G_TpATvCkJwF02IzQvwoj_c/view?usp=drive_link",
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link",
+            "game_page": 4
+          },
+          "spelling": {
+            "lesson": 3,
+            "type": "Review + game/activity",
+            "description": "Review and play a game/activity using the week's words",
+            "duration_minutes": 10,
+            "resource": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 45,
+          "type": "OWLS",
+          "description": "OWLS — revisit the week's words",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "unit": "10",
+      "morpheme": "Review week",
+      "meaning": "Teacher's choice",
+      "spelling_words": [],
+      "lessons": [
+        {
+          "lesson_number": 46,
+          "type": "",
+          "description": "Review — teacher's choice",
+          "resources": {
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 47,
+          "type": "",
+          "description": "Review — teacher's choice",
+          "resources": {
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 48,
+          "type": "",
+          "description": "Review — teacher's choice",
+          "resources": {
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 49,
+          "type": "",
+          "description": "Review — teacher's choice",
+          "resources": {
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 50,
+          "type": "",
+          "description": "Review — teacher's choice",
+          "resources": {
+            "activities_pdf": "https://drive.google.com/file/d/1l67kNieYjkJ-jbuOIhApvJOIC6S4bozr/view?usp=drive_link"
+          }
+        }
+      ]
+    }
+  ],
+  "reading": [
+    {
+      "week": "NF1 · Wk 1",
+      "text_a": "Hard Ice, Soft Ice",
+      "source_a": "Connected L2, 2004",
+      "text_b": "Learning from the Tangata Whenua",
+      "source_b": "Connected L2, 2015",
+      "comprehension_focus": "Descriptive Matrix — KWL, vocab elaboration, text structure, QAR (optional)",
+      "graphic_organiser": "Descriptive Matrix",
+      "lessons": [
+        {
+          "lesson_number": 1,
+          "label": "NF1",
+          "type": "",
+          "text": "Hard Ice, Soft Ice",
+          "source": "Connected L2, 2004",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 2,
+          "label": "NF1",
+          "type": "",
+          "text": "Hard Ice, Soft Ice",
+          "source": "Connected L2, 2004",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 3,
+          "label": "NF1",
+          "type": "",
+          "text": "Learning from the Tangata Whenua",
+          "source": "Connected L2, 2015",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 4,
+          "label": "NF1",
+          "type": "",
+          "text": "Learning from the Tangata Whenua",
+          "source": "Connected L2, 2015",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "NF1 · Wk 2",
+      "text_a": "Kaitiaki of the Stream",
+      "source_a": "SJL2, Oct 2013",
+      "text_b": "Tiakina a Tangaroa – Protect Our Seas",
+      "source_b": "SJL2, Oct 2011",
+      "comprehension_focus": "Descriptive Matrix — KWL, vocab elaboration, text structure, QAR (optional)",
+      "graphic_organiser": "Descriptive Matrix",
+      "lessons": [
+        {
+          "lesson_number": 5,
+          "label": "NF1",
+          "type": "",
+          "text": "Kaitiaki of the Stream",
+          "source": "SJL2, Oct 2013",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 6,
+          "label": "NF1",
+          "type": "",
+          "text": "Kaitiaki of the Stream",
+          "source": "SJL2, Oct 2013",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 7,
+          "label": "NF1",
+          "type": "",
+          "text": "Tiakina a Tangaroa – Protect Our Seas",
+          "source": "SJL2, Oct 2011",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 8,
+          "label": "NF1",
+          "type": "",
+          "text": "Tiakina a Tangaroa – Protect Our Seas",
+          "source": "SJL2, Oct 2011",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "NF1 · Wk 3",
+      "text_a": "Teacher's choice",
+      "source_a": "",
+      "text_b": "Teacher's choice",
+      "source_b": "",
+      "comprehension_focus": "Descriptive Matrix — teacher's choice texts",
+      "graphic_organiser": "Descriptive Matrix",
+      "lessons": [
+        {
+          "lesson_number": 9,
+          "label": "NF1",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 10,
+          "label": "NF1",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 11,
+          "label": "NF1",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 12,
+          "label": "NF1",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1f-KaGYtH103GphxwsAllfcsearL6FcgE/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "NF2 · Wk 1",
+      "text_a": "Down the Drain",
+      "source_a": "Connected L2, 2017",
+      "text_b": "The Plastic-free Challenge",
+      "source_b": "SJL2, Nov 2018",
+      "comprehension_focus": "Problem–Solution — KWL, vocab elaboration, text structure, QAR (optional)",
+      "graphic_organiser": "Problem–Solution",
+      "lessons": [
+        {
+          "lesson_number": 13,
+          "label": "NF2",
+          "type": "",
+          "text": "Down the Drain",
+          "source": "Connected L2, 2017",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 14,
+          "label": "NF2",
+          "type": "",
+          "text": "Down the Drain",
+          "source": "Connected L2, 2017",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 15,
+          "label": "NF2",
+          "type": "",
+          "text": "The Plastic-free Challenge",
+          "source": "SJL2, Nov 2018",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 16,
+          "label": "NF2",
+          "type": "",
+          "text": "The Plastic-free Challenge",
+          "source": "SJL2, Nov 2018",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "NF2 · Wk 2",
+      "text_a": "Sea Science",
+      "source_a": "Connected L2, 2019",
+      "text_b": "Protecting the Waterways",
+      "source_b": "SJL2, Nov 2022",
+      "comprehension_focus": "Problem–Solution — KWL, vocab elaboration, text structure, QAR (optional)",
+      "graphic_organiser": "Problem–Solution",
+      "lessons": [
+        {
+          "lesson_number": 17,
+          "label": "NF2",
+          "type": "",
+          "text": "Sea Science",
+          "source": "Connected L2, 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 18,
+          "label": "NF2",
+          "type": "",
+          "text": "Sea Science",
+          "source": "Connected L2, 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 19,
+          "label": "NF2",
+          "type": "",
+          "text": "Protecting the Waterways",
+          "source": "SJL2, Nov 2022",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 20,
+          "label": "NF2",
+          "type": "",
+          "text": "Protecting the Waterways",
+          "source": "SJL2, Nov 2022",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "NF2 · Wk 3",
+      "text_a": "Teacher's choice",
+      "source_a": "",
+      "text_b": "Teacher's choice",
+      "source_b": "",
+      "comprehension_focus": "Problem–Solution — teacher's choice texts",
+      "graphic_organiser": "Problem–Solution",
+      "lessons": [
+        {
+          "lesson_number": 21,
+          "label": "NF2",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 22,
+          "label": "NF2",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 23,
+          "label": "NF2",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 24,
+          "label": "NF2",
+          "type": "",
+          "text": "Teacher's choice",
+          "source": "",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1JZqrsioVSjfaQI54Bjgl9YANyqNVNVxl/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "QAR · Wk 1",
+      "text_a": "Staying Afloat",
+      "source_a": "Junior Journal 54, 2017",
+      "text_b": "Stealing Maru",
+      "source_b": "SJL2, Aug 2019",
+      "comprehension_focus": "QAR (explicit): answer all QAR categories from pre-selected passages; summarise with story-structure elements (2nd & 4th lessons); extension — students generate their own questions. OWLS: record unknown words from the week's texts & check with a friend.",
+      "graphic_organiser": "QAR",
+      "lessons": [
+        {
+          "lesson_number": 25,
+          "label": "QAR",
+          "type": "",
+          "text": "Staying Afloat",
+          "source": "Junior Journal 54, 2017",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 26,
+          "label": "QAR",
+          "type": "",
+          "text": "Staying Afloat",
+          "source": "Junior Journal 54, 2017",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 27,
+          "label": "QAR",
+          "type": "",
+          "text": "Stealing Maru",
+          "source": "SJL2, Aug 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 28,
+          "label": "QAR",
+          "type": "",
+          "text": "Stealing Maru",
+          "source": "SJL2, Aug 2019",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "QAR · Wk 2",
+      "text_a": "A Grin from Ear to Ear",
+      "source_a": "SJL2, Oct 2011",
+      "text_b": "The Water Wardens",
+      "source_b": "Connected 2, 2002",
+      "comprehension_focus": "QAR (explicit): answer all QAR categories from pre-selected passages; summarise with story-structure elements (2nd & 4th lessons); extension — students generate their own questions. OWLS: record unknown words from the week's texts & check with a friend.",
+      "graphic_organiser": "QAR",
+      "lessons": [
+        {
+          "lesson_number": 29,
+          "label": "QAR",
+          "type": "",
+          "text": "A Grin from Ear to Ear",
+          "source": "SJL2, Oct 2011",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 30,
+          "label": "QAR",
+          "type": "",
+          "text": "A Grin from Ear to Ear",
+          "source": "SJL2, Oct 2011",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 31,
+          "label": "QAR",
+          "type": "",
+          "text": "The Water Wardens",
+          "source": "Connected 2, 2002",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 32,
+          "label": "QAR",
+          "type": "",
+          "text": "The Water Wardens",
+          "source": "Connected 2, 2002",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        }
+      ]
+    },
+    {
+      "week": "QAR · Wk 3",
+      "text_a": "Kūtai Fritters",
+      "source_a": "SJL2, Aug 2012",
+      "text_b": "Kūtai Fritters",
+      "source_b": "SJL2, Aug 2012",
+      "comprehension_focus": "Anticipation Guide + QAR review — mix question order; students generate 2–3 QAR in groups (2nd & 4th lessons). OWLS: teacher to plan.",
+      "graphic_organiser": "QAR",
+      "lessons": [
+        {
+          "lesson_number": 33,
+          "label": "QAR",
+          "type": "",
+          "text": "Kūtai Fritters",
+          "source": "SJL2, Aug 2012",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 34,
+          "label": "QAR",
+          "type": "",
+          "text": "Kūtai Fritters",
+          "source": "SJL2, Aug 2012",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 35,
+          "label": "QAR",
+          "type": "",
+          "text": "Kūtai Fritters",
+          "source": "SJL2, Aug 2012",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        },
+        {
+          "lesson_number": 36,
+          "label": "QAR",
+          "type": "",
+          "text": "Kūtai Fritters",
+          "source": "SJL2, Aug 2012",
+          "resources": {
+            "ppt_folder": "https://drive.google.com/drive/folders/1QR4L_2oGqrc9qC6kek6wJVBc27VBP6gi?usp=drive_link",
+            "texts_folder": "https://drive.google.com/drive/folders/1D1ELWIUQUBa-v6arqINbaDksc-1ECIu1?usp=drive_link",
+            "lesson_plans_pdf": "https://drive.google.com/file/d/1GKqHx0PUgTlhG0oEy20LYsgSsjedzNex/view?usp=drive_link"
+          }
+        }
+      ]
+    }
+  ],
+  "writing": [],
+  "spelling": {
+    "frequency": "3 x 10 min per week",
+    "structure": {
+      "lesson_1": "Explicitly introduce the grapheme/phoneme/morpheme pattern",
+      "lesson_2": "Review and practise writing words/phrases with the target pattern",
+      "lesson_3": "Review and play a game/activity using the week's words"
+    },
+    "words_note": "Weekly spelling words = that unit's PhOM target words.",
+    "resources": {
+      "lessons_ppt": "https://docs.google.com/presentation/d/1Tr8XqiJW-yJPl1Kise2vB_YNlxXMgobp5YJBg9DulPw/edit?usp=drive_link",
+      "note": "Single Taumata-wide PPT with scripts and lesson structure."
+    },
+    "end_of_taumata_test": {
+      "pdf": "https://drive.google.com/file/d/1g5H_493IwTEoZjBpnivhp36n9dLiMldR/view?usp=drive_link",
+      "page": 2,
+      "administered": "Week 10"
+    }
+  }
+}

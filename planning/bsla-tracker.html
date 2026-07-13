@@ -45,7 +45,14 @@
 
         <!-- Header -->
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">BSLA Literacy Planner</h1>
+            <div class="flex items-center gap-3 flex-wrap">
+                <h1 class="text-2xl font-bold text-gray-900 dark:text-gray-100">BSLA Literacy Planner</h1>
+                <select id="taumataSelect" class="text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-md px-2 py-1 bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100">
+                    <option value="10">Taumata 10</option>
+                    <option value="11">Taumata 11</option>
+                    <option value="12">Taumata 12</option>
+                </select>
+            </div>
             <p class="text-sm text-gray-600 dark:text-gray-400 mt-1" id="headerMeta"></p>
         </div>
 
@@ -190,12 +197,18 @@ let DATA = null;
 
 class LiteracyPlanner {
     constructor() {
+        this.taumata = localStorage.getItem('bslaSelectedTaumata') || '10';
         this.progress = this.loadProgress();
     }
 
     async init() {
         try {
-            const response = await fetch('./data/bsla_taumata10.json');
+            const sel = document.getElementById('taumataSelect');
+            if (sel) {
+                sel.value = this.taumata;
+                sel.addEventListener('change', (e) => this.switchTaumata(e.target.value));
+            }
+            const response = await fetch(`./data/bsla_taumata${this.taumata}.json`);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             DATA = await response.json();
 
@@ -267,13 +280,40 @@ class LiteracyPlanner {
 
     // ── Progress ──────────────────────────────────────────────
 
+    progressKey() {
+        return `bslaLiteracyProgress_t${this.taumata}`;
+    }
+
     loadProgress() {
-        const saved = localStorage.getItem('bslaLiteracyProgress');
+        // One-time migration: move the old single-Taumata key into the T10 slot.
+        const legacy = localStorage.getItem('bslaLiteracyProgress');
+        if (legacy && !localStorage.getItem('bslaLiteracyProgress_t10')) {
+            localStorage.setItem('bslaLiteracyProgress_t10', legacy);
+            localStorage.removeItem('bslaLiteracyProgress');
+        }
+        const saved = localStorage.getItem(this.progressKey());
         return saved ? JSON.parse(saved) : { phom: {}, reading: {}, writing: {} };
     }
 
     saveProgress() {
-        localStorage.setItem('bslaLiteracyProgress', JSON.stringify(this.progress));
+        localStorage.setItem(this.progressKey(), JSON.stringify(this.progress));
+    }
+
+    async switchTaumata(t) {
+        this.taumata = t;
+        localStorage.setItem('bslaSelectedTaumata', t);
+        this.progress = this.loadProgress();
+        try {
+            const response = await fetch(`./data/bsla_taumata${t}.json`);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            DATA = await response.json();
+            this.setupHeader();
+            this.setupGlobalResources();
+            this.render();
+            this.initLucide();
+        } catch (error) {
+            alert(`Could not load Taumata ${t}. Make sure ./data/bsla_taumata${t}.json exists.`);
+        }
     }
 
     isCompleted(strand, lessonNum) {
@@ -619,7 +659,6 @@ class LiteracyPlanner {
         let links = []; // { label, url }
 
         if (strand === 'phom') {
-            summaryLines.push(`L${lesson.lesson_number} (Day ${lesson.day}) — ${lesson.type}`);
             summaryLines.push(lesson.description);
             if (lesson.link_to_rw) {
                 summaryLines.push(`RW: ${lesson.link_to_rw.activity}`);
@@ -663,7 +702,7 @@ class LiteracyPlanner {
             }
 
         } else if (strand === 'writing') {
-            summaryLines.push(`L${lesson.lesson_number} — ${lesson.stage}`);
+            summaryLines.push(`${lesson.stage}`);
             summaryLines.push(`${lesson.type}: ${lesson.focus}`);
             if (unit.sentence_level) {
                 summaryLines.push(`SL: ${unit.sentence_level.title} (slide ${unit.sentence_level.slide})`);
@@ -725,10 +764,10 @@ class LiteracyPlanner {
             body += `<div><span class="font-semibold">Type:</span> ${lesson.type}</div>`;
             body += `<div><span class="font-semibold">Description:</span> ${lesson.description}</div>`;
             if (lesson.link_to_rw) {
-                body += `<div><span class="font-semibold">Read/Write Activity:</span> ${lesson.link_to_rw.activity} (${lesson.link_to_rw.activity_key})</div>`;
+                body += `<div><span class="font-semibold">Read/Write Activity:</span> ${lesson.link_to_rw.activity}${lesson.link_to_rw.activity_key ? ` (${lesson.link_to_rw.activity_key})` : ''}</div>`;
             }
             if (lesson.other_activity) {
-                body += `<div><span class="font-semibold">Game/Activity:</span> ${lesson.other_activity.activity} (${lesson.other_activity.activity_key})</div>`;
+                body += `<div><span class="font-semibold">Game/Activity:</span> ${lesson.other_activity.activity}${lesson.other_activity.activity_key ? ` (${lesson.other_activity.activity_key})` : ''}</div>`;
             }
             if (lesson.spelling && lesson.spelling.type !== 'No spelling lesson this day') {
                 body += `<div class="mt-2 p-2 bg-orange-50 dark:bg-orange-900 dark:bg-opacity-20 rounded">
@@ -745,7 +784,7 @@ class LiteracyPlanner {
             if (r.activities_pdf) body += `<div><a href="${r.activities_pdf}" target="_blank" class="text-blue-600 dark:text-blue-400 underline text-sm">Activities PDF (RW p.${r.link_to_rw_page || '?'}, Game p.${r.game_page || '?'}) &#8599;</a></div>`;
             if (lesson.spelling && lesson.spelling.resource) body += `<div><a href="${lesson.spelling.resource}" target="_blank" class="text-blue-600 dark:text-blue-400 underline text-sm">Spelling PPT &#8599;</a></div>`;
             body += `<div class="text-xs text-gray-500 dark:text-gray-400 mt-2">Words: ${unit.spelling_words.join(', ')}</div>`;
-            body += `<div class="text-xs text-gray-500 dark:text-gray-400">Transfer: ${unit.transfer_words.join(', ')}</div>`;
+            if (unit.transfer_words && unit.transfer_words.length) body += `<div class="text-xs text-gray-500 dark:text-gray-400">Transfer: ${unit.transfer_words.join(', ')}</div>`;
             body += `</div>`;
 
         } else if (strand === 'reading') {
