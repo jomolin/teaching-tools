@@ -493,6 +493,19 @@ class LiteracyPlanner {
                 <span class="font-semibold">GO:</span> ${week.graphic_organiser}
             </div>`;
 
+            // Fluency pattern + section lesson-plans link
+            if (week.fluency || (week.lessons[0] && week.lessons[0].resources && week.lessons[0].resources.lesson_plans_pdf)) {
+                const secPlan = week.lessons[0] && week.lessons[0].resources ? week.lessons[0].resources.lesson_plans_pdf : '';
+                html += `<div class="text-xs mb-3 flex flex-wrap gap-x-3 gap-y-1 items-center">`;
+                if (week.fluency) {
+                    html += `<span class="text-teal-700 dark:text-teal-300"><span class="font-semibold">Fluency:</span> ${week.fluency.pattern} &middot; Fri: ${week.fluency.friday}</span>`;
+                }
+                if (secPlan) {
+                    html += `<a href="${secPlan}" target="_blank" rel="noopener" class="text-green-600 dark:text-green-400 underline hover:no-underline">Section plans &#8599;</a>`;
+                }
+                html += `</div>`;
+            }
+
             html += `<div class="space-y-1">`;
             for (const lesson of weekLessons) {
                 const done = this.isCompleted('reading', lesson.lesson_number);
@@ -501,6 +514,7 @@ class LiteracyPlanner {
                     <span class="text-lg ${done ? 'text-green-500' : 'text-gray-300 dark:text-gray-600'}">${done ? '&#10003;' : '&#9675;'}</span>
                     <span class="text-xs font-semibold px-2 py-0.5 rounded ${lesson.type === 'PPT' ? 'bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300' : lesson.type === 'Paper' ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'}">${lesson.label}</span>
                     <span class="text-sm flex-grow ${done ? 'line-through' : ''}">${lesson.text}${lesson.source ? ` (${lesson.source})` : ''}</span>
+                    ${lesson.fluency_pass ? `<span class="text-xs font-semibold px-2 py-0.5 rounded bg-teal-100 dark:bg-teal-900 text-teal-700 dark:text-teal-300 whitespace-nowrap">&#9835; ${lesson.fluency_pass}</span>` : ''}
                     <button class="text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors" data-strand="reading" data-lesson="${lesson.lesson_number}" data-action="detail" title="View details"><i data-lucide="info" class="w-5 h-5"></i></button>
                 </div>`;
             }
@@ -528,6 +542,15 @@ class LiteracyPlanner {
                 </div>
                 <span class="text-xs font-semibold px-2 py-1 rounded ${allDone ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300' : 'bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300'}">${completedCount}/${weekLessons.length}</span>
             </div>`;
+
+            // Per-week fill-ins: focus vocab (from the reading text) + mentor text.
+            // Only shown for files that use these fields (T11/T12); leaves T10 unchanged.
+            if (week.focus_vocab !== undefined || week.mentor_text) {
+                html += `<div class="text-xs text-gray-500 dark:text-gray-400 mb-3">`;
+                if (week.mentor_text) html += `<span class="font-semibold">Mentor text:</span> ${week.mentor_text} &middot; `;
+                html += `<span class="font-semibold">Focus vocab:</span> ${(week.focus_vocab && week.focus_vocab.length) ? week.focus_vocab.join(', ') : '<span class="italic">\u2014 add from this week\u2019s text \u2014</span>'}`;
+                html += `</div>`;
+            }
 
             // Sentence level info
             if (week.sentence_level) {

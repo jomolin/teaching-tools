@@ -990,7 +990,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 2,
@@ -1002,7 +1003,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 3,
@@ -1014,7 +1016,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 4,
@@ -1026,9 +1029,21 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Partner read"
         }
-      ]
+      ],
+      "fluency": {
+        "pattern": "Mixed (multi-text)",
+        "passes": [
+          "Choral read",
+          "Choral read",
+          "Choral read",
+          "Partner read"
+        ],
+        "friday": "Read & reflect / fluency check",
+        "note": "Several texts this week — choral on each new text, partner on a repeated text."
+      }
     },
     {
       "week": "NF1 · Wk 2",
@@ -1049,7 +1064,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 6,
@@ -1061,7 +1077,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Partner read"
         },
         {
           "lesson_number": 7,
@@ -1073,7 +1090,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 8,
@@ -1085,9 +1103,21 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Partner read"
         }
-      ]
+      ],
+      "fluency": {
+        "pattern": "Two-day mirror",
+        "passes": [
+          "Choral read",
+          "Partner read",
+          "Choral read",
+          "Partner read"
+        ],
+        "friday": "Read & reflect / fluency check",
+        "note": "Text swaps at the halfway point — choral on each new text, partner on the second day of each."
+      }
     },
     {
       "week": "NF1 · Wk 3",
@@ -1108,7 +1138,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
         },
         {
           "lesson_number": 10,
@@ -1120,7 +1151,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
         },
         {
           "lesson_number": 11,
@@ -1132,7 +1164,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
         },
         {
           "lesson_number": 12,
@@ -1144,9 +1177,21 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/14WKWTxyq1BFx60MAeGThhp_9svm6Hhsu/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
         }
-      ]
+      ],
+      "fluency": {
+        "pattern": "Teacher's choice",
+        "passes": [
+          "Match to chosen text",
+          "Match to chosen text",
+          "Match to chosen text",
+          "Match to chosen text"
+        ],
+        "friday": "Read & reflect / fluency check",
+        "note": "Run the four-day ladder if you use one text all week, or choral+partner per text if you swap."
+      }
     },
     {
       "week": "NF2 · Wk 1",
@@ -1167,7 +1212,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 14,
@@ -1179,7 +1225,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Partner read"
         },
         {
           "lesson_number": 15,
@@ -1191,7 +1238,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 16,
@@ -1203,9 +1251,21 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Partner read"
         }
-      ]
+      ],
+      "fluency": {
+        "pattern": "Two-day mirror",
+        "passes": [
+          "Choral read",
+          "Partner read",
+          "Choral read",
+          "Partner read"
+        ],
+        "friday": "Read & reflect / fluency check",
+        "note": "Text swaps at the halfway point — choral on each new text, partner on the second day of each."
+      }
     },
     {
       "week": "NF2 · Wk 2",
@@ -1226,7 +1286,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 18,
@@ -1238,7 +1299,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Partner read"
         },
         {
           "lesson_number": 19,
@@ -1250,7 +1312,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Choral read"
         },
         {
           "lesson_number": 20,
@@ -1262,9 +1325,21 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Partner read"
         }
-      ]
+      ],
+      "fluency": {
+        "pattern": "Two-day mirror",
+        "passes": [
+          "Choral read",
+          "Partner read",
+          "Choral read",
+          "Partner read"
+        ],
+        "friday": "Read & reflect / fluency check",
+        "note": "Text swaps at the halfway point — choral on each new text, partner on the second day of each."
+      }
     },
     {
       "week": "NF2 · Wk 3",
@@ -1285,7 +1360,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
         },
         {
           "lesson_number": 22,
@@ -1297,7 +1373,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
         },
         {
           "lesson_number": 23,
@@ -1309,7 +1386,8 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
         },
         {
           "lesson_number": 24,
@@ -1321,12 +1399,445 @@
             "ppt_folder": "https://drive.google.com/drive/folders/1yNPJiAXTZtuwQWHMGcfF9JLsLhMzKakJ?usp=drive_link",
             "texts_folder": "https://drive.google.com/drive/folders/1Vytg1z8flONuNjNMB7v8qldNIjBwoA14?usp=drive_link",
             "lesson_plans_pdf": "https://drive.google.com/file/d/1ObhI_oPMDuyHTaVtClF9zQpMVp6-MiQ4/view?usp=drive_link"
-          }
+          },
+          "fluency_pass": "Match to chosen text"
+        }
+      ],
+      "fluency": {
+        "pattern": "Teacher's choice",
+        "passes": [
+          "Match to chosen text",
+          "Match to chosen text",
+          "Match to chosen text",
+          "Match to chosen text"
+        ],
+        "friday": "Read & reflect / fluency check",
+        "note": "Run the four-day ladder if you use one text all week, or choral+partner per text if you swap."
+      }
+    }
+  ],
+  "writing": [
+    {
+      "week": "1",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 1,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 2,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 3,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 4,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 5,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "2",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 6,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 7,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 8,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 9,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 10,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "3",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 11,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 12,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 13,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 14,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 15,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "4",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 16,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 17,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 18,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 19,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 20,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "5",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 21,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 22,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 23,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 24,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 25,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "6",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 26,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 27,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 28,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 29,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 30,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "7",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 31,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 32,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 33,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 34,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 35,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "8",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 36,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 37,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 38,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 39,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 40,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "9",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 41,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 42,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 43,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 44,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 45,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
+        }
+      ]
+    },
+    {
+      "week": "10",
+      "focus_vocab": [],
+      "mentor_text": "",
+      "lessons": [
+        {
+          "lesson_number": 46,
+          "stage": "Caps & punctuation",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explore meaning using the image (We Do) → students edit capitals & punctuation (You Do) → share & discuss",
+          "resources": {}
+        },
+        {
+          "lesson_number": 47,
+          "stage": "Combine sentences",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → explicitly teach conjunctions (I Do → We Do) → students combine the sentences (You Do) → compare responses",
+          "resources": {}
+        },
+        {
+          "lesson_number": 48,
+          "stage": "Vocabulary precision",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → replace weak words with precise vocabulary (We Do) → students revise (You Do) → discuss why the new words are stronger",
+          "resources": {}
+        },
+        {
+          "lesson_number": 49,
+          "stage": "Add detail",
+          "type": "Sentence",
+          "focus": "Introduce focus vocab (I Do) → add when / where / why / how (We Do) → students expand (You Do) → share & discuss improvements",
+          "resources": {}
+        },
+        {
+          "lesson_number": 50,
+          "stage": "Share / publish",
+          "type": "Publish",
+          "focus": "Re-read, light edit, and share the week's writing (relief-coverable review day)",
+          "resources": {}
         }
       ]
     }
   ],
-  "writing": [],
   "spelling": {
     "frequency": "3 x 10 min per week",
     "structure": {
