@@ -367,11 +367,25 @@
             isCompleted(item) { return !!this.completed[this.getItemKey(item)]; }
             isSkipped(item) { return !!this.skipped[this.getItemKey(item)]; }
 
+            // Pure state mutation, no save/render - combined lessons share one
+            // completion state, so setting it on any member sets it on all of them.
+            setItemStatus(item, status) {
+                const group = this.findGroupForItem(item);
+                const members = group ? this.groupMemberItems(group) : [item];
+                members.forEach(m => {
+                    const k = this.getItemKey(m);
+                    delete this.completed[k];
+                    delete this.skipped[k];
+                    if (status === 'completed') this.completed[k] = true;
+                    else if (status === 'skipped') this.skipped[k] = true;
+                });
+            }
+
             toggleItem(item) {
                 const key = this.getItemKey(item);
-                if (this.completed[key]) { delete this.completed[key]; this.skipped[key] = true; }
-                else if (this.skipped[key]) { delete this.skipped[key]; }
-                else { this.completed[key] = true; }
+                const current = this.completed[key] ? 'completed' : this.skipped[key] ? 'skipped' : 'unmarked';
+                const next = current === 'completed' ? 'skipped' : current === 'skipped' ? 'unmarked' : 'completed';
+                this.setItemStatus(item, next);
                 this.saveState();
                 this.renderTracker();
                 this.renderPlanner();
@@ -427,8 +441,12 @@
                         if (!this.getTags(item).includes('Optional')) return;
                         const key = this.getItemKey(item);
                         if (this.completed[key] || this.skipped[key]) return;
-                        this.skipped[key] = true;
-                        this.autoSkippedKeys.push(key);
+                        // setItemStatus also skips this item's combined-day partners,
+                        // if any, so record every key it actually touched for revert.
+                        this.setItemStatus(item, 'skipped');
+                        const group = this.findGroupForItem(item);
+                        const touched = group ? this.groupMemberItems(group) : [item];
+                        touched.forEach(m => this.autoSkippedKeys.push(this.getItemKey(m)));
                     });
                 } else {
                     // Only revert what this toggle itself skipped - a lesson the user
@@ -1078,7 +1096,7 @@
                 let marked = false;
                 this.years.filter(y => this.visibleYears.has(y)).forEach(year => {
                     const next = this.getIncompleteItemsInOrder(year)[0];
-                    if (next) { this.completed[this.getItemKey(next)] = true; marked = true; }
+                    if (next) { this.setItemStatus(next, 'completed'); marked = true; }
                 });
                 if (marked) {
                     this.saveState();
