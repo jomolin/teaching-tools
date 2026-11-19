@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maths Lesson Tracker 2.0</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' };
+    </script>
+
+    <script>
+        (function() {
+            const theme = localStorage.getItem('theme') || 'light';
+            if (theme === 'dark') document.documentElement.classList.add('dark');
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'theme') {
+                    document.documentElement.classList.toggle('dark', e.newValue === 'dark');
+                }
+            });
+        })();
+    </script>
+
+    <style>
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+        .pin-icon, .group-icon { position: absolute; top: 8px; right: 8px; }
+        .group-icon { right: 36px; }
+        .progress-segment {
+            height: 100%; float: left; display: flex; align-items: center; justify-content: center;
+        }
+        .lesson-modal { display: none; }
+        .lesson-modal.active { display: flex; }
+        .modal-wrapper {
+            position: relative; display: flex; align-items: center; justify-content: center;
+            max-width: calc(100% - 200px);
+        }
+        .lesson-nav-arrow { position: absolute; }
+        .lesson-nav-arrow.prev { left: -80px; }
+        .lesson-nav-arrow.next { right: -80px; }
+        .select-mode .item-card { cursor: default; }
+        .item-card.selected { outline: 3px solid #7c3aed; outline-offset: 2px; }
+        @media (max-width: 768px) {
+            .lessons-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+            .modal-wrapper { max-width: 100%; }
+            .lesson-nav-arrow.prev { left: 10px; }
+            .lesson-nav-arrow.next { right: 10px; }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen">
+    <div id="loadingOverlay" style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(243, 244, 246, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center;" class="dark:bg-gray-900 dark:bg-opacity-95">
+        <div class="text-center">
+            <div class="text-4xl mb-4 text-gray-400">&#9881;</div>
+            <div class="text-xl font-semibold text-gray-700 dark:text-gray-300">Loading lesson data...</div>
+        </div>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <div class="max-w-7xl mx-auto px-6 py-6">
+            <h1 class="text-4xl font-bold mb-2 text-gray-900 dark:text-gray-100">Maths Lesson Tracker</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-400 mb-6">Track and plan lessons from the current Maths textbook data</p>
+
+            <div class="flex gap-2 mb-6 border-b-2 border-gray-300 dark:border-gray-700">
+                <button class="tab-btn px-6 py-3 font-semibold text-blue-600 dark:text-blue-400" style="border-bottom: 3px solid currentColor;" data-tab="tracker">Lesson Tracker</button>
+                <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="planner">Weekly Planner</button>
+                <button class="tab-btn px-6 py-3 font-semibold text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors" data-tab="overview">Overview</button>
+            </div>
+
+            <div id="yearVisibility" class="flex gap-4 mb-6 flex-wrap items-center"></div>
+
+            <!-- Tracker Tab -->
+            <div id="tracker" class="tab-content">
+                <div class="flex gap-3 mb-6 flex-wrap">
+                    <button id="markNextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">Mark Next Complete</button>
+                    <button id="combineModeBtn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-600 text-white font-semibold rounded-md transition-colors">Combine Lessons</button>
+                    <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold rounded-md transition-colors">Reset</button>
+                    <button id="exportBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">Export</button>
+                    <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">Import</button>
+                    <input type="file" id="importFile" accept=".json" class="hidden">
+                </div>
+                <div id="lessonsContainer"></div>
+            </div>
+
+            <!-- Planner Tab -->
+            <div id="planner" class="tab-content hidden">
+                <div id="groupsPanel" class="mb-6"></div>
+                <div id="plannerToast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-5 py-3 rounded-lg shadow-lg font-semibold text-sm z-50 transition-all duration-300 opacity-0 pointer-events-none">Copied!</div>
+                <div id="weeklyPlanGrid" class="grid grid-cols-5 gap-3"></div>
+            </div>
+
+            <!-- Overview Tab -->
+            <div id="overview" class="tab-content hidden">
+                <div id="overviewStats" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8"></div>
+                <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Progress by Book</h3>
+                <div id="bookProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Combine selection bar -->
+    <div id="selectionBar" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 px-5 py-3 rounded-lg shadow-lg font-semibold text-sm z-50 hidden items-center gap-4">
+        <span id="selectionCount">0 selected</span>
+        <button id="confirmCombineBtn" class="px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white rounded-md disabled:opacity-40 disabled:cursor-not-allowed">Combine into a day</button>
+        <button id="cancelCombineBtn" class="px-3 py-1.5 bg-gray-600 hover:bg-gray-700 text-white rounded-md">Cancel</button>
+    </div>
+
+    <!-- Pin-group-to-day modal -->
+    <div id="pinGroupModal" class="lesson-modal fixed inset-0 bg-black/50 z-[1100] items-center justify-center p-5">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl p-6 max-w-md w-full">
+            <h3 class="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">Pin combined lessons to a day</h3>
+            <p id="pinGroupSummary" class="text-sm text-gray-600 dark:text-gray-400 mb-4"></p>
+            <div id="pinGroupDayButtons" class="flex gap-2 flex-wrap mb-4"></div>
+            <div class="flex justify-end">
+                <button id="skipPinGroupBtn" class="px-4 py-2 text-gray-600 dark:text-gray-400 hover:underline">Decide later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reset Modal -->
+    <div id="resetModal" class="fixed inset-0 z-50 hidden items-center justify-center" style="background: rgba(0, 0, 0, 0.5);">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl p-8 max-w-md w-full mx-4">
+            <h3 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">Reset All Progress?</h3>
+            <p class="text-gray-600 dark:text-gray-400 mb-6">This will clear all completed/skipped lessons, pins, combined-day groups and collapsed units. This action cannot be undone.</p>
+            <div class="flex gap-3 justify-end">
+                <button id="cancelResetBtn" class="px-5 py-2 bg-gray-300 hover:bg-gray-400 dark:bg-gray-600 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-100 font-semibold rounded-md">Cancel</button>
+                <button id="confirmResetBtn" class="px-5 py-2 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-md">Reset All Data</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lesson Details Modal -->
+    <div id="lessonModal" class="lesson-modal fixed inset-0 bg-black/50 z-[1000] items-center justify-center p-5">
+        <div class="modal-wrapper">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-2xl p-8 max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="flex justify-between items-start mb-6">
+                    <h2 id="lessonModalTitle" class="text-2xl font-bold text-gray-900 dark:text-gray-100"></h2>
+                    <button id="closeLessonModal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-2xl leading-none">&times;</button>
+                </div>
+                <div id="lessonModalContent" class="text-gray-900 dark:text-gray-100"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const YEAR_PALETTE = [
+            { header: 'bg-blue-600 dark:bg-blue-700', headerLight: 'bg-blue-500 dark:bg-blue-600', text: 'text-blue-600 dark:text-blue-400', stat: 'from-blue-500 to-blue-600' },
+            { header: 'bg-purple-600 dark:bg-purple-700', headerLight: 'bg-purple-500 dark:bg-purple-600', text: 'text-purple-600 dark:text-purple-400', stat: 'from-purple-500 to-purple-600' },
+            { header: 'bg-emerald-600 dark:bg-emerald-700', headerLight: 'bg-emerald-500 dark:bg-emerald-600', text: 'text-emerald-600 dark:text-emerald-400', stat: 'from-emerald-500 to-emerald-600' },
+            { header: 'bg-amber-600 dark:bg-amber-700', headerLight: 'bg-amber-500 dark:bg-amber-600', text: 'text-amber-600 dark:text-amber-400', stat: 'from-amber-500 to-amber-600' }
+        ];
+
+        class MathsTracker {
+            constructor() {
+                this.currentTab = 'tracker';
+                this.selectMode = false;
+                this.selectedKeys = new Set();
+                const state = this.loadState();
+                this.completed = state.completed;
+                this.skipped = state.skipped;
+                this.pinned = state.pinned;
+                this.groups = state.groups;
+                this.collapsedUnits = state.collapsedUnits;
+                this.visibleYears = state.visibleYears;
+            }
+
+            async init() {
+                try {
+                    const basePath = './data/Maths/';
+                    const manifest = await fetch(basePath + 'manifest.json').then(r => {
+                        if (!r.ok) throw new Error(`manifest.json: ${r.status}`);
+                        return r.json();
+                    });
+
+                    const bookNames = Object.keys(manifest.books).sort();
+                    const allItems = [];
+
+                    for (const book of bookNames) {
+                        const bookInfo = manifest.books[book];
+                        const files = [...bookInfo.chapters.map(c => c.file), ...bookInfo.extras];
+                        const fileLists = await Promise.all(files.map(f =>
+                            fetch(basePath + f).then(r => r.ok ? r.json() : [])
+                        ));
+                        fileLists.forEach(list => {
+                            list.forEach(item => allItems.push({ ...item, book, year: bookInfo.year }));
+                        });
+                    }
+
+                    this.allItems = allItems;
+                    this.itemsByKey = new Map(allItems.map(item => [this.getItemKey(item), item]));
+                    this.years = [...new Set(bookNames.map(b => manifest.books[b].year))].sort();
+
+                    if (!this.visibleYears) {
+                        this.visibleYears = new Set(this.years);
+                        this.saveState();
+                    }
+
+                    document.getElementById('loadingOverlay').style.display = 'none';
+                    document.getElementById('mainContent').style.display = 'block';
+
+                    this.setupEventListeners();
+                    this.renderYearVisibility();
+                    this.renderTracker();
+                    this.renderPlanner();
+                    this.renderOverview();
+                } catch (error) {
+                    console.error('Error loading lesson data:', error);
+                    document.getElementById('loadingOverlay').innerHTML = `
+                        <div class="text-center max-w-2xl mx-auto p-6">
+                            <div class="text-4xl mb-4 text-red-500">&#10060;</div>
+                            <div class="text-xl font-semibold text-red-600 mb-4">Failed to load lesson data</div>
+                            <div class="text-gray-700 mb-4">${error.message}</div>
+                            <button onclick="location.reload()" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md">Retry</button>
+                        </div>
+                    `;
+                }
+            }
+
+            // ---------- state ----------
+
+            loadState() {
+                const saved = localStorage.getItem('mathsTrackerV2Progress');
+                const base = { completed: {}, skipped: {}, pinned: {}, groups: {}, collapsedUnits: {}, visibleYears: null };
+                if (!saved) return base;
+                try {
+                    const data = JSON.parse(saved);
+                    return {
+                        completed: data.completed || {},
+                        skipped: data.skipped || {},
+                        pinned: data.pinned || {},
+                        groups: data.groups || {},
+                        collapsedUnits: data.collapsedUnits || {},
+                        visibleYears: Array.isArray(data.visibleYears) ? new Set(data.visibleYears) : null
+                    };
+                } catch {
+                    return base;
+                }
+            }
+
+            saveState() {
+                localStorage.setItem('mathsTrackerV2Progress', JSON.stringify({
+                    completed: this.completed,
+                    skipped: this.skipped,
+                    pinned: this.pinned,
+                    groups: this.groups,
+                    collapsedUnits: this.collapsedUnits,
+                    visibleYears: this.visibleYears ? [...this.visibleYears] : null
+                }));
+            }
+
+            // ---------- item helpers ----------
+
+            getItemKey(item) {
+                const parts = [item.book, item.content_type, item.chapter ?? 'none'];
+                if (item.lesson != null) parts.push('l' + item.lesson);
+                if (item.review_number != null) parts.push('r' + item.review_number);
+                if (item.revision != null) parts.push(item.revision);
+                if (item.section != null) parts.push('s' + item.section);
+                return parts.join('-');
+            }
+
+            getItemLabel(item) {
+                switch (item.content_type) {
+                    case 'lesson': return `L${item.lesson}`;
+                    case 'review': return `Review ${item.review_number ?? ''}`.trim();
+                    case 'mind_challenge': return 'Mind Challenge';
+                    case 'revision': return item.revision ? item.revision.replace('revision-', 'Revision ') : 'Revision';
+                    case 'mid_year_revision': return `Mid-Year${item.section ? ' ' + item.section.toUpperCase() : ''}`;
+                    case 'end_year_revision': return `End-Year${item.section ? ' ' + item.section.toUpperCase() : ''}`;
+                    default: return this.formatContentType(item.content_type);
+                }
+            }
+
+            formatContentType(type) {
+                const map = {
+                    lesson: 'Lesson', review: 'Review', mind_challenge: 'Mind Challenge',
+                    revision: 'Revision', mid_year_revision: 'Mid-Year Revision', end_year_revision: 'End-Year Revision'
+                };
+                return map[type] || type;
+            }
+
+            getLinks(item) {
+                if (item.content_type === 'lesson') return { textbook: item.source_url, workbook: item.workbook_url };
+                return { textbook: null, workbook: item.source_url };
+            }
+
+            getCombineHint(item) {
+                if (!item.content_priority) return null;
+                const m = item.content_priority.match(/combined with (lessons?) ([\d]+(?:\s*(?:,|and)\s*\d+)*)/i);
+                return m ? m[2].replace(/\s+/g, ' ').trim() : null;
+            }
+
+            getTags(item) {
+                const tags = [];
+                const priority = (item.content_priority || '').toLowerCase();
+                if (priority.includes('optional') || priority.includes('if time allows')) tags.push('Optional');
+                if (priority.includes('key lesson')) tags.push('Key');
+                return tags;
+            }
+
+            isCompleted(item) { return !!this.completed[this.getItemKey(item)]; }
+            isSkipped(item) { return !!this.skipped[this.getItemKey(item)]; }
+
+            toggleItem(item) {
+                const key = this.getItemKey(item);
+                if (this.completed[key]) { delete this.completed[key]; this.skipped[key] = true; }
+                else if (this.skipped[key]) { delete this.skipped[key]; }
+                else { this.completed[key] = true; }
+                this.saveState();
+                this.renderTracker();
+                this.renderPlanner();
+                this.renderOverview();
+            }
+
+            yearPalette(year) {
+                const idx = this.years.indexOf(year);
+                return YEAR_PALETTE[idx % YEAR_PALETTE.length];
+            }
+
+            // ---------- grouping (combine lessons into a day) ----------
+
+            findGroupForItem(item) {
+                const key = this.getItemKey(item);
+                for (const [id, group] of Object.entries(this.groups)) {
+                    if (group.itemKeys.includes(key)) return { id, ...group };
+                }
+                return null;
+            }
+
+            createGroup(items) {
+                const id = 'group-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+                this.groups[id] = { year: items[0].year, itemKeys: items.map(i => this.getItemKey(i)) };
+                this.saveState();
+                return id;
+            }
+
+            ungroup(groupId) {
+                const group = this.groups[groupId];
+                if (!group) return;
+                for (const day in this.pinned[group.year] || {}) {
+                    const p = this.pinned[group.year][day];
+                    if (p && p.type === 'group' && p.id === groupId) delete this.pinned[group.year][day];
+                }
+                delete this.groups[groupId];
+                this.saveState();
+                this.renderTracker();
+                this.renderPlanner();
+            }
+
+            groupMemberItems(group) {
+                return group.itemKeys.map(k => this.itemsByKey.get(k)).filter(Boolean);
+            }
+
+            // ---------- pinning ----------
+
+            getPinned(year, day) {
+                return (this.pinned[year] || {})[day] || null;
+            }
+
+            setPinned(year, day, entry) {
+                if (!this.pinned[year]) this.pinned[year] = {};
+                this.pinned[year][day] = entry;
+                this.saveState();
+            }
+
+            clearPinned(year, day) {
+                if (this.pinned[year]) delete this.pinned[year][day];
+                this.saveState();
+            }
+
+            unpinItem(item) {
+                const key = this.getItemKey(item);
+                for (const year in this.pinned) {
+                    for (const day in this.pinned[year]) {
+                        const p = this.pinned[year][day];
+                        if (p && p.type === 'item' && p.key === key) delete this.pinned[year][day];
+                    }
+                }
+                this.saveState();
+            }
+
+            getPinnedDayForItem(item) {
+                const key = this.getItemKey(item);
+                for (const day of ['day1', 'day2', 'day3', 'day4', 'day5']) {
+                    const p = (this.pinned[item.year] || {})[day];
+                    if (p && p.type === 'item' && p.key === key) return day.replace('day', '');
+                }
+                return null;
+            }
+
+            // ---------- event setup ----------
+
+            setupEventListeners() {
+                document.querySelectorAll('.tab-btn').forEach(tab => tab.addEventListener('click', () => this.switchTab(tab.dataset.tab)));
+
+                document.getElementById('markNextBtn').addEventListener('click', () => this.markNextComplete());
+                document.getElementById('combineModeBtn').addEventListener('click', () => this.toggleSelectMode());
+                document.getElementById('cancelCombineBtn').addEventListener('click', () => this.toggleSelectMode(false));
+                document.getElementById('confirmCombineBtn').addEventListener('click', () => this.combineSelected());
+
+                document.getElementById('resetBtn').addEventListener('click', () => this.showResetModal());
+                document.getElementById('exportBtn').addEventListener('click', () => this.exportData());
+                document.getElementById('importBtn').addEventListener('click', () => document.getElementById('importFile').click());
+                document.getElementById('importFile').addEventListener('change', (e) => this.importData(e));
+
+                document.getElementById('cancelResetBtn').addEventListener('click', () => this.hideResetModal());
+                document.getElementById('confirmResetBtn').addEventListener('click', () => this.resetProgress());
+
+                document.getElementById('closeLessonModal').addEventListener('click', () => this.hideLessonModal());
+                document.getElementById('lessonModal').addEventListener('click', (e) => { if (e.target.id === 'lessonModal') this.hideLessonModal(); });
+
+                document.getElementById('skipPinGroupBtn').addEventListener('click', () => this.hidePinGroupModal());
+                document.getElementById('pinGroupModal').addEventListener('click', (e) => { if (e.target.id === 'pinGroupModal') this.hidePinGroupModal(); });
+            }
+
+            switchTab(tabName) {
+                this.currentTab = tabName;
+                document.querySelectorAll('.tab-btn').forEach(t => {
+                    t.classList.remove('text-blue-600', 'dark:text-blue-400');
+                    t.classList.add('text-gray-500', 'dark:text-gray-400');
+                    t.style.borderBottom = '';
+                });
+                const active = document.querySelector(`[data-tab="${tabName}"]`);
+                active.classList.add('text-blue-600', 'dark:text-blue-400');
+                active.classList.remove('text-gray-500', 'dark:text-gray-400');
+                active.style.borderBottom = '3px solid currentColor';
+
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+                document.getElementById(tabName).classList.remove('hidden');
+
+                if (tabName === 'planner') this.renderPlanner();
+                else if (tabName === 'overview') this.renderOverview();
+            }
+
+            // ---------- year visibility ----------
+
+            renderYearVisibility() {
+                const container = document.getElementById('yearVisibility');
+                container.innerHTML = '<span class="font-semibold text-gray-700 dark:text-gray-300">Show grades:</span>';
+                this.years.forEach(year => {
+                    const palette = this.yearPalette(year);
+                    const label = document.createElement('label');
+                    label.className = 'flex items-center gap-2 cursor-pointer select-none';
+                    const checked = this.visibleYears.has(year);
+                    label.innerHTML = `
+                        <input type="checkbox" class="year-visibility-checkbox w-4 h-4 accent-blue-600" data-year="${year}" ${checked ? 'checked' : ''}>
+                        <span class="font-medium ${palette.text}">Year ${year}</span>
+                    `;
+                    container.appendChild(label);
+                });
+                container.querySelectorAll('.year-visibility-checkbox').forEach(cb => {
+                    cb.addEventListener('change', () => {
+                        const year = cb.dataset.year;
+                        if (cb.checked) this.visibleYears.add(year); else this.visibleYears.delete(year);
+                        this.saveState();
+                        this.renderTracker();
+                        this.renderPlanner();
+                        this.renderOverview();
+                    });
+                });
+            }
+
+            // ---------- tracker tab: units ----------
+
+            itemsForYear(year) {
+                return this.allItems.filter(i => i.year === year);
+            }
+
+            buildUnits(year) {
+                const groups = new Map();
+                this.itemsForYear(year).forEach(item => {
+                    const key = item.chapter != null
+                        ? `ch:${item.chapter}`
+                        : `special:${item.content_type}:${item.book}`;
+                    if (!groups.has(key)) {
+                        groups.set(key, {
+                            id: `${year}:${key}`,
+                            chapter: item.chapter,
+                            title: item.chapter != null
+                                ? (/^\d+$/.test(item.chapter) ? `Chapter ${item.chapter}: ${item.chapter_title || ''}` : (item.chapter_title || item.chapter))
+                                : this.formatContentType(item.content_type),
+                            sortKey: item.chapter != null ? (/^\d+$/.test(item.chapter) ? parseInt(item.chapter, 10) : Number.MAX_SAFE_INTEGER - 1) : Number.MAX_SAFE_INTEGER,
+                            items: []
+                        });
+                    }
+                    groups.get(key).items.push(item);
+                });
+                return [...groups.values()].sort((a, b) => a.sortKey - b.sortKey);
+            }
+
+            renderTracker() {
+                const container = document.getElementById('lessonsContainer');
+                container.innerHTML = '';
+                document.body.classList.toggle('select-mode', this.selectMode);
+
+                const visible = this.years.filter(y => this.visibleYears.has(y));
+                if (visible.length === 0) {
+                    container.innerHTML = '<p class="text-gray-600 dark:text-gray-400">No grades selected. Enable a grade above to see lessons.</p>';
+                    return;
+                }
+
+                visible.forEach(year => {
+                    const palette = this.yearPalette(year);
+                    const yearHeader = document.createElement('h2');
+                    yearHeader.className = `text-2xl font-bold mb-4 mt-2 ${palette.text}`;
+                    yearHeader.textContent = `Year ${year}`;
+                    container.appendChild(yearHeader);
+
+                    this.buildUnits(year).forEach(unit => container.appendChild(this.renderUnit(unit)));
+                });
+            }
+
+            renderUnit(unit) {
+                const completed = unit.items.filter(i => this.isCompleted(i)).length;
+                const skipped = unit.items.filter(i => this.isSkipped(i)).length;
+                const total = unit.items.length;
+                const remaining = total - completed - skipped;
+                const collapsed = !!this.collapsedUnits[unit.id];
+
+                const section = document.createElement('div');
+                section.className = 'mb-8 border border-gray-300 dark:border-gray-700 rounded-lg overflow-hidden';
+                section.innerHTML = `
+                    <div class="unit-header bg-gray-100 dark:bg-gray-800 px-5 py-4 flex justify-between items-center gap-4 cursor-pointer">
+                        <div class="flex items-center gap-3">
+                            <span class="collapse-arrow text-gray-500 dark:text-gray-400 transition-transform ${collapsed ? '' : 'rotate-90'}">&#9656;</span>
+                            <span class="font-semibold text-gray-900 dark:text-gray-100">${unit.title}</span>
+                        </div>
+                        <span class="text-sm text-gray-600 dark:text-gray-400 whitespace-nowrap">
+                            Completed ${completed}/${total} &bull; Skipped ${skipped}/${total} &bull; Remaining ${remaining}/${total}
+                        </span>
+                    </div>
+                    <div class="unit-body p-4 bg-white dark:bg-gray-900 ${collapsed ? 'hidden' : ''}"><div class="lessons-grid"></div></div>
+                `;
+                const grid = section.querySelector('.lessons-grid');
+                unit.items.forEach(item => grid.appendChild(this.createItemCard(item)));
+
+                section.querySelector('.unit-header').addEventListener('click', () => {
+                    this.collapsedUnits[unit.id] = !this.collapsedUnits[unit.id];
+                    this.saveState();
+                    section.querySelector('.unit-body').classList.toggle('hidden');
+                    section.querySelector('.collapse-arrow').classList.toggle('rotate-90');
+                });
+
+                return section;
+            }
+
+            createItemCard(item) {
+                const key = this.getItemKey(item);
+                const isCompleted = this.isCompleted(item);
+                const isSkipped = this.isSkipped(item);
+                const isPinned = this.getPinnedDayForItem(item) !== null;
+                const group = this.findGroupForItem(item);
+
+                const status = isCompleted ? 'completed' : isSkipped ? 'skipped' : 'unmarked';
+                const statusBg = isCompleted ? 'bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800'
+                    : isSkipped ? 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800'
+                    : 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700';
+
+                const card = document.createElement('div');
+                card.className = `item-card relative border-2 ${statusBg} rounded-lg p-4 transition-all hover:shadow-lg ${this.selectMode ? '' : 'cursor-pointer hover:-translate-y-1'} ${this.selectedKeys.has(key) ? 'selected' : ''}`;
+
+                const combineHint = this.getCombineHint(item);
+                const tags = this.getTags(item);
+                const links = this.getLinks(item);
+
+                card.innerHTML = `
+                    ${isPinned ? '<svg class="w-5 h-5 text-amber-500 pin-icon" style="filter: drop-shadow(0 1px 2px rgba(0,0,0,0.3));" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16 12V4h1V2H7v2h1v8l-2 2v2h5.2v6h1.6v-6H18v-2l-2-2z"/></svg>' : ''}
+                    ${group ? '<svg class="w-5 h-5 text-purple-500 group-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a5 5 0 0 1 5 5v1h1a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-9a2 2 0 0 1 2-2h1V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v1h6V7a3 3 0 0 0-3-3z"/></svg>' : ''}
+                    ${this.selectMode ? `<input type="checkbox" class="select-checkbox absolute top-2 left-2 w-5 h-5 accent-purple-600" ${this.selectedKeys.has(key) ? 'checked' : ''}>` : ''}
+                    <div class="flex items-start gap-2 mb-2 ${this.selectMode ? 'pl-6' : ''}">
+                        <div class="w-3 h-3 rounded-full flex-shrink-0 mt-1 ${status === 'completed' ? 'bg-green-500' : status === 'skipped' ? 'bg-red-500' : 'bg-gray-400'}"></div>
+                        <div class="flex-1">
+                            <div class="font-semibold text-gray-900 dark:text-gray-100 text-sm">${item.chapter != null ? `Ch ${item.chapter}, ` : ''}${this.getItemLabel(item)}</div>
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">${this.formatContentType(item.content_type)}</div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-700 dark:text-gray-300 mb-2 line-clamp-2">${item.objective || item.lesson_title || 'No objective'}</div>
+                    ${combineHint ? `<div class="text-xs text-blue-600 dark:text-blue-400 mb-2">&#8594; Curriculum note: combine with Lesson ${combineHint}</div>` : ''}
+                    ${group ? `<div class="text-xs text-purple-600 dark:text-purple-400 mb-2">&#9939; Combined with ${this.groupMemberItems(group).filter(i => this.getItemKey(i) !== key).map(i => this.getItemLabel(i)).join(', ')}</div>` : ''}
+                    ${tags.length > 0 ? `<div class="flex flex-wrap gap-1 mb-2">${tags.map(tag => {
+                        const isOptional = tag === 'Optional';
+                        return `<span class="text-xs px-2 py-0.5 ${isOptional ? 'bg-amber-500 dark:bg-amber-600 text-white' : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'} rounded font-semibold">${tag}</span>`;
+                    }).join('')}</div>` : ''}
+                    <div class="flex gap-1 mt-3">
+                        <button class="info-btn text-xs px-2 py-1 bg-gray-600 hover:bg-gray-700 text-white rounded">Info</button>
+                        ${links.textbook ? `<a href="${links.textbook}" target="_blank" class="text-xs px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded" onclick="event.stopPropagation()">TB</a>` : ''}
+                        ${links.workbook ? `<a href="${links.workbook}" target="_blank" class="text-xs px-2 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded" onclick="event.stopPropagation()">WB</a>` : ''}
+                    </div>
+                `;
+
+                card.addEventListener('click', (e) => {
+                    if (e.target.closest('a')) return;
+                    if (this.selectMode) {
+                        if (e.target.closest('.info-btn')) { this.showLessonModal(item); return; }
+                        this.toggleSelection(item);
+                        return;
+                    }
+                    if (!e.target.closest('.info-btn')) this.toggleItem(item);
+                });
+
+                const infoBtn = card.querySelector('.info-btn');
+                if (infoBtn && !this.selectMode) {
+                    infoBtn.addEventListener('click', (e) => { e.stopPropagation(); this.showLessonModal(item); });
+                }
+
+                return card;
+            }
+
+            // ---------- combine (select) mode ----------
+
+            toggleSelectMode(force) {
+                this.selectMode = force !== undefined ? force : !this.selectMode;
+                if (!this.selectMode) this.selectedKeys.clear();
+                document.getElementById('combineModeBtn').classList.toggle('ring-4', this.selectMode);
+                document.getElementById('combineModeBtn').classList.toggle('ring-purple-300', this.selectMode);
+                this.updateSelectionBar();
+                this.renderTracker();
+            }
+
+            toggleSelection(item) {
+                const key = this.getItemKey(item);
+                if (this.selectedKeys.has(key)) {
+                    this.selectedKeys.delete(key);
+                } else {
+                    const selectedItems = [...this.selectedKeys].map(k => this.itemsByKey.get(k));
+                    if (selectedItems.length > 0 && selectedItems[0].year !== item.year) {
+                        alert('You can only combine lessons from the same grade.');
+                        return;
+                    }
+                    if (this.findGroupForItem(item)) {
+                        alert('That lesson is already part of a combined day. Ungroup it first from the Weekly Planner tab.');
+                        return;
+                    }
+                    this.selectedKeys.add(key);
+                }
+                this.updateSelectionBar();
+                this.renderTracker();
+            }
+
+            updateSelectionBar() {
+                const bar = document.getElementById('selectionBar');
+                const count = this.selectedKeys.size;
+                bar.classList.toggle('hidden', !this.selectMode);
+                bar.classList.toggle('flex', this.selectMode);
+                document.getElementById('selectionCount').textContent = `${count} selected`;
+                document.getElementById('confirmCombineBtn').disabled = count < 2;
+            }
+
+            combineSelected() {
+                const items = [...this.selectedKeys].map(k => this.itemsByKey.get(k));
+                if (items.length < 2) return;
+                const groupId = this.createGroup(items);
+                this.toggleSelectMode(false);
+                this.renderTracker();
+                this.renderPlanner();
+                this.showPinGroupModal(groupId);
+            }
+
+            showPinGroupModal(groupId) {
+                const group = this.groups[groupId];
+                const items = this.groupMemberItems(group);
+                document.getElementById('pinGroupSummary').textContent =
+                    `${items.map(i => this.getItemLabel(i)).join(' + ')} (Year ${group.year})`;
+
+                const dayButtons = document.getElementById('pinGroupDayButtons');
+                dayButtons.innerHTML = '';
+                [1, 2, 3, 4, 5].forEach(d => {
+                    const btn = document.createElement('button');
+                    btn.className = 'px-3 py-1.5 border-2 border-purple-600 text-purple-600 dark:text-purple-400 rounded font-semibold hover:bg-purple-600 hover:text-white transition-colors';
+                    btn.textContent = `Day ${d}`;
+                    btn.addEventListener('click', () => {
+                        this.setPinned(group.year, `day${d}`, { type: 'group', id: groupId });
+                        this.hidePinGroupModal();
+                        this.renderPlanner();
+                        this.renderTracker();
+                    });
+                    dayButtons.appendChild(btn);
+                });
+
+                document.getElementById('pinGroupModal').classList.add('active');
+            }
+
+            hidePinGroupModal() {
+                document.getElementById('pinGroupModal').classList.remove('active');
+            }
+
+            // ---------- lesson detail modal ----------
+
+            showLessonModal(item) {
+                const modal = document.getElementById('lessonModal');
+                const modalWrapper = modal.querySelector('.modal-wrapper');
+                const title = document.getElementById('lessonModalTitle');
+                const content = document.getElementById('lessonModalContent');
+
+                title.textContent = `Year ${item.year}${item.chapter != null ? ` - Chapter ${item.chapter}` : ''} - ${this.getItemLabel(item)}`;
+
+                modalWrapper.querySelectorAll('.lesson-nav-arrow').forEach(a => a.remove());
+
+                let html = '';
+                const group = this.findGroupForItem(item);
+                if (group) {
+                    const others = this.groupMemberItems(group).filter(i => this.getItemKey(i) !== this.getItemKey(item));
+                    const day = Object.entries(this.pinned[group.year] || {}).find(([, p]) => p.type === 'group' && p.id === group.id);
+                    html += `
+                        <div class="flex items-center justify-between gap-2 mb-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-2 border-purple-500">
+                            <span class="text-gray-900 dark:text-gray-100">Combined with <strong>${others.map(i => this.getItemLabel(i)).join(', ')}</strong>${day ? ` &mdash; pinned to Day ${day[0].replace('day', '')}` : ' (not yet pinned to a day)'}</span>
+                            <button id="ungroupBtn" class="px-3 py-1 bg-red-600 hover:bg-red-700 text-white text-sm rounded font-semibold">Ungroup</button>
+                        </div>
+                    `;
+                } else {
+                    const currentPin = this.getPinnedDayForItem(item);
+                    html += `
+                        <div class="flex gap-2 mb-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg border-2 border-purple-500 flex-wrap">
+                            <span class="font-semibold text-gray-900 dark:text-gray-100 mr-2">&#9873; Pin to Day:</span>
+                            ${[1, 2, 3, 4, 5].map(d => `<button class="pin-day-btn px-3 py-1 border-2 ${currentPin === String(d) ? 'bg-purple-600 border-purple-600 text-white' : 'bg-white dark:bg-gray-800 border-purple-600 text-purple-600'} rounded font-semibold hover:bg-purple-600 hover:text-white transition-colors" data-day="${d}">${d}</button>`).join('')}
+                            <button class="pin-day-btn px-3 py-1 border-2 ${!currentPin ? 'bg-gray-600 border-gray-600 text-white' : 'bg-white dark:bg-gray-800 border-gray-600 text-gray-600'} rounded font-semibold hover:bg-gray-600 hover:text-white transition-colors" data-day="none">None</button>
+                        </div>
+                    `;
+                }
+
+                if (item.lesson_title) html += `<h4 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">${item.lesson_title}</h4>`;
+                if (item.objective) html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Learning Intention</h4><p class="text-gray-900 dark:text-gray-100">${item.objective}</p></div>`;
+                if (item.textbook_pages || item.workbook_pages) {
+                    html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Pages</h4>`;
+                    if (item.textbook_pages) html += `<p class="text-gray-900 dark:text-gray-100"><strong>Textbook:</strong> ${item.textbook_pages}</p>`;
+                    if (item.workbook_pages) html += `<p class="text-gray-900 dark:text-gray-100"><strong>Workbook:</strong> ${item.workbook_pages}</p>`;
+                    html += `</div>`;
+                }
+                if (item.formative_assessment) {
+                    const criteria = item.formative_assessment.split('\n').filter(Boolean);
+                    html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Success Criteria</h4><ul class="list-disc pl-5 text-gray-900 dark:text-gray-100">${criteria.map(c => `<li class="mb-1">${c}</li>`).join('')}</ul></div>`;
+                }
+                if (item.approach) html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Lesson Approach</h4><p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">${item.approach}</p></div>`;
+                if (item.content_priority) html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Content Priority</h4><p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">${item.content_priority}</p></div>`;
+                if (item.national_curriculum) html += `<div class="mb-6"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">National Curriculum</h4><p class="text-gray-900 dark:text-gray-100 whitespace-pre-wrap">${item.national_curriculum}</p></div>`;
+
+                const links = this.getLinks(item);
+                if (links.textbook || links.workbook) {
+                    html += `<div class="mb-2"><h4 class="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-2 pb-2 border-b-2 border-blue-600">Resources</h4><div class="flex gap-3">${links.textbook ? `<a href="${links.textbook}" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded font-semibold">Textbook</a>` : ''}${links.workbook ? `<a href="${links.workbook}" target="_blank" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white rounded font-semibold">Workbook</a>` : ''}</div></div>`;
+                }
+
+                content.innerHTML = html;
+
+                if (group) {
+                    document.getElementById('ungroupBtn').addEventListener('click', () => {
+                        this.ungroup(group.id);
+                        this.hideLessonModal();
+                    });
+                } else {
+                    content.querySelectorAll('.pin-day-btn').forEach(btn => {
+                        btn.addEventListener('click', () => {
+                            const day = btn.getAttribute('data-day');
+                            if (day === 'none') this.unpinItem(item);
+                            else this.setPinned(item.year, `day${day}`, { type: 'item', key: this.getItemKey(item) });
+                            this.renderTracker();
+                            this.showLessonModal(item);
+                        });
+                    });
+                }
+
+                const { prevItem, nextItem } = this.getAdjacentItems(item);
+                const prevArrow = document.createElement('button');
+                prevArrow.className = 'lesson-nav-arrow prev bg-gray-600 hover:bg-gray-700 disabled:opacity-30 disabled:cursor-not-allowed border-0 w-[60px] h-[60px] rounded-full text-[30px] text-white cursor-pointer transition-all opacity-90 hover:opacity-100 hover:scale-110 z-[1001] flex items-center justify-center shadow-lg';
+                prevArrow.innerHTML = '&#9668;';
+                prevArrow.disabled = !prevItem;
+                if (prevItem) prevArrow.addEventListener('click', () => this.showLessonModal(prevItem));
+                modalWrapper.appendChild(prevArrow);
+
+                const nextArrow = document.createElement('button');
+                nextArrow.className = prevArrow.className.replace('prev', 'next');
+                nextArrow.innerHTML = '&#9658;';
+                nextArrow.disabled = !nextItem;
+                if (nextItem) nextArrow.addEventListener('click', () => this.showLessonModal(nextItem));
+                modalWrapper.appendChild(nextArrow);
+
+                modal.classList.add('active');
+            }
+
+            hideLessonModal() { document.getElementById('lessonModal').classList.remove('active'); }
+
+            getAdjacentItems(item) {
+                const list = this.itemsForYear(item.year);
+                const key = this.getItemKey(item);
+                const idx = list.findIndex(i => this.getItemKey(i) === key);
+                return {
+                    prevItem: idx > 0 ? list[idx - 1] : null,
+                    nextItem: idx >= 0 && idx < list.length - 1 ? list[idx + 1] : null
+                };
+            }
+
+            // ---------- planner ----------
+
+            getIncompleteItemsInOrder(year) {
+                return this.itemsForYear(year).filter(i => !this.isCompleted(i) && !this.isSkipped(i));
+            }
+
+            getWeeklyEntries(year) {
+                const pinnedForYear = this.pinned[year] || {};
+                // Exclude anything pinned individually, and every member of every
+                // group for this year (even if that group isn't pinned yet) -
+                // grouped lessons are committed to their combined day, not the
+                // day-by-day rotation.
+                const usedKeys = new Set();
+                Object.values(pinnedForYear).forEach(p => { if (p && p.type === 'item') usedKeys.add(p.key); });
+                Object.values(this.groups).forEach(g => { if (g.year === year) g.itemKeys.forEach(k => usedKeys.add(k)); });
+
+                const pool = this.getIncompleteItemsInOrder(year).filter(i => !usedKeys.has(this.getItemKey(i)));
+                let poolIdx = 0;
+                const entries = [];
+                for (let d = 1; d <= 5; d++) {
+                    const p = pinnedForYear[`day${d}`];
+                    if (p && p.type === 'item' && this.itemsByKey.has(p.key)) {
+                        entries.push({ type: 'item', data: this.itemsByKey.get(p.key) });
+                    } else if (p && p.type === 'group' && this.groups[p.id]) {
+                        entries.push({ type: 'group', data: this.groupMemberItems(this.groups[p.id]) });
+                    } else {
+                        entries.push(pool[poolIdx] ? { type: 'item', data: pool[poolIdx++] } : null);
+                    }
+                }
+                return entries;
+            }
+
+            formatPlanLines(item, withLabel) {
+                const prefix = withLabel ? `${this.getItemLabel(item)} ` : '';
+                const lines = [];
+                lines.push(item.textbook_pages
+                    ? `${prefix}Teacher: TB pg${item.textbook_pages}`
+                    : `${prefix}Teacher: ${this.formatContentType(item.content_type)}`);
+                if (item.workbook_pages) lines.push(`${prefix}Ind: pg${item.workbook_pages}`);
+                return lines.join('\n');
+            }
+
+            entryWalt(entry) {
+                if (!entry) return 'No lesson';
+                if (entry.type === 'item') return entry.data.objective || entry.data.lesson_title || 'No objective';
+                return entry.data.map(i => `${this.getItemLabel(i)}: ${i.objective || i.lesson_title || 'No objective'}`).join('\n');
+            }
+
+            entryPlan(entry) {
+                if (!entry) return 'No lesson';
+                if (entry.type === 'item') return this.formatPlanLines(entry.data, false);
+                return entry.data.map(i => this.formatPlanLines(i, true)).join('\n');
+            }
+
+            renderPlanner() {
+                this.renderGroupsPanel();
+                const grid = document.getElementById('weeklyPlanGrid');
+                grid.innerHTML = '';
+                const visible = this.years.filter(y => this.visibleYears.has(y));
+
+                if (visible.length === 0) {
+                    grid.innerHTML = '<p class="text-gray-600 dark:text-gray-400 col-span-5">No grades selected. Enable a grade above to plan lessons.</p>';
+                    return;
+                }
+
+                const entriesByYear = {};
+                visible.forEach(year => { entriesByYear[year] = this.getWeeklyEntries(year); });
+
+                for (let i = 0; i < 5; i++) {
+                    const col = document.createElement('div');
+                    col.className = 'flex flex-col gap-2';
+                    col.innerHTML = `<div class="text-center font-bold text-gray-900 dark:text-gray-100 text-lg py-2 border-b-2 border-gray-300 dark:border-gray-700">Day ${i + 1}</div>`;
+
+                    visible.forEach(year => {
+                        const palette = this.yearPalette(year);
+                        const entry = entriesByYear[year][i];
+                        col.appendChild(this.createCopyableBox(`WALT Year ${year}`, this.entryWalt(entry), `Year ${year} WALT`, palette.header));
+                        col.appendChild(this.createCopyableBox(`Year ${year}`, this.entryPlan(entry), `Year ${year}`, palette.headerLight));
+                    });
+
+                    grid.appendChild(col);
+                }
+            }
+
+            renderGroupsPanel() {
+                const panel = document.getElementById('groupsPanel');
+                const groupIds = Object.keys(this.groups);
+                if (groupIds.length === 0) { panel.innerHTML = ''; return; }
+
+                panel.innerHTML = `<h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-2">Combined Lessons</h3>`;
+                const list = document.createElement('div');
+                list.className = 'flex flex-col gap-2';
+
+                groupIds.forEach(id => {
+                    const group = this.groups[id];
+                    const items = this.groupMemberItems(group);
+                    const pinnedDay = Object.entries(this.pinned[group.year] || {}).find(([, p]) => p.type === 'group' && p.id === id);
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center justify-between gap-3 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800 rounded-lg px-4 py-2';
+                    row.innerHTML = `
+                        <span class="text-sm text-gray-900 dark:text-gray-100">Year ${group.year}: ${items.map(i => this.getItemLabel(i)).join(' + ')}${pinnedDay ? ` &mdash; Day ${pinnedDay[0].replace('day', '')}` : ' &mdash; not pinned'}</span>
+                        <div class="flex gap-2">
+                            ${!pinnedDay ? `<button class="pin-group-btn text-xs px-2 py-1 bg-purple-600 hover:bg-purple-700 text-white rounded">Pin to day</button>` : ''}
+                            <button class="ungroup-btn text-xs px-2 py-1 bg-red-600 hover:bg-red-700 text-white rounded">Ungroup</button>
+                        </div>
+                    `;
+                    const pinBtn = row.querySelector('.pin-group-btn');
+                    if (pinBtn) pinBtn.addEventListener('click', () => this.showPinGroupModal(id));
+                    row.querySelector('.ungroup-btn').addEventListener('click', () => this.ungroup(id));
+                    list.appendChild(row);
+                });
+
+                panel.appendChild(list);
+            }
+
+            showPlannerToast(message) {
+                const toast = document.getElementById('plannerToast');
+                toast.textContent = message;
+                toast.classList.remove('opacity-0', 'pointer-events-none');
+                toast.classList.add('opacity-100');
+                clearTimeout(this._toastTimeout);
+                this._toastTimeout = setTimeout(() => {
+                    toast.classList.remove('opacity-100');
+                    toast.classList.add('opacity-0', 'pointer-events-none');
+                }, 1500);
+            }
+
+            plannerCopy(text, label) {
+                navigator.clipboard.writeText(text).then(() => this.showPlannerToast(`${label} copied!`));
+            }
+
+            createCopyableBox(heading, text, toastLabel, headerColor) {
+                const box = document.createElement('div');
+                box.className = 'flex flex-col';
+                box.innerHTML = `
+                    <div class="${headerColor} text-white text-xs font-bold px-2 py-1 rounded-t">${heading}</div>
+                    <div class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 border-t-0 rounded-b p-2 font-mono text-xs whitespace-pre-wrap text-gray-900 dark:text-gray-100 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 min-h-[60px] select-all transition-colors" title="Click to copy">${this.escapeHTML(text)}</div>
+                `;
+                box.querySelector('div:last-child').addEventListener('click', () => this.plannerCopy(text, toastLabel));
+                return box;
+            }
+
+            escapeHTML(str) {
+                const div = document.createElement('div');
+                div.textContent = str;
+                return div.innerHTML;
+            }
+
+            markNextComplete() {
+                let marked = false;
+                this.years.filter(y => this.visibleYears.has(y)).forEach(year => {
+                    const next = this.getIncompleteItemsInOrder(year)[0];
+                    if (next) { this.completed[this.getItemKey(next)] = true; marked = true; }
+                });
+                if (marked) {
+                    this.saveState();
+                    this.renderTracker();
+                    this.renderPlanner();
+                    this.renderOverview();
+                }
+            }
+
+            // ---------- overview ----------
+
+            renderOverview() {
+                const visible = this.years.filter(y => this.visibleYears.has(y));
+                const statsEl = document.getElementById('overviewStats');
+                statsEl.innerHTML = '';
+
+                visible.forEach(year => {
+                    const palette = this.yearPalette(year);
+                    const items = this.itemsForYear(year);
+                    const completed = items.filter(i => this.isCompleted(i)).length;
+                    const skipped = items.filter(i => this.isSkipped(i)).length;
+                    const remaining = items.length - completed - skipped;
+                    const card = document.createElement('div');
+                    card.className = `bg-gradient-to-br ${palette.stat} text-white p-6 rounded-lg text-center`;
+                    card.innerHTML = `
+                        <div class="text-lg font-bold mb-3">Year ${year}</div>
+                        <div class="flex justify-around text-sm">
+                            <div><div class="text-2xl font-bold">${completed}</div><div class="opacity-90">Completed</div></div>
+                            <div><div class="text-2xl font-bold">${skipped}</div><div class="opacity-90">Skipped</div></div>
+                            <div><div class="text-2xl font-bold">${remaining}</div><div class="opacity-90">Remaining</div></div>
+                        </div>
+                    `;
+                    statsEl.appendChild(card);
+                });
+
+                const bookProgressEl = document.getElementById('bookProgress');
+                bookProgressEl.innerHTML = '';
+                const books = [...new Set(this.allItems.filter(i => this.visibleYears.has(i.year)).map(i => i.book))].sort();
+
+                books.forEach(book => {
+                    const items = this.allItems.filter(i => i.book === book);
+                    const completed = items.filter(i => this.isCompleted(i)).length;
+                    const skipped = items.filter(i => this.isSkipped(i)).length;
+                    const total = items.length;
+                    const completedPercent = total > 0 ? Math.round((completed / total) * 100) : 0;
+                    const skippedPercent = total > 0 ? Math.round((skipped / total) * 100) : 0;
+                    const remainingPercent = 100 - completedPercent - skippedPercent;
+
+                    const bookDiv = document.createElement('div');
+                    bookDiv.className = 'mb-6';
+                    bookDiv.innerHTML = `
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="font-semibold text-gray-900 dark:text-gray-100">Book ${book.toUpperCase()}</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">${completed} / ${total} lessons</span>
+                        </div>
+                        <div class="bg-gray-200 dark:bg-gray-700 rounded-lg overflow-hidden h-[30px]">
+                            ${completed > 0 ? `<div class="progress-segment bg-green-500 text-white text-xs font-semibold" style="width: ${completedPercent}%">${completedPercent}%</div>` : ''}
+                            ${skipped > 0 ? `<div class="progress-segment bg-red-500 text-white text-xs font-semibold" style="width: ${skippedPercent}%">${skippedPercent}%</div>` : ''}
+                            ${remainingPercent > 0 ? `<div class="progress-segment bg-gray-500 text-white text-xs font-semibold" style="width: ${remainingPercent}%">${remainingPercent}%</div>` : ''}
+                        </div>
+                    `;
+                    bookProgressEl.appendChild(bookDiv);
+                });
+            }
+
+            // ---------- reset / export / import ----------
+
+            showResetModal() { document.getElementById('resetModal').classList.remove('hidden'); document.getElementById('resetModal').classList.add('flex'); }
+            hideResetModal() { document.getElementById('resetModal').classList.add('hidden'); document.getElementById('resetModal').classList.remove('flex'); }
+
+            resetProgress() {
+                this.completed = {};
+                this.skipped = {};
+                this.pinned = {};
+                this.groups = {};
+                this.collapsedUnits = {};
+                this.saveState();
+                this.hideResetModal();
+                this.renderTracker();
+                this.renderPlanner();
+                this.renderOverview();
+            }
+
+            exportData() {
+                const data = {
+                    completed: this.completed,
+                    skipped: this.skipped,
+                    pinned: this.pinned,
+                    groups: this.groups,
+                    collapsedUnits: this.collapsedUnits,
+                    visibleYears: [...this.visibleYears],
+                    exportDate: new Date().toISOString()
+                };
+                const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `maths-progress-${new Date().toISOString().split('T')[0]}.json`;
+                a.click();
+                URL.revokeObjectURL(url);
+            }
+
+            importData(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (!data.completed) { alert('Invalid file format.'); return; }
+                        if (confirm(`Import progress from ${data.exportDate ? new Date(data.exportDate).toLocaleDateString() : 'unknown date'}?`)) {
+                            this.completed = data.completed;
+                            this.skipped = data.skipped || {};
+                            this.pinned = data.pinned || {};
+                            this.groups = data.groups || {};
+                            this.collapsedUnits = data.collapsedUnits || {};
+                            if (Array.isArray(data.visibleYears)) this.visibleYears = new Set(data.visibleYears);
+                            this.saveState();
+                            this.renderYearVisibility();
+                            this.renderTracker();
+                            this.renderPlanner();
+                            this.renderOverview();
+                            alert('Progress imported!');
+                        }
+                    } catch {
+                        alert('Error reading file.');
+                    }
+                    event.target.value = '';
+                };
+                reader.readAsText(file);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const tracker = new MathsTracker();
+            tracker.init();
+        });
+    </script>
+</body>
+</html>

@@ -31,9 +31,12 @@ jobs:
         with:
           node-version: '18'
 
-      # 3. GENERATE MANIFEST (Runs your script)
-      - name: Generate Manifest
+      # 3. GENERATE MANIFESTS (tools list + Maths chapter/book index)
+      - name: Generate Tools Manifest
         run: node generate-manifest.js
+
+      - name: Generate Maths Data Manifest
+        run: node generate-maths-manifest.js
 
       # 4. Build with Jekyll (Handles your SCSS/CSS)
       - name: Build with Jekyll

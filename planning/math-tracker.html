@@ -1022,18 +1022,6 @@
                 reader.readAsText(file);
             }
 
-            copyToClipboard(elementId) {
-                const text = document.getElementById(elementId).textContent;
-                navigator.clipboard.writeText(text).then(() => {
-                    const btnId = elementId.replace('Output', '').replace(/(\d)/, (m, p1) => p1.charAt(0).toUpperCase() + p1.slice(1));
-                    const btn = document.getElementById(`copy${btnId.charAt(0).toUpperCase() + btnId.slice(1)}Btn`);
-                    if (btn) {
-                        const orig = btn.textContent;
-                        btn.textContent = 'Copied!';
-                        setTimeout(() => btn.textContent = orig, 2000);
-                    }
-                });
-            }
         }
 
         document.addEventListener('DOMContentLoaded', () => {

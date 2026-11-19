@@ -28,6 +28,7 @@ const toolDescriptions = {
         'daily-reflection': 'Daily PCT training reflection tool',
         'list-manager': 'Manage shared lists used across all classroom tools',
         'math-tracker': 'Track and plan mathematics lessons for Year 4/5 mixed class',
+        'maths-tracker-v2': 'Track and plan mathematics lessons from the current Maths textbook data, with collapsible chapters and combinable lesson days',
         'seating-planner': 'Generate balanced seating arrangements and track student pairings'
     }
 };
@@ -55,6 +56,7 @@ const toolIcons = {
         'daily-reflection': 'notebook-pen',
         'list-manager': 'list',
         'math-tracker': 'calculator',
+        'maths-tracker-v2': 'calculator',
         'seating-planner': 'users'
     }
 };

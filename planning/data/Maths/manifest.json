@@ -1,0 +1,103 @@
+{
+  "generated": "2026-11-19T07:44:21.747Z",
+  "books": {
+    "4a": {
+      "year": "4",
+      "suffix": "a",
+      "chapters": [
+        {
+          "id": "1",
+          "file": "4a/Chapter_1/lesson_plans.json",
+          "sortKey": 1
+        },
+        {
+          "id": "2",
+          "file": "4a/Chapter_2/lesson_plans.json",
+          "sortKey": 2
+        },
+        {
+          "id": "3",
+          "file": "4a/Chapter_3/lesson_plans.json",
+          "sortKey": 3
+        },
+        {
+          "id": "4",
+          "file": "4a/Chapter_4/lesson_plans.json",
+          "sortKey": 4
+        },
+        {
+          "id": "5",
+          "file": "4a/Chapter_5/lesson_plans.json",
+          "sortKey": 5
+        },
+        {
+          "id": "6",
+          "file": "4a/Chapter_6/lesson_plans.json",
+          "sortKey": 6
+        },
+        {
+          "id": "7",
+          "file": "4a/Chapter_7/lesson_plans.json",
+          "sortKey": 7
+        }
+      ],
+      "extras": [
+        "4a/mid_year_revision.json"
+      ]
+    },
+    "4b": {
+      "year": "4",
+      "suffix": "b",
+      "chapters": [
+        {
+          "id": "8",
+          "file": "4b/Chapter_8/lesson_plans.json",
+          "sortKey": 8
+        },
+        {
+          "id": "9",
+          "file": "4b/Chapter_9/lesson_plans.json",
+          "sortKey": 9
+        },
+        {
+          "id": "10",
+          "file": "4b/Chapter_10/lesson_plans.json",
+          "sortKey": 10
+        },
+        {
+          "id": "11",
+          "file": "4b/Chapter_11/lesson_plans.json",
+          "sortKey": 11
+        },
+        {
+          "id": "12",
+          "file": "4b/Chapter_12/lesson_plans.json",
+          "sortKey": 12
+        },
+        {
+          "id": "13",
+          "file": "4b/Chapter_13/lesson_plans.json",
+          "sortKey": 13
+        },
+        {
+          "id": "14",
+          "file": "4b/Chapter_14/lesson_plans.json",
+          "sortKey": 14
+        },
+        {
+          "id": "15",
+          "file": "4b/Chapter_15/lesson_plans.json",
+          "sortKey": 15
+        },
+        {
+          "id": "curriculum-alignment-content",
+          "file": "4b/Chapter_curriculum-alignment-content/lesson_plans.json",
+          "sortKey": 9007199254740991
+        }
+      ],
+      "extras": [
+        "4b/end_year_revision.json"
+      ]
+    }
+  }
+}

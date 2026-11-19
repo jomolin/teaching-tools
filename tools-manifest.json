@@ -1,5 +1,5 @@
 {
-  "generated": "2026-03-15T00:00:00.000Z",
+  "generated": "2026-11-19T07:40:51.002Z",
   "version": "1.0",
   "categories": {
     "classroom-screens": {
@@ -46,11 +46,11 @@
         "icon": "calculator"
       },
       {
-        "name": "maths-new",
-        "path": "planning/maths-new.html",
+        "name": "maths-tracker-v2",
+        "path": "planning/maths-tracker-v2.html",
         "folder": "planning",
-        "description": "Interactive teaching tool",
-        "icon": "file"
+        "description": "Track and plan mathematics lessons from the current Maths textbook data, with collapsible chapters and combinable lesson days",
+        "icon": "calculator"
       },
       {
         "name": "seating-planner",
@@ -99,11 +99,11 @@
         "icon": "bell-ring"
       },
       {
-        "name": "classroom",
-        "path": "screens/classroom-screens/classroom.html",
+        "name": "canvas",
+        "path": "screens/classroom-screens/canvas.html",
         "folder": "classroom-screens",
-        "description": "Full classroom display with timer, noise meter, and random picker",
-        "icon": "school"
+        "description": "Modular classroom display with draggable widgets and saved layouts",
+        "icon": "layout-grid"
       },
       {
         "name": "daily-think",
