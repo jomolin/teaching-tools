@@ -32,26 +32,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-8/worksheet-2"
     },
     {
-        "content_type": "lesson",
-        "chapter": "8",
-        "chapter_title": "Rounding Numbers to 100",
-        "lesson": "3",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "9 - 10",
-        "workbook_pages": "",
-        "objective": "",
-        "approach": "Mind Challenge\nDuring the mind challenge, students make 3-digit numbers that will round to a specific 3-digit number.\nMy Maths Journal\nDuring the My My Maths Journal activity, students find examples of when they would round numbers to the nearest 10 or 100. Students should be encouraged to think about situations in real life where rounding would be useful.\nReview\nComplete this with students as a chapter summary and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-8/lesson-3",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-8/worksheet-3"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "8",
         "chapter_title": "Rounding Numbers to 100",
         "workbook_pages": "5",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-8/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "8",
+        "chapter_title": "Rounding Numbers to 100",
+        "review_number": 8,
+        "workbook_pages": "6",
+        "objective": "",
+        "approach": "Mind Challenge\nDuring the mind challenge, students make 3-digit numbers that will round to a specific 3-digit number.\nMy Maths Journal\nDuring the My My Maths Journal activity, students find examples of when they would round numbers to the nearest 10 or 100. Students should be encouraged to think about situations in real life where rounding would be useful.\nReview\nComplete this with students as a chapter summary and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-8/review-8"
     }
 ]

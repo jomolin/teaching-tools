@@ -112,26 +112,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-6/worksheet-7"
     },
     {
-        "content_type": "lesson",
-        "chapter": "6",
-        "chapter_title": "Mass",
-        "lesson": "8",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "210",
-        "workbook_pages": "",
-        "objective": "use knowledge of mass to solve problems.",
-        "approach": "Mind Challenge\nStudents solve a problem using multiplication, addition and conversion of units of measurement.\nMy Maths Journal\nStudents write examples of where mass is measured in everyday life.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4a/chapter-6/lesson-8",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-6/worksheet-8"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "6",
         "chapter_title": "Mass",
         "workbook_pages": "227",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-6/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "6",
+        "chapter_title": "Mass",
+        "review_number": 6,
+        "workbook_pages": "228 - 230",
+        "objective": "use knowledge of mass to solve problems.",
+        "approach": "Mind Challenge\nStudents solve a problem using multiplication, addition and conversion of units of measurement.\nMy Maths Journal\nStudents write examples of where mass is measured in everyday life.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-6/review-6"
     }
 ]

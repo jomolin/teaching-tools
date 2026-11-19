@@ -176,22 +176,6 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-4/worksheet-11"
     },
     {
-        "content_type": "lesson",
-        "chapter": "4",
-        "chapter_title": "Further Multiplication and Division",
-        "lesson": "12",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "164",
-        "workbook_pages": "",
-        "objective": "use knowledge of multiplication and division to solve problems.",
-        "approach": "Mind Challenge\nStudents solve a complex word problem involving multiplication and division.\nMy Maths Journal\nStudents complete a word problem using the format given.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4a/chapter-4/lesson-12",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-4/worksheet-12"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "4",
         "chapter_title": "Further Multiplication and Division",
@@ -199,11 +183,16 @@
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-4/mind-challenge"
     },
     {
-        "content_type": "revision",
+        "content_type": "review",
         "chapter": "4",
         "chapter_title": "Further Multiplication and Division",
-        "workbook_pages": "167 - 172",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/revision-1/revision-1",
-        "revision": "revision-1"
+        "review_number": 4,
+        "workbook_pages": "163 - 166",
+        "objective": "use knowledge of multiplication and division to solve problems.",
+        "approach": "Mind Challenge\nStudents solve a complex word problem involving multiplication and division.\nMy Maths Journal\nStudents complete a word problem using the format given.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-4/review-4"
     }
 ]

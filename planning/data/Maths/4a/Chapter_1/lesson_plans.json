@@ -1,21 +1,5 @@
 [
     {
-        "content_type": "review",
-        "chapter": "1",
-        "chapter_title": "Numbers to 1000",
-        "workbook_pages": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-1/review-2",
-        "review_number": 2
-    },
-    {
-        "content_type": "review",
-        "chapter": "1",
-        "chapter_title": "Numbers to 1000",
-        "workbook_pages": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-1/review-3",
-        "review_number": 3
-    },
-    {
         "content_type": "lesson",
         "chapter": "1",
         "chapter_title": "Numbers to 1000",
@@ -144,22 +128,6 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-1/worksheet-8"
     },
     {
-        "content_type": "lesson",
-        "chapter": "1",
-        "chapter_title": "Numbers to 1000",
-        "lesson": "9",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "27 - 28",
-        "workbook_pages": "",
-        "objective": "apply knowledge of numbers to solve problems.",
-        "approach": "Mind Challenge\nStudents apply their ability to find 10 and 100 more or less to form a 3-digit number based on the conditions stated.\nMy Maths Journal\nStudents write about where they see 3-digit numbers in school, at home and in their neighbourhood and what these numbers mean.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4a/chapter-1/lesson-9",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-1/worksheet-9"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "1",
         "chapter_title": "Numbers to 1000",
@@ -170,8 +138,13 @@
         "content_type": "review",
         "chapter": "1",
         "chapter_title": "Numbers to 1000",
+        "review_number": 1,
         "workbook_pages": "25 - 28",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-1/review-1",
-        "review_number": 1
+        "objective": "apply knowledge of numbers to solve problems.",
+        "approach": "Mind Challenge\nStudents apply their ability to find 10 and 100 more or less to form a 3-digit number based on the conditions stated.\nMy Maths Journal\nStudents write about where they see 3-digit numbers in school, at home and in their neighbourhood and what these numbers mean.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-1/review-1"
     }
 ]

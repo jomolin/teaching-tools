@@ -182,7 +182,7 @@
 
                     for (const book of bookNames) {
                         const bookInfo = manifest.books[book];
-                        const files = [...bookInfo.chapters.map(c => c.file), ...bookInfo.extras];
+                        const files = bookInfo.sequence.map(s => s.file);
                         const fileLists = await Promise.all(files.map(f =>
                             fetch(basePath + f).then(r => r.ok ? r.json() : [])
                         ));
@@ -472,25 +472,35 @@
             }
 
             buildUnits(year) {
+                // this.allItems is already in true curriculum order (the manifest's
+                // per-book "sequence"), so grouping in first-seen order - with no
+                // extra sort - reproduces that order exactly, including revisions,
+                // mid/end-year revision, and the trailing curriculum-alignment content.
                 const groups = new Map();
                 this.itemsForYear(year).forEach(item => {
+                    // "revision" needs its own discriminator (item.revision) because a
+                    // single book can have two separate revision units (revision-1,
+                    // revision-2) that would otherwise collapse into one.
                     const key = item.chapter != null
                         ? `ch:${item.chapter}`
-                        : `special:${item.content_type}:${item.book}`;
+                        : item.content_type === 'revision'
+                            ? `special:revision:${item.revision}`
+                            : `special:${item.content_type}:${item.book}`;
                     if (!groups.has(key)) {
                         groups.set(key, {
                             id: `${year}:${key}`,
                             chapter: item.chapter,
                             title: item.chapter != null
                                 ? (/^\d+$/.test(item.chapter) ? `Chapter ${item.chapter}: ${item.chapter_title || ''}` : (item.chapter_title || item.chapter))
-                                : this.formatContentType(item.content_type),
-                            sortKey: item.chapter != null ? (/^\d+$/.test(item.chapter) ? parseInt(item.chapter, 10) : Number.MAX_SAFE_INTEGER - 1) : Number.MAX_SAFE_INTEGER,
+                                : item.content_type === 'revision'
+                                    ? `Revision${item.revision ? ' ' + item.revision.replace('revision-', '') : ''}`
+                                    : this.formatContentType(item.content_type),
                             items: []
                         });
                     }
                     groups.get(key).items.push(item);
                 });
-                return [...groups.values()].sort((a, b) => a.sortKey - b.sortKey);
+                return [...groups.values()];
             }
 
             renderTracker() {

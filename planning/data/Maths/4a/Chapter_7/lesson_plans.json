@@ -160,22 +160,6 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-7/worksheet-10"
     },
     {
-        "content_type": "lesson",
-        "chapter": "7",
-        "chapter_title": "Volume",
-        "lesson": "11",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "237 - 238",
-        "workbook_pages": "",
-        "objective": "use knowledge of volume and capacity to solve problems.",
-        "approach": "Mind Challenge\nStudents solve a problem using subtraction and division.\nMy Maths Journal\nStudents compare different volumes of liquid to 1 litre.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4a/chapter-7/lesson-11",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-7/worksheet-11"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "7",
         "chapter_title": "Volume",
@@ -183,11 +167,16 @@
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-7/mind-challenge"
     },
     {
-        "content_type": "revision",
+        "content_type": "review",
         "chapter": "7",
         "chapter_title": "Volume",
-        "workbook_pages": "265 - 270",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/revision-2/revision-2",
-        "revision": "revision-2"
+        "review_number": 7,
+        "workbook_pages": "261 - 264",
+        "objective": "use knowledge of volume and capacity to solve problems.",
+        "approach": "Mind Challenge\nStudents solve a problem using subtraction and division.\nMy Maths Journal\nStudents compare different volumes of liquid to 1 litre.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-7/review-7"
     }
 ]

@@ -240,26 +240,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-3/worksheet-15"
     },
     {
-        "content_type": "lesson",
-        "chapter": "3",
-        "chapter_title": "Multiplication and Division",
-        "lesson": "16",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "135 - 136",
-        "workbook_pages": "",
-        "objective": "use knowledge of multiplication and division to solve problems.",
-        "approach": "Mind Challenge\nStudents solve a problem involving division and multiplication.\nMy Maths Journal\nStudents identify patterns in the 3, 4 and 8 times table.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "Recognise and describe the rule for a growing pattern using words, tables, and diagrams, and make conjectures about further elements in the pattern.",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4a/chapter-3/lesson-16",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-3/worksheet-16"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "3",
         "chapter_title": "Multiplication and Division",
         "workbook_pages": "130",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-3/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "3",
+        "chapter_title": "Multiplication and Division",
+        "review_number": 3,
+        "workbook_pages": "131 - 134",
+        "objective": "use knowledge of multiplication and division to solve problems.",
+        "approach": "Mind Challenge\nStudents solve a problem involving division and multiplication.\nMy Maths Journal\nStudents identify patterns in the 3, 4 and 8 times table.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "Recognise and describe the rule for a growing pattern using words, tables, and diagrams, and make conjectures about further elements in the pattern.",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-3/review-3"
     }
 ]

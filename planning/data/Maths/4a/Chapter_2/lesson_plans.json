@@ -368,26 +368,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-2/worksheet-23"
     },
     {
-        "content_type": "lesson",
-        "chapter": "2",
-        "chapter_title": "Addition and Subtraction",
-        "lesson": "24",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "92",
-        "workbook_pages": "",
-        "objective": "apply knowledge of addition and subtraction to solve problems.",
-        "approach": "Mind Challenge\nStudents form two 3-digit numbers and then add the numbers using the column method to make a total of 701.\nMy Maths Journal\nStudents create addition and subtraction word problems based on three 3-digit numbers.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4a/chapter-2/lesson-24",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-2/worksheet-24"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "2",
         "chapter_title": "Addition and Subtraction",
         "workbook_pages": "85",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-2/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "2",
+        "chapter_title": "Addition and Subtraction",
+        "review_number": 2,
+        "workbook_pages": "86 - 88",
+        "objective": "apply knowledge of addition and subtraction to solve problems.",
+        "approach": "Mind Challenge\nStudents form two 3-digit numbers and then add the numbers using the column method to make a total of 701.\nMy Maths Journal\nStudents create addition and subtraction word problems based on three 3-digit numbers.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-2/review-2"
     }
 ]

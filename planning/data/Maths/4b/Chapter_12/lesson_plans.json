@@ -480,26 +480,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-12/worksheet-30"
     },
     {
-        "content_type": "lesson",
-        "chapter": "12",
-        "chapter_title": "Fractions",
-        "lesson": "31",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "237 - 238",
-        "workbook_pages": "",
-        "objective": "use knowledge of fractions to solve problems.",
-        "approach": "Mind Challenge\nStudents explain their reasoning behind a fraction problem and illustrate this using a diagram.\nMaths Journal\nStudents draw diagrams to compare the fractions 2/3 and 3/2.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-12/lesson-31",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-12/worksheet-31"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "12",
         "chapter_title": "Fractions",
         "workbook_pages": "177",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-12/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "12",
+        "chapter_title": "Fractions",
+        "review_number": 12,
+        "workbook_pages": "178 - 182",
+        "objective": "use knowledge of fractions to solve problems.",
+        "approach": "Mind Challenge\nStudents explain their reasoning behind a fraction problem and illustrate this using a diagram.\nMaths Journal\nStudents draw diagrams to compare the fractions 2/3 and 3/2.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-12/review-12"
     }
 ]

@@ -128,26 +128,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-14/worksheet-8"
     },
     {
-        "content_type": "lesson",
-        "chapter": "14",
-        "chapter_title": "Lines and Shapes",
-        "lesson": "9",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "291 - 292",
-        "workbook_pages": "",
-        "objective": "use knowledge of lines and shapes to solve problems.",
-        "approach": "Mind Workout\nStudents make words using letters that have specific line properties.\nMaths Journal\nStudents find real life examples where parallel lines have importance.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-14/lesson-9",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-14/worksheet-9"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "14",
         "chapter_title": "Lines and Shapes",
         "workbook_pages": "219",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-14/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "14",
+        "chapter_title": "Lines and Shapes",
+        "review_number": 14,
+        "workbook_pages": "220 - 222",
+        "objective": "use knowledge of lines and shapes to solve problems.",
+        "approach": "Mind Workout\nStudents make words using letters that have specific line properties.\nMaths Journal\nStudents find real life examples where parallel lines have importance.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-14/review-14"
     }
 ]

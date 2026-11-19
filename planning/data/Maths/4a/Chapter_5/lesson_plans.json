@@ -160,26 +160,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-5/worksheet-10"
     },
     {
-        "content_type": "lesson",
-        "chapter": "5",
-        "chapter_title": "Length",
-        "lesson": "11",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "190",
-        "workbook_pages": "",
-        "objective": "use knowledge of length to solve problems.",
-        "approach": "Mind Challenge\nStudents solve a word problem on length using the Act It Out or Draw a Diagram problem-solving strategies.\nMy Maths Journal\nStudents make a poster explaining conversion between kilometres, metres and centimetres.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4a/chapter-5/lesson-11",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-5/worksheet-11"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "5",
         "chapter_title": "Length",
         "workbook_pages": "201",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-5/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "5",
+        "chapter_title": "Length",
+        "review_number": 5,
+        "workbook_pages": "202 - 206",
+        "objective": "use knowledge of length to solve problems.",
+        "approach": "Mind Challenge\nStudents solve a word problem on length using the Act It Out or Draw a Diagram problem-solving strategies.\nMy Maths Journal\nStudents make a poster explaining conversion between kilometres, metres and centimetres.\nReview\nStudents complete this as a chapter summary and discuss what to do with their teacher if any boxes are not ticked.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4a/chapter-5/review-5"
     }
 ]

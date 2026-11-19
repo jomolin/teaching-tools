@@ -6,7 +6,7 @@
         "lesson": "1",
         "lesson_title": "Naming Amounts of Money",
         "textbook_pages": "12 - 14",
-        "workbook_pages": "",
+        "workbook_pages": "7 - 8",
         "objective": "add money by counting on.",
         "approach": "To begin this lesson, provide students with an amount of money using notes and coins as represented in the Explore task. Ask them how the money can be counted as there are dollars and cents. Suggest it will be easier to start counting the dollars first, and then count together with the class. Count the amount in dollars and write it on the board using the sign for dollars. Then do the same for cents and read the total amount to students. Ask them to complete Master on their own.\nDuring Guided Practice, students are counting different denominations, and then writing the amount of money in dollars and cents.",
         "formative_assessment": "recognise the value of all the coins.\nStudents can recognise the value of all the notes.\nStudents can count in fives, tens, twenties and fifties.\nStudents can use the signs for dollars and cents.",
@@ -224,26 +224,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-9/worksheet-14"
     },
     {
-        "content_type": "lesson",
-        "chapter": "9",
-        "chapter_title": "Money",
-        "lesson": "15",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "56",
-        "workbook_pages": "",
-        "objective": "use knowledge of money to solve problems.",
-        "approach": "Mind Challenge\nStudents work out the answer by considering the conditions set in the problem.\nMaths Journal\nStudents write about the possible combinations of notes and coins to make the greatest and smallest amounts.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-9/lesson-15",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-9/worksheet-15"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "9",
         "chapter_title": "Money",
         "workbook_pages": "35",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-9/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "9",
+        "chapter_title": "Money",
+        "review_number": 9,
+        "workbook_pages": "36 - 40",
+        "objective": "use knowledge of money to solve problems.",
+        "approach": "Mind Challenge\nStudents work out the answer by considering the conditions set in the problem.\nMaths Journal\nStudents write about the possible combinations of notes and coins to make the greatest and smallest amounts.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-9/review-9"
     }
 ]

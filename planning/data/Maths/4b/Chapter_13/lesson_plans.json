@@ -112,26 +112,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-13/worksheet-7"
     },
     {
-        "content_type": "lesson",
-        "chapter": "13",
-        "chapter_title": "Angles",
-        "lesson": "8",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "262",
-        "workbook_pages": "",
-        "objective": "use knowledge of angles to solve problems.",
-        "approach": "Mind Workout\nStudents finish drawing a seven-sided shape based on known information about the number of different angles it has.\nMaths Journal\nStudents draw the shape shown and mark the different angles. Students should explain how they found each one.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-13/lesson-8",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-13/worksheet-8"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "13",
         "chapter_title": "Angles",
         "workbook_pages": "199",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-13/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "13",
+        "chapter_title": "Angles",
+        "review_number": 13,
+        "workbook_pages": "200 - 202",
+        "objective": "use knowledge of angles to solve problems.",
+        "approach": "Mind Workout\nStudents finish drawing a seven-sided shape based on known information about the number of different angles it has.\nMaths Journal\nStudents draw the shape shown and mark the different angles. Students should explain how they found each one.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-13/review-13"
     }
 ]

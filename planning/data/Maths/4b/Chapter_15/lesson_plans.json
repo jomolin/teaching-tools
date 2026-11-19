@@ -160,22 +160,6 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-15/worksheet-10"
     },
     {
-        "content_type": "lesson",
-        "chapter": "15",
-        "chapter_title": "Perimeter of Figures",
-        "lesson": "11",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "324",
-        "workbook_pages": "",
-        "objective": "use knowledge of perimeter to solve problems.",
-        "approach": "Mind Workout\nStudents draw squares and rectangles with a perimeter of 16 cm.\nMaths Journal\nStudents write an explanation on how to find the perimeter of a whāriki.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-15/lesson-11",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-15/worksheet-11"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "15",
         "chapter_title": "Perimeter of Figures",
@@ -183,11 +167,16 @@
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-15/mind-challenge"
     },
     {
-        "content_type": "revision",
+        "content_type": "review",
         "chapter": "15",
         "chapter_title": "Perimeter of Figures",
-        "workbook_pages": "249 - 254",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/revision-4/revision-4",
-        "revision": "revision-4"
+        "review_number": 15,
+        "workbook_pages": "246 - 248",
+        "objective": "use knowledge of perimeter to solve problems.",
+        "approach": "Mind Workout\nStudents draw squares and rectangles with a perimeter of 16 cm.\nMaths Journal\nStudents write an explanation on how to find the perimeter of a whāriki.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-15/review-15"
     }
 ]

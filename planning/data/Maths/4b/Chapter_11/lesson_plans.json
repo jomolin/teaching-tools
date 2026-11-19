@@ -80,22 +80,6 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-11/worksheet-5"
     },
     {
-        "content_type": "lesson",
-        "chapter": "11",
-        "chapter_title": "Picture Graphs and Bar Graphs",
-        "lesson": "6",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "139 - 140",
-        "workbook_pages": "",
-        "objective": "use knowledge of graphs to solve problems.",
-        "approach": "Mind Challenge\nStudents complete the labels on a bar graph based on the given information.\nMaths Journal\nStudents find examples of graphs in newspapers, magazines or online to interpret and compare them.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-11/lesson-6",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-11/worksheet-6"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "11",
         "chapter_title": "Picture Graphs and Bar Graphs",
@@ -103,11 +87,16 @@
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-11/mind-challenge"
     },
     {
-        "content_type": "revision",
+        "content_type": "review",
         "chapter": "11",
         "chapter_title": "Picture Graphs and Bar Graphs",
-        "workbook_pages": "109 - 114",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/revision-3/revision-3",
-        "revision": "revision-3"
+        "review_number": 11,
+        "workbook_pages": "106 - 108",
+        "objective": "use knowledge of graphs to solve problems.",
+        "approach": "Mind Challenge\nStudents complete the labels on a bar graph based on the given information.\nMaths Journal\nStudents find examples of graphs in newspapers, magazines or online to interpret and compare them.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-11/review-11"
     }
 ]

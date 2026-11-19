@@ -304,26 +304,23 @@
         "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-10/worksheet-19"
     },
     {
-        "content_type": "lesson",
-        "chapter": "10",
-        "chapter_title": "Time",
-        "lesson": "20",
-        "lesson_title": "Chapter Consolidation",
-        "textbook_pages": "118",
-        "workbook_pages": "",
-        "objective": "use the knowledge of time to solve problems.",
-        "approach": "Mind Challenge\nStudents calculate the day and time in New Zealand and Vancouver, given the time and time differences from London.\nMaths Journal\nStudents write a timetable of their perfect day at school including details about the start and end times, and duration of each activity.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
-        "formative_assessment": "",
-        "content_priority": "",
-        "national_curriculum": "",
-        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/textbook-4b/chapter-10/lesson-20",
-        "workbook_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-10/worksheet-20"
-    },
-    {
         "content_type": "mind_challenge",
         "chapter": "10",
         "chapter_title": "Time",
         "workbook_pages": "81",
         "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-10/mind-challenge"
+    },
+    {
+        "content_type": "review",
+        "chapter": "10",
+        "chapter_title": "Time",
+        "review_number": 10,
+        "workbook_pages": "82 - 84",
+        "objective": "use the knowledge of time to solve problems.",
+        "approach": "Mind Challenge\nStudents calculate the day and time in New Zealand and Vancouver, given the time and time differences from London.\nMaths Journal\nStudents write a timetable of their perfect day at school including details about the start and end times, and duration of each activity.\nReview\nComplete this with students as a chapter summary, and determine if any of them need extra support.",
+        "formative_assessment": "",
+        "content_priority": "",
+        "national_curriculum": "",
+        "source_url": "https://hub.mathsnoproblem.com/teacher-guides/new-zealand-whakawhitinga-edition/workbook-4b/chapter-10/review-10"
     }
 ]
