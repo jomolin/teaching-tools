@@ -79,6 +79,8 @@
                 <div class="flex gap-3 mb-6 flex-wrap">
                     <button id="markNextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">Mark Next Complete</button>
                     <button id="combineModeBtn" class="px-4 py-2 bg-purple-600 hover:bg-purple-700 dark:bg-purple-700 dark:hover:bg-purple-600 text-white font-semibold rounded-md transition-colors">Combine Lessons</button>
+                    <button id="skipOptionalBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold rounded-md transition-colors" title="Toggle: skip every lesson tagged Optional">Skip All Optional</button>
+                    <button id="autoCombineBtn" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 dark:bg-indigo-700 dark:hover:bg-indigo-600 text-white font-semibold rounded-md transition-colors" title="Toggle: combine every lesson the curriculum recommends combining">Combine Recommended</button>
                     <button id="resetBtn" class="px-4 py-2 bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-600 text-white font-semibold rounded-md transition-colors">Reset</button>
                     <button id="exportBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">Export</button>
                     <button id="importBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 text-white font-semibold rounded-md transition-colors">Import</button>
@@ -167,6 +169,10 @@
                 this.groups = state.groups;
                 this.collapsedUnits = state.collapsedUnits;
                 this.visibleYears = state.visibleYears;
+                this.autoSkipOptional = state.autoSkipOptional;
+                this.autoSkippedKeys = state.autoSkippedKeys;
+                this.autoCombineActive = state.autoCombineActive;
+                this.autoGroupedIds = state.autoGroupedIds;
             }
 
             async init() {
@@ -204,6 +210,7 @@
                     document.getElementById('mainContent').style.display = 'block';
 
                     this.setupEventListeners();
+                    this.updateToggleButtonStyles();
                     this.renderYearVisibility();
                     this.renderTracker();
                     this.renderPlanner();
@@ -225,7 +232,10 @@
 
             loadState() {
                 const saved = localStorage.getItem('mathsTrackerV2Progress');
-                const base = { completed: {}, skipped: {}, pinned: {}, groups: {}, collapsedUnits: {}, visibleYears: null };
+                const base = {
+                    completed: {}, skipped: {}, pinned: {}, groups: {}, collapsedUnits: {}, visibleYears: null,
+                    autoSkipOptional: false, autoSkippedKeys: [], autoCombineActive: false, autoGroupedIds: []
+                };
                 if (!saved) return base;
                 try {
                     const data = JSON.parse(saved);
@@ -235,7 +245,11 @@
                         pinned: data.pinned || {},
                         groups: data.groups || {},
                         collapsedUnits: data.collapsedUnits || {},
-                        visibleYears: Array.isArray(data.visibleYears) ? new Set(data.visibleYears) : null
+                        visibleYears: Array.isArray(data.visibleYears) ? new Set(data.visibleYears) : null,
+                        autoSkipOptional: !!data.autoSkipOptional,
+                        autoSkippedKeys: Array.isArray(data.autoSkippedKeys) ? data.autoSkippedKeys : [],
+                        autoCombineActive: !!data.autoCombineActive,
+                        autoGroupedIds: Array.isArray(data.autoGroupedIds) ? data.autoGroupedIds : []
                     };
                 } catch {
                     return base;
@@ -249,7 +263,11 @@
                     pinned: this.pinned,
                     groups: this.groups,
                     collapsedUnits: this.collapsedUnits,
-                    visibleYears: this.visibleYears ? [...this.visibleYears] : null
+                    visibleYears: this.visibleYears ? [...this.visibleYears] : null,
+                    autoSkipOptional: this.autoSkipOptional,
+                    autoSkippedKeys: this.autoSkippedKeys,
+                    autoCombineActive: this.autoCombineActive,
+                    autoGroupedIds: this.autoGroupedIds
                 }));
             }
 
@@ -293,6 +311,49 @@
                 if (!item.content_priority) return null;
                 const m = item.content_priority.match(/combined with (lessons?) ([\d]+(?:\s*(?:,|and)\s*\d+)*)/i);
                 return m ? m[2].replace(/\s+/g, ' ').trim() : null;
+            }
+
+            getCombineTargetNumbers(item) {
+                const hint = this.getCombineHint(item);
+                return hint ? [...hint.matchAll(/\d+/g)].map(m => parseInt(m[0], 10)) : [];
+            }
+
+            // Groups lessons that the curriculum text recommends combining, within
+            // each (book, chapter) - using union-find so a chain like "L2 combines
+            // with L3 & L4, L3 combines with L2 & L4" becomes one 3-lesson cluster
+            // instead of overlapping pairs.
+            buildRecommendedClusters() {
+                const byBucket = new Map();
+                this.allItems.forEach(item => {
+                    if (item.content_type !== 'lesson' || item.chapter == null) return;
+                    const bucketKey = `${item.book}:${item.chapter}`;
+                    if (!byBucket.has(bucketKey)) byBucket.set(bucketKey, []);
+                    byBucket.get(bucketKey).push(item);
+                });
+
+                const clusters = [];
+                byBucket.forEach(items => {
+                    const byLessonNum = new Map(items.map(i => [String(i.lesson), i]));
+                    const parent = new Map(items.map(i => [this.getItemKey(i), this.getItemKey(i)]));
+                    const find = k => { while (parent.get(k) !== k) k = parent.get(k); return k; };
+                    const union = (a, b) => { const ra = find(a), rb = find(b); if (ra !== rb) parent.set(ra, rb); };
+
+                    items.forEach(item => {
+                        this.getCombineTargetNumbers(item).forEach(n => {
+                            const target = byLessonNum.get(String(n));
+                            if (target) union(this.getItemKey(item), this.getItemKey(target));
+                        });
+                    });
+
+                    const byRoot = new Map();
+                    items.forEach(item => {
+                        const root = find(this.getItemKey(item));
+                        if (!byRoot.has(root)) byRoot.set(root, []);
+                        byRoot.get(root).push(item);
+                    });
+                    byRoot.forEach(members => { if (members.length >= 2) clusters.push(members); });
+                });
+                return clusters;
             }
 
             getTags(item) {
@@ -339,7 +400,7 @@
                 return id;
             }
 
-            ungroup(groupId) {
+            ungroupSilent(groupId) {
                 const group = this.groups[groupId];
                 if (!group) return;
                 for (const day in this.pinned[group.year] || {}) {
@@ -347,9 +408,69 @@
                     if (p && p.type === 'group' && p.id === groupId) delete this.pinned[group.year][day];
                 }
                 delete this.groups[groupId];
+            }
+
+            ungroup(groupId) {
+                this.ungroupSilent(groupId);
                 this.saveState();
                 this.renderTracker();
                 this.renderPlanner();
+            }
+
+            // ---------- toggle actions (skip-optional / auto-combine-recommended) ----------
+
+            toggleSkipOptional() {
+                this.autoSkipOptional = !this.autoSkipOptional;
+                if (this.autoSkipOptional) {
+                    this.autoSkippedKeys = [];
+                    this.allItems.forEach(item => {
+                        if (!this.getTags(item).includes('Optional')) return;
+                        const key = this.getItemKey(item);
+                        if (this.completed[key] || this.skipped[key]) return;
+                        this.skipped[key] = true;
+                        this.autoSkippedKeys.push(key);
+                    });
+                } else {
+                    // Only revert what this toggle itself skipped - a lesson the user
+                    // skipped manually (or marked complete afterwards) is left alone.
+                    this.autoSkippedKeys.forEach(key => { if (this.skipped[key]) delete this.skipped[key]; });
+                    this.autoSkippedKeys = [];
+                }
+                this.saveState();
+                this.renderTracker();
+                this.renderPlanner();
+                this.renderOverview();
+                this.updateToggleButtonStyles();
+            }
+
+            toggleAutoCombine() {
+                this.autoCombineActive = !this.autoCombineActive;
+                if (this.autoCombineActive) {
+                    this.autoGroupedIds = [];
+                    this.buildRecommendedClusters().forEach(members => {
+                        if (members.some(m => this.findGroupForItem(m))) return; // leave existing/manual groups untouched
+                        this.autoGroupedIds.push(this.createGroup(members));
+                    });
+                } else {
+                    // Only ungroup the ones this toggle created - a group the user
+                    // made manually (even one matching a recommended combo) stays put.
+                    this.autoGroupedIds.forEach(id => this.ungroupSilent(id));
+                    this.autoGroupedIds = [];
+                }
+                this.saveState();
+                this.renderTracker();
+                this.renderPlanner();
+                this.updateToggleButtonStyles();
+            }
+
+            updateToggleButtonStyles() {
+                const skipBtn = document.getElementById('skipOptionalBtn');
+                skipBtn.classList.toggle('ring-4', this.autoSkipOptional);
+                skipBtn.classList.toggle('ring-red-300', this.autoSkipOptional);
+
+                const autoCombineBtn = document.getElementById('autoCombineBtn');
+                autoCombineBtn.classList.toggle('ring-4', this.autoCombineActive);
+                autoCombineBtn.classList.toggle('ring-indigo-300', this.autoCombineActive);
             }
 
             groupMemberItems(group) {
@@ -400,6 +521,8 @@
 
                 document.getElementById('markNextBtn').addEventListener('click', () => this.markNextComplete());
                 document.getElementById('combineModeBtn').addEventListener('click', () => this.toggleSelectMode());
+                document.getElementById('skipOptionalBtn').addEventListener('click', () => this.toggleSkipOptional());
+                document.getElementById('autoCombineBtn').addEventListener('click', () => this.toggleAutoCombine());
                 document.getElementById('cancelCombineBtn').addEventListener('click', () => this.toggleSelectMode(false));
                 document.getElementById('confirmCombineBtn').addEventListener('click', () => this.combineSelected());
 
@@ -1032,8 +1155,13 @@
                 this.pinned = {};
                 this.groups = {};
                 this.collapsedUnits = {};
+                this.autoSkipOptional = false;
+                this.autoSkippedKeys = [];
+                this.autoCombineActive = false;
+                this.autoGroupedIds = [];
                 this.saveState();
                 this.hideResetModal();
+                this.updateToggleButtonStyles();
                 this.renderTracker();
                 this.renderPlanner();
                 this.renderOverview();
@@ -1047,6 +1175,10 @@
                     groups: this.groups,
                     collapsedUnits: this.collapsedUnits,
                     visibleYears: [...this.visibleYears],
+                    autoSkipOptional: this.autoSkipOptional,
+                    autoSkippedKeys: this.autoSkippedKeys,
+                    autoCombineActive: this.autoCombineActive,
+                    autoGroupedIds: this.autoGroupedIds,
                     exportDate: new Date().toISOString()
                 };
                 const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -1073,7 +1205,12 @@
                             this.groups = data.groups || {};
                             this.collapsedUnits = data.collapsedUnits || {};
                             if (Array.isArray(data.visibleYears)) this.visibleYears = new Set(data.visibleYears);
+                            this.autoSkipOptional = !!data.autoSkipOptional;
+                            this.autoSkippedKeys = Array.isArray(data.autoSkippedKeys) ? data.autoSkippedKeys : [];
+                            this.autoCombineActive = !!data.autoCombineActive;
+                            this.autoGroupedIds = Array.isArray(data.autoGroupedIds) ? data.autoGroupedIds : [];
                             this.saveState();
+                            this.updateToggleButtonStyles();
                             this.renderYearVisibility();
                             this.renderTracker();
                             this.renderPlanner();
